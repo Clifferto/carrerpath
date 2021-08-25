@@ -1,0 +1,28 @@
+LIST P=16F887
+#include <P16F887.inc>
+
+CBLOCK 0X20
+	n1
+	n2
+	n3
+	res1
+ENDC
+
+ORG 0 
+GOTO setup
+ORG 5 
+setup	NOP
+		BANKSEL OSCCON
+		MOVLW B'01101100'
+		MOVWF OSCCON
+		BANKSEL ANSEL
+		CLRF ANSEL
+		CLRF ANSELH
+		BANKSEL PORTA
+
+main	MOVF n3,W
+		SUBWF n1,W
+		ADDWF n2,W
+		MOVWF res1
+		GOTO main				
+END
