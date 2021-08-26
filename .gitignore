@@ -1,2 +1,7 @@
 ## Excludes
 *.mp4
+/nationalUniversity/2021/digital3/wkspc/AzureRTOS_TAD_logs
+/nationalUniversity/2021/digital3/wkspc/CMSISv2p00_LPC17xx
+/nationalUniversity/2021/digital3/wkspc/FreeRTOS_TAD_logs
+/nationalUniversity/2021/digital3/wkspc/LPCX176x_cmsis2*
+

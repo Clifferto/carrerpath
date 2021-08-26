@@ -1,0 +1,88 @@
+/*
+===============================================================================
+ Name        : pract1.c
+ Author      : $(author)
+ Version     :
+ Copyright   : $(copyright)
+ Description : main definition
+===============================================================================
+*/
+
+#ifdef __USE_CMSIS
+#include "LPC17xx.h"
+#endif
+
+#include <cr_section_macros.h>
+
+//TODO: insert other include files here
+
+// Prototipos
+char cfgGpio(char gpio,short int pin,char dir,char pullmode);
+
+int main(void) {
+
+	//core init
+	SystemInit();
+
+	// Force the counter to be placed into memory
+	volatile static unsigned int i = 0 ;
+
+	// Blink led
+	while(1) {
+		//led on
+		//ssGpio0->FIOCLR=(1<<22);
+		LPC_GPIO0->FIOCLR=(1<<22);
+
+		//delay
+		while(i!=1024*1000) i++;
+		i=0;
+
+		//led off
+		//ssGpio0->FIOSET=(1<<22);
+		LPC_GPIO0->FIOSET=(1<<22);
+
+		//delay
+		while(i!=1024*2000) i++;
+		i=0;
+	}
+    return 0;
+}
+
+/*
+ * Configurar gpio
+ */
+char cfgGpio(char gpio,short int pin,char dir,char pullmode){
+
+	//Gpio modo digital i/o
+	//1<<r --> bit r=1, 1+N<<r --> bit r, y N bits siguientes = 1
+	LPC_PINCON->PINSEL1&=~(0b11<<(2*pin));
+
+	//Configurar pullmode (default: ni pullup ni pulldown)
+	//todo TOMANDO EL VALOR POR DEFAULT EN 0's
+	LPC_PINCON->PINMODE1|=(0b10<<(2*pin));
+
+	//Configurar direccion (default: salida)
+	LPC_GPIO0->FIODIR|=(0b1<<pin);
+
+	return 1;
+}
+
+/*
+ * Retornar valor del pin p del Gpio x (Gx.p)
+ */
+unsigned char getGpio(char gpio,char pin){
+	//crear mascara
+	LPC_GPIO0->FIOMASK|=~(1<<pin);
+
+
+
+	if ((LPC_GPIO0->FIOPIN)>>pin == 1) return 1;
+	else return 0;
+}
+
+/*
+ * Setear valor del pin p del Gpio x (Gx.p)
+ */
+//unsigned int setGpio(){
+//
+//}

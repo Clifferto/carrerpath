@@ -1,0 +1,6 @@
+18:58:37 **** Incremental Build of configuration Debug for project LPCX176x_cmsis2_systick ****
+make -r -j3 all 
+make: Nothing to be done for 'all'.
+
+18:58:37 Build Finished. 0 errors, 0 warnings. (took 241ms)
+

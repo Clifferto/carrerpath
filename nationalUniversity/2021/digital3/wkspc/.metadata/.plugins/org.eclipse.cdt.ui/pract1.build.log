@@ -1,0 +1,21 @@
+22:26:40 **** Incremental Build of configuration Debug for project pract1 ****
+make -r -j3 all 
+Building file: ../src/pract1.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -DDEBUG -D__CODE_RED -DCORE_M3 -D__USE_CMSIS=CMSISv2p00_LPC17xx -D__LPC17XX__ -D__REDLIB__ -I"/media/cliff/Desk/UNC/3digital/wkspc/pract1/inc" -I"/media/cliff/Desk/UNC/3digital/wkspc/CMSISv2p00_LPC17xx/inc" -O0 -fno-common -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -fmerge-constants -fmacro-prefix-map="../src/"=. -mcpu=cortex-m3 -mthumb -fstack-usage -specs=redlib.specs -MMD -MP -MF"src/pract1.d" -MT"src/pract1.o" -MT"src/pract1.d" -o "src/pract1.o" "../src/pract1.c"
+../src/pract1.c: In function 'main':
+../src/pract1.c:36:16: warning: variable 'aux0' set but not used [-Wunused-but-set-variable]
+   36 |  unsigned char aux0;
+      |                ^~~~
+../src/pract1.c: In function 'cfgGpio':
+../src/pract1.c:170:5: error: duplicate case value
+  170 |     case 1:
+      |     ^~~~
+../src/pract1.c:123:4: note: previously used here
+  123 |    case 1:
+      |    ^~~~
+make: *** [src/subdir.mk:26: src/pract1.o] Error 1
+"make -r -j3 all" terminated with exit code 2. Build might be incomplete.
+
+22:26:40 Build Failed. 2 errors, 1 warnings. (took 624ms)
+
