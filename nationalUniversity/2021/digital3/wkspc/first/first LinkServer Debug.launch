@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <launchConfiguration type="com.crt.dsfdebug.crtmcu.launchType">
     <stringAttribute key=".gdbinit" value=""/>
+    <stringAttribute key="InstructionTraceInfo" value="eJytVFtvgjAUft+vaPrubPHGEplR1GSJGKNMH5cKR2UCNW2Z7t+v3NxYZPFhPHH6fec717Y/uEQh+gAhAx5bmD4SjCD2uB/Eewu/utOGiQfPD31QEajtGBQLQqltl4k9qCkwlQiQyGHvXKxLFa3hBHHlQLtMXGfEJKCFdoBYWXjHQgm4qaHxxs2goe9rUFq40Wl1zW7XpF38zVciyekvhVKV3iNP1LhFn7ijusDOH5Au96xqMz6roYjWPZsLWAX7g7J5dOKxZqHU5WYhtpxx72jheRKG+T9GWmcJ+5XSMhZmpG2YxKSkTWo+k3a8epQS7e3TWn+DbCndsvZvvGfgfAi7cp5pDZXkc9zTRTLBdLYSzZNoC8LC7awfq+R04kKBj+zo5DDlHYoBIPvTC8HmSaxSdnam+Wm7im1CY6ZYapf9RbMgPtKr5bCLw6TuG+3ga1SSRb2tksctRHLjpgb9Q+P+TIx/UWllKs1rG/MVWwi+C0J9FYv+yXwMb7a7nKE1CxMoO9GsYTd/TLWg1exteq9UdNc+Fzet3OcNF36xz1kq1bchPam+Hl/rU2KAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="/>
     <booleanAttribute key="attach" value="false"/>
     <stringAttribute key="bootrom.stall" value=""/>
     <stringAttribute key="com.crt.ctrlcenter.OFSemuDetails" value="LinkServer"/>

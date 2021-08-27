@@ -1,6 +1,6 @@
-23:26:29 **** Incremental Build of configuration Debug for project first ****
+21:42:05 **** Incremental Build of configuration Debug for project first ****
 make -r -j3 all 
 make: Nothing to be done for 'all'.
 
-23:26:29 Build Finished. 0 errors, 0 warnings. (took 252ms)
+21:42:05 Build Finished. 0 errors, 0 warnings. (took 397ms)
 

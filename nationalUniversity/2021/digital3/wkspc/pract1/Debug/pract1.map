@@ -1,11 +1,11 @@
 Archive member included to satisfy reference by file (symbol)
 
-/media/cliff/Desk/UNC/3digital/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+/media/cliff/Desk/UNC/carrerpath/nationalUniversity/2021/digital3/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
                               ./src/cr_startup_lpc175x_6x.o (SystemInit)
 /usr/local/mcuxpressoide-11.4.0_6237/ide/plugins/com.nxp.mcuxpresso.tools.linux_11.4.0.202103011116/tools/bin/../lib/gcc/arm-none-eabi/10.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libcr_c.a(__weak__main.o)
                               ./src/cr_startup_lpc175x_6x.o (__main)
 /usr/local/mcuxpressoide-11.4.0_6237/ide/plugins/com.nxp.mcuxpresso.tools.linux_11.4.0.202103011116/tools/bin/../lib/gcc/arm-none-eabi/10.2.1/thumb/v7-m/nofp/libcr_eabihelpers.a(division_64.o)
-                              /media/cliff/Desk/UNC/3digital/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o) (__aeabi_ldivmod)
+                              /media/cliff/Desk/UNC/carrerpath/nationalUniversity/2021/digital3/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o) (__aeabi_ldivmod)
 /usr/local/mcuxpressoide-11.4.0_6237/ide/plugins/com.nxp.mcuxpresso.tools.linux_11.4.0.202103011116/tools/bin/../lib/gcc/arm-none-eabi/10.2.1/thumb/v7-m/nofp/libcr_eabihelpers.a(division_idiv0.o)
                               /usr/local/mcuxpressoide-11.4.0_6237/ide/plugins/com.nxp.mcuxpresso.tools.linux_11.4.0.202103011116/tools/bin/../lib/gcc/arm-none-eabi/10.2.1/thumb/v7-m/nofp/libcr_eabihelpers.a(division_64.o) (__aeabi_idiv0)
 
@@ -29,10 +29,26 @@ Discarded input sections
  .debug_macro   0x0000000000000000      0xa7e ./src/crp.o
  .debug_macro   0x0000000000000000       0x34 ./src/crp.o
  .debug_line    0x0000000000000000       0xb5 ./src/crp.o
- .debug_str     0x0000000000000000     0x2dd2 ./src/crp.o
+ .debug_str     0x0000000000000000     0x2df5 ./src/crp.o
  .comment       0x0000000000000000       0x4e ./src/crp.o
  .ARM.attributes
                 0x0000000000000000       0x33 ./src/crp.o
+ .group         0x0000000000000000        0xc ./src/myGpio.o
+ .group         0x0000000000000000        0xc ./src/myGpio.o
+ .group         0x0000000000000000        0xc ./src/myGpio.o
+ .group         0x0000000000000000        0xc ./src/myGpio.o
+ .group         0x0000000000000000        0xc ./src/myGpio.o
+ .group         0x0000000000000000        0xc ./src/myGpio.o
+ .group         0x0000000000000000        0xc ./src/myGpio.o
+ .group         0x0000000000000000        0xc ./src/myGpio.o
+ .group         0x0000000000000000        0xc ./src/myGpio.o
+ .group         0x0000000000000000        0xc ./src/myGpio.o
+ .text          0x0000000000000000        0x0 ./src/myGpio.o
+ .data          0x0000000000000000        0x0 ./src/myGpio.o
+ .bss           0x0000000000000000        0x0 ./src/myGpio.o
+ .text.getGpio  0x0000000000000000       0x56 ./src/myGpio.o
+ .debug_macro   0x0000000000000000      0xa7e ./src/myGpio.o
+ .group         0x0000000000000000        0xc ./src/pract1.o
  .group         0x0000000000000000        0xc ./src/pract1.o
  .group         0x0000000000000000        0xc ./src/pract1.o
  .group         0x0000000000000000        0xc ./src/pract1.o
@@ -46,32 +62,40 @@ Discarded input sections
  .text          0x0000000000000000        0x0 ./src/pract1.o
  .data          0x0000000000000000        0x0 ./src/pract1.o
  .bss           0x0000000000000000        0x0 ./src/pract1.o
- .text.cfgFunc  0x0000000000000000       0x1c ./src/pract1.o
  .debug_macro   0x0000000000000000      0xa7e ./src/pract1.o
- .group         0x0000000000000000        0xc /media/cliff/Desk/UNC/3digital/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
- .group         0x0000000000000000        0xc /media/cliff/Desk/UNC/3digital/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
- .group         0x0000000000000000        0xc /media/cliff/Desk/UNC/3digital/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
- .group         0x0000000000000000        0xc /media/cliff/Desk/UNC/3digital/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
- .group         0x0000000000000000        0xc /media/cliff/Desk/UNC/3digital/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
- .group         0x0000000000000000        0xc /media/cliff/Desk/UNC/3digital/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
- .group         0x0000000000000000        0xc /media/cliff/Desk/UNC/3digital/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
- .group         0x0000000000000000        0xc /media/cliff/Desk/UNC/3digital/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
- .group         0x0000000000000000        0xc /media/cliff/Desk/UNC/3digital/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
- .text          0x0000000000000000        0x0 /media/cliff/Desk/UNC/3digital/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
- .data          0x0000000000000000        0x0 /media/cliff/Desk/UNC/3digital/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
- .bss           0x0000000000000000        0x0 /media/cliff/Desk/UNC/3digital/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+ .debug_macro   0x0000000000000000       0x1c ./src/pract1.o
+ .debug_macro   0x0000000000000000       0x2e ./src/pract1.o
+ .debug_macro   0x0000000000000000       0x10 ./src/pract1.o
+ .debug_macro   0x0000000000000000      0x12e ./src/pract1.o
+ .debug_macro   0x0000000000000000      0x5b3 ./src/pract1.o
+ .debug_macro   0x0000000000000000       0x18 ./src/pract1.o
+ .debug_macro   0x0000000000000000      0x7af ./src/pract1.o
+ .debug_macro   0x0000000000000000      0x2c7 ./src/pract1.o
+ .debug_macro   0x0000000000000000       0x16 ./src/pract1.o
+ .group         0x0000000000000000        0xc /media/cliff/Desk/UNC/carrerpath/nationalUniversity/2021/digital3/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+ .group         0x0000000000000000        0xc /media/cliff/Desk/UNC/carrerpath/nationalUniversity/2021/digital3/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+ .group         0x0000000000000000        0xc /media/cliff/Desk/UNC/carrerpath/nationalUniversity/2021/digital3/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+ .group         0x0000000000000000        0xc /media/cliff/Desk/UNC/carrerpath/nationalUniversity/2021/digital3/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+ .group         0x0000000000000000        0xc /media/cliff/Desk/UNC/carrerpath/nationalUniversity/2021/digital3/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+ .group         0x0000000000000000        0xc /media/cliff/Desk/UNC/carrerpath/nationalUniversity/2021/digital3/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+ .group         0x0000000000000000        0xc /media/cliff/Desk/UNC/carrerpath/nationalUniversity/2021/digital3/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+ .group         0x0000000000000000        0xc /media/cliff/Desk/UNC/carrerpath/nationalUniversity/2021/digital3/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+ .group         0x0000000000000000        0xc /media/cliff/Desk/UNC/carrerpath/nationalUniversity/2021/digital3/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+ .text          0x0000000000000000        0x0 /media/cliff/Desk/UNC/carrerpath/nationalUniversity/2021/digital3/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+ .data          0x0000000000000000        0x0 /media/cliff/Desk/UNC/carrerpath/nationalUniversity/2021/digital3/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+ .bss           0x0000000000000000        0x0 /media/cliff/Desk/UNC/carrerpath/nationalUniversity/2021/digital3/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
  .text.SystemCoreClockUpdate
-                0x0000000000000000       0xb8 /media/cliff/Desk/UNC/3digital/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+                0x0000000000000000       0xb8 /media/cliff/Desk/UNC/carrerpath/nationalUniversity/2021/digital3/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
  .data.SystemCoreClock
-                0x0000000000000000        0x4 /media/cliff/Desk/UNC/3digital/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
- .debug_macro   0x0000000000000000       0x10 /media/cliff/Desk/UNC/3digital/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
- .debug_macro   0x0000000000000000      0x12e /media/cliff/Desk/UNC/3digital/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
- .debug_macro   0x0000000000000000      0x5b3 /media/cliff/Desk/UNC/3digital/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
- .debug_macro   0x0000000000000000       0x1c /media/cliff/Desk/UNC/3digital/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
- .debug_macro   0x0000000000000000       0x2e /media/cliff/Desk/UNC/3digital/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
- .debug_macro   0x0000000000000000       0x18 /media/cliff/Desk/UNC/3digital/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
- .debug_macro   0x0000000000000000      0x7af /media/cliff/Desk/UNC/3digital/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
- .debug_macro   0x0000000000000000      0x2c7 /media/cliff/Desk/UNC/3digital/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+                0x0000000000000000        0x4 /media/cliff/Desk/UNC/carrerpath/nationalUniversity/2021/digital3/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+ .debug_macro   0x0000000000000000       0x10 /media/cliff/Desk/UNC/carrerpath/nationalUniversity/2021/digital3/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+ .debug_macro   0x0000000000000000      0x12e /media/cliff/Desk/UNC/carrerpath/nationalUniversity/2021/digital3/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+ .debug_macro   0x0000000000000000      0x5b3 /media/cliff/Desk/UNC/carrerpath/nationalUniversity/2021/digital3/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+ .debug_macro   0x0000000000000000       0x1c /media/cliff/Desk/UNC/carrerpath/nationalUniversity/2021/digital3/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+ .debug_macro   0x0000000000000000       0x2e /media/cliff/Desk/UNC/carrerpath/nationalUniversity/2021/digital3/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+ .debug_macro   0x0000000000000000       0x18 /media/cliff/Desk/UNC/carrerpath/nationalUniversity/2021/digital3/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+ .debug_macro   0x0000000000000000      0x7af /media/cliff/Desk/UNC/carrerpath/nationalUniversity/2021/digital3/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+ .debug_macro   0x0000000000000000      0x2c7 /media/cliff/Desk/UNC/carrerpath/nationalUniversity/2021/digital3/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
  .text          0x0000000000000000        0x0 /usr/local/mcuxpressoide-11.4.0_6237/ide/plugins/com.nxp.mcuxpresso.tools.linux_11.4.0.202103011116/tools/bin/../lib/gcc/arm-none-eabi/10.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libcr_c.a(__weak__main.o)
  .data          0x0000000000000000        0x0 /usr/local/mcuxpressoide-11.4.0_6237/ide/plugins/com.nxp.mcuxpresso.tools.linux_11.4.0.202103011116/tools/bin/../lib/gcc/arm-none-eabi/10.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libcr_c.a(__weak__main.o)
  .bss           0x0000000000000000        0x0 /usr/local/mcuxpressoide-11.4.0_6237/ide/plugins/com.nxp.mcuxpresso.tools.linux_11.4.0.202103011116/tools/bin/../lib/gcc/arm-none-eabi/10.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libcr_c.a(__weak__main.o)
@@ -104,8 +128,9 @@ Linker script and memory map
 
 LOAD ./src/cr_startup_lpc175x_6x.o
 LOAD ./src/crp.o
+LOAD ./src/myGpio.o
 LOAD ./src/pract1.o
-LOAD /media/cliff/Desk/UNC/3digital/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a
+LOAD /media/cliff/Desk/UNC/carrerpath/nationalUniversity/2021/digital3/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a
 START GROUP
 LOAD /usr/local/mcuxpressoide-11.4.0_6237/ide/plugins/com.nxp.mcuxpresso.tools.linux_11.4.0.202103011116/tools/bin/../lib/gcc/arm-none-eabi/10.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libcr_c.a
 LOAD /usr/local/mcuxpressoide-11.4.0_6237/ide/plugins/com.nxp.mcuxpresso.tools.linux_11.4.0.202103011116/tools/bin/../lib/gcc/arm-none-eabi/10.2.1/thumb/v7-m/nofp/libcr_eabihelpers.a
@@ -124,7 +149,7 @@ END GROUP
                 0x0000000020084000                __top_RamAHB32 = 0x20084000
                 0x0000000020084000                __top_RAM2 = 0x20084000
 
-.text           0x0000000000000000      0x57c
+.text           0x0000000000000000      0x6e0
  FILL mask 0xff
                 0x0000000000000000                __vectors_start__ = ABSOLUTE (.)
  *(.isr_vector)
@@ -133,10 +158,10 @@ END GROUP
                 0x00000000000000cc                . = ALIGN (0x4)
                 0x00000000000000cc                __section_table_start = .
                 0x00000000000000cc                __data_section_table = .
-                0x00000000000000cc        0x4 LONG 0x57c LOADADDR (.data)
+                0x00000000000000cc        0x4 LONG 0x6e0 LOADADDR (.data)
                 0x00000000000000d0        0x4 LONG 0x10000000 ADDR (.data)
                 0x00000000000000d4        0x4 LONG 0x0 SIZEOF (.data)
-                0x00000000000000d8        0x4 LONG 0x57c LOADADDR (.data_RAM2)
+                0x00000000000000d8        0x4 LONG 0x6e0 LOADADDR (.data_RAM2)
                 0x00000000000000dc        0x4 LONG 0x2007c000 ADDR (.data_RAM2)
                 0x00000000000000e0        0x4 LONG 0x0 SIZEOF (.data_RAM2)
                 0x00000000000000e4                __data_section_table_end = .
@@ -199,52 +224,50 @@ END GROUP
                 0x000000000000021e                MCPWM_IRQHandler
                 0x000000000000021e                ENET_IRQHandler
  *(.text*)
- .text.main     0x0000000000000224       0x80 ./src/pract1.o
-                0x0000000000000224                main
- .text.cfgGpio  0x00000000000002a4      0x158 ./src/pract1.o
-                0x00000000000002a4                cfgGpio
- .text.getGpio  0x00000000000003fc       0x50 ./src/pract1.o
-                0x00000000000003fc                getGpio
- .text.setGpio  0x000000000000044c       0x54 ./src/pract1.o
-                0x000000000000044c                setGpio
+ .text.cfgGpio  0x0000000000000224      0x1a4 ./src/myGpio.o
+                0x0000000000000224                cfgGpio
+ .text.setGpio  0x00000000000003c8       0x58 ./src/myGpio.o
+                0x00000000000003c8                setGpio
+ .text.main     0x0000000000000420      0x1e4 ./src/pract1.o
+                0x0000000000000420                main
  .text.SystemInit
-                0x00000000000004a0       0xd8 /media/cliff/Desk/UNC/3digital/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
-                0x00000000000004a0                SystemInit
+                0x0000000000000604       0xd8 /media/cliff/Desk/UNC/carrerpath/nationalUniversity/2021/digital3/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+                0x0000000000000604                SystemInit
  .text.__weak_main
-                0x0000000000000578        0x4 /usr/local/mcuxpressoide-11.4.0_6237/ide/plugins/com.nxp.mcuxpresso.tools.linux_11.4.0.202103011116/tools/bin/../lib/gcc/arm-none-eabi/10.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libcr_c.a(__weak__main.o)
-                0x0000000000000578                __main
-                0x0000000000000578                __weak_main
+                0x00000000000006dc        0x4 /usr/local/mcuxpressoide-11.4.0_6237/ide/plugins/com.nxp.mcuxpresso.tools.linux_11.4.0.202103011116/tools/bin/../lib/gcc/arm-none-eabi/10.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libcr_c.a(__weak__main.o)
+                0x00000000000006dc                __main
+                0x00000000000006dc                __weak_main
  *(.rodata .rodata.* .constdata .constdata.*)
-                0x000000000000057c                . = ALIGN (0x4)
+                0x00000000000006e0                . = ALIGN (0x4)
 
-.glue_7         0x000000000000057c        0x0
- .glue_7        0x000000000000057c        0x0 linker stubs
+.glue_7         0x00000000000006e0        0x0
+ .glue_7        0x00000000000006e0        0x0 linker stubs
 
-.glue_7t        0x000000000000057c        0x0
- .glue_7t       0x000000000000057c        0x0 linker stubs
+.glue_7t        0x00000000000006e0        0x0
+ .glue_7t       0x00000000000006e0        0x0 linker stubs
 
-.vfp11_veneer   0x000000000000057c        0x0
- .vfp11_veneer  0x000000000000057c        0x0 linker stubs
+.vfp11_veneer   0x00000000000006e0        0x0
+ .vfp11_veneer  0x00000000000006e0        0x0 linker stubs
 
-.v4_bx          0x000000000000057c        0x0
- .v4_bx         0x000000000000057c        0x0 linker stubs
+.v4_bx          0x00000000000006e0        0x0
+ .v4_bx         0x00000000000006e0        0x0 linker stubs
 
-.iplt           0x000000000000057c        0x0
- .iplt          0x000000000000057c        0x0 ./src/cr_startup_lpc175x_6x.o
+.iplt           0x00000000000006e0        0x0
+ .iplt          0x00000000000006e0        0x0 ./src/cr_startup_lpc175x_6x.o
 
-.rel.dyn        0x000000000000057c        0x0
- .rel.iplt      0x000000000000057c        0x0 ./src/cr_startup_lpc175x_6x.o
+.rel.dyn        0x00000000000006e0        0x0
+ .rel.iplt      0x00000000000006e0        0x0 ./src/cr_startup_lpc175x_6x.o
 
 .ARM.extab
  *(.ARM.extab* .gnu.linkonce.armextab.*)
 
-.ARM.exidx      0x000000000000057c        0x0
-                0x000000000000057c                __exidx_start = .
+.ARM.exidx      0x00000000000006e0        0x0
+                0x00000000000006e0                __exidx_start = .
  *(.ARM.exidx* .gnu.linkonce.armexidx.*)
-                0x000000000000057c                __exidx_end = .
-                0x000000000000057c                _etext = .
+                0x00000000000006e0                __exidx_end = .
+                0x00000000000006e0                _etext = .
 
-.data_RAM2      0x000000002007c000        0x0 load address 0x000000000000057c
+.data_RAM2      0x000000002007c000        0x0 load address 0x00000000000006e0
  FILL mask 0xff
                 [!provide]                        PROVIDE (__start_data_RAM2 = .)
                 [!provide]                        PROVIDE (__start_data_RamAHB32 = .)
@@ -265,7 +288,7 @@ END GROUP
                 0x0000000010000000                . = ALIGN (0x4)
                 0x0000000010000000                _end_uninit_RESERVED = .
 
-.data           0x0000000010000000        0x0 load address 0x000000000000057c
+.data           0x0000000010000000        0x0 load address 0x00000000000006e0
  FILL mask 0xff
                 0x0000000010000000                _data = .
                 [!provide]                        PROVIDE (__start_data_RAM = .)
@@ -281,7 +304,7 @@ END GROUP
                 [!provide]                        PROVIDE (__end_data_RAM = .)
                 [!provide]                        PROVIDE (__end_data_RamLoc32 = .)
 
-.igot.plt       0x0000000010000000        0x0 load address 0x000000000000057c
+.igot.plt       0x0000000010000000        0x0 load address 0x00000000000006e0
  .igot.plt      0x0000000010000000        0x0 ./src/cr_startup_lpc175x_6x.o
 
 .bss_RAM2       0x000000002007c000        0x0
@@ -332,68 +355,79 @@ END GROUP
                 0x0000000010008000                PROVIDE (_vStackTop = DEFINED (__user_stack_top)?__user_stack_top:(__top_RamLoc32 - 0x0))
                 0xffffffffefff74c6                PROVIDE (__valid_user_code_checksum = (0x0 - ((((((_vStackTop + (ResetISR + 0x1)) + (NMI_Handler + 0x1)) + (HardFault_Handler + 0x1)) + (DEFINED (MemManage_Handler)?MemManage_Handler:0x0 + 0x1)) + (DEFINED (BusFault_Handler)?BusFault_Handler:0x0 + 0x1)) + (DEFINED (UsageFault_Handler)?UsageFault_Handler:0x0 + 0x1))))
                 0x0000000000000000                _image_start = LOADADDR (.text)
-                0x000000000000057c                _image_end = (LOADADDR (.data) + SIZEOF (.data))
-                0x000000000000057c                _image_size = (_image_end - _image_start)
+                0x00000000000006e0                _image_end = (LOADADDR (.data) + SIZEOF (.data))
+                0x00000000000006e0                _image_size = (_image_end - _image_start)
 OUTPUT(pract1.axf elf32-littlearm)
 LOAD linker stubs
 
-.debug_info     0x0000000000000000      0xc3f
+.debug_info     0x0000000000000000      0xb30
  .debug_info    0x0000000000000000      0x27f ./src/cr_startup_lpc175x_6x.o
- .debug_info    0x000000000000027f      0x679 ./src/pract1.o
- .debug_info    0x00000000000008f8      0x347 /media/cliff/Desk/UNC/3digital/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+ .debug_info    0x000000000000027f      0x4ce ./src/myGpio.o
+ .debug_info    0x000000000000074d       0x9c ./src/pract1.o
+ .debug_info    0x00000000000007e9      0x347 /media/cliff/Desk/UNC/carrerpath/nationalUniversity/2021/digital3/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
 
-.debug_abbrev   0x0000000000000000      0x36d
+.debug_abbrev   0x0000000000000000      0x3aa
  .debug_abbrev  0x0000000000000000      0x122 ./src/cr_startup_lpc175x_6x.o
- .debug_abbrev  0x0000000000000122      0x13d ./src/pract1.o
- .debug_abbrev  0x000000000000025f      0x10e /media/cliff/Desk/UNC/3digital/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+ .debug_abbrev  0x0000000000000122      0x119 ./src/myGpio.o
+ .debug_abbrev  0x000000000000023b       0x61 ./src/pract1.o
+ .debug_abbrev  0x000000000000029c      0x10e /media/cliff/Desk/UNC/carrerpath/nationalUniversity/2021/digital3/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
 
-.debug_aranges  0x0000000000000000       0xe8
+.debug_aranges  0x0000000000000000       0xf8
  .debug_aranges
                 0x0000000000000000       0x80 ./src/cr_startup_lpc175x_6x.o
  .debug_aranges
-                0x0000000000000080       0x40 ./src/pract1.o
+                0x0000000000000080       0x30 ./src/myGpio.o
  .debug_aranges
-                0x00000000000000c0       0x28 /media/cliff/Desk/UNC/3digital/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+                0x00000000000000b0       0x20 ./src/pract1.o
+ .debug_aranges
+                0x00000000000000d0       0x28 /media/cliff/Desk/UNC/carrerpath/nationalUniversity/2021/digital3/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
 
 .debug_ranges   0x0000000000000000       0xb8
  .debug_ranges  0x0000000000000000       0x70 ./src/cr_startup_lpc175x_6x.o
- .debug_ranges  0x0000000000000070       0x30 ./src/pract1.o
- .debug_ranges  0x00000000000000a0       0x18 /media/cliff/Desk/UNC/3digital/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+ .debug_ranges  0x0000000000000070       0x20 ./src/myGpio.o
+ .debug_ranges  0x0000000000000090       0x10 ./src/pract1.o
+ .debug_ranges  0x00000000000000a0       0x18 /media/cliff/Desk/UNC/carrerpath/nationalUniversity/2021/digital3/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
 
-.debug_macro    0x0000000000000000     0x2907
+.debug_macro    0x0000000000000000     0x29a4
  .debug_macro   0x0000000000000000       0x1d ./src/cr_startup_lpc175x_6x.o
  .debug_macro   0x000000000000001d      0xa7e ./src/cr_startup_lpc175x_6x.o
- .debug_macro   0x0000000000000a9b       0x7e ./src/pract1.o
- .debug_macro   0x0000000000000b19       0x1c ./src/pract1.o
- .debug_macro   0x0000000000000b35       0x2e ./src/pract1.o
- .debug_macro   0x0000000000000b63       0x10 ./src/pract1.o
- .debug_macro   0x0000000000000b73      0x12e ./src/pract1.o
- .debug_macro   0x0000000000000ca1      0x5b3 ./src/pract1.o
- .debug_macro   0x0000000000001254       0x18 ./src/pract1.o
- .debug_macro   0x000000000000126c      0x7af ./src/pract1.o
- .debug_macro   0x0000000000001a1b      0x2c7 ./src/pract1.o
- .debug_macro   0x0000000000001ce2       0x82 ./src/pract1.o
- .debug_macro   0x0000000000001d64      0x12b /media/cliff/Desk/UNC/3digital/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
- .debug_macro   0x0000000000001e8f      0xa78 /media/cliff/Desk/UNC/3digital/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+ .debug_macro   0x0000000000000a9b       0x7e ./src/myGpio.o
+ .debug_macro   0x0000000000000b19       0x1c ./src/myGpio.o
+ .debug_macro   0x0000000000000b35       0x2e ./src/myGpio.o
+ .debug_macro   0x0000000000000b63       0x10 ./src/myGpio.o
+ .debug_macro   0x0000000000000b73      0x12e ./src/myGpio.o
+ .debug_macro   0x0000000000000ca1      0x5b3 ./src/myGpio.o
+ .debug_macro   0x0000000000001254       0x18 ./src/myGpio.o
+ .debug_macro   0x000000000000126c      0x7af ./src/myGpio.o
+ .debug_macro   0x0000000000001a1b      0x2c7 ./src/myGpio.o
+ .debug_macro   0x0000000000001ce2       0x16 ./src/myGpio.o
+ .debug_macro   0x0000000000001cf8       0x87 ./src/pract1.o
+ .debug_macro   0x0000000000001d7f       0x82 ./src/pract1.o
+ .debug_macro   0x0000000000001e01      0x12b /media/cliff/Desk/UNC/carrerpath/nationalUniversity/2021/digital3/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+ .debug_macro   0x0000000000001f2c      0xa78 /media/cliff/Desk/UNC/carrerpath/nationalUniversity/2021/digital3/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
 
-.debug_line     0x0000000000000000      0xa11
+.debug_line     0x0000000000000000      0xe25
  .debug_line    0x0000000000000000      0x160 ./src/cr_startup_lpc175x_6x.o
- .debug_line    0x0000000000000160      0x475 ./src/pract1.o
- .debug_line    0x00000000000005d5      0x43c /media/cliff/Desk/UNC/3digital/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+ .debug_line    0x0000000000000160      0x464 ./src/myGpio.o
+ .debug_line    0x00000000000005c4      0x425 ./src/pract1.o
+ .debug_line    0x00000000000009e9      0x43c /media/cliff/Desk/UNC/carrerpath/nationalUniversity/2021/digital3/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
 
-.debug_str      0x0000000000000000     0x921e
- .debug_str     0x0000000000000000     0x2e9e ./src/cr_startup_lpc175x_6x.o
-                                       0x2eb1 (size before relaxing)
- .debug_str     0x0000000000002e9e     0x5e14 ./src/pract1.o
-                                       0x8b6e (size before relaxing)
- .debug_str     0x0000000000008cb2      0x56c /media/cliff/Desk/UNC/3digital/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+.debug_str      0x0000000000000000     0x91af
+ .debug_str     0x0000000000000000     0x2ec1 ./src/cr_startup_lpc175x_6x.o
+                                       0x2ed4 (size before relaxing)
+ .debug_str     0x0000000000002ec1     0x5924 ./src/myGpio.o
+                                       0x86a1 (size before relaxing)
+ .debug_str     0x00000000000087e5      0x45e ./src/pract1.o
+                                       0x894d (size before relaxing)
+ .debug_str     0x0000000000008c43      0x56c /media/cliff/Desk/UNC/carrerpath/nationalUniversity/2021/digital3/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
                                        0x88a4 (size before relaxing)
 
 .comment        0x0000000000000000       0x4d
  .comment       0x0000000000000000       0x4d ./src/cr_startup_lpc175x_6x.o
                                          0x4e (size before relaxing)
+ .comment       0x000000000000004d       0x4e ./src/myGpio.o
  .comment       0x000000000000004d       0x4e ./src/pract1.o
- .comment       0x000000000000004d       0x4e /media/cliff/Desk/UNC/3digital/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+ .comment       0x000000000000004d       0x4e /media/cliff/Desk/UNC/carrerpath/nationalUniversity/2021/digital3/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
  .comment       0x000000000000004d       0x4e /usr/local/mcuxpressoide-11.4.0_6237/ide/plugins/com.nxp.mcuxpresso.tools.linux_11.4.0.202103011116/tools/bin/../lib/gcc/arm-none-eabi/10.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libcr_c.a(__weak__main.o)
 
 .ARM.attributes
@@ -401,16 +435,19 @@ LOAD linker stubs
  .ARM.attributes
                 0x0000000000000000       0x2d ./src/cr_startup_lpc175x_6x.o
  .ARM.attributes
-                0x000000000000002d       0x2d ./src/pract1.o
+                0x000000000000002d       0x2d ./src/myGpio.o
  .ARM.attributes
-                0x000000000000005a       0x2d /media/cliff/Desk/UNC/3digital/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+                0x000000000000005a       0x2d ./src/pract1.o
  .ARM.attributes
-                0x0000000000000087       0x2d /usr/local/mcuxpressoide-11.4.0_6237/ide/plugins/com.nxp.mcuxpresso.tools.linux_11.4.0.202103011116/tools/bin/../lib/gcc/arm-none-eabi/10.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libcr_c.a(__weak__main.o)
+                0x0000000000000087       0x2d /media/cliff/Desk/UNC/carrerpath/nationalUniversity/2021/digital3/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+ .ARM.attributes
+                0x00000000000000b4       0x2d /usr/local/mcuxpressoide-11.4.0_6237/ide/plugins/com.nxp.mcuxpresso.tools.linux_11.4.0.202103011116/tools/bin/../lib/gcc/arm-none-eabi/10.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libcr_c.a(__weak__main.o)
 
-.debug_frame    0x0000000000000000      0x280
+.debug_frame    0x0000000000000000      0x264
  .debug_frame   0x0000000000000000      0x170 ./src/cr_startup_lpc175x_6x.o
- .debug_frame   0x0000000000000170       0xd4 ./src/pract1.o
- .debug_frame   0x0000000000000244       0x3c /media/cliff/Desk/UNC/3digital/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+ .debug_frame   0x0000000000000170       0x8c ./src/myGpio.o
+ .debug_frame   0x00000000000001fc       0x2c ./src/pract1.o
+ .debug_frame   0x0000000000000228       0x3c /media/cliff/Desk/UNC/carrerpath/nationalUniversity/2021/digital3/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
 
 Cross Reference Table
 
@@ -450,9 +487,9 @@ SSP0_IRQHandler                                   ./src/cr_startup_lpc175x_6x.o
 SSP1_IRQHandler                                   ./src/cr_startup_lpc175x_6x.o
 SVC_Handler                                       ./src/cr_startup_lpc175x_6x.o
 SysTick_Handler                                   ./src/cr_startup_lpc175x_6x.o
-SystemCoreClock                                   /media/cliff/Desk/UNC/3digital/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
-SystemCoreClockUpdate                             /media/cliff/Desk/UNC/3digital/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
-SystemInit                                        /media/cliff/Desk/UNC/3digital/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+SystemCoreClock                                   /media/cliff/Desk/UNC/carrerpath/nationalUniversity/2021/digital3/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+SystemCoreClockUpdate                             /media/cliff/Desk/UNC/carrerpath/nationalUniversity/2021/digital3/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+SystemInit                                        /media/cliff/Desk/UNC/carrerpath/nationalUniversity/2021/digital3/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
                                                   ./src/pract1.o
                                                   ./src/cr_startup_lpc175x_6x.o
 TIMER0_IRQHandler                                 ./src/cr_startup_lpc175x_6x.o
@@ -470,9 +507,9 @@ WDT_IRQHandler                                    ./src/cr_startup_lpc175x_6x.o
 __aeabi_idiv0                                     /usr/local/mcuxpressoide-11.4.0_6237/ide/plugins/com.nxp.mcuxpresso.tools.linux_11.4.0.202103011116/tools/bin/../lib/gcc/arm-none-eabi/10.2.1/thumb/v7-m/nofp/libcr_eabihelpers.a(division_idiv0.o)
                                                   /usr/local/mcuxpressoide-11.4.0_6237/ide/plugins/com.nxp.mcuxpresso.tools.linux_11.4.0.202103011116/tools/bin/../lib/gcc/arm-none-eabi/10.2.1/thumb/v7-m/nofp/libcr_eabihelpers.a(division_64.o)
 __aeabi_ldivmod                                   /usr/local/mcuxpressoide-11.4.0_6237/ide/plugins/com.nxp.mcuxpresso.tools.linux_11.4.0.202103011116/tools/bin/../lib/gcc/arm-none-eabi/10.2.1/thumb/v7-m/nofp/libcr_eabihelpers.a(division_64.o)
-                                                  /media/cliff/Desk/UNC/3digital/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+                                                  /media/cliff/Desk/UNC/carrerpath/nationalUniversity/2021/digital3/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
 __aeabi_uldivmod                                  /usr/local/mcuxpressoide-11.4.0_6237/ide/plugins/com.nxp.mcuxpresso.tools.linux_11.4.0.202103011116/tools/bin/../lib/gcc/arm-none-eabi/10.2.1/thumb/v7-m/nofp/libcr_eabihelpers.a(division_64.o)
-                                                  /media/cliff/Desk/UNC/3digital/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+                                                  /media/cliff/Desk/UNC/carrerpath/nationalUniversity/2021/digital3/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
 __bhs_ldivmod1                                    /usr/local/mcuxpressoide-11.4.0_6237/ide/plugins/com.nxp.mcuxpresso.tools.linux_11.4.0.202103011116/tools/bin/../lib/gcc/arm-none-eabi/10.2.1/thumb/v7-m/nofp/libcr_eabihelpers.a(division_64.o)
 __bss_section_table_end                           ./src/cr_startup_lpc175x_6x.o
 __data_section_table                              ./src/cr_startup_lpc175x_6x.o
@@ -483,11 +520,12 @@ __valid_user_code_checksum                        ./src/cr_startup_lpc175x_6x.o
 __weak_main                                       /usr/local/mcuxpressoide-11.4.0_6237/ide/plugins/com.nxp.mcuxpresso.tools.linux_11.4.0.202103011116/tools/bin/../lib/gcc/arm-none-eabi/10.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libcr_c.a(__weak__main.o)
 _vStackTop                                        ./src/cr_startup_lpc175x_6x.o
 bss_init                                          ./src/cr_startup_lpc175x_6x.o
-cfgFunc                                           ./src/pract1.o
-cfgGpio                                           ./src/pract1.o
+cfgGpio                                           ./src/myGpio.o
+                                                  ./src/pract1.o
 data_init                                         ./src/cr_startup_lpc175x_6x.o
 g_pfnVectors                                      ./src/cr_startup_lpc175x_6x.o
-getGpio                                           ./src/pract1.o
+getGpio                                           ./src/myGpio.o
 main                                              ./src/pract1.o
                                                   /usr/local/mcuxpressoide-11.4.0_6237/ide/plugins/com.nxp.mcuxpresso.tools.linux_11.4.0.202103011116/tools/bin/../lib/gcc/arm-none-eabi/10.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libcr_c.a(__weak__main.o)
-setGpio                                           ./src/pract1.o
+setGpio                                           ./src/myGpio.o
+                                                  ./src/pract1.o

@@ -1,0 +1,71 @@
+/*
+===============================================================================
+ Name        : first.c
+ Author      : $(Clifferto)
+ Version     :
+ Copyright   : $(copyright)
+ Description : main definition
+===============================================================================
+*/
+
+#ifdef __USE_CMSIS
+#include "LPC17xx.h"
+#endif
+
+#include <cr_section_macros.h>
+
+/*
+ * led en P0.22
+ */
+LPC_PINCON_TypeDef *instPincon=(LPC_PINCON_TypeDef*)LPC_PINCON_BASE;
+LPC_GPIO_TypeDef *instGpio0=(LPC_GPIO_TypeDef*)LPC_GPIO0_BASE;
+
+int main(void) {
+	/*
+	 * core start-up
+	 */
+	SystemInit();
+
+	unsigned char gpio,pin;
+	gpio=0;
+	pin=22;
+
+	//P0.22 a gpio
+	//instPincon->PINSEL1&=~(3<<12);
+	//*(instPincon+1)&=~(3<<12);
+	//LPC_PINCON->PINSEL1&=~(3<<12);
+
+	unsigned int *ppPinsel=(unsigned int*)LPC_PINCON_BASE;
+	//seleccionar pinsel
+	//ppPinsel+=2*sizeof(int)*(gpio) + sizeof(int)*(pin>15);
+	ppPinsel+=(2*gpio + (pin>15))*sizeof(int);
+
+	//p0.22 digital out
+	instGpio0->FIODIR0|=(1<<22);
+	instGpio0->FIOSET|=(1<<22);
+	//LPC_GPIO0->FIODIR0|=(1<<22);
+
+    // Force the counter to be placed into memory
+    volatile static unsigned int i = 0 ;
+
+    // Blink led
+    while(1) {
+        //led on
+        instGpio0->FIOCLR|=(1<<22);
+    	//LPC_GPIO0->FIOCLR=(1<<22);
+
+    	//delay
+        while(i!=1024*2000) i++;
+        i=0;
+
+        //led off
+        instGpio0->FIOSET|=(1<<22);
+        //LPC_GPIO0->FIOSET=(1<<22);
+
+        //delay
+        while(i!=1024*2000) i++;
+        i=0;
+    }
+
+    return 0 ;
+}

@@ -29,7 +29,7 @@ all: first.axf
 first.axf: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: MCU Linker'
-	arm-none-eabi-gcc -nostdlib -L"/media/cliff/Desk/UNC/3digital/wkspc/CMSISv2p00_LPC17xx/Debug" -Xlinker -Map="first.map" -Xlinker --cref -Xlinker --gc-sections -Xlinker -print-memory-usage -mcpu=cortex-m3 -mthumb -T "first_Debug.ld" -o "first.axf" $(OBJS) $(USER_OBJS) $(LIBS)
+	arm-none-eabi-gcc -nostdlib -L"/media/cliff/Desk/UNC/carrerpath/nationalUniversity/2021/digital3/wkspc/CMSISv2p00_LPC17xx/Debug" -Xlinker -Map="first.map" -Xlinker --cref -Xlinker --gc-sections -Xlinker -print-memory-usage -mcpu=cortex-m3 -mthumb -T "first_Debug.ld" -o "first.axf" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 	$(MAKE) --no-print-directory post-build

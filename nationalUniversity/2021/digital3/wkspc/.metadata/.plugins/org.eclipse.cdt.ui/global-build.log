@@ -1,21 +1,64 @@
-22:26:39 **** Incremental Build of configuration Debug for project CMSISv2p00_LPC17xx ****
+00:25:39 **** Incremental Build of configuration Debug for project CMSISv2p00_LPC17xx ****
 make -r -j3 all 
 make: Nothing to be done for 'all'.
-22:26:40 **** Incremental Build of configuration Debug for project pract1 ****
+00:25:40 **** Incremental Build of configuration Debug for project pract1 ****
 make -r -j3 all 
 Building file: ../src/pract1.c
 Invoking: MCU C Compiler
-arm-none-eabi-gcc -DDEBUG -D__CODE_RED -DCORE_M3 -D__USE_CMSIS=CMSISv2p00_LPC17xx -D__LPC17XX__ -D__REDLIB__ -I"/media/cliff/Desk/UNC/3digital/wkspc/pract1/inc" -I"/media/cliff/Desk/UNC/3digital/wkspc/CMSISv2p00_LPC17xx/inc" -O0 -fno-common -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -fmerge-constants -fmacro-prefix-map="../src/"=. -mcpu=cortex-m3 -mthumb -fstack-usage -specs=redlib.specs -MMD -MP -MF"src/pract1.d" -MT"src/pract1.o" -MT"src/pract1.d" -o "src/pract1.o" "../src/pract1.c"
-../src/pract1.c: In function 'main':
-../src/pract1.c:36:16: warning: variable 'aux0' set but not used [-Wunused-but-set-variable]
-   36 |  unsigned char aux0;
-      |                ^~~~
-../src/pract1.c: In function 'cfgGpio':
-../src/pract1.c:170:5: error: duplicate case value
-  170 |     case 1:
-      |     ^~~~
-../src/pract1.c:123:4: note: previously used here
-  123 |    case 1:
-      |    ^~~~
-make: *** [src/subdir.mk:26: src/pract1.o] Error 1
-"make -r -j3 all" terminated with exit code 2. Build might be incomplete.
+arm-none-eabi-gcc -DDEBUG -D__CODE_RED -DCORE_M3 -D__USE_CMSIS=CMSISv2p00_LPC17xx -D__LPC17XX__ -D__REDLIB__ -I"/media/cliff/Desk/UNC/carrerpath/nationalUniversity/2021/digital3/wkspc/pract1/inc" -I"/media/cliff/Desk/UNC/carrerpath/nationalUniversity/2021/digital3/wkspc/CMSISv2p00_LPC17xx/inc" -O0 -fno-common -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -fmerge-constants -fmacro-prefix-map="../src/"=. -mcpu=cortex-m3 -mthumb -fstack-usage -specs=redlib.specs -MMD -MP -MF"src/pract1.d" -MT"src/pract1.o" -MT"src/pract1.d" -o "src/pract1.o" "../src/pract1.c"
+Finished building: ../src/pract1.c
+ 
+Building target: pract1.axf
+Invoking: MCU Linker
+arm-none-eabi-gcc -nostdlib -L"/media/cliff/Desk/UNC/carrerpath/nationalUniversity/2021/digital3/wkspc/CMSISv2p00_LPC17xx/Debug" -Xlinker -Map="pract1.map" -Xlinker --cref -Xlinker --gc-sections -Xlinker -print-memory-usage -mcpu=cortex-m3 -mthumb -T "pract1_Debug.ld" -o "pract1.axf"  ./src/cr_startup_lpc175x_6x.o ./src/crp.o ./src/myGpio.o ./src/pract1.o   -lCMSISv2p00_LPC17xx
+Memory region         Used Size  Region Size  %age Used
+       MFlash512:        1760 B       512 KB      0.34%
+        RamLoc32:           4 B        32 KB      0.01%
+        RamAHB32:          0 GB        32 KB      0.00%
+Finished building target: pract1.axf
+ 
+make --no-print-directory post-build
+Performing post-build steps
+arm-none-eabi-size "pract1.axf"; # arm-none-eabi-objcopy -v -O binary "pract1.axf" "pract1.bin" ; # checksum -p LPC1769 -d "pract1.bin";
+   text	   data	    bss	    dec	    hex	filename
+   1760	      0	      4	   1764	    6e4	pract1.axf
+ 
+00:25:46 **** Incremental Build of configuration Debug for project CMSISv2p00_LPC17xx ****
+make -r -j3 all 
+make: Nothing to be done for 'all'.
+00:25:47 **** Incremental Build of configuration Debug for project pract1 ****
+make -r -j3 all 
+make: Nothing to be done for 'all'.
+00:25:48 **** Incremental Build of configuration Debug for project pract1 ****
+make -r -j3 all 
+make: Nothing to be done for 'all'.
+00:26:13 **** Incremental Build of configuration Debug for project CMSISv2p00_LPC17xx ****
+make -r -j3 all 
+make: Nothing to be done for 'all'.
+00:26:13 **** Incremental Build of configuration Debug for project pract1 ****
+make -r -j3 all 
+make: Nothing to be done for 'all'.
+00:26:15 **** Incremental Build of configuration Debug for project pract1 ****
+make -r -j3 all 
+make: Nothing to be done for 'all'.
+00:27:08 **** Incremental Build of configuration Debug for project CMSISv2p00_LPC17xx ****
+make -r -j3 all 
+make: Nothing to be done for 'all'.
+00:27:08 **** Incremental Build of configuration Debug for project pract1 ****
+make -r -j3 all 
+make: Nothing to be done for 'all'.
+00:27:10 **** Incremental Build of configuration Debug for project pract1 ****
+make -r -j3 all 
+make: Nothing to be done for 'all'.
+00:27:55 **** Incremental Build of configuration Debug for project CMSISv2p00_LPC17xx ****
+make -r -j3 all 
+make: Nothing to be done for 'all'.
+00:27:55 **** Incremental Build of configuration Debug for project pract1 ****
+make -r -j3 all 
+make: Nothing to be done for 'all'.
+00:27:57 **** Incremental Build of configuration Debug for project pract1 ****
+make -r -j3 all 
+make: Nothing to be done for 'all'.
+00:29:44 **** Incremental Build of configuration Debug for project pract1 ****
+make -r -j3 all 
+make: Nothing to be done for 'all'.

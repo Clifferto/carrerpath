@@ -1,0 +1,11 @@
+# Funcion de pines (PINCON): 
+PINSEL: setear funcion del pin 
+
+# Config de Gpios (GPIO):   
+PINMODE: pullmode
+FIODIR: direccion i/o
+FIOCLR,FIOSET,FIOPIN,FIOMASK: manejo de nivel en pines
+
+# Iterrupciones (NVIC)
+ISER,ICER,ISPR,ISAR,ISPR
+
