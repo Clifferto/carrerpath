@@ -6,7 +6,7 @@
  * Generated linker script file for LPC1769
  * Created from linkscript.ldt by FMCreateLinkLibraries
  * Using Freemarker v2.3.30
- * MCUXpresso IDE v11.4.0 [Build 6237] [2021-08-06] on Aug 27, 2021, 12:29:44 AM
+ * MCUXpresso IDE v11.4.0 [Build 6237] [2021-08-06] on Aug 29, 2021, 8:34:23 PM
  */
 
 INCLUDE "pract1_Debug_library.ld"
@@ -44,6 +44,13 @@ SECTIONS
 
         *(.after_vectors*)
 
+        /* Code Read Protection data */
+        . = 0x000002FC ;
+        PROVIDE(__CRP_WORD_START__ = .) ;
+        KEEP(*(.crp))
+        PROVIDE(__CRP_WORD_END__ = .) ;
+        ASSERT(!(__CRP_WORD_START__ == __CRP_WORD_END__), "Linker CRP Enabled, but no CRP_WORD provided within application");
+        /* End of Code Read Protection */
     } > MFlash512
 
     .text : ALIGN(4)

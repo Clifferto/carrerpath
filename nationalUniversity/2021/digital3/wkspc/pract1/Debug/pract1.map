@@ -20,19 +20,7 @@ Discarded input sections
  .text          0x0000000000000000        0x0 ./src/crp.o
  .data          0x0000000000000000        0x0 ./src/crp.o
  .bss           0x0000000000000000        0x0 ./src/crp.o
- .crp           0x0000000000000000        0x4 ./src/crp.o
- .debug_info    0x0000000000000000       0x40 ./src/crp.o
- .debug_abbrev  0x0000000000000000       0x38 ./src/crp.o
- .debug_aranges
-                0x0000000000000000       0x18 ./src/crp.o
- .debug_macro   0x0000000000000000       0x1a ./src/crp.o
  .debug_macro   0x0000000000000000      0xa7e ./src/crp.o
- .debug_macro   0x0000000000000000       0x34 ./src/crp.o
- .debug_line    0x0000000000000000       0xb5 ./src/crp.o
- .debug_str     0x0000000000000000     0x2df5 ./src/crp.o
- .comment       0x0000000000000000       0x4e ./src/crp.o
- .ARM.attributes
-                0x0000000000000000       0x33 ./src/crp.o
  .group         0x0000000000000000        0xc ./src/myGpio.o
  .group         0x0000000000000000        0xc ./src/myGpio.o
  .group         0x0000000000000000        0xc ./src/myGpio.o
@@ -149,7 +137,7 @@ END GROUP
                 0x0000000020084000                __top_RamAHB32 = 0x20084000
                 0x0000000020084000                __top_RAM2 = 0x20084000
 
-.text           0x0000000000000000      0x6e0
+.text           0x0000000000000000      0x7bc
  FILL mask 0xff
                 0x0000000000000000                __vectors_start__ = ABSOLUTE (.)
  *(.isr_vector)
@@ -158,10 +146,10 @@ END GROUP
                 0x00000000000000cc                . = ALIGN (0x4)
                 0x00000000000000cc                __section_table_start = .
                 0x00000000000000cc                __data_section_table = .
-                0x00000000000000cc        0x4 LONG 0x6e0 LOADADDR (.data)
+                0x00000000000000cc        0x4 LONG 0x7bc LOADADDR (.data)
                 0x00000000000000d0        0x4 LONG 0x10000000 ADDR (.data)
                 0x00000000000000d4        0x4 LONG 0x0 SIZEOF (.data)
-                0x00000000000000d8        0x4 LONG 0x6e0 LOADADDR (.data_RAM2)
+                0x00000000000000d8        0x4 LONG 0x7bc LOADADDR (.data_RAM2)
                 0x00000000000000dc        0x4 LONG 0x2007c000 ADDR (.data_RAM2)
                 0x00000000000000e0        0x4 LONG 0x0 SIZEOF (.data_RAM2)
                 0x00000000000000e4                __data_section_table_end = .
@@ -223,51 +211,59 @@ END GROUP
                 0x000000000000021e                UART3_IRQHandler
                 0x000000000000021e                MCPWM_IRQHandler
                 0x000000000000021e                ENET_IRQHandler
+                0x00000000000002fc                . = 0x2fc
+ *fill*         0x0000000000000224       0xd8 ff
+                0x00000000000002fc                PROVIDE (__CRP_WORD_START__ = .)
+ *(.crp)
+ .crp           0x00000000000002fc        0x4 ./src/crp.o
+                0x00000000000002fc                CRP_WORD
+                0x0000000000000300                PROVIDE (__CRP_WORD_END__ = .)
+                0x0000000000000001                ASSERT (! ((__CRP_WORD_START__ == __CRP_WORD_END__)), Linker CRP Enabled, but no CRP_WORD provided within application)
  *(.text*)
- .text.cfgGpio  0x0000000000000224      0x1a4 ./src/myGpio.o
-                0x0000000000000224                cfgGpio
- .text.setGpio  0x00000000000003c8       0x58 ./src/myGpio.o
-                0x00000000000003c8                setGpio
- .text.main     0x0000000000000420      0x1e4 ./src/pract1.o
-                0x0000000000000420                main
+ .text.cfgGpio  0x0000000000000300      0x1a4 ./src/myGpio.o
+                0x0000000000000300                cfgGpio
+ .text.setGpio  0x00000000000004a4       0x58 ./src/myGpio.o
+                0x00000000000004a4                setGpio
+ .text.main     0x00000000000004fc      0x1e4 ./src/pract1.o
+                0x00000000000004fc                main
  .text.SystemInit
-                0x0000000000000604       0xd8 /media/cliff/Desk/UNC/carrerpath/nationalUniversity/2021/digital3/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
-                0x0000000000000604                SystemInit
+                0x00000000000006e0       0xd8 /media/cliff/Desk/UNC/carrerpath/nationalUniversity/2021/digital3/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+                0x00000000000006e0                SystemInit
  .text.__weak_main
-                0x00000000000006dc        0x4 /usr/local/mcuxpressoide-11.4.0_6237/ide/plugins/com.nxp.mcuxpresso.tools.linux_11.4.0.202103011116/tools/bin/../lib/gcc/arm-none-eabi/10.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libcr_c.a(__weak__main.o)
-                0x00000000000006dc                __main
-                0x00000000000006dc                __weak_main
+                0x00000000000007b8        0x4 /usr/local/mcuxpressoide-11.4.0_6237/ide/plugins/com.nxp.mcuxpresso.tools.linux_11.4.0.202103011116/tools/bin/../lib/gcc/arm-none-eabi/10.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libcr_c.a(__weak__main.o)
+                0x00000000000007b8                __main
+                0x00000000000007b8                __weak_main
  *(.rodata .rodata.* .constdata .constdata.*)
-                0x00000000000006e0                . = ALIGN (0x4)
+                0x00000000000007bc                . = ALIGN (0x4)
 
-.glue_7         0x00000000000006e0        0x0
- .glue_7        0x00000000000006e0        0x0 linker stubs
+.glue_7         0x00000000000007bc        0x0
+ .glue_7        0x00000000000007bc        0x0 linker stubs
 
-.glue_7t        0x00000000000006e0        0x0
- .glue_7t       0x00000000000006e0        0x0 linker stubs
+.glue_7t        0x00000000000007bc        0x0
+ .glue_7t       0x00000000000007bc        0x0 linker stubs
 
-.vfp11_veneer   0x00000000000006e0        0x0
- .vfp11_veneer  0x00000000000006e0        0x0 linker stubs
+.vfp11_veneer   0x00000000000007bc        0x0
+ .vfp11_veneer  0x00000000000007bc        0x0 linker stubs
 
-.v4_bx          0x00000000000006e0        0x0
- .v4_bx         0x00000000000006e0        0x0 linker stubs
+.v4_bx          0x00000000000007bc        0x0
+ .v4_bx         0x00000000000007bc        0x0 linker stubs
 
-.iplt           0x00000000000006e0        0x0
- .iplt          0x00000000000006e0        0x0 ./src/cr_startup_lpc175x_6x.o
+.iplt           0x00000000000007bc        0x0
+ .iplt          0x00000000000007bc        0x0 ./src/cr_startup_lpc175x_6x.o
 
-.rel.dyn        0x00000000000006e0        0x0
- .rel.iplt      0x00000000000006e0        0x0 ./src/cr_startup_lpc175x_6x.o
+.rel.dyn        0x00000000000007bc        0x0
+ .rel.iplt      0x00000000000007bc        0x0 ./src/cr_startup_lpc175x_6x.o
 
 .ARM.extab
  *(.ARM.extab* .gnu.linkonce.armextab.*)
 
-.ARM.exidx      0x00000000000006e0        0x0
-                0x00000000000006e0                __exidx_start = .
+.ARM.exidx      0x00000000000007bc        0x0
+                0x00000000000007bc                __exidx_start = .
  *(.ARM.exidx* .gnu.linkonce.armexidx.*)
-                0x00000000000006e0                __exidx_end = .
-                0x00000000000006e0                _etext = .
+                0x00000000000007bc                __exidx_end = .
+                0x00000000000007bc                _etext = .
 
-.data_RAM2      0x000000002007c000        0x0 load address 0x00000000000006e0
+.data_RAM2      0x000000002007c000        0x0 load address 0x00000000000007bc
  FILL mask 0xff
                 [!provide]                        PROVIDE (__start_data_RAM2 = .)
                 [!provide]                        PROVIDE (__start_data_RamAHB32 = .)
@@ -288,7 +284,7 @@ END GROUP
                 0x0000000010000000                . = ALIGN (0x4)
                 0x0000000010000000                _end_uninit_RESERVED = .
 
-.data           0x0000000010000000        0x0 load address 0x00000000000006e0
+.data           0x0000000010000000        0x0 load address 0x00000000000007bc
  FILL mask 0xff
                 0x0000000010000000                _data = .
                 [!provide]                        PROVIDE (__start_data_RAM = .)
@@ -304,7 +300,7 @@ END GROUP
                 [!provide]                        PROVIDE (__end_data_RAM = .)
                 [!provide]                        PROVIDE (__end_data_RamLoc32 = .)
 
-.igot.plt       0x0000000010000000        0x0 load address 0x00000000000006e0
+.igot.plt       0x0000000010000000        0x0 load address 0x00000000000007bc
  .igot.plt      0x0000000010000000        0x0 ./src/cr_startup_lpc175x_6x.o
 
 .bss_RAM2       0x000000002007c000        0x0
@@ -355,32 +351,36 @@ END GROUP
                 0x0000000010008000                PROVIDE (_vStackTop = DEFINED (__user_stack_top)?__user_stack_top:(__top_RamLoc32 - 0x0))
                 0xffffffffefff74c6                PROVIDE (__valid_user_code_checksum = (0x0 - ((((((_vStackTop + (ResetISR + 0x1)) + (NMI_Handler + 0x1)) + (HardFault_Handler + 0x1)) + (DEFINED (MemManage_Handler)?MemManage_Handler:0x0 + 0x1)) + (DEFINED (BusFault_Handler)?BusFault_Handler:0x0 + 0x1)) + (DEFINED (UsageFault_Handler)?UsageFault_Handler:0x0 + 0x1))))
                 0x0000000000000000                _image_start = LOADADDR (.text)
-                0x00000000000006e0                _image_end = (LOADADDR (.data) + SIZEOF (.data))
-                0x00000000000006e0                _image_size = (_image_end - _image_start)
+                0x00000000000007bc                _image_end = (LOADADDR (.data) + SIZEOF (.data))
+                0x00000000000007bc                _image_size = (_image_end - _image_start)
 OUTPUT(pract1.axf elf32-littlearm)
 LOAD linker stubs
 
-.debug_info     0x0000000000000000      0xb30
+.debug_info     0x0000000000000000      0xb70
  .debug_info    0x0000000000000000      0x27f ./src/cr_startup_lpc175x_6x.o
- .debug_info    0x000000000000027f      0x4ce ./src/myGpio.o
- .debug_info    0x000000000000074d       0x9c ./src/pract1.o
- .debug_info    0x00000000000007e9      0x347 /media/cliff/Desk/UNC/carrerpath/nationalUniversity/2021/digital3/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+ .debug_info    0x000000000000027f       0x40 ./src/crp.o
+ .debug_info    0x00000000000002bf      0x4ce ./src/myGpio.o
+ .debug_info    0x000000000000078d       0x9c ./src/pract1.o
+ .debug_info    0x0000000000000829      0x347 /media/cliff/Desk/UNC/carrerpath/nationalUniversity/2021/digital3/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
 
-.debug_abbrev   0x0000000000000000      0x3aa
+.debug_abbrev   0x0000000000000000      0x3e2
  .debug_abbrev  0x0000000000000000      0x122 ./src/cr_startup_lpc175x_6x.o
- .debug_abbrev  0x0000000000000122      0x119 ./src/myGpio.o
- .debug_abbrev  0x000000000000023b       0x61 ./src/pract1.o
- .debug_abbrev  0x000000000000029c      0x10e /media/cliff/Desk/UNC/carrerpath/nationalUniversity/2021/digital3/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+ .debug_abbrev  0x0000000000000122       0x38 ./src/crp.o
+ .debug_abbrev  0x000000000000015a      0x119 ./src/myGpio.o
+ .debug_abbrev  0x0000000000000273       0x61 ./src/pract1.o
+ .debug_abbrev  0x00000000000002d4      0x10e /media/cliff/Desk/UNC/carrerpath/nationalUniversity/2021/digital3/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
 
-.debug_aranges  0x0000000000000000       0xf8
+.debug_aranges  0x0000000000000000      0x110
  .debug_aranges
                 0x0000000000000000       0x80 ./src/cr_startup_lpc175x_6x.o
  .debug_aranges
-                0x0000000000000080       0x30 ./src/myGpio.o
+                0x0000000000000080       0x18 ./src/crp.o
  .debug_aranges
-                0x00000000000000b0       0x20 ./src/pract1.o
+                0x0000000000000098       0x30 ./src/myGpio.o
  .debug_aranges
-                0x00000000000000d0       0x28 /media/cliff/Desk/UNC/carrerpath/nationalUniversity/2021/digital3/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+                0x00000000000000c8       0x20 ./src/pract1.o
+ .debug_aranges
+                0x00000000000000e8       0x28 /media/cliff/Desk/UNC/carrerpath/nationalUniversity/2021/digital3/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
 
 .debug_ranges   0x0000000000000000       0xb8
  .debug_ranges  0x0000000000000000       0x70 ./src/cr_startup_lpc175x_6x.o
@@ -388,43 +388,49 @@ LOAD linker stubs
  .debug_ranges  0x0000000000000090       0x10 ./src/pract1.o
  .debug_ranges  0x00000000000000a0       0x18 /media/cliff/Desk/UNC/carrerpath/nationalUniversity/2021/digital3/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
 
-.debug_macro    0x0000000000000000     0x29a4
+.debug_macro    0x0000000000000000     0x29f2
  .debug_macro   0x0000000000000000       0x1d ./src/cr_startup_lpc175x_6x.o
  .debug_macro   0x000000000000001d      0xa7e ./src/cr_startup_lpc175x_6x.o
- .debug_macro   0x0000000000000a9b       0x7e ./src/myGpio.o
- .debug_macro   0x0000000000000b19       0x1c ./src/myGpio.o
- .debug_macro   0x0000000000000b35       0x2e ./src/myGpio.o
- .debug_macro   0x0000000000000b63       0x10 ./src/myGpio.o
- .debug_macro   0x0000000000000b73      0x12e ./src/myGpio.o
- .debug_macro   0x0000000000000ca1      0x5b3 ./src/myGpio.o
- .debug_macro   0x0000000000001254       0x18 ./src/myGpio.o
- .debug_macro   0x000000000000126c      0x7af ./src/myGpio.o
- .debug_macro   0x0000000000001a1b      0x2c7 ./src/myGpio.o
- .debug_macro   0x0000000000001ce2       0x16 ./src/myGpio.o
- .debug_macro   0x0000000000001cf8       0x87 ./src/pract1.o
- .debug_macro   0x0000000000001d7f       0x82 ./src/pract1.o
- .debug_macro   0x0000000000001e01      0x12b /media/cliff/Desk/UNC/carrerpath/nationalUniversity/2021/digital3/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
- .debug_macro   0x0000000000001f2c      0xa78 /media/cliff/Desk/UNC/carrerpath/nationalUniversity/2021/digital3/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+ .debug_macro   0x0000000000000a9b       0x1a ./src/crp.o
+ .debug_macro   0x0000000000000ab5       0x34 ./src/crp.o
+ .debug_macro   0x0000000000000ae9       0x7e ./src/myGpio.o
+ .debug_macro   0x0000000000000b67       0x1c ./src/myGpio.o
+ .debug_macro   0x0000000000000b83       0x2e ./src/myGpio.o
+ .debug_macro   0x0000000000000bb1       0x10 ./src/myGpio.o
+ .debug_macro   0x0000000000000bc1      0x12e ./src/myGpio.o
+ .debug_macro   0x0000000000000cef      0x5b3 ./src/myGpio.o
+ .debug_macro   0x00000000000012a2       0x18 ./src/myGpio.o
+ .debug_macro   0x00000000000012ba      0x7af ./src/myGpio.o
+ .debug_macro   0x0000000000001a69      0x2c7 ./src/myGpio.o
+ .debug_macro   0x0000000000001d30       0x16 ./src/myGpio.o
+ .debug_macro   0x0000000000001d46       0x87 ./src/pract1.o
+ .debug_macro   0x0000000000001dcd       0x82 ./src/pract1.o
+ .debug_macro   0x0000000000001e4f      0x12b /media/cliff/Desk/UNC/carrerpath/nationalUniversity/2021/digital3/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+ .debug_macro   0x0000000000001f7a      0xa78 /media/cliff/Desk/UNC/carrerpath/nationalUniversity/2021/digital3/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
 
-.debug_line     0x0000000000000000      0xe25
+.debug_line     0x0000000000000000      0xeda
  .debug_line    0x0000000000000000      0x160 ./src/cr_startup_lpc175x_6x.o
- .debug_line    0x0000000000000160      0x464 ./src/myGpio.o
- .debug_line    0x00000000000005c4      0x425 ./src/pract1.o
- .debug_line    0x00000000000009e9      0x43c /media/cliff/Desk/UNC/carrerpath/nationalUniversity/2021/digital3/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+ .debug_line    0x0000000000000160       0xb5 ./src/crp.o
+ .debug_line    0x0000000000000215      0x464 ./src/myGpio.o
+ .debug_line    0x0000000000000679      0x425 ./src/pract1.o
+ .debug_line    0x0000000000000a9e      0x43c /media/cliff/Desk/UNC/carrerpath/nationalUniversity/2021/digital3/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
 
-.debug_str      0x0000000000000000     0x91af
+.debug_str      0x0000000000000000     0x92bb
  .debug_str     0x0000000000000000     0x2ec1 ./src/cr_startup_lpc175x_6x.o
                                        0x2ed4 (size before relaxing)
- .debug_str     0x0000000000002ec1     0x5924 ./src/myGpio.o
+ .debug_str     0x0000000000002ec1       0xe9 ./src/crp.o
+                                       0x2df5 (size before relaxing)
+ .debug_str     0x0000000000002faa     0x5924 ./src/myGpio.o
                                        0x86a1 (size before relaxing)
- .debug_str     0x00000000000087e5      0x45e ./src/pract1.o
+ .debug_str     0x00000000000088ce      0x45e ./src/pract1.o
                                        0x894d (size before relaxing)
- .debug_str     0x0000000000008c43      0x56c /media/cliff/Desk/UNC/carrerpath/nationalUniversity/2021/digital3/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
-                                       0x88a4 (size before relaxing)
+ .debug_str     0x0000000000008d2c      0x58f /media/cliff/Desk/UNC/carrerpath/nationalUniversity/2021/digital3/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+                                       0x88c7 (size before relaxing)
 
 .comment        0x0000000000000000       0x4d
  .comment       0x0000000000000000       0x4d ./src/cr_startup_lpc175x_6x.o
                                          0x4e (size before relaxing)
+ .comment       0x000000000000004d       0x4e ./src/crp.o
  .comment       0x000000000000004d       0x4e ./src/myGpio.o
  .comment       0x000000000000004d       0x4e ./src/pract1.o
  .comment       0x000000000000004d       0x4e /media/cliff/Desk/UNC/carrerpath/nationalUniversity/2021/digital3/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
@@ -435,13 +441,15 @@ LOAD linker stubs
  .ARM.attributes
                 0x0000000000000000       0x2d ./src/cr_startup_lpc175x_6x.o
  .ARM.attributes
-                0x000000000000002d       0x2d ./src/myGpio.o
+                0x000000000000002d       0x33 ./src/crp.o
  .ARM.attributes
-                0x000000000000005a       0x2d ./src/pract1.o
+                0x0000000000000060       0x2d ./src/myGpio.o
  .ARM.attributes
-                0x0000000000000087       0x2d /media/cliff/Desk/UNC/carrerpath/nationalUniversity/2021/digital3/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+                0x000000000000008d       0x2d ./src/pract1.o
  .ARM.attributes
-                0x00000000000000b4       0x2d /usr/local/mcuxpressoide-11.4.0_6237/ide/plugins/com.nxp.mcuxpresso.tools.linux_11.4.0.202103011116/tools/bin/../lib/gcc/arm-none-eabi/10.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libcr_c.a(__weak__main.o)
+                0x00000000000000ba       0x2d /media/cliff/Desk/UNC/carrerpath/nationalUniversity/2021/digital3/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+ .ARM.attributes
+                0x00000000000000e7       0x2d /usr/local/mcuxpressoide-11.4.0_6237/ide/plugins/com.nxp.mcuxpresso.tools.linux_11.4.0.202103011116/tools/bin/../lib/gcc/arm-none-eabi/10.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libcr_c.a(__weak__main.o)
 
 .debug_frame    0x0000000000000000      0x264
  .debug_frame   0x0000000000000000      0x170 ./src/cr_startup_lpc175x_6x.o

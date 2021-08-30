@@ -1,6 +1,6 @@
-00:29:44 **** Incremental Build of configuration Debug for project pract1 ****
+20:34:23 **** Incremental Build of configuration Debug for project pract1 ****
 make -r -j3 all 
 make: Nothing to be done for 'all'.
 
-00:29:44 Build Finished. 0 errors, 0 warnings. (took 253ms)
+20:34:23 Build Finished. 0 errors, 0 warnings. (took 443ms)
 

@@ -13,6 +13,6 @@
 		</list>
 	</section>
 	<section name="com.crt.quickstart.views.wizards.examples.QSExampleSelectionPage">
-		<item key="dirname" value="/usr/local/mcuxpressoide-11.4.0_6237/ide/plugins/.nxp.mcuxpresso.tools.wizards_11.4.0.202103011116/Examples/Legacy/NXP/LPC1000/LPC17xx"/>
+		<item key="dirname" value="/usr/local/mcuxpressoide-11.4.0_6237/ide/plugins/com.nxp.mcuxpresso.tools.wizards_11.4.0.202103011116/Examples/Legacy/NXP/LPC1000/LPC17xx"/>
 	</section>
 </section>
