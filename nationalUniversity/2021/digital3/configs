@@ -7,5 +7,11 @@ FIODIR: direccion i/o
 FIOCLR,FIOSET,FIOPIN,FIOMASK: manejo de nivel en pines
 
 # Iterrupciones (NVIC)
-ISER,ICER,ISPR,ISAR,ISPR
+ISER,ICER: Enable/Disable de interrupciones
+ISPR,ICPR: Pendiente/No pendiente (stackeando)
+IABR: Flags de interrupciones activas (ya stackeada)
 
+IPR: Prioridades en las interrupciones. Prioridades mayor prioridad con menor numero 0 al 31
+STIR: Disparo de interrupcion por software
+
+Vectores en LPC17xx, Handlers en cr_core_startup..
