@@ -1,0 +1,4 @@
+../src/mediaMovil.c:27:5:main	64	static
+../src/mediaMovil.c:86:5:getData	16	static
+../src/mediaMovil.c:127:5:promediar	24	static
+../src/mediaMovil.c:144:6:outGpio0	16	static

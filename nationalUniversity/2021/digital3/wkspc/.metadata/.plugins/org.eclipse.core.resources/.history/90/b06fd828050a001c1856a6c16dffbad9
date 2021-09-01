@@ -1,0 +1,49 @@
+/*
+===============================================================================
+ Name        : interr.c
+ Author      : $(author)
+ Version     :
+ Copyright   : $(copyright)
+ Description : main definition
+===============================================================================
+*/
+
+#ifdef __USE_CMSIS
+#include "LPC17xx.h"
+#endif
+
+#include <cr_section_macros.h>
+
+// TODO: insert other include files here
+
+
+
+int main(void) {
+
+    /*
+     * Core init
+     */
+	SystemInit();
+
+	//P2.11 a EINT1n, pullup
+	LPC_PINCON->PINSEL4|=(1<<22);
+	LPC_PINCON->PINSEL4&=~(1<<23);
+	LPC_PINCON->PINMODE4&=~(1<<22);
+
+	//habilitar intext1
+	EINT1_IRQHandler()
+	NVIC_EnableIRQ(EINT1_IRQn);
+
+    // Force the counter to be placed into memory
+    volatile static int i = 0 ;
+    // Enter an infinite loop, just incrementing a counter
+    while(1) {
+        i++ ;
+        // "Dummy" NOP to allow source level single
+        // stepping of tight while() loop
+        __asm volatile ("nop");
+    }
+    return 0 ;
+}
+
+void eint1

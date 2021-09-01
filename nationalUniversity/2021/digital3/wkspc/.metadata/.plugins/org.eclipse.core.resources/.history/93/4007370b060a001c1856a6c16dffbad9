@@ -1,0 +1,44 @@
+/*
+===============================================================================
+ Name        : interr.c
+ Author      : $(author)
+ Version     :
+ Copyright   : $(copyright)
+ Description : main definition
+===============================================================================
+*/
+
+#ifdef __USE_CMSIS
+#include "LPC17xx.h"
+#endif
+
+#include <cr_section_macros.h>
+
+// TODO: insert other include files here
+
+int main(void) {
+
+    /*
+     * Core init
+     */
+	SystemInit();
+
+	//P2.11 a EINT1n, pullup
+	LPC_PINCON->PINSEL4|=(1<<22);
+	LPC_PINCON->PINSEL4&=~(1<<23);
+	LPC_PINCON->PINMODE4&=~(3<<22);
+
+	//habilitar EINT1n, prioridad 1
+	NVIC_EnableIRQ(EINT1_IRQn);
+	NVIC_SetPriority(EINT1_IRQn, 1);
+
+    while(1) {
+        i++ ;
+        // "Dummy" NOP to allow source level single
+        // stepping of tight while() loop
+        __asm volatile ("nop");
+    }
+    return 0 ;
+}
+
+void eint1
