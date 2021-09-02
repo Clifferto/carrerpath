@@ -1,6 +1,6 @@
-01:18:17 **** Incremental Build of configuration Debug for project CMSISv2p00_LPC17xx ****
+00:18:32 **** Incremental Build of configuration Debug for project CMSISv2p00_LPC17xx ****
 make -r -j3 all 
 make: Nothing to be done for 'all'.
 
-01:18:17 Build Finished. 0 errors, 0 warnings. (took 270ms)
+00:18:33 Build Finished. 0 errors, 0 warnings. (took 378ms)
 

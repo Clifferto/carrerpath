@@ -1,11 +1,11 @@
-01:09:29 **** Incremental Build of configuration Debug for project CMSISv2p00_LPC17xx ****
+00:17:43 **** Incremental Build of configuration Debug for project CMSISv2p00_LPC17xx ****
 make -r -j3 all 
 Building file: ../src/core_cm3.c
 Building file: ../src/system_LPC17xx.c
 Invoking: MCU C Compiler
-arm-none-eabi-gcc -D__REDLIB__ -DDEBUG -D__CODE_RED -I../inc -O0 -Os -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -fmerge-constants -fmacro-prefix-map="../src/"=. -mcpu=cortex-m3 -mthumb -D__REDLIB__ -fstack-usage -specs=redlib.specs -MMD -MP -MF"src/core_cm3.d" -MT"src/core_cm3.o" -MT"src/core_cm3.d" -o "src/core_cm3.o" "../src/core_cm3.c"
-Invoking: MCU C Compiler
 arm-none-eabi-gcc -D__REDLIB__ -DDEBUG -D__CODE_RED -I../inc -O0 -Os -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -fmerge-constants -fmacro-prefix-map="../src/"=. -mcpu=cortex-m3 -mthumb -D__REDLIB__ -fstack-usage -specs=redlib.specs -MMD -MP -MF"src/system_LPC17xx.d" -MT"src/system_LPC17xx.o" -MT"src/system_LPC17xx.d" -o "src/system_LPC17xx.o" "../src/system_LPC17xx.c"
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -D__REDLIB__ -DDEBUG -D__CODE_RED -I../inc -O0 -Os -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -fmerge-constants -fmacro-prefix-map="../src/"=. -mcpu=cortex-m3 -mthumb -D__REDLIB__ -fstack-usage -specs=redlib.specs -MMD -MP -MF"src/core_cm3.d" -MT"src/core_cm3.o" -MT"src/core_cm3.d" -o "src/core_cm3.o" "../src/core_cm3.c"
 Finished building: ../src/core_cm3.c
  
 Finished building: ../src/system_LPC17xx.c
@@ -23,113 +23,38 @@ arm-none-eabi-size libCMSISv2p00_LPC17xx.a ; # arm-none-eabi-objdump -h -S libCM
       0	      0	      0	      0	      0	core_cm3.o (ex libCMSISv2p00_LPC17xx.a)
     400	      4	      0	    404	    194	system_LPC17xx.o (ex libCMSISv2p00_LPC17xx.a)
  
-01:09:30 **** Incremental Build of configuration Debug for project interr ****
+00:17:46 **** Incremental Build of configuration Debug for project systock ****
 make -r -j3 all 
-Building file: ../src/interr.c
+Building file: ../src/systock.c
 Invoking: MCU C Compiler
-arm-none-eabi-gcc -DDEBUG -D__CODE_RED -DCORE_M3 -D__USE_CMSIS=CMSISv2p00_LPC17xx -D__LPC17XX__ -D__REDLIB__ -I"/media/cliff/Desk/UNC/carrerpath/nationalUniversity/2021/digital3/wkspc/interr/inc" -I"/media/cliff/Desk/UNC/carrerpath/nationalUniversity/2021/digital3/wkspc/CMSISv2p00_LPC17xx/inc" -O0 -fno-common -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -fmerge-constants -fmacro-prefix-map="../src/"=. -mcpu=cortex-m3 -mthumb -fstack-usage -specs=redlib.specs -MMD -MP -MF"src/interr.d" -MT"src/interr.o" -MT"src/interr.d" -o "src/interr.o" "../src/interr.c"
-Finished building: ../src/interr.c
+arm-none-eabi-gcc -DDEBUG -D__CODE_RED -DCORE_M3 -D__USE_CMSIS=CMSISv2p00_LPC17xx -D__LPC17XX__ -D__REDLIB__ -I"/media/cliff/Desk/UNC/carrerpath/nationalUniversity/2021/digital3/wkspc/systock/inc" -I"/media/cliff/Desk/UNC/carrerpath/nationalUniversity/2021/digital3/wkspc/CMSISv2p00_LPC17xx/inc" -O0 -fno-common -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -fmerge-constants -fmacro-prefix-map="../src/"=. -mcpu=cortex-m3 -mthumb -fstack-usage -specs=redlib.specs -MMD -MP -MF"src/systock.d" -MT"src/systock.o" -MT"src/systock.d" -o "src/systock.o" "../src/systock.c"
+../src/systock.c: In function 'main':
+../src/systock.c:38:15: warning: unused variable 'tmp' [-Wunused-variable]
+   38 |  unsigned int tmp=SysTick->CTRL;
+      |               ^~~
+Finished building: ../src/systock.c
  
-Building target: interr.axf
+Building target: systock.axf
 Invoking: MCU Linker
-arm-none-eabi-gcc -nostdlib -L"/media/cliff/Desk/UNC/carrerpath/nationalUniversity/2021/digital3/wkspc/CMSISv2p00_LPC17xx/Debug" -Xlinker -Map="interr.map" -Xlinker --cref -Xlinker --gc-sections -Xlinker -print-memory-usage -mcpu=cortex-m3 -mthumb -T "interr_Debug.ld" -o "interr.axf"  ./src/cr_startup_lpc175x_6x.o ./src/crp.o ./src/interr.o   -lCMSISv2p00_LPC17xx
+arm-none-eabi-gcc -nostdlib -L"/media/cliff/Desk/UNC/carrerpath/nationalUniversity/2021/digital3/wkspc/CMSISv2p00_LPC17xx/Debug" -Xlinker -Map="systock.map" -Xlinker --cref -Xlinker --gc-sections -Xlinker -print-memory-usage -mcpu=cortex-m3 -mthumb -T "systock_Debug.ld" -o "systock.axf"  ./src/cr_startup_lpc175x_6x.o ./src/crp.o ./src/systock.o   -lCMSISv2p00_LPC17xx
 Memory region         Used Size  Region Size  %age Used
-       MFlash512:        1340 B       512 KB      0.26%
+       MFlash512:        1092 B       512 KB      0.21%
         RamLoc32:          0 GB        32 KB      0.00%
         RamAHB32:          0 GB        32 KB      0.00%
-Finished building target: interr.axf
+Finished building target: systock.axf
  
 make --no-print-directory post-build
 Performing post-build steps
-arm-none-eabi-size "interr.axf"; # arm-none-eabi-objcopy -v -O binary "interr.axf" "interr.bin" ; # checksum -p LPC1769 -d "interr.bin";
+arm-none-eabi-size "systock.axf"; # arm-none-eabi-objcopy -v -O binary "systock.axf" "systock.bin" ; # checksum -p LPC1769 -d "systock.bin";
    text	   data	    bss	    dec	    hex	filename
-   1340	      0	      0	   1340	    53c	interr.axf
+   1092	      0	      0	   1092	    444	systock.axf
  
-01:10:34 **** Incremental Build of configuration Debug for project CMSISv2p00_LPC17xx ****
-make -r -j3 all 
-Building file: ../src/core_cm3.c
-Building file: ../src/system_LPC17xx.c
-Invoking: MCU C Compiler
-arm-none-eabi-gcc -D__REDLIB__ -DDEBUG -D__CODE_RED -I../inc -O0 -Os -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -fmerge-constants -fmacro-prefix-map="../src/"=. -mcpu=cortex-m3 -mthumb -D__REDLIB__ -fstack-usage -specs=redlib.specs -MMD -MP -MF"src/core_cm3.d" -MT"src/core_cm3.o" -MT"src/core_cm3.d" -o "src/core_cm3.o" "../src/core_cm3.c"
-Invoking: MCU C Compiler
-arm-none-eabi-gcc -D__REDLIB__ -DDEBUG -D__CODE_RED -I../inc -O0 -Os -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -fmerge-constants -fmacro-prefix-map="../src/"=. -mcpu=cortex-m3 -mthumb -D__REDLIB__ -fstack-usage -specs=redlib.specs -MMD -MP -MF"src/system_LPC17xx.d" -MT"src/system_LPC17xx.o" -MT"src/system_LPC17xx.d" -o "src/system_LPC17xx.o" "../src/system_LPC17xx.c"
-Finished building: ../src/core_cm3.c
- 
-Finished building: ../src/system_LPC17xx.c
- 
-Building target: libCMSISv2p00_LPC17xx.a
-Invoking: MCU Archiver
-arm-none-eabi-ar -r  "libCMSISv2p00_LPC17xx.a"  ./src/core_cm3.o ./src/system_LPC17xx.o   
-arm-none-eabi-ar: creating libCMSISv2p00_LPC17xx.a
-Finished building target: libCMSISv2p00_LPC17xx.a
- 
-make --no-print-directory post-build
-Performing post-build steps
-arm-none-eabi-size libCMSISv2p00_LPC17xx.a ; # arm-none-eabi-objdump -h -S libCMSISv2p00_LPC17xx.a >libCMSISv2p00_LPC17xx.lss
-   text	   data	    bss	    dec	    hex	filename
-      0	      0	      0	      0	      0	core_cm3.o (ex libCMSISv2p00_LPC17xx.a)
-    400	      4	      0	    404	    194	system_LPC17xx.o (ex libCMSISv2p00_LPC17xx.a)
- 
-01:10:36 **** Build of configuration Debug for project interr ****
-make -r -j3 all 
-Building file: ../src/cr_startup_lpc175x_6x.c
-Building file: ../src/crp.c
-Invoking: MCU C Compiler
-Invoking: MCU C Compiler
-Building file: ../src/interr.c
-arm-none-eabi-gcc -DDEBUG -D__CODE_RED -DCORE_M3 -D__USE_CMSIS=CMSISv2p00_LPC17xx -D__LPC17XX__ -D__REDLIB__ -I"/media/cliff/Desk/UNC/carrerpath/nationalUniversity/2021/digital3/wkspc/interr/inc" -I"/media/cliff/Desk/UNC/carrerpath/nationalUniversity/2021/digital3/wkspc/CMSISv2p00_LPC17xx/inc" -O0 -fno-common -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -fmerge-constants -fmacro-prefix-map="../src/"=. -mcpu=cortex-m3 -mthumb -fstack-usage -specs=redlib.specs -MMD -MP -MF"src/cr_startup_lpc175x_6x.d" -MT"src/cr_startup_lpc175x_6x.o" -MT"src/cr_startup_lpc175x_6x.d" -o "src/cr_startup_lpc175x_6x.o" "../src/cr_startup_lpc175x_6x.c"
-arm-none-eabi-gcc -DDEBUG -D__CODE_RED -DCORE_M3 -D__USE_CMSIS=CMSISv2p00_LPC17xx -D__LPC17XX__ -D__REDLIB__ -I"/media/cliff/Desk/UNC/carrerpath/nationalUniversity/2021/digital3/wkspc/interr/inc" -I"/media/cliff/Desk/UNC/carrerpath/nationalUniversity/2021/digital3/wkspc/CMSISv2p00_LPC17xx/inc" -O0 -fno-common -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -fmerge-constants -fmacro-prefix-map="../src/"=. -mcpu=cortex-m3 -mthumb -fstack-usage -specs=redlib.specs -MMD -MP -MF"src/crp.d" -MT"src/crp.o" -MT"src/crp.d" -o "src/crp.o" "../src/crp.c"
-Invoking: MCU C Compiler
-arm-none-eabi-gcc -DDEBUG -D__CODE_RED -DCORE_M3 -D__USE_CMSIS=CMSISv2p00_LPC17xx -D__LPC17XX__ -D__REDLIB__ -I"/media/cliff/Desk/UNC/carrerpath/nationalUniversity/2021/digital3/wkspc/interr/inc" -I"/media/cliff/Desk/UNC/carrerpath/nationalUniversity/2021/digital3/wkspc/CMSISv2p00_LPC17xx/inc" -O0 -fno-common -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -fmerge-constants -fmacro-prefix-map="../src/"=. -mcpu=cortex-m3 -mthumb -fstack-usage -specs=redlib.specs -MMD -MP -MF"src/interr.d" -MT"src/interr.o" -MT"src/interr.d" -o "src/interr.o" "../src/interr.c"
-Finished building: ../src/crp.c
- 
-Finished building: ../src/cr_startup_lpc175x_6x.c
- 
-Finished building: ../src/interr.c
- 
-Building target: interr.axf
-Invoking: MCU Linker
-arm-none-eabi-gcc -nostdlib -L"/media/cliff/Desk/UNC/carrerpath/nationalUniversity/2021/digital3/wkspc/CMSISv2p00_LPC17xx/Debug" -Xlinker -Map="interr.map" -Xlinker --cref -Xlinker --gc-sections -Xlinker -print-memory-usage -mcpu=cortex-m3 -mthumb -T "interr_Debug.ld" -o "interr.axf"  ./src/cr_startup_lpc175x_6x.o ./src/crp.o ./src/interr.o   -lCMSISv2p00_LPC17xx
-Memory region         Used Size  Region Size  %age Used
-       MFlash512:        1340 B       512 KB      0.26%
-        RamLoc32:          0 GB        32 KB      0.00%
-        RamAHB32:          0 GB        32 KB      0.00%
-Finished building target: interr.axf
- 
-make --no-print-directory post-build
-Performing post-build steps
-arm-none-eabi-size "interr.axf"; # arm-none-eabi-objcopy -v -O binary "interr.axf" "interr.bin" ; # checksum -p LPC1769 -d "interr.bin";
-   text	   data	    bss	    dec	    hex	filename
-   1340	      0	      0	   1340	    53c	interr.axf
- 
-01:10:39 **** Incremental Build of configuration Debug for project interr ****
+00:18:32 **** Incremental Build of configuration Debug for project CMSISv2p00_LPC17xx ****
 make -r -j3 all 
 make: Nothing to be done for 'all'.
-01:18:17 **** Incremental Build of configuration Debug for project CMSISv2p00_LPC17xx ****
+00:18:33 **** Incremental Build of configuration Debug for project systock ****
 make -r -j3 all 
 make: Nothing to be done for 'all'.
-01:18:18 **** Incremental Build of configuration Debug for project interr ****
-make -r -j3 all 
-Building file: ../src/interr.c
-Invoking: MCU C Compiler
-arm-none-eabi-gcc -DDEBUG -D__CODE_RED -DCORE_M3 -D__USE_CMSIS=CMSISv2p00_LPC17xx -D__LPC17XX__ -D__REDLIB__ -I"/media/cliff/Desk/UNC/carrerpath/nationalUniversity/2021/digital3/wkspc/interr/inc" -I"/media/cliff/Desk/UNC/carrerpath/nationalUniversity/2021/digital3/wkspc/CMSISv2p00_LPC17xx/inc" -O0 -fno-common -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -fmerge-constants -fmacro-prefix-map="../src/"=. -mcpu=cortex-m3 -mthumb -fstack-usage -specs=redlib.specs -MMD -MP -MF"src/interr.d" -MT"src/interr.o" -MT"src/interr.d" -o "src/interr.o" "../src/interr.c"
-Finished building: ../src/interr.c
- 
-Building target: interr.axf
-Invoking: MCU Linker
-arm-none-eabi-gcc -nostdlib -L"/media/cliff/Desk/UNC/carrerpath/nationalUniversity/2021/digital3/wkspc/CMSISv2p00_LPC17xx/Debug" -Xlinker -Map="interr.map" -Xlinker --cref -Xlinker --gc-sections -Xlinker -print-memory-usage -mcpu=cortex-m3 -mthumb -T "interr_Debug.ld" -o "interr.axf"  ./src/cr_startup_lpc175x_6x.o ./src/crp.o ./src/interr.o   -lCMSISv2p00_LPC17xx
-Memory region         Used Size  Region Size  %age Used
-       MFlash512:        1340 B       512 KB      0.26%
-        RamLoc32:          0 GB        32 KB      0.00%
-        RamAHB32:          0 GB        32 KB      0.00%
-Finished building target: interr.axf
- 
-make --no-print-directory post-build
-Performing post-build steps
-arm-none-eabi-size "interr.axf"; # arm-none-eabi-objcopy -v -O binary "interr.axf" "interr.bin" ; # checksum -p LPC1769 -d "interr.bin";
-   text	   data	    bss	    dec	    hex	filename
-   1340	      0	      0	   1340	    53c	interr.axf
- 
-01:18:20 **** Incremental Build of configuration Debug for project interr ****
+00:18:37 **** Incremental Build of configuration Debug for project systock ****
 make -r -j3 all 
 make: Nothing to be done for 'all'.

@@ -1,3 +1,0 @@
-../src/myGpio.c:18:15:cfgGpio	32	static
-../src/myGpio.c:96:15:getGpio	32	static
-../src/myGpio.c:120:6:setGpio	24	static
