@@ -1,4 +1,12 @@
 ## Excludes
-**.mp4
-/nationalUniversity/2021/digital3/wkspc/.m*
-/nationalUniversity/2021/digital3/wkspc/**
+**/wkspc/*
+# Agregar proyectos para trackear
+!**/first/
+!**/pract1/
+!**/interr/
+!**/mediaMovil/
+!**/systock/
+
+**/.*/
+
+**/*.mp4
