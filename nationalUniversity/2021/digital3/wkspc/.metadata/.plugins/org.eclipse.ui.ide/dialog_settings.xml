@@ -16,6 +16,7 @@
 		<item key="SmartImportRootWizardPage.STORE_NESTED_PROJECTS" value="true"/>
 		<item key="SmartImportRootWizardPage.STORE_CONFIGURE_NATURES" value="true"/>
 		<list key="org.eclipse.ui.internal.wizards.datatransfer.SmartImportRootWizardPage.knownSources">
+			<item value="/media/cliff/Desk/UNC/carrerpath/nationalUniversity/2021/digital3/wkspc"/>
 			<item value="/media/cliff/Desk/UNC/carrerpath/nationalUniversity/2021/digital3/wkspc/pract1"/>
 		</list>
 	</section>
