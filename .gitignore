@@ -1,3 +1,4 @@
 ## Excludes
-*.mp4
+**.mp4
 /nationalUniversity/2021/digital3/wkspc/.m*
+/nationalUniversity/2021/digital3/wkspc/**
