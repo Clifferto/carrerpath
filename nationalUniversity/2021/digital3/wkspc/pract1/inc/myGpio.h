@@ -32,3 +32,4 @@ unsigned char getGpio(unsigned char gpio,unsigned char pin);
 void setGpio(unsigned char gpio,unsigned char pin,unsigned char val);
 
 #endif /* MYGPIO_H_ */
+
