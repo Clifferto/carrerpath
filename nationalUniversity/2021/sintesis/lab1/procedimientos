@@ -28,7 +28,10 @@ para vo, usar eq de norton con criterio de mayor realim neg que positiva, queda 
 para RLmax creo que se llevaba la salida a la saluracion y tenemos una condicion para RL en funcion de vi
 
 # Primer circuito
-el primero sale por superposicion y agrupamiento de etapas lineales, o por nodos pero es muy largo
+el primero sale por superposicion y agrupamiento de etapas lineales, o por nodos pero es muy largo.
+para vo1 se aplica superposicion.
+cuando v2=0, vo1 es la salida de un no inv y vo2 es la salida de un inversor
+cuando v1=0, vo1 es la salida , y vo2 es la de 
 
 # Ad1
 comparador controlando los umbrales, transistor para manejar el rele, con diodo para corriente inversa, que 

@@ -12,7 +12,6 @@ eqvo1=sp.Eq(sp.solve(eq1,vo)[0],vo)
 
 sp.pprint((eqvo0,eqvo1))
 
-
 il,rl,r1,r2,r3,r4=sp.symbols("i_L R_L R_1 R_2 R_3 R_4")
 
 eqil=sp.solve((eqvo0.lhs-eqvo1.lhs).subs({vp:il*rl}),il)
