@@ -1,13 +1,12 @@
 ## Excludes
-**/wkspc/**/.met*/
-**/wkspc/**/.mcu*/
+**/bk/
+**/wkspc0/.met*/
+**/wkspc0/.mcuxpresso*/
 # Agregar proyectos para trackear
 #!**/first/
 #!**/pract1/
 #!**/interr/
 #!**/mediaMovil/
 #!**/systock/
-
 #**/.*/
-
 **/*.mp4
