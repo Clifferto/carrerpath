@@ -46,6 +46,8 @@ int main(void) {
 	//iniciar dcy=0%, led off, systick off
 	dcy=0;
 	LPC_GPIO0->FIOPIN|=(1<<22);
+	LPC_GPIO2->FIOPIN&=~(1<<4);
+
 	SysTick->CTRL&=~1;
 
     while(1) {
@@ -61,12 +63,14 @@ void cfgGpio(){
 	//p0.22 gpio, pullup, digital output
 	LPC_GPIO0->FIODIR|=(1<<22);
 
+	//p2.4 gpio, pullup, digital output
+	LPC_GPIO2->FIODIR|=(1<<4);
 
 	//p2.13 gpio, pullup, digital input, enmascarado (defaut)
 	LPC_PINCON->PINSEL4&=~(0b11<<26);
 	LPC_PINCON->PINMODE4&=~(0b11<<26);
 	LPC_GPIO2->FIODIR&=~(1<<13);
-	LPC_GPIO2->FIOMASK&=~(1<<13);
+	//LPC_GPIO2->FIOMASK&=~(1<<13);
 
 	//interrupcion por flanco de bajada, inicializando banderas
 	LPC_GPIOINT->IO2IntClr|=(1<<13);
@@ -119,9 +123,17 @@ void EINT3_IRQHandler(){
 		SysTick->CTRL&=~1;
 
 		//si 0%, apagar el led R (logica negada)
-		if(dcy==0) LPC_GPIO0->FIOPIN|=(1<<22);
+		if(dcy==0){
+			LPC_GPIO0->FIOPIN|=(1<<22);
+			LPC_GPIO2->FIOPIN&=~(1<<4);
+
+		}
+
 		//si 100%, prender led R
-		else LPC_GPIO0->FIOPIN&=~(1<<22);
+		else{
+			LPC_GPIO0->FIOPIN&=~(1<<22);
+			LPC_GPIO2->FIOPIN|=(1<<4);
+		}
 	}
 
 	//sino
@@ -142,6 +154,7 @@ void EINT3_IRQHandler(){
 
 			//led R, on
 			LPC_GPIO0->FIOPIN&=~(1<<22);
+			LPC_GPIO2->FIOPIN|=(1<<4);
 		}
 	}
 
@@ -154,6 +167,7 @@ void EINT3_IRQHandler(){
 void SysTick_Handler(){
 	//toggle al led R
 	LPC_GPIO0->FIOPIN^=(1<<22);
+	LPC_GPIO2->FIOPIN^=(1<<4);
 
 	//si hay que setear el tiempo en alto
 	if(flReloadH){
