@@ -15,6 +15,7 @@
 #include <cr_section_macros.h>
 
 #include <stdbool.h>
+#include <stdio.h>
 
 bool trigger=true;
 unsigned int res0=0;
@@ -122,8 +123,6 @@ int main(void) {
 	LPC_ADC->ADCR|=(1<<16);
 
 	while(1) {
-
-		//printf("%i,%i\n",res0,res1);
 //		if(trigger){
 //			trigger=false;
 //
