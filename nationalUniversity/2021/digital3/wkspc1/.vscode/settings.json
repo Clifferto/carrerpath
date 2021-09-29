@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "stdbool.h": "c",
+        "lpc17xx.h": "c",
+        "stdio.h": "c",
+        "lpc17xx_pinsel.h": "c",
+        "system_lpc17xx.h": "c",
+        "core_cm3.h": "c"
+    }
+}
