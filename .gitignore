@@ -1,7 +1,7 @@
 ## Excludes
 **/bk/
-**/wkspc0/.met*/
-**/wkspc0/.mcuxpresso*/
+**/wkspc1/.met*/
+**/wkspc1/.mcuxpresso*/
 # Agregar proyectos para trackear
 #!**/first/
 #!**/pract1/

@@ -170,6 +170,15 @@ typedef struct
 void PINSEL_ConfigPin(PINSEL_CFG_Type *PinCfg);
 void PINSEL_ConfigTraceFunc (FunctionalState NewState);
 void PINSEL_SetI2C0Pins(uint8_t i2cPinMode, FunctionalState filterSlewRateEnable);
+
+//////////////////////////////////////////////////////////////////
+
+/*********************************************************************//**
+ * @brief         Get pinsel default config
+ * @param[in]     PINSEL_ConfigStruct: Pointer to PINSEL_CFG_Type struct
+ *
+ * @return        none
+ **********************************************************************/
 void PINSEL_GetDefaultCfg(PINSEL_CFG_Type *PinCfg);
 
 

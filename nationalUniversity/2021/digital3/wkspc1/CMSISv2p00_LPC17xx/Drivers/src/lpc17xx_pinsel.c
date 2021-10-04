@@ -295,20 +295,21 @@ void PINSEL_ConfigPin(PINSEL_CFG_Type *PinCfg)
     set_OpenDrainMode(PinCfg->Portnum, PinCfg->Pinnum, PinCfg->OpenDrain);
 }
 
+///////////////////////////////////////////////////////////////////
 
 /*********************************************************************//**
- * @brief         Get default PINSEL_CFG_Type
- * @param[in]    PinCfg    Pointer to a PINSEL_CFG_Type structure
+ * @brief         Get pinsel default config
+ * @param[in]     PINSEL_ConfigStruct: Pointer to PINSEL_CFG_Type struct
  *
- * @return         None
+ * @return        none
  **********************************************************************/
 void PINSEL_GetDefaultCfg(PINSEL_CFG_Type *PinCfg)
 {
 	/*
 	 * Defalult:
-	 * 			GPIO
-	 * 			Opendrain off
-	 * 			Pull-up
+	 * 			Pin a GPIO.
+	 * 			Opendrain off.
+	 * 			Pull-up.
 	 */
     PinCfg->Funcnum=PINSEL_FUNC_0;
 	PinCfg->OpenDrain=PINSEL_PINMODE_NORMAL;

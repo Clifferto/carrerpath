@@ -60,7 +60,7 @@ int main(void) {
     PINSEL_ConfigPin(pCfgPin);
 
     //p0.22 salida digital
-    GPIO_SetDir(0, 22, 1);
+    GPIO_SetDir(0, 1<<22, 1);
 
     while(1) {
         // "Dummy" NOP to allow source level single

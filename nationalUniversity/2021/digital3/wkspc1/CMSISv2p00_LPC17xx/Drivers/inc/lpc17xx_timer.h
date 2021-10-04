@@ -319,6 +319,24 @@ void TIM_Cmd(LPC_TIM_TypeDef *TIMx, FunctionalState NewState);
 uint32_t TIM_GetCaptureValue(LPC_TIM_TypeDef *TIMx, TIM_COUNTER_INPUT_OPT CaptureChannel);
 void TIM_ResetCounter(LPC_TIM_TypeDef *TIMx);
 
+//////////////////////////////////////////////////////////////////////////
+
+/*********************************************************************//**
+ * @brief         Get timer default config
+ * @param[out]    TIM_ConfigStruct: Pointer to TIM_TIMERCFG_Type struct
+ *
+ * @return        none
+ **********************************************************************/
+void TIM_GetDefaultCfg(TIM_TIMERCFG_Type *pCfgTim);
+
+/*********************************************************************//**
+ * @brief         Get match default config
+ * @param[out]    MATCH_ConfigStruct: Pointer to TIM_MATCHCFG_Type struct
+ *
+ * @return        none
+ **********************************************************************/
+void TIM_GetDefaultMatch(TIM_MATCHCFG_Type *pCfgMatch);
+
 /**
  * @}
  */
