@@ -54,8 +54,16 @@
 void DAC_Init(LPC_DAC_TypeDef *DACx)
 {
 	CHECK_PARAM(PARAM_DACx(DACx));
+
+	/*
+	 * AGREGADO:
+	 * 	p0.26 pull-off, enable DAC (PINSEL)
+	 */
+	LPC_PINCON->PINMODE1|=0b10<<20;
+	LPC_PINCON->PINSEL1|=0b10<<20;
+
 	/* Set default clock divider for DAC */
-	// CLKPWR_SetPCLKDiv (CLKPWR_PCLKSEL_DAC, CLKPWR_PCLKSEL_CCLK_DIV_4);
+	CLKPWR_SetPCLKDiv (CLKPWR_PCLKSEL_DAC, CLKPWR_PCLKSEL_CCLK_DIV_4);
 	//Set maximum current output
 	DAC_SetBias(LPC_DAC,DAC_MAX_CURRENT_700uA);
 }
