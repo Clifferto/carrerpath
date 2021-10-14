@@ -25,6 +25,7 @@
 /* Includes ------------------------------------------------------------------- */
 #include "lpc17xx_adc.h"
 #include "lpc17xx_clkpwr.h"
+#include <math.h>
 
 /* If this source file built with example, the LPC17xx FW library configuration
  * file in each example directory ("lpc17xx_libcfg.h") must be included,
@@ -76,6 +77,7 @@ void ADC_Init(LPC_ADC_TypeDef *ADCx, uint32_t rate)
      * ADC rate = ADC clock / 65;
      */
     temp = (temp /(rate * 65)) - 1;
+    //temp = (unsigned int)(ceilf((float)((temp /(rate * 65)) - 1)));
     tmp |=  ADC_CR_CLKDIV(temp);
 
     ADCx->ADCR = tmp;

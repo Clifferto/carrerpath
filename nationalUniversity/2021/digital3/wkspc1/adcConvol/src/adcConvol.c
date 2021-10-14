@@ -77,6 +77,7 @@ void cfgAdc(){
 	 * ADC operativo a 8Ksamples
 	 */
 	ADC_Init(instAdc, 8183);
+	//ADC_Init(instAdc, 200E3);
 
 	/*
 	 * p0.23 a AD0.0
