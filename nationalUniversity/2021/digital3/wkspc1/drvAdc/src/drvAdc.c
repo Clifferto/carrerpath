@@ -19,6 +19,7 @@
 
 //resultados de conversion
 volatile unsigned short int res0=0;
+volatile unsigned short int res1=0;
 
 /*
  * Funciones auxiliares
@@ -30,32 +31,35 @@ void cfgAdc(){
 	 * * pins(PINSEL, PINMODE),
 	 * * interrupt(ADINTEN, NVIC)
 	 */
-	//bloque adc operativo, adc on, sample-rate a 200KHz (clk del ADC a 13MHz "ponele")
+	//bloque adc operativo, adc on, sample-rate a 200KHz (clk del ADC a 13MHz "ponele", cmsis se equivoca)
 	ADC_Init(LPC_ADC, (unsigned int)(12.5E6/65));
 
-	//habilitar ch0
+	//habilitar ch0 y ch1
 	ADC_ChannelCmd(LPC_ADC, 0, ENABLE);
+	ADC_ChannelCmd(LPC_ADC, 1, ENABLE);
 
-	//disparo por software
-	//burst entre ch0 y ch1, prescaler=2 (adclk a 12.5MHz), burst off
+	//disparo por hw, burst entre ch0 y ch1, burst off en configuracion
 
 	//p0.23 al AD0.0, pull-mode off
-	PINSEL_CFG_Type cfgP023;
-	PINSEL_GetDefaultCfg(&cfgP023);
+	PINSEL_CFG_Type cfgP023024={
+		.Funcnum=1,
+		.Pinmode=PINSEL_PINMODE_TRISTATE,
+		.Pinnum=23,
+		.Portnum=0,
+		.OpenDrain=PINSEL_PINMODE_NORMAL
+	};
+	PINSEL_ConfigPin(&cfgP023024);
 
-	cfgP023.Funcnum=1;
-	cfgP023.Pinmode=PINSEL_PINMODE_TRISTATE;
-	cfgP023.Pinnum=23;
-	cfgP023.Portnum=0;
+	//p0.24 al AD0.1, pull-mode off
+	cfgP023024.Pinnum=24;
+	PINSEL_ConfigPin(&cfgP023024);
 
-	//cargar configuracion
-	PINSEL_ConfigPin(&cfgP023);
-
-	//activar interrupcion por canal (para burst), por ch ultimo de la conversion
-
-	//activar interrupcion por canales, ch0
-	LPC_ADC->ADINTEN&=~(1<<8);
-	ADC_IntConfig(LPC_ADC, ADC_ADINTEN0, SET);
+	/*
+	 * Activar interrupcion por canal (IMPORTANTE: para burst interrumpir por ultimo ch de conversion)
+	 */
+	//activar interrupcion por canales, ch1
+	//LPC_ADC->ADINTEN&=~(1<<8);
+	ADC_IntConfig(LPC_ADC, ADC_ADINTEN1, ENABLE);
 
 	//bajar banderas y cargar en NVIC
 	NVIC_ClearPendingIRQ(ADC_IRQn);
@@ -68,20 +72,18 @@ void cfgAdc(){
  * Handlers
  */
 void ADC_IRQHandler(){
-	//burst stop
-	//LPC_ADC->ADCR&=~(1<<16);
+	//burst stop (debug)
+	LPC_ADC->ADCR&=~(1<<16);
 
 	//status
 	//volatile unsigned int stt=LPC_ADC->ADSTAT;
 
-	//leer valor de conversion y bajar banderas
+	//leer valor de conversiones y bajar banderas
 	res0=ADC_ChannelGetData(LPC_ADC, 0);
+	res1=ADC_ChannelGetData(LPC_ADC, 1);
 
-	//burst start
-	//LPC_ADC->ADCR|=(1<<16);
-
-	//iniciar conversion
-	ADC_StartCmd(LPC_ADC, ADC_START_NOW);
+	//burst start (debug)
+	LPC_ADC->ADCR|=(1<<16);
 
 	return;
 }
@@ -97,11 +99,8 @@ int main(void) {
 	 */
 	cfgAdc();
 
-	//iniciar conversion
-	ADC_StartCmd(LPC_ADC, ADC_START_NOW);
-
-	//burst start
-	//LPC_ADC->ADCR|=(1<<16);
+	//iniciar modo burst ahora
+	ADC_BurstCmd(LPC_ADC, SET);
 
 	while(1) {
 		//proximamente: nada...
