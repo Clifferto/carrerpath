@@ -18,6 +18,7 @@
 #include <lpc17xx_pinsel.h>
 #include <lpc17xx_timer.h>
 #include <lpc17xx_dac.h>
+#include <lpc17xx_gpdma.h>
 
 //resultados de conversion
 volatile unsigned short int res0=0;
@@ -33,34 +34,27 @@ void cfgAdc(){
 	 * * pins(PINSEL, PINMODE),
 	 * * interrupt(ADINTEN, NVIC)
 	 */
-	//bloque adc operativo, adc on, sample-rate a 192.3KHz (5.2us/sample)
-	//ADC_Init(LPC_ADC, (unsigned int)(12.5E6/65));
-	//xxx
-	//bloque adc operativo, adc on, sample-rate a 10KHz
-	ADC_Init(LPC_ADC, 10E3);
+	//bloque adc operativo, adc on, sample-rate a 8KHz
+	ADC_Init(LPC_ADC, 8E3);
+
+	//p0.23 al AD0.0, pull-mode off
+	PINSEL_CFG_Type cfgP023={
+			.Funcnum=1,
+			.OpenDrain=PINSEL_PINMODE_NORMAL,
+			.Pinmode=PINSEL_PINMODE_TRISTATE,
+			.Pinnum=23,
+			.Portnum=0
+	};
+	PINSEL_ConfigPin(&cfgP023);
 
 	//habilitar ch0
 	ADC_ChannelCmd(LPC_ADC, 0, ENABLE);
 
-	//disparo por hw, flanco de subida en MAT0.1
-	//ADC_EdgeStartConfig(LPC_ADC, 0);
-	//ADC_StartCmd(LPC_ADC, ADC_START_ON_MAT01);
-
-	//p0.23 al AD0.0, pull-mode off
-	PINSEL_CFG_Type cfgP023;
-	PINSEL_GetDefaultCfg(&cfgP023);
-
-	cfgP023.Funcnum=1;
-	cfgP023.Pinmode=PINSEL_PINMODE_TRISTATE;
-	cfgP023.Pinnum=23;
-	cfgP023.Portnum=0;
-
-	//cargar configuracion
-	PINSEL_ConfigPin(&cfgP023);
+	//disparo por hw, modo burst
 
 	//activar interrupcion por canales, ch0
-	LPC_ADC->ADINTEN&=~(1<<8);
-	ADC_IntConfig(LPC_ADC, ADC_ADINTEN0, SET);
+	//LPC_ADC->ADINTEN&=~(1<<8);
+	ADC_IntConfig(LPC_ADC, ADC_ADINTEN0, ENABLE);
 
 	//bajar banderas y cargar en NVIC
 	NVIC_ClearPendingIRQ(ADC_IRQn);
@@ -132,7 +126,7 @@ void ADC_IRQHandler(){
 	res0=ADC_ChannelGetData(LPC_ADC, 0);
 
 	//pasar valor al DAC
-	DAC_UpdateValue(LPC_DAC, (res0>>2)&0x3FF);
+	//DAC_UpdateValue(LPC_DAC, (res0>>2)&0x3FF);
 
 	return;
 }
@@ -151,7 +145,7 @@ int main(void) {
 	/*
 	 * Config DAC
 	 */
-	cfgDac();
+	//cfgDac();
 
 	/*
 	 * Config TMR0
@@ -161,11 +155,11 @@ int main(void) {
 	//iniciar conversion en burst mode
 	//ADC_StartCmd(LPC_ADC, ADC_START_NOW);
 	//xxx
-	//disparo por hw, burst mode a 10KHz, LA FUNCION HACE EL DISPARO
-	ADC_BurstCmd(LPC_ADC, 1);
+	//disparo por hw, burst mode a 8KHz, LA FUNCION HACE EL DISPARO
+	ADC_BurstCmd(LPC_ADC, ENABLE);
 
 	while(1) {
-		dacval=((LPC_DAC->DACR)>>6)&0x3FF;
+		//dacval=((LPC_DAC->DACR)>>6)&0x3FF;
 		//proximamente: nada...
 	}
 
