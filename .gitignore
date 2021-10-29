@@ -1,5 +1,5 @@
 ## Excludes
-**/bk/
+##**/bk/
 **/wkspc1/.met*/
 **/wkspc1/.mcux*/
 # Agregar proyectos para trackear
