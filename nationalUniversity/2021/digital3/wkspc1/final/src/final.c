@@ -15,6 +15,8 @@
 #include "lpc17xx_pinsel.h"
 #include "lpc17xx_adc.h"
 #include "lpc17xx_timer.h"
+#include "lpc17xx_dac.h"
+#include "lpc17xx_rit.h"
 #endif
 
 #include <cr_section_macros.h>
@@ -47,12 +49,15 @@ uint16_t *pInBuff = inBuff;
 void initUART0(void);
 void initLEDPins(void);
 void initADC(void);
+void initDAC(void);
 void initTMR0(void);
 void initTMR2(void);
 void blinkRedLed(void);
 void blinkGreenLed(void);
 void blinkBlueLed(void);
 void delay_ms(int);
+void initRit();
+void dacPlay(void);
 
 //xxx
 int main(void) {
@@ -62,6 +67,9 @@ int main(void) {
 	initADC();
 	initTMR0();
 	initTMR2();
+
+	initRit();
+	initDAC();
 
 	/* Algorithm */
     currentKey = 0x12345678; //valor por defecto
@@ -97,6 +105,9 @@ int main(void) {
 				while(!flagAdcDone) {};
 				TIM_Cmd(LPC_TIM0, DISABLE);
 				blinkBlueLed();
+
+				//reproducir señal por dac, activar rit
+				RIT_Cmd(LPC_RIT, ENABLE);
 			}
 			cmd[0]=0;
 			cmd[1]=0;
@@ -277,4 +288,63 @@ void delay_ms(int time) {
 	TIM_Cmd(LPC_TIM2, ENABLE);
 	while (LPC_TIM2 -> TC < time); //en [ms]
 	TIM_Cmd(LPC_TIM2, DISABLE);
+}
+
+void initDAC(void){
+	//p0.26 a AOUT (habilitar acceso a registros)
+	PINSEL_CFG_Type cfgP026={
+		.OpenDrain=PINSEL_PINMODE_NORMAL,
+		.Pinmode=PINSEL_PINMODE_TRISTATE,
+		.Funcnum=2,
+		.Pinnum=26,
+		.Portnum=0
+	};
+	PINSEL_ConfigPin(&cfgP026);
+
+	//iniciar dac, maxima velocidad 1MHz
+	DAC_Init(LPC_DAC);
+	DAC_SetBias(LPC_DAC, 0);
+
+	return;
+}
+
+void initRit(){
+	//inicializar timer, por defecto habilitado
+	RIT_Init(LPC_RIT);
+	//apagar para config
+	RIT_Cmd(LPC_RIT, DISABLE);
+
+	//configurar para 166ms
+	RIT_TimerConfig(LPC_RIT, 166);
+	//pasar a micro segundos
+	LPC_RIT->RICOMPVAL=(unsigned int)((LPC_RIT->RICOMPVAL)/1000);
+
+	//limpiar pending y cargar en NVIC
+	NVIC_ClearPendingIRQ(RIT_IRQn);
+	NVIC_EnableIRQ(RIT_IRQn);
+
+	return;
+}
+
+void RIT_IRQHandler(){
+	//bajar banderas
+	RIT_GetIntStatus(LPC_RIT);
+
+	//actualizar valor del dac
+	DAC_UpdateValue(LPC_DAC, (*pInBuff)&0x3FF);
+
+	//incrementar puntero del buffer
+	if(pInBuff==&inBuff[IN_BUFF_LEN-1]){
+		pInBuff=inBuff;
+
+		//apagar timer
+		RIT_Cmd(LPC_RIT, DISABLE);
+	}
+	else pInBuff++;
+
+	return;
+}
+
+void dacPlay(void){
+	return;
 }
