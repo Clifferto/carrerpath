@@ -98,28 +98,23 @@ void cfgDac(){
 
 void cfgTimer(){
 	/*
-	 * Configurar timer a 25MHz para 500ms
+	 * Configurar timer a 25MHz para 1us
 	 */
-	TIM_TIMERCFG_Type cfgTmr;
-	TIM_GetDefaultCfg(&cfgTmr);
-
-	//prescaler 100E3 (cmsis SI resta el 1)
-	cfgTmr.PrescaleValue=125;
-
 	//cargar config y reset
+	TIM_TIMERCFG_Type cfgTmr={
+		.PrescaleOption=TIM_PRESCALE_USVAL,
+		.PrescaleValue=1
+	};
 	TIM_Init(LPC_TIM0, TIM_TIMER_MODE, &cfgTmr);
-	TIM_ResetCounter(LPC_TIM0);
 
-	//match 125 (cmsis NO resta el 1), canal 0, interrupcion en match
-	TIM_MATCHCFG_Type cfgMatch;
-	TIM_GetDefaultMatch(&cfgMatch);
-
-	cfgMatch.IntOnMatch=ENABLE;
-	cfgMatch.MatchChannel=0;
-	cfgMatch.MatchValue=10-1;
-
-	//cargar config de match
-	TIM_ConfigMatch(LPC_TIM0, &cfgMatch);
+	//match 0, en 1
+	TIM_MATCHCFG_Type cfgMatch0={
+		.IntOnMatch=ENABLE,
+		.MatchChannel=0,
+		.MatchValue=1,
+		.ResetOnMatch=ENABLE,
+	};
+	TIM_ConfigMatch(LPC_TIM0, &cfgMatch0);
 
 	//bajar banderas y cargar en NVIC
 	TIM_ClearIntPending(LPC_TIM0, TIM_MR0_INT);
@@ -137,7 +132,6 @@ void TIMER0_IRQHandler(){
 	TIM_ClearIntPending(LPC_TIM0, TIM_MR0_INT);
 
 	//colocar valor en el dac
-	//LPC_DAC->DACR=(*(signal+n) & 0x3FF)<<6;
 	DAC_UpdateValue(LPC_DAC, *(signal+n));
 
 	//incrementar offset
@@ -164,7 +158,7 @@ int main(void) {
 
     while(1) {
     	//leer valor del dac
-        dacval=(LPC_DAC->DACR>>6)&0x3FF;
+        //dacval=(LPC_DAC->DACR>>6)&0x3FF;
 
     	__asm volatile ("nop");
     }

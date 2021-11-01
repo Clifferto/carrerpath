@@ -18,7 +18,7 @@
 #include <lpc17xx_pinsel.h>
 #include <lpc17xx_timer.h>
 #include <lpc17xx_dac.h>
-#include <lpc17xx_gpdma.h>
+#include <lpc17xx_gpio.h>
 
 //resultados de conversion
 volatile unsigned short int res0=0;
@@ -47,7 +47,7 @@ void cfgAdc(){
 	};
 	PINSEL_ConfigPin(&cfgP023);
 
-	//habilitar ch0
+	//habilitar AD0.0
 	ADC_ChannelCmd(LPC_ADC, 0, ENABLE);
 
 	//disparo por hw, modo burst
@@ -60,53 +60,87 @@ void cfgAdc(){
 	NVIC_ClearPendingIRQ(ADC_IRQn);
 	NVIC_EnableIRQ(ADC_IRQn);
 
-	return;
-}
+	//AD0.1-AD0.7 a GPIO, pull-down, salida digital, estado bajo
+	//tener en cuenta: AD0.3 DACOUT, AD0.6 y AD0.7 UART0
+	unsigned char nullCh[6]={2,3,24,25,30,31};
 
-void cfgTmr0(){
-	/**
-	 * TIMER Secuencia de inicializacion:
-	 * * pwr (PCONP),
-	 * * clk (PCLKSEL),
-	 * * pines para capture/match externo (PINSEL,PINMODE),
-	 * * config timer (TCR,MRx)
-	 * * interrupts (IR,MCR,CCR)
-	 */
-	//TMR0 a 25MHz, PS=0 (control por TC), toggle en MAT0.1 a 20KHz (cada 50us)(cuadrada de 10KHz, muestreo a 10K)
-	TIM_TIMERCFG_Type cfgtim;
+	PINSEL_CFG_Type cfgNullCh={
+		.Funcnum=0,
+		.OpenDrain=PINSEL_PINMODE_NORMAL,
+		.Pinmode=PINSEL_PINMODE_PULLDOWN,
+	};
 
-	TIM_GetDefaultCfg(&cfgtim);
-	//cmsis resta 1 al PS
-	cfgtim.PrescaleValue=1;
+	for(unsigned char ch=0;ch<sizeof(nullCh);ch++){
+		//ch del puerto 0
+		if(ch<4){
+			//pull-down, pin como salida
+			cfgNullCh.Portnum=0;
+			cfgNullCh.Pinnum=*(nullCh+ch);
+			PINSEL_ConfigPin(&cfgNullCh);
+			GPIO_SetDir(0, 1<<(*(nullCh+ch)), 1);
+			//estado bajo
+			GPIO_ClearValue(0, 1<<(*(nullCh+ch)));
+		}
 
-	//cargar config al modulo
-	TIM_Init(LPC_TIM0, TIM_TIMER_MODE, &cfgtim);
-
-	//match externo, toggle en MAT0.1
-	TIM_MATCHCFG_Type cfgmatch;
-
-	TIM_GetDefaultMatch(&cfgmatch);
-	cfgmatch.ExtMatchOutputType=TIM_EXTMATCH_TOGGLE;
-	cfgmatch.MatchChannel=1;
-	cfgmatch.MatchValue=1250-1;
-
-	//cargar config de match
-	TIM_ConfigMatch(LPC_TIM0, &cfgmatch);
-
-	//p1.29 a MAT0.1, pull-off
-	PINSEL_CFG_Type cfgp129;
-
-	PINSEL_GetDefaultCfg(&cfgp129);
-	cfgp129.Funcnum=3;
-	cfgp129.Pinmode=PINSEL_PINMODE_TRISTATE;
-	cfgp129.Pinnum=29;
-	cfgp129.Portnum=1;
-
-	//cargar config del pin
-	PINSEL_ConfigPin(&cfgp129);
+		//ch del puerto 1
+		else{
+			//pull-down, pin como salida
+			cfgNullCh.Portnum=1;
+			cfgNullCh.Pinnum=*(nullCh+ch);
+			PINSEL_ConfigPin(&cfgNullCh);
+			GPIO_SetDir(1, 1<<(*(nullCh+ch)), 1);
+			//estado bajo
+			GPIO_ClearValue(1, 1<<(*(nullCh+ch)));
+		}
+	}
 
 	return;
 }
+
+//void cfgTmr0(){
+//	/**
+//	 * TIMER Secuencia de inicializacion:
+//	 * * pwr (PCONP),
+//	 * * clk (PCLKSEL),
+//	 * * pines para capture/match externo (PINSEL,PINMODE),
+//	 * * config timer (TCR,MRx)
+//	 * * interrupts (IR,MCR,CCR)
+//	 */
+//	//TMR0 a 25MHz, PS=0 (control por TC), toggle en MAT0.1 a 20KHz (cada 50us)(cuadrada de 10KHz, muestreo a 10K)
+//	TIM_TIMERCFG_Type cfgtim;
+//
+//	TIM_GetDefaultCfg(&cfgtim);
+//	//cmsis resta 1 al PS
+//	cfgtim.PrescaleValue=1;
+//
+//	//cargar config al modulo
+//	TIM_Init(LPC_TIM0, TIM_TIMER_MODE, &cfgtim);
+//
+//	//match externo, toggle en MAT0.1
+//	TIM_MATCHCFG_Type cfgmatch;
+//
+//	TIM_GetDefaultMatch(&cfgmatch);
+//	cfgmatch.ExtMatchOutputType=TIM_EXTMATCH_TOGGLE;
+//	cfgmatch.MatchChannel=1;
+//	cfgmatch.MatchValue=1250-1;
+//
+//	//cargar config de match
+//	TIM_ConfigMatch(LPC_TIM0, &cfgmatch);
+//
+//	//p1.29 a MAT0.1, pull-off
+//	PINSEL_CFG_Type cfgp129;
+//
+//	PINSEL_GetDefaultCfg(&cfgp129);
+//	cfgp129.Funcnum=3;
+//	cfgp129.Pinmode=PINSEL_PINMODE_TRISTATE;
+//	cfgp129.Pinnum=29;
+//	cfgp129.Portnum=1;
+//
+//	//cargar config del pin
+//	PINSEL_ConfigPin(&cfgp129);
+//
+//	return;
+//}
 
 void cfgDac(){
 	//habilitar bloque
@@ -126,7 +160,7 @@ void ADC_IRQHandler(){
 	res0=ADC_ChannelGetData(LPC_ADC, 0);
 
 	//pasar valor al DAC
-	//DAC_UpdateValue(LPC_DAC, (res0>>2)&0x3FF);
+	DAC_UpdateValue(LPC_DAC, (res0>>2)&0x3FF);
 
 	return;
 }
@@ -145,7 +179,7 @@ int main(void) {
 	/*
 	 * Config DAC
 	 */
-	//cfgDac();
+	cfgDac();
 
 	/*
 	 * Config TMR0
