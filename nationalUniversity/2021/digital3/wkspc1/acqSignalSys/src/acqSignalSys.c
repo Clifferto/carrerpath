@@ -143,10 +143,18 @@ void cfgAdc(){
 //}
 
 void cfgDac(){
-	//habilitar bloque
-	DAC_Init(LPC_DAC);
+	//p0.26 a AOUT (habilitar acceso a registros)
+	PINSEL_CFG_Type cfgP026={
+		.OpenDrain=PINSEL_PINMODE_NORMAL,
+		.Pinmode=PINSEL_PINMODE_TRISTATE,
+		.Funcnum=2,
+		.Pinnum=26,
+		.Portnum=0
+	};
+	PINSEL_ConfigPin(&cfgP026);
 
-	//max setup rate 1MHz
+	//iniciar dac, maxima velocidad 1MHz
+	DAC_Init(LPC_DAC);
 	DAC_SetBias(LPC_DAC, 0);
 
 	return;
