@@ -1,7 +1,92 @@
+# Modulos
 import numpy as np
 import matplotlib.pyplot as plt
-import sympy as sym
-import control as ct
+import sympy as spy
+import control as ctl
+
+# Funciones auxiliares
+def mem2mem(equation,opp):
+    """mem2mem:
+        Aplica una operacion sencilla en ambos miembros de una ecuacion.
+
+    Args:
+        equation: Ecuacion a operar.
+        opp: Termino para operar en ambos miembros.
+
+    Returns: 
+        Ecuacion de resultado luego de operar.
+    """
+    sel=opp[0]
+    expr=spy.sympify(opp[1::])
+    
+    if sel=="+":
+        return spy.Eq(equation.lhs+expr,equation.rhs+expr)
+    elif sel=="-":
+        return spy.Eq(equation.lhs-expr,equation.rhs-expr)
+    elif sel=="*":
+        return spy.Eq(equation.lhs*expr,equation.rhs*expr)
+    elif sel=="/":
+        return spy.Eq(equation.lhs/expr,equation.rhs/expr)
+
+#########################################################################################################
+
+#simbolos para las ecuaciones
+# n = N1/N2 = W2/W1 = T1/T2
+s,V,Im,Wm,Jm,bm,rm,lm,km,kv,T1,T2,W2,Tm,n,b2=spy.symbols("s,V,Im,Omega_m,Jm,bm,rm,lm,km,kv,T1,T2,Omega_2,Tm,n,b2")
+
+#ecuaciones
+print("Sistema:\n")
+eqq1=spy.Eq(V,Im*(rm+s*lm)+kv*Wm)
+eqq2=spy.Eq(Tm-Wm*bm-T1,Jm*Wm*s)
+eqq3=spy.Eq(T2,W2*b2)
+
+spy.pprint((eqq1,eqq2,eqq3))
+print("-"*60)
+
+# Tm = km*Im
+# T2 = T1/n
+eqq2=eqq2.replace(Tm,km*Im)
+eqq3=eqq3.replace(T2,T1/n)
+
+# eliminar T1 y T2
+print("Eliminando T1 y T2:\n")
+eqq2=mem2mem(eqq2,"-(Im*km-Omega_m*bm)")
+eqq3=mem2mem(eqq3,"*n")
+
+spy.pprint((eqq2,eqq3))
+
+eqq4=spy.Eq(eqq2.lhs+eqq3.lhs,eqq2.rhs+eqq3.rhs)
+
+spy.pprint(eqq4)
+print("-"*60)
+
+# cancelar la corriente
+print("Eliminando Im:\n")
+eqq4=mem2mem(eqq4,"+Im*km")
+eqq4=mem2mem(eqq4,"/km")
+
+eqq1=mem2mem(eqq1,"-Omega_m*kv")
+eqq1=mem2mem(eqq1,"/(lm*s+rm)")
+
+spy.pprint((eqq4,eqq1))
+
+eqq5=spy.Eq(eqq4.lhs-eqq1.rhs,eqq4.rhs-eqq1.lhs)
+spy.pprint(eqq5)
+print("-"*60)
+
+# funcion de transferencia
+# Wm = W2/n
+print("Relacion W2/V:\n")
+eqq5=eqq5.replace(Wm,W2/n)
+
+spy.pprint(eqq5)
+
+eqqW2=spy.solve(eqq5,W2)
+eqqV=spy.solve(eqq5,V)
+
+spy.pprint(eqqW2/eqqV)
+
+exit()
 
 # Parametros
 #sensor(V/°): +/-5V a +/- 20°
