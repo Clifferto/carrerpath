@@ -3,6 +3,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import sympy as spy
 import control as ctl
+from sympy.core.compatibility import iterable
+from reliability.Other_functions import crosshairs as csr
 
 # Funciones auxiliares
 def mem2mem(equation,opp):
@@ -28,159 +30,151 @@ def mem2mem(equation,opp):
     elif sel=="/":
         return spy.Eq(equation.lhs/expr,equation.rhs/expr)
 
+def disp(ecuaciones,titulo=""):
+    print(titulo + "\n")
+    
+    if type(ecuaciones)!=iterable:
+        spy.pprint(ecuaciones)
+    
+    else:
+        for ecc in ecuaciones:
+            spy.pprint(ecc)
+
+    print("\n" + "-"*80)
+
 #########################################################################################################
 
-#simbolos para las ecuaciones
-# n = N1/N2 = W2/W1 = T1/T2
-s,V,Im,Wm,Jm,bm,rm,lm,km,kv,T1,T2,W2,Tm,n,b2=spy.symbols("s,V,Im,Omega_m,Jm,bm,rm,lm,km,kv,T1,T2,Omega_2,Tm,n,b2")
-
 #ecuaciones
-print("Sistema:\n")
-eqq1=spy.Eq(V,Im*(rm+s*lm)+kv*Wm)
-eqq2=spy.Eq(Tm-Wm*bm-T1,Jm*Wm*s)
-eqq3=spy.Eq(T2,W2*b2)
+# V = Im*(rm+lm*s) + kv*Wm
+# Tm = Wm*(Jm*s + bm) + T1
+# T2 = W2*(J*s + b2)
+V,Im,rm,lm,kv,Wm=spy.symbols("V,Im,rm,lm,kv,Wm")
+Tm,Jm,s,bm,T1=spy.symbols("Tm,Jm,s,bm,T1")
+T2,W2,J,b2=spy.symbols("T2,W2,J,b2")
 
-spy.pprint((eqq1,eqq2,eqq3))
-print("-"*60)
+eqq1=spy.Eq(V,Im*(rm+lm*s) + kv*Wm)
+eqq2=spy.Eq(Tm,Wm*(Jm*s + bm) + T1)
+eqq3=spy.Eq(T2,W2*(J*s + b2))
 
+disp((eqq1,eqq2,eqq3),"Ecuaciones:")
+
+#igualdades auxiliares
 # Tm = km*Im
-# T2 = T1/n
-eqq2=eqq2.replace(Tm,km*Im)
-eqq3=eqq3.replace(T2,T1/n)
+# n = N1/N2 = W2/W1 = T1/T2
+km,Im,n=spy.symbols("km,Im,n")
 
-# eliminar T1 y T2
-print("Eliminando T1 y T2:\n")
-eqq2=mem2mem(eqq2,"-(Im*km-Omega_m*bm)")
-eqq3=mem2mem(eqq3,"*n")
+#cancelar T1 y T1
+aux0=spy.Eq(T1,spy.solve(eqq2,T1)[0])
+aux1=mem2mem(eqq3,"*n").replace(T2*n,T1)
 
-spy.pprint((eqq2,eqq3))
+aux2=spy.Eq(aux0.lhs-aux1.lhs,aux0.rhs-aux1.rhs)
 
-eqq4=spy.Eq(eqq2.lhs+eqq3.lhs,eqq2.rhs+eqq3.rhs)
+disp((eqq1,aux2),"Cancelar T1 y T2:")
 
-spy.pprint(eqq4)
-print("-"*60)
+#cancelar Tm e Im
+aux3=spy.Eq(Tm,spy.solve(aux2,Tm)[0])
+aux4=spy.Eq(Im,spy.solve(eqq1,Im)[0])
+aux4=mem2mem(aux4,"*km").replace(Im*km,Tm)
 
-# cancelar la corriente
-print("Eliminando Im:\n")
-eqq4=mem2mem(eqq4,"+Im*km")
-eqq4=mem2mem(eqq4,"/km")
+aux5=spy.Eq(aux3.lhs-aux4.lhs,aux3.rhs-aux4.rhs)
 
-eqq1=mem2mem(eqq1,"-Omega_m*kv")
-eqq1=mem2mem(eqq1,"/(lm*s+rm)")
+disp(aux5,"Cancelar Im y Tm:")
 
-spy.pprint((eqq4,eqq1))
+#resolver para W2/V
+aux6=spy.Eq(Wm,spy.solve(aux5,Wm)[0])
+aux6=mem2mem(aux6,"*n").replace(Wm*n,W2)
 
-eqq5=spy.Eq(eqq4.lhs-eqq1.rhs,eqq4.rhs-eqq1.lhs)
-spy.pprint(eqq5)
-print("-"*60)
+aux7=spy.Eq(W2,spy.solve(aux6,W2)[0])
+aux7=mem2mem(aux7,"/V")
 
-# funcion de transferencia
-# Wm = W2/n
-print("Relacion W2/V:\n")
-eqq5=eqq5.replace(Wm,W2/n)
+aux7=spy.Eq(W2/V,aux7.rhs.collect(s))
 
-spy.pprint(eqq5)
+disp(aux7,"Resolver para W2/V:")
 
-eqqW2=spy.solve(eqq5,W2)
-eqqV=spy.solve(eqq5,V)
+#armar funcion de transferencia G = P2/V
+aux8=mem2mem(aux7,"/s")
 
-spy.pprint(eqqW2/eqqV)
+P2=spy.symbols("P2")
+eqqG=spy.Eq(P2/V,aux8.rhs)
 
-exit()
+disp(eqqG,"Funcion de transferencia:")
 
-# Parametros
+#armar funcion de transferencia de lazo abierto
+ssr,pwm,Av,FTLA=spy.symbols("ssr,pwm,Av,FTLA")
+
+eqqFTLA=spy.Eq(FTLA,ssr*pwm*Av*eqqG.rhs)
+
+disp(eqqFTLA,"Funcion de transferencia a lazo abierto:")
+
+
+#parametros de la planta
 #sensor(V/°): +/-5V a +/- 20°
-ssr=5/20
+ppssr=5/20
 #pwm(%D/V): +/-5V es +/-100D%
-pwm=1/5 
+pppwm=1/5 
 #ganancia(V/%D): +/-100D% son +/-12V
-gv=12/100
+ppAv=12/100
 
-#MOTOR: FAULHABER 012CXR
-#cte motor(mNm/A)>(mNcm/A)
-km=(14.48)*100
-#cte fcem(V/rpm)>(V/rps)
-kv=1.515/(2*np.pi/60)
-#inercia del rotor(gr/cm2)>(kg/cm**2)
-jm=1.6/1000
-#friccion(mNm*s)>(mNcm*s): Kf=.29mNm, Wnom=7500rpm
-bm=.29*100/(7500*2*np.pi/60)
-#resistencia(ohm)
-rm=5.8
-#inductancia(Hy)
-lm=135E-6
+eqqFTLA=eqqFTLA.subs({ssr:ppssr, 
+                      pwm:pppwm,
+                      Av:ppAv})
+
+#motor
+pprm = 26.9 
+pplm = 600E-6
+ppJm = 1.5E-7
+ppkm = 30.82E-3
+ppkv = 30.82E-3
+ppbm = 3.7628E-5
+
+eqqFTLA=eqqFTLA.subs({rm:pprm, 
+                      lm:pplm,
+                      Jm:ppJm,
+                      km:ppkm,
+                      kv:ppkv,
+                      bm:ppbm})
 
 #caja reductora
-ke=1/4
+ppn=1/4
 
-# SEGUIDOR
+#seguidor
 #disco dentado de pla: h=1cm, r=5cm, densidad=1.32gr/cm3, J=1/2*densidad*vol*r**2
 densidad=1.32/1000
 radio=5
 vol=(np.pi*radio**2)*1
 
-#inercia
-j=1/2*densidad*vol*radio**2
+#inercia (gr*cm2)
+ppJ=1/2*densidad*vol*radio**2
+#pasar a Kg*m2
+ppJ=ppJ*1E-7
 #friccion 
-b=4*bm
+ppb2=2*ppbm
 
-# Ecuaciones
-#ganancias
-ssrSy,pwmSy,gvSy,keSy=sym.symbols("ssrSy,pwmSy,gvSy,keSy".replace(","," "))
+eqqFTLA=eqqFTLA.subs({n:ppn, 
+                      J:ppJ,
+                      b2:ppb2}).expand()
 
-ctes=ssrSy*pwmSy*gvSy
+disp(eqqFTLA,"Planta:")
 
-print("\nGanancias:")
-sym.pprint(ctes)
+num=[spy.numer(eqqFTLA.rhs)]
+den=[spy.denom(eqqFTLA.rhs).coeff(s,pot) for pot in reversed(range(4))]
 
-#planta
-kmSy,kvSy,jmSy,bmSy,rmSy,lmSy,jSy,bSy,s=sym.symbols("kmSy,kvSy,jmSy,bmSy,rmSy,lmSy,jSy,bSy,s".replace(","," "))
+print("Coeficientes:")
+print((num,den))
 
-numSy=kmSy*keSy
-denSy=(keSy**2*(s*jSy+bSy)*(rmSy+s*lmSy)+(s*jmSy+bmSy)*(rmSy+s*lmSy)+kvSy*kmSy)
-planta=numSy/denSy
+FTLA=ctl.tf([4.62300000000000e-5], [9.48596511360217e-11, 4.27827325926497e-6, 0.00208858975000000, 0])
 
-print("\nPlanta:")
-sym.pprint(planta)
+print(FTLA)
 
-#fuciones en serie
-ec0=ctes*planta*(1/s)
+#respuesta al escalon
+t,y=ctl.step_response(ctl.feedback(FTLA,1),1000)
 
-numSy,denSy=sym.fraction(ec0)
-numSy=sym.collect(sym.expand(numSy),s)
-denSy=sym.collect(sym.expand(denSy),s)
-
-#sistema completo
-ec1=numSy/denSy
-
-print("\nSistema completo:")
-sym.pprint(ec1)
-
-# FTLA
-#reemplazo parametros
-ec2=ec1.subs([(ssrSy,ssr),(pwmSy,pwm),(gvSy,gv),(keSy,ke),
-            (kmSy,km),(kvSy,kv),(jmSy,jm),(bmSy,bm),(rmSy,rm),(lmSy,lm),
-            (jSy,j),(bSy,b)])
-
-#sistema valuado
-print("\nValuado:")
-sym.pprint(ec2)
-
-#extraer coeficientes del polinomio
-N,D=sym.fraction(ec2)
-N=[N.coeff(s,i) for i in range(0,1)][::-1]
-D=[D.coeff(s,i) for i in range(0,4)][::-1]
-
-print(f"\nNUM: {N}\nDEN: {D}")
-
-# Lazo abierto
-ftla=ct.tf([2.17200000000000], [1.11502150560488, 0.479052507398121, 20948.7506041874, 0])
-
-#ftla=ct.tf([2],[1e-3,.5,2,0])
-print(ftla)
-
-# a,b=ct.step_response(ftla)
-plt.figure()
-plt.plot(ct.step_response(ftla)[1])
+fig=plt.figure()
+plt.plot(t,y)
 plt.grid()
-plt.show()
+csr()
+plt.draw()
+
+while plt.waitforbuttonpress()!=True:
+    pass
+plt.close(fig)
