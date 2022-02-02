@@ -1,0 +1,7 @@
+../inc/nRF24L01.c:17:6:nrf24_writeToNrf	24	static
+../inc/nRF24L01.c:57:9:nrf24_status	16	static
+../inc/nRF24L01.c:70:6:nrf24_init	32	static
+../inc/nRF24L01.c:124:6:nrf24_transmit_payload	16	static
+../inc/nRF24L01.c:137:6:nrf24_CE_high	4	static
+../inc/nRF24L01.c:141:6:nrf24_CE_low	4	static
+../inc/nRF24L01.c:145:6:nrf24_listen_payload	8	static

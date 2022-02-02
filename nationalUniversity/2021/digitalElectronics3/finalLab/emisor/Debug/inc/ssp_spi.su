@@ -1,0 +1,7 @@
+../inc/ssp_spi.c:15:6:confSpi	32	static
+../inc/ssp_spi.c:29:6:senDataSimple	16	static
+../inc/ssp_spi.c:37:6:senData	16	static
+../inc/ssp_spi.c:41:10:recData	8	static
+../inc/ssp_spi.c:47:6:clearRxFifo	16	static
+../inc/ssp_spi.c:55:6:RF_CSN_HIGH	4	static
+../inc/ssp_spi.c:59:6:RF_CSN_LOW	4	static
