@@ -1,12 +1,2 @@
 ## Excludes
-##**/bk/
-**/wkspc1/.met*/
-**/wkspc1/.mcux*/
-# Agregar proyectos para trackear
-#!**/first/
-#!**/pract1/
-#!**/interr/
-#!**/mediaMovil/
-#!**/systock/
-#**/.*/
-**/*.mp4
+*.mp4

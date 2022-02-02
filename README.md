@@ -1,0 +1,3 @@
+# carrerpath
+
+Ecuaciones:
