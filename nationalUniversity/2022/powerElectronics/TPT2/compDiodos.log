@@ -1,0 +1,21 @@
+Circuit: * Z:\UNC\2022\powerElectronics\TPT2\compDiodos.asc
+
+Direct Newton iteration for .op point succeeded.
+
+Date: Tue Mar 29 02:26:35 2022
+Total elapsed time: 0.152 seconds.
+
+tnom = 27
+temp = 27
+method = modified trap
+totiter = 2275
+traniter = 2267
+tranpoints = 1117
+accept = 1098
+rejected = 19
+matrix size = 10
+fillins = 0
+solver = Normal
+Matrix Compiler1: 310 bytes object code size  0.5/0.4/[0.2]
+Matrix Compiler2: off  [0.4]/0.6/0.6
+

@@ -51,6 +51,47 @@ diagrama con rectificador trifasico de onda con carga resistiva, trafo, rec, dis
 
 ## Simulaciones
 
-buscar modelo del MR850, simular el 1N4148 y este, formas de onda if vs vf, tipos de diodo, tiempo de recuperacion inversa, comparar con datasheet.
+conseguido modelos se ven las condiciones de prueba del fabricante
+
+### tipos de diodos
+MR850 rectificador de alta corriente y rapida recuperacion
+
+![](./img/diodoMR0.png)
+
+1N4148 diodo de conmutacion de alta velocidad
+
+![](./img/diodo1N0.png)
+
+### circuito test/condiciones
+
+los fabricantes prueban el tiempo de recuperacion con un circuito similar a este
+
+![](./img/testCirc.png)
+
+condiciones para el mr
+
+![](./img/diodoMR1.png)
+
+condiciones para el 1n
+
+![](./img/diodo1N1.png)
+
+simulaciones de transitorios on/off
+
+en todos se aplica un pulso a los 100ns, para cambiar el estado de conduccion de los diodos
+
+![](./img/diodoLT.png)
+
+![](./img/doidoMRtest0.png)
+
+se nota un importante pico de corriente al entrar en conduccion, triple de la de operacion
+
+![](./img/diodo1Ntest0.png)
+
+tambien se observa pico de corriente pero de menor magnitud
+
+y el tiempo de recuperacion inverso de 150 y 
+
+![](./img/diodosTRR.png)
 
 -------------------------------------
