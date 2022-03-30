@@ -3,8 +3,8 @@ Circuit: * Z:\UNC\2022\powerElectronics\TPT2\compDiodos.asc
 Warning: Multiple definitions of model "1n4148" Type: Diode
 Direct Newton iteration for .op point succeeded.
 
-Date: Tue Mar 29 14:36:30 2022
-Total elapsed time: 0.139 seconds.
+Date: Tue Mar 29 23:07:37 2022
+Total elapsed time: 0.195 seconds.
 
 tnom = 27
 temp = 27
@@ -14,9 +14,9 @@ traniter = 2261
 tranpoints = 1115
 accept = 1097
 rejected = 18
-matrix size = 10
+matrix size = 15
 fillins = 0
 solver = Normal
-Matrix Compiler1: 310 bytes object code size  0.3/0.2/[0.2]
-Matrix Compiler2: off  [0.2]/0.3/0.5
+Matrix Compiler1: 524 bytes object code size  1.2/1.1/[0.6]
+Matrix Compiler2: off  [0.8]/1.3/1.1
 
