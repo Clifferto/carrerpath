@@ -9,6 +9,36 @@
 ## Diodos de potencia.
 
 -----------------------------------------
+con carga resistiva
+
+![](./img/cargaR.png)
+
+![](./img/db1.png)
+
+![](./img/dc1.png)
+
+![](./img/da1.png)
+
+![](./img/irl.png)
+
+la tension en la carga es un multiplo de la corriente, tiene la misma forma de continua pulsante
+
+con carga inductiva, viendo hacia la carga se tiene una impedancia muy grande para la corriente de señal, por lo tanto esta es nula
+y solo hay corriente continua por los diodos
+
+![](./img/cargaL.png)
+
+![](./img/db1L.png)
+
+![](./img/dc1L.png)
+
+![](./img/da1L.png)
+
+conclusion de una carga RL
+
+
+
+
 
 ## 1. Diodo elegido.
 Se eligio para el analisis el ***diodo rectificador de potencia 46DN06B02.***
