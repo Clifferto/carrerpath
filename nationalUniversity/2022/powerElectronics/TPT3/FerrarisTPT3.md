@@ -9,17 +9,7 @@
 ## Diodos de potencia.
 
 -----------------------------------------
-con carga resistiva
 
-![](./img/cargaR.png)
-
-![](./img/db1.png)
-
-![](./img/dc1.png)
-
-![](./img/da1.png)
-
-![](./img/irl.png)
 
 la tension en la carga es un multiplo de la corriente, tiene la misma forma de continua pulsante
 
@@ -36,9 +26,109 @@ y solo hay corriente continua por los diodos
 
 conclusion de una carga RL
 
+--------------------
+
+poner parametros de diodos en funcion de las caracteristicas de la carga, procedimiento: calcular la corriente media y eficaz por diodo, la corriente media en la carga, relacionar corriente media y eficaz con la media de la carga. 
+
+sabemos
+
+$$
+\begin{align*}
+IF(media)=IFav=\frac{1}{T} \int_{-\frac{T}{2}}^{\frac{T}{2}} iD_{(t)} dt \\\\
+IF(ef)=IF=\sqrt{\frac{1}{T} \int_{-\frac{T}{2}}^{\frac{T}{2}} (iD_{(t)})^2 dt} \\\\
+IL(media)=Io=\frac{1}{T} \int_{-\frac{T}{2}}^{\frac{T}{2}} io_{(t)} dt \\\\
+VL(media)=Vo=\frac{1}{T} \int_{-\frac{T}{2}}^{\frac{T}{2}} vo_{(t)} dt
+\end{align*}
+$$
+
+# cargaresistiva
+
+con carga resistiva
+
+![](./img/cargaR.png)
+
+![](./img/db1.png)
+
+![](./img/dc1.png)
+
+![](./img/da1.png)
+
+![](./img/irl.png)
+
+tomamos medio pulso de corriente, aproximamos por coseno, intervalo simetico +/- pi/6, funcion par en intervalo simetrico, hacemos 2 veces la integral de 0 a pi/6 y multiplicamos el resultado por 2 para tener el valor medio de el pulso completo
+
+![](./img/idFoCargaR.png)
+
+con cambios de variable y toda la falopa de los zapatitos de hormigon
+
+valor medio por diodo
+
+$$
+\begin{align*}
+IFav=2\cdot[\frac{1}{2\pi} \int_{-\frac{\pi}{6}}^{\frac{\pi}{6}} Is_{p} cos(\theta) d\theta] 
+= \frac{Is_{p}}{\pi }
+\end{align*}
+$$
+
+valor eficaz por diodo
+
+$$
+\begin{align*}
+IF=2\cdot\sqrt{\frac{1}{2\pi} \int_{-\frac{\pi}{6}}^{\frac{\pi}{6}} [Is_{p} cos(\theta)]^2 d\theta} 
+= 2\cdot\sqrt{\frac{2\pi+3\sqrt{3}}{24\pi}} \cdot Is_p 
+= A \cdot Is_p
+\end{align*}
+$$
+
+corriente media por la carga
+
+![](./img/ioFoCargaR.png)
+
+$$
+\begin{align*}
+Io=\frac{3}{\pi} \int_{-\frac{\pi}{6}}^{\frac{\pi}{6}} Is_{p} cos(\theta) d\theta
+= 3\cdot \frac{Is_{p}}{\pi}
+= 3\cdot IFav
+\end{align*}
+$$
+
+$$
+\begin{align*}
+IFav=\frac{1}{3}\cdot Io 
+= Kav\cdot Io
+\end{align*}
+$$
+
+> dividiendo miembro a miembro IF e Io, y despejando IF:
+
+$$
+\begin{align*}
+IF&=\frac{A\pi}{3}Io
+= \frac{\pi}{3}\cdot 2\cdot\sqrt{\frac{2\pi+3\sqrt{3}}{24\pi}} \cdot Io \\\\
+&= 0.817 \cdot Io
+= Krms \cdot Io
+\end{align*}
+$$
+
+en inversa tiene la tension de linea
+
+$$
+\begin{align*}
+Vo=\frac{3}{\pi} \int_{-\frac{\pi}{6}}^{\frac{\pi}{6}} VL_p cos(\theta) d\theta
+= \frac{3}{\pi} \cdot VL_p
+= \frac{3}{\pi} \cdot V_{RRM} \\\\
+\end{align*}
+$$
+
+$$
+\begin{align*}
+V_{RRM} = \frac{\pi}{3} \cdot Vo
+= 1.047 \cdot Vo
+\end{align*}
+$$
 
 
-
+-----------
 
 ## 1. Diodo elegido.
 Se eligio para el analisis el ***diodo rectificador de potencia 46DN06B02.***
@@ -172,3 +262,12 @@ Pero esto es cambiar el modelo Spice del diodo, por lo que, segun de que fabrica
 
 -------------------------------------
 -------------------------------------
+
+<!---
+Insertar latex en pdf
+--->
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({ tex2jax: {inlineMath: [['$', '$']]}, messageStyle: "none" });
+</script>

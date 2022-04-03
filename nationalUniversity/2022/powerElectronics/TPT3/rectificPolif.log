@@ -2,20 +2,26 @@ Circuit: * Z:\UNC\2022\powerElectronics\TPT3\rectificPolif.asc
 
 Direct Newton iteration for .op point succeeded.
 
-Date: Fri Apr 01 23:27:45 2022
-Total elapsed time: 0.126 seconds.
+idav: AVG(i(da1))=0.035836 FROM 0 TO 0.5
+idef: RMS(i(da1))=0.064143 FROM 0 TO 0.5
+io: AVG(i(rl))=0.107455 FROM 0 TO 0.5
+vo: AVG(v(vo)-v(n001))=0.107455 FROM 0 TO 0.5
+
+
+Date: Sat Apr 02 21:02:53 2022
+Total elapsed time: 0.156 seconds.
 
 tnom = 27
 temp = 27
 method = modified trap
-totiter = 2157
-traniter = 2146
-tranpoints = 1042
-accept = 1042
-rejected = 0
+totiter = 4255
+traniter = 4244
+tranpoints = 1072
+accept = 1071
+rejected = 1
 matrix size = 8
 fillins = 0
 solver = Normal
-Matrix Compiler1: 282 bytes object code size  0.3/0.2/[0.2]
-Matrix Compiler2: off  [0.2]/0.3/0.6
+Matrix Compiler1: 282 bytes object code size  0.3/0.2/[0.1]
+Matrix Compiler2: off  [0.2]/0.2/0.8
 
