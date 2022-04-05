@@ -5,32 +5,24 @@
 ---------------------------------------
 ---------------------------------------
 
-# Trabajo practico teorico 2: 
-## Diodos de potencia.
+# Trabajo practico teorico 3: 
+## Rectificacion.
 
 -----------------------------------------
 
+## 1. Analisis. 
 
-la tension en la carga es un multiplo de la corriente, tiene la misma forma de continua pulsante
+Se hizo un analisis teorico de un circuito rectificador trifasico de onda completa con carga resistiva pura e inductiva pura. Ademas uniendo los analisis se sacaron conclusiones para una carga resistiva-inductiva.
 
-con carga inductiva, viendo hacia la carga se tiene una impedancia muy grande para la corriente de señal, por lo tanto esta es nula
-y solo hay corriente continua por los diodos
+Para cada caso se pusieron los parametros importantes de los diodos en funcion de las caracteristicas de la carga, siguiendo los siguientes pasos:
 
-![](./img/cargaL.png)
+* Calcular la corriente media en la carga.
+* Calcular corrientes media y eficaz por diodo. 
+* Relacionar corriente media y eficaz por diodo con la media de la carga. 
+* Calcular la tension media en la carga.
+* Relacionar la anterior con la tension de pico inversa por diodo.
 
-![](./img/db1L.png)
-
-![](./img/dc1L.png)
-
-![](./img/da1L.png)
-
-conclusion de una carga RL
-
---------------------
-
-poner parametros de diodos en funcion de las caracteristicas de la carga, procedimiento: calcular la corriente media y eficaz por diodo, la corriente media en la carga, relacionar corriente media y eficaz con la media de la carga. 
-
-sabemos
+Como ya sabemos vamos a aplicar las siguientes integrales para el calculo de valor medio y eficaz.
 
 $$
 \begin{align*}
@@ -41,27 +33,56 @@ VL(media)=Vo=\frac{1}{T} \int_{-\frac{T}{2}}^{\frac{T}{2}} vo_{(t)} dt
 \end{align*}
 $$
 
-# cargaresistiva
+### Carga resistiva.
 
-con carga resistiva
+Nuestro circuito para el caso de la resistiva pura nos queda:
 
 ![](./img/cargaR.png)
 
+Donde conducira un diodo por fase y la corrinte retornara por uno de los 2 diodos inferiores alternadamente en cada angulo de conduccion.
+
+Cuando la fase B sea positiva hara entrar en coduccion al diodo B1 y este cerrara el circuito por medio del diodo C2 la mitad del tiempo y A2 la segunda mitad del tiempo.
+
+Durante el tiempo que este no conduzca, estara en inversa y soportara como maximo una tension inversa igual a la tension de linea.
+
 ![](./img/db1.png)
+
+Seguidamente entra en conduccion el diodo C1 y cierra por A2 y B2.
 
 ![](./img/dc1.png)
 
+Y por ultimo el diodo C1 que cierra por A2 y B2 repitiendo luego toda la secuencia.
+
 ![](./img/da1.png)
+
+La corriente en la carga sera la superposicion de todas las fases aportadas por los diodos, generando una continua pulsante de periodo igual a la mitad del angulo de conduccion de cada diodo.
 
 ![](./img/irl.png)
 
-tomamos medio pulso de corriente, aproximamos por coseno, intervalo simetico +/- pi/6, funcion par en intervalo simetrico, hacemos 2 veces la integral de 0 a pi/6 y multiplicamos el resultado por 2 para tener el valor medio de el pulso completo
+#### Calculo de coeficientes
+
+Comenzamos por saber la expresion para la corriente media por la carga basandonos en el grafico analizado y aplicando la definicion de valor medio.
+
+![](./img/ioFoCargaR.png)
+
+Donde aproximamos los pulsos por cosenos de periodo pi/3, que integramos en el intervalo [-pi/6; pi/6].
+
+> aplicando la definicion de valor medio y con cambio de variable, resolvemos una integral angular:
+
+$$
+\begin{align*}
+Io=\frac{3}{\pi} \int_{-\frac{\pi}{6}}^{\frac{\pi}{6}} Is_{p} cos(\theta) d\theta
+= 3\cdot \frac{Is_{p}}{\pi}
+\end{align*}
+$$
+
+Continuamos con el valor medio y eficaz por diodo viendo las caracteristicas de la forma de onda de corriente.
 
 ![](./img/idFoCargaR.png)
 
-con cambios de variable y toda la falopa de los zapatitos de hormigon
+Esta tiene un periodo de 2pi, un angulo de conduccion de 2pi/3 conformado por 2 pulsos de corriente, cada uno de duracion pi/3.
 
-valor medio por diodo
+En este caso tomamos medio pulso de corriente, aproximamos por coseno, e integramos en un intervalo simetico +/- pi/6.Finalmente multiplicamos por 2 para tener el valor medio de el pulso completo.
 
 $$
 \begin{align*}
@@ -70,195 +91,164 @@ IFav=2\cdot[\frac{1}{2\pi} \int_{-\frac{\pi}{6}}^{\frac{\pi}{6}} Is_{p} cos(\the
 \end{align*}
 $$
 
-valor eficaz por diodo
+> dividiendo miembro a miembro (m2m) IFav e Io, despejando IFav tenemos:
+$$
+\begin{align*}
+\mathbf{IFav = \frac{1}{3} \cdot Io = Kav \cdot Io} 
+\end{align*}
+$$
+
+Y para el valor eficaz:
 
 $$
 \begin{align*}
-IF=2\cdot\sqrt{\frac{1}{2\pi} \int_{-\frac{\pi}{6}}^{\frac{\pi}{6}} [Is_{p} cos(\theta)]^2 d\theta} 
-= 2\cdot\sqrt{\frac{2\pi+3\sqrt{3}}{24\pi}} \cdot Is_p 
+IF^2 &= 2\cdot [\frac{1}{2\pi} \int_{-\frac{\pi}{6}}^{\frac{\pi}{6}} [Is_{p} cos(\theta)]^2 d\theta]
+= \frac{2\pi+3\sqrt{3}}{12\pi} \cdot (Is_{p})^{2} \\\\ 
+IF &= \sqrt{\frac{2\pi+3\sqrt{3}}{12\pi}} \cdot Is_p
 = A \cdot Is_p
-\end{align*}
+\end{align*} 
 $$
 
-corriente media por la carga
-
-![](./img/ioFoCargaR.png)
+> dividiendo m2m IF e Io, y despejando IF: 
 
 $$
 \begin{align*}
-Io=\frac{3}{\pi} \int_{-\frac{\pi}{6}}^{\frac{\pi}{6}} Is_{p} cos(\theta) d\theta
-= 3\cdot \frac{Is_{p}}{\pi}
-= 3\cdot IFav
+IF = \frac{\pi}{3} \cdot A \cdot Io
+= \frac{\pi}{3}\cdot \sqrt{\frac{2\pi+3\sqrt{3}}{12\pi}} \cdot Io \\\\
 \end{align*}
 $$
 
+> Finalmente:
 $$
 \begin{align*}
-IFav=\frac{1}{3}\cdot Io 
-= Kav\cdot Io
+\mathbf{IF = 0.578 \cdot Io = Krms \cdot Io}
 \end{align*}
 $$
 
-> dividiendo miembro a miembro IF e Io, y despejando IF:
-
-$$
-\begin{align*}
-IF&=\frac{A\pi}{3}Io
-= \frac{\pi}{3}\cdot 2\cdot\sqrt{\frac{2\pi+3\sqrt{3}}{24\pi}} \cdot Io \\\\
-&= 0.817 \cdot Io
-= Krms \cdot Io
-\end{align*}
-$$
-
-en inversa tiene la tension de linea
+Continuamos con la tension media sobre la carga aplicando la definicion del valor medio, y teniendo en cuenta que sobre la carga cae la tension entre lineas.
 
 $$
 \begin{align*}
 Vo=\frac{3}{\pi} \int_{-\frac{\pi}{6}}^{\frac{\pi}{6}} VL_p cos(\theta) d\theta
 = \frac{3}{\pi} \cdot VL_p
-= \frac{3}{\pi} \cdot V_{RRM} \\\\
 \end{align*}
 $$
+
+> como en este circuito se tiene una tension inversa en los diodos igual a la tension de linea maxima:
 
 $$
 \begin{align*}
-V_{RRM} = \frac{\pi}{3} \cdot Vo
-= 1.047 \cdot Vo
+Vo = \frac{3}{\pi} \cdot V_{RRM} \\\\
 \end{align*}
 $$
 
+> despejando la tension de pico inversa:
+$$
+\begin{align*}
+\mathbf{V_{RRM} = \frac{\pi}{3} \cdot Vo = 1.047 \cdot Vo = K_{RRM} \cdot Vo}
+\end{align*}
+$$
+
+Con lo cual tenemos las corrientes y tensiones de calculo importante en funcion de la corriente y tension necesaria en la carga.
+
+### Carga inductiva.
+
+El circuito analizado es el siguiente:
+
+![](./img/cargaL.png)
+
+En este caso con carga inductiva ideal, viendo hacia la carga se tiene una impedancia muy grande para la corriente de señal, por lo tanto esta es nula.
+Lo que implica que solo hay corriente continua por los diodos en forma de pulsos cuadrados de periodo 2pi.
+
+![](./img/db1L.png)
+
+![](./img/dc1L.png)
+
+![](./img/da1L.png)
+
+Luego la carga superpone todos los pulsos obteniendo una continua pura (en el caso ideal).
+
+![](./img/ilL.png)
+
+#### Calculo de coeficientes
+
+Como la corriente en la carga en este caso es continua, buscamos su valor medio durante un angulo de conduccion:
+
+![](./img/ioFoCargaL.png)
+
+$$
+\begin{align*}
+Io = \frac{3}{2\pi} \int_{-\frac{\pi}{3}}^{\frac{\pi}{3}} Is_{p} d\theta
+= \frac{3}{2\pi} \cdot \frac{2\pi}{3} Is_{p} = Is_{p}
+\end{align*}
+$$
+
+Luego para las corrientes por diodo tomamos un pulso de corriente, aproximamos por rectangulos de base 2pi/3 y altura Isp (pico).
+
+![](./img/idFoCargaL.png)
+
+> aplicando deficion de valor medio, tenemos:
+
+$$
+\begin{align*}
+IFav = \frac{1}{2\pi} \int_{-\frac{\pi}{3}}^{\frac{\pi}{3}} Is_{p} d\theta
+= \frac{1}{2\pi} \cdot \frac{2\pi}{3} \cdot Is_{p} 
+= \frac{1}{3} \cdot Is_{p} 
+\end{align*}
+$$
+
+> como Is(max) es igual a Io, tenemos:
+$$
+\begin{align*}
+\mathbf{IFav = \frac{1}{3} \cdot Io = Kav \cdot Io} 
+\end{align*}
+$$
+
+Seguidamente para el valor eficaz por diodo:
+
+$$
+\begin{align*}
+IF^2 &= \frac{1}{2\pi} \int_{-\frac{\pi}{3}}^{\frac{\pi}{3}} (Is_{p})^2 d\theta
+= \frac{1}{2\pi} \cdot \frac{2\pi}{3} \cdot (Is_{p})^{2} 
+= \frac{1}{3} \cdot (Is_{p})^{2} 
+\end{align*} 
+$$
+
+> tomando raiz cuadrada, tenemos: 
+$$
+\begin{align*}
+\mathbf{IF = \frac{1}{\sqrt{3}} \cdot Io = Krms \cdot Io}
+\end{align*}
+$$
+
+Y para la tension media sobre la carga durante un angulo de conduccion:
+
+$$
+\begin{align*}
+Vo=\frac{3}{2\pi} \int_{-\frac{\pi}{3}}^{\frac{\pi}{3}} VL_p d\theta
+= \frac{3}{2\pi} \cdot \frac{2\pi}{3} \cdot VL_{p} 
+= VL_{p} 
+\end{align*}
+$$
+
+Tenemos sobre la carga como valor medio justamente la tension entre lineas.
+
+> y como en este circuito la tension pico inversa es la tension de linea:
+$$
+\begin{align*}
+\mathbf{V_{RRM} =  Vo = K_{RRM} \cdot Vo}
+\end{align*}
+$$
+
+Con lo cual tenemos las corrientes y tensiones de calculo importante en funcion de la corriente y tension necesaria en la carga.
+
+------
+
+conclusion de una carga RL
 
 -----------
 
-## 1. Diodo elegido.
-Se eligio para el analisis el ***diodo rectificador de potencia 46DN06B02.***
-* Fabricante: Infineon Technologies Bipolar.
-* Aplicaciones: Soldaduras, rectificacion para circuitos galvanicos, rectificacion de alta corriente.
-
-<img src="./img/dataDiodo0.png" width="400" height="auto"/>
-
-### Caracteristicas electricas:
-
-<img src="./img/dataDiodo1.png" 
-     width="600" 
-     height="auto"/>
-
-* ***IF(av)M:*** 10.45KA a una temperatura de operacion de 55°C ***decayendo a 7.74KA operando a 100°C***.
-* ***IFRMS:*** 16.4KA a una temperatura de operacion de 55°C ***decayendo a 12.2KA operando a 100°C***.
-* ***IFSM:*** 55KA a una temperatura de juntura de 25°C ***decayendo a 48KA con temperatura de juntura maxima (180°C)***.
-* Todas las corrientes probadas durante un tiempo de 10ms.
-* ***VRRM = VRRW:*** 600V para temperatura de juntura de -40 a 180°C.
-* ***Energia I2T:*** 15.125K(A^2)s a una temperatura de juntura de 25°C ***decayendo a 11.52K(A^2)s a temperatura de juntura maxima.***
-* ***Tension de umbral 0.7 a 0.78V*** y caida de tension maxima: 0.98V, con temperatura de juntura maxima y corriente de prueba de 6KA.
-
-### Potencia disipada vs IF(av):
-
-En esta grafica vemos la ***potencia media maxima admisible segun la corriente media directa de trabajo***, colocando disipadores a ambos lados del diodo.
-
-Las parametricas corresponden a corriente continua, semiciclo senoidal, y rectificando con angulos de conduccion de 30°, 60°, 90°, 120° y 180°.
-
-![](./img/dataDiodoPvsIF.png)
-
-En cada punto tenemos la ***potencia maxima disipada para cada valor de corriente media directa.*** Los extremos de las curvas corresponden a la maxima potencia admisible para la maxima corriente media ensayada.
-
-### Encapsulado e instalacion:
-
-Tiene un ***encapsulado de tipo disco E35***, que se coloca con 2 disipadores formando un "sandwich".
-
-Para un ***rectificador trifasico de onda completa con carga resistiva*** el esquema puede ser el siguiente:
-
-![](./img/trafoPuenteCarga.png)
-
-Este tipo de diodos tiene el catodo y el anodo en cada una de sus caras planas, por lo tanto ***lleva disipador de ambos lados.*** Para su montaje se deben tener los disipadores del tamaño adecuado con una de sus caras plana y limpia, el diodo se coloca en el medio de ambos disipadores (tipo sandwich) usando grasa siliconada para mejorar la conduccion térmica. Se instala ***un conjunto de disipadores por cada diodo.*** 
-
-Cada disipador pasa a ser un polo del diodo, por lo que es vital que esten ***completamente aislados entre ellos.***
-
-El conjunto se presiona entre si con tornillos aislados y cuidando de ***no superar el torque maximo*** dado por el fabricante.
-
-Una vez colocados los disipadores en los 6 diodos se toma un grupo de 3 y se conecta ***cada anodo a una fase***, luego se conectan todos ***los catodos del grupo a la carga***. Con el grupo restante de 3 diodos conectamos ***cada catodo a una fase*** y todos ***los anodos al otro terminal de la carga.***
-
-------------------------------------
-------------------------------------
-
-## 2. Simulaciones/comparaciones
-
-Se compararon los ***diodos MR850 y 1N4148*** en transitorios de corriente y tension para conduccion/corte. Ademas se compararon los ***tiempos de recuperacion maximos*** de cada uno.
-
-### Tipos de diodos:
-
-En los datasheets vemos que el MR850 es un ***diodo rectificador de alta corriente y rapida recuperacion (Fast).***
-
-![](./img/diodoMR0.png)
-
-Con un Trr de 150ns, para las ***condiciones de prueba definidas:***
-* Estar conduciendo una corriente de 0.5A.
-* Pasar al corte con un pico de corriente inversa de 1A.
-* Esperar hasta que la corriente inversa alcance los 0.25A.
-
-![](./img/diodoMR1.png)
-
-Por otro lado, el 1N4148 es un ***diodo de baja corriente y conmutacion de alta velocidad (Ultra Fast).***
-
-![](./img/diodo1N0.png)
-
-Este tiene un Trr de 8ns como maximo, ***para las siguientes condiciones de prueba:***
-* Conducir una corriente de 10mA.
-* Pasar al corte con un pico de corriente inversa de 10mA.
-* Esperar hasta que la corriente inversa alcance 1mA.
-
-![](./img/diodo1N1.png)
-
-### Circuito de test:
-
-Los fabricantes prueban el tiempo de recuperacion inversa con un circuito similar al siguiente:
-
-![](./img/testCirc.png)
-
-Que se armo en LTSpice ***colocando tensiones y resistencias de tal forma que se respeten las condiciones de prueba para cada diodo.***
-
-![](./img/diodoLT.png)
-
-En todos se le ***aplico un pulso a los 100ns***, para cambiar el estado de conduccion de los diodos.
-
-**Analisis MR850:**
-
-Forzando la conduccion al aplicar el pulso de prueba celeste, se nota un importante ***pico de corriente***, en verde, mayor al triple de la corriente de operacion, por lo que hay una ***importante disipacion de energia*** en este caso cercana a los 9W como se ve en la grafica roja:
-
-![](./img/MRtest0.png)
-
-Forzando el corte vemos el tiempo que tarda el diodo en establecer su caida de tension en azul, cuando el pulso de prueba celeste se aplica, ***el diodo demora en hacer caer toda la tension inversa aplicada***, lo cual genera el pico de corriente inversa de 1A:
-
-![](./img/MRtest1.png)
-
-Luego al reaccionar el diodo estabilizando su caida de tension y ***bloqueando bruscamente la corriente*** se produce otro pico de energia disipada de casi 2W.
-
-**Analisis 1N4148:**
-
-Forzando la conduccion al aplicar el pulso de prueba celeste, se nota un ***importante pico de corriente*** mayor al triple de la corriente de operacion, por lo que tambien hay un pico de disipacion de energia como se ve en la grafica roja:
-
-![](./img/1Ntest0.png)
-
-En este caso forzando el corte cuando el pulso de prueba celeste se aplica, vemos que el diodo ***establece gradualmente su caida de tension en azul***. Durante esta demora se genera el pico de corriente inversa, pero en este caso se recupera mucho mas rapido pero ***gradualmente*** lo que amortigua el pico de energia disipada que se veia en el MR850:
-
-![](./img/1Ntest1.png)
-
-### Comparacion del tiempo de recuperacion maximo:
-
-Tambien se simularon los tiempos de recuperacion respetando las condiciones de prueba para ambos diodos, y ***cortando la conduccion a los 100ns:***
-
-![](./img/diodosTRR.png)
-
-Que nos deja un Trr = 150ns para el MR850, acorde al maximo dado por el fabricante.
-
-Y para el 1N4148 un Trr = 16ns el cual el doble de los 8ns que nos da el fabricante. ***Esto se debe al parametro tt = 20ns del modelo generico usado:***
-
-![](./img/TTDel1N.png)
-
-En efecto bajando este parametro a 10ns se obtiene un Trr acorde al dado por el fabricante del 1N4148:
-
-![](./img/1NnuevoTT.png)
-
-Pero esto es cambiar el modelo Spice del diodo, por lo que, segun de que fabricante se trate la simulacion ***puede o no reproducir una situacion real.***
+## 1. Simulaciones.
 
 -------------------------------------
 -------------------------------------
