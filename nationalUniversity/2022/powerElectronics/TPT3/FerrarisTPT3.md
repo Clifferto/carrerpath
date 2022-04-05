@@ -244,11 +244,103 @@ Con lo cual tenemos las corrientes y tensiones de calculo importante en funcion 
 
 ------
 
+# potencias
+
+secundario, sacar FO de corriente por fase, sacar valor eficaz, poner en funcion de la corriente por carga, sacar potencia del secundario (3 veces la pot por fase) en funcion de Io y Vo
+
+por ejemplo cuando conduce DB1, tiene corriente directa, pero cuando conduce A1 o C1 en algun momento cierran por B2, existen 2 pulsos de corriente inversa por la fase B, corriente bi-direccional
+
+superponiendo pulsos tenemos la corriente del secundario por fase B:
+
+![](./img/isFoCargaR.png)
+
+correinte de periodo 2pi, formada por 2 pulsos negativos y 2 pulsos positivos, cada par dura un angulo de conduccion
+
+primario, quitar el valor medio de la correinte por fase, sacar valor eficaz, usar relacion de transformacion, hallar potencia del primario en funcion de Io y Vo
+
+sin valor medio, valor eficaz (Is)
+
+$$
+\begin{align*}
+Is^2 &= 4\cdot [\frac{1}{2\pi} \int_{-\frac{\pi}{6}}^{\frac{\pi}{6}} [Is_{p} cos(\theta)]^2 d\theta]
+= \frac{2\pi+3\sqrt{3}}{6\pi} \cdot (Is_{p})^{2} \\\\ 
+Is &= \sqrt{\frac{2\pi+3\sqrt{3}}{6\pi}} \cdot Is_p
+= B \cdot Is_p
+\end{align*} 
+$$
+
+> recordando del analisis anterior que:
+
+$$
+\begin{align*}
+Io = 3\cdot \frac{Is_{p}}{\pi}
+\end{align*}
+$$
+
+> dividiendo m2m y despejando Is:
+
+$$
+\begin{align*}
+Is &= B \cdot \frac{\pi}{3} \cdot Io 
+= \sqrt{\frac{2\pi+3\sqrt{3}}{6\pi}} \cdot \frac{\pi}{3} \cdot Io \\\\
+&\mathbf{\quad Is = 0.817 \cdot Io}
+\end{align*} 
+$$
+
+para la tension eficaz, sabemos que la VRRM es la tension pico entre lineas, entonces
+
+$$
+\begin{align*}
+V_{RRM} =  VLp = \sqrt{3} \cdot Vsp 
+= \sqrt{3} \cdot \sqrt{2} \cdot Vs = 
+\mathbf{\sqrt{6} \cdot Vs = \frac{\pi}{3} \cdot Vo}
+\end{align*}
+$$
+
+> despejando Vs tenemos:
+
+$$
+\begin{align*}
+\mathbf{Vs = 0.427 \cdot Vo}
+\end{align*}
+$$
+
+> como la potencia aparente en el secundario es la de las 3 fases tenemos finalmente que:
+$$
+\begin{align*}
+\mathbf{Ss = 3\cdot Vs\cdot Is = 1.048 \cdot Vo \cdot Io = Ks \cdot Po(av)}
+\end{align*}
+$$
+
+--------
+
+primario, quitar el valor medio de la correinte por fase, sacar valor eficaz, usar relacion de transformacion, hallar potencia del primario en funcion de Io y Vo
+
+sobre el primario tenemos la misma corriente por fase del secundario pero con valor medio nulo ya que la continua no genera flujo variable en el transformador.
+
+para este rectificador la corriente por fase del secundario tiene valor medio nulo, por lo que la del primario tendra la misma forma de onda (esto no es asi en un rectificador de media onda).
+
+![](./img/ipFoCargaR.png)
+
+donde la amplitud esta afectada por la relacion de transformacion n, pero tiene el mismo valor eficaz que la corriente del secundario
+
+> finalmente para la potencia del primario:
+$$
+\begin{align*}
+Sp &= 3\cdot Vp\cdot Ip = 
+3 \cdot n \cdot Vs \cdot \frac{Is}{n} \\\\
+&\mathbf{= 1.048 \cdot Vo \cdot Io = Kp \cdot Po(av)}
+\end{align*}
+$$
+
+vemos que la potencia en el primario es igual a la del secundario, lo cual es normal en estos analisis considerando el transformador ideal y sin perdidas.
+
+-------
 conclusion de una carga RL
 
 -----------
 
-## 1. Simulaciones.
+## 2. Simulacion rectificador hexafasico.
 
 -------------------------------------
 -------------------------------------
