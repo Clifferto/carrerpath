@@ -1,16 +1,16 @@
-# FCEFyN - UNC - ELECTRÓNICA INDUSTRIAL
+# **FCEFyN - UNC - ELECTRÓNICA INDUSTRIAL**
 ## DOCENTE: Prof. Esp. Ing. Adrián Claudio Agüero
 ## ALUMNO: Ferraris Domingo Jesus
 
 ---------------------------------------
 ---------------------------------------
 
-# Trabajo practico teorico 3: 
+# **Trabajo practico teorico 3:** 
 ## Rectificacion.
 
 -----------------------------------------
 
-## 1. Analisis. 
+## **1. Analisis.** 
 
 Se hizo un analisis teorico de un circuito rectificador trifasico de onda completa con carga resistiva pura e inductiva pura. Ademas uniendo los analisis se sacaron conclusiones para una carga resistiva-inductiva.
 
@@ -33,7 +33,7 @@ VL(media)=Vo=\frac{1}{T} \int_{-\frac{T}{2}}^{\frac{T}{2}} vo_{(t)} dt
 \end{align*}
 $$
 
-### Carga resistiva.
+### **Carga resistiva.**
 
 Nuestro circuito para el caso de la resistiva pura nos queda:
 
@@ -59,13 +59,13 @@ La corriente en la carga sera la superposicion de todas las fases aportadas por 
 
 ![](./img/irl.png)
 
-#### Calculo de coeficientes
+#### **Calculo de coeficientes**
 
 Comenzamos por saber la expresion para la corriente media por la carga basandonos en el grafico analizado y aplicando la definicion de valor medio.
 
 ![](./img/ioFoCargaR.png)
 
-Donde aproximamos los pulsos por cosenos de periodo pi/3, que integramos en el intervalo [-pi/6; pi/6].
+Donde la corriente es continua pulsante y la aproximamos los pulsos por cosenos de periodo pi/3, que integramos en el intervalo [-pi/6; pi/6].
 
 > aplicando la definicion de valor medio y con cambio de variable, resolvemos una integral angular:
 
@@ -125,7 +125,7 @@ $$
 \end{align*}
 $$
 
-Continuamos con la tension media sobre la carga aplicando la definicion del valor medio, y teniendo en cuenta que sobre la carga cae la tension entre lineas.
+Continuamos con la tension media sobre la carga aplicando la definicion del valor medio, y teniendo en cuenta que sobre la carga cae la tension entre lineas y su FO es identica a la de la corriente.
 
 $$
 \begin{align*}
@@ -151,6 +151,89 @@ $$
 
 Con lo cual tenemos las corrientes y tensiones de calculo importante en funcion de la corriente y tension necesaria en la carga.
 
+Para la potencia del secundario primero analizamos las formas de onda (FO) de la corriente por fase, luego calulamos su valor eficaz. Como esto queda en funcion de la corriente pico de la fase podemos relacionarla con la corriente media en la carga
+Finalmente sacamos la potencia aparente del secundario como 3 veces la aparente de una fase (3 * Vs * Is).
+
+Para este circuito la corriente por fase es bi-direccional, por ejemplo, cuando la tension de la fase B es la mas alta, conduce el diodo DB1 generando 2 pulsos de corriente directa. Pero ademas DA1 o DC1 cerraran parte de su tiempo de conduccion por DB2, esto genera 2 pulsos mas de corriente inversa por la fase B.
+
+> superponiendo todos los efector tenemos la corriente del secundario por fase B:
+
+![](./img/isFoCargaR.png)
+
+Esta es de periodo 2pi, con 4 pulsos en total, 2 pulsos negativos y 2 pulsos positivos, que duran un angulo de conduccion cada uno.
+
+> calculando el valor eficaz de la corriente de una fase:
+
+$$
+\begin{align*}
+Is^2 &= 4\cdot [\frac{1}{2\pi} \int_{-\frac{\pi}{6}}^{\frac{\pi}{6}} [Is_{p} cos(\theta)]^2 d\theta]
+= \frac{2\pi+3\sqrt{3}}{6\pi} \cdot (Is_{p})^{2} \\\\ 
+Is &= \sqrt{\frac{2\pi+3\sqrt{3}}{6\pi}} \cdot Is_p
+= B \cdot Is_p
+\end{align*} 
+$$
+
+> recordando del analisis anterior que:
+
+$$
+\begin{align*}
+Io = 3\cdot \frac{Is_{p}}{\pi}
+\end{align*}
+$$
+
+> dividiendo m2m y despejando Is:
+
+$$
+\begin{align*}
+Is &= B \cdot \frac{\pi}{3} \cdot Io 
+= \sqrt{\frac{2\pi+3\sqrt{3}}{6\pi}} \cdot \frac{\pi}{3} \cdot Io \\\\
+&\mathbf{\quad Is = 0.817 \cdot Io}
+\end{align*} 
+$$
+
+Luego sabiendo que la VRRM es la tension entre lineas podemos relacionar el valor eficaz de la fase con la Vo.
+
+$$
+\begin{align*}
+V_{RRM} =  VLp = \sqrt{3} \cdot Vsp 
+= \sqrt{3} \cdot \sqrt{2} \cdot Vs = 
+\mathbf{\sqrt{6} \cdot Vs = \frac{\pi}{3} \cdot Vo}
+\end{align*}
+$$
+
+> despejando Vs tenemos:
+
+$$
+\begin{align*}
+\mathbf{Vs = 0.427 \cdot Vo}
+\end{align*}
+$$
+
+> como la potencia aparente en el secundario es la de las 3 fases tenemos finalmente que:
+$$
+\begin{align*}
+\mathbf{Ss = 3\cdot Vs\cdot Is = 1.048 \cdot Vo \cdot Io = Ks \cdot Po(av)}
+\end{align*}
+$$
+
+Ahora, sobre el primario tenemos la misma corriente por fase del secundario pero con valor medio nulo ya que la continua no genera flujo variable en el transformador.
+Observamos que en este rectificador la corriente por fase del secundario tiene valor medio nulo, por lo que la del primario tendra la misma forma de onda (esto no es asi en un rectificador de media onda).
+
+![](./img/ipFoCargaR.png)
+
+Solo la amplitud esta afectada por la relacion de transformacion n.
+
+> finalmente para la potencia del primario:
+$$
+\begin{align*}
+Sp &= 3\cdot Vp\cdot Ip = 
+3 \cdot n \cdot Vs \cdot \frac{Is}{n} \\\\
+&\mathbf{= 1.048 \cdot Vo \cdot Io = Kp \cdot Po(av)}
+\end{align*}
+$$
+
+Vemos que la potencia en el primario es igual a la del secundario, lo cual es normal en estos analisis considerando el transformador ideal y sin perdidas.
+
 ### Carga inductiva.
 
 El circuito analizado es el siguiente:
@@ -166,13 +249,13 @@ Lo que implica que solo hay corriente continua por los diodos en forma de pulsos
 
 ![](./img/da1L.png)
 
-Luego la carga superpone todos los pulsos obteniendo una continua pura (en el caso ideal).
+Luego la carga superpone todos los pulsos obteniendo en este caso una continua pura (en el caso ideal).
 
 ![](./img/ilL.png)
 
 #### Calculo de coeficientes
 
-Como la corriente en la carga en este caso es continua, buscamos su valor medio durante un angulo de conduccion:
+Como es continua, buscamos su valor medio durante un angulo de conduccion:
 
 ![](./img/ioFoCargaL.png)
 
@@ -221,44 +304,37 @@ $$
 \end{align*}
 $$
 
-Y para la tension media sobre la carga durante un angulo de conduccion:
+Pero en el inductor debe caer toda la tension aplicada:
+
+![](./img/rectVlCargaL.png)
+
+Luego la tension media sobre la carga es identica a la del caso resistivo.
 
 $$
 \begin{align*}
-Vo=\frac{3}{2\pi} \int_{-\frac{\pi}{3}}^{\frac{\pi}{3}} VL_p d\theta
-= \frac{3}{2\pi} \cdot \frac{2\pi}{3} \cdot VL_{p} 
-= VL_{p} 
+Vo=\frac{3}{\pi} \int_{-\frac{\pi}{6}}^{\frac{\pi}{6}} VL_p cos(\theta) d\theta
+= \frac{3}{\pi} \cdot VL_p
 \end{align*}
 $$
 
-Tenemos sobre la carga como valor medio justamente la tension entre lineas.
-
-> y como en este circuito la tension pico inversa es la tension de linea:
+> de esta forma tenemos tambien tenemos la misma VRRM:
 $$
 \begin{align*}
-\mathbf{V_{RRM} =  Vo = K_{RRM} \cdot Vo}
+\mathbf{V_{RRM} = \frac{\pi}{3} \cdot Vo = 1.047 \cdot Vo = K_{RRM} \cdot Vo}
 \end{align*}
 $$
 
-Con lo cual tenemos las corrientes y tensiones de calculo importante en funcion de la corriente y tension necesaria en la carga.
+Para la potencia del secundario utilizando el mismo metodo que para el caso resistivo tenemos:
 
-------
+Para este circuito la corriente por fase es bi-direccional, por ejemplo, cuando la tension de la fase B es la mas alta, conduce el diodo DB1 generando 2 pulsos de corriente directa. Pero ademas DA1 o DC1 cerraran parte de su tiempo de conduccion por DB2, esto genera 2 pulsos mas de corriente inversa por la fase B.
 
-# potencias
-
-secundario, sacar FO de corriente por fase, sacar valor eficaz, poner en funcion de la corriente por carga, sacar potencia del secundario (3 veces la pot por fase) en funcion de Io y Vo
-
-por ejemplo cuando conduce DB1, tiene corriente directa, pero cuando conduce A1 o C1 en algun momento cierran por B2, existen 2 pulsos de corriente inversa por la fase B, corriente bi-direccional
-
-superponiendo pulsos tenemos la corriente del secundario por fase B:
+> superponiendo todos los efector tenemos la corriente del secundario por fase B:
 
 ![](./img/isFoCargaR.png)
 
-correinte de periodo 2pi, formada por 2 pulsos negativos y 2 pulsos positivos, cada par dura un angulo de conduccion
+Esta es de periodo 2pi, con 4 pulsos en total, 2 pulsos negativos y 2 pulsos positivos, que duran un angulo de conduccion cada uno.
 
-primario, quitar el valor medio de la correinte por fase, sacar valor eficaz, usar relacion de transformacion, hallar potencia del primario en funcion de Io y Vo
-
-sin valor medio, valor eficaz (Is)
+> calculando el valor eficaz de la corriente de una fase:
 
 $$
 \begin{align*}
@@ -287,7 +363,7 @@ Is &= B \cdot \frac{\pi}{3} \cdot Io
 \end{align*} 
 $$
 
-para la tension eficaz, sabemos que la VRRM es la tension pico entre lineas, entonces
+Luego sabiendo que la VRRM es la tension entre lineas podemos relacionar el valor eficaz de la fase con la Vo.
 
 $$
 \begin{align*}
@@ -312,17 +388,12 @@ $$
 \end{align*}
 $$
 
---------
-
-primario, quitar el valor medio de la correinte por fase, sacar valor eficaz, usar relacion de transformacion, hallar potencia del primario en funcion de Io y Vo
-
-sobre el primario tenemos la misma corriente por fase del secundario pero con valor medio nulo ya que la continua no genera flujo variable en el transformador.
-
-para este rectificador la corriente por fase del secundario tiene valor medio nulo, por lo que la del primario tendra la misma forma de onda (esto no es asi en un rectificador de media onda).
+Ahora, sobre el primario tenemos la misma corriente por fase del secundario pero con valor medio nulo ya que la continua no genera flujo variable en el transformador.
+Observamos que en este rectificador la corriente por fase del secundario tiene valor medio nulo, por lo que la del primario tendra la misma forma de onda (esto no es asi en un rectificador de media onda).
 
 ![](./img/ipFoCargaR.png)
 
-donde la amplitud esta afectada por la relacion de transformacion n, pero tiene el mismo valor eficaz que la corriente del secundario
+Solo la amplitud esta afectada por la relacion de transformacion n.
 
 > finalmente para la potencia del primario:
 $$
@@ -333,14 +404,36 @@ Sp &= 3\cdot Vp\cdot Ip =
 \end{align*}
 $$
 
-vemos que la potencia en el primario es igual a la del secundario, lo cual es normal en estos analisis considerando el transformador ideal y sin perdidas.
+Vemos que la potencia en el primario es igual a la del secundario, lo cual es normal en estos analisis considerando el transformador ideal y sin perdidas.
+### **Conclusion para una carga RL.**
 
--------
-conclusion de una carga RL
+En el ultimo analisis lo importante es destacar que si bien la tension que cae en el inductor es alterna, sobre su rama cicula corriente continua.
 
------------
+Por tanto si cambiamos por una carga RL aseguramos una corriente continua sobre la resistencia, que tambien da una tension continua sobre la misma, debiendo caer toda la componente de alterna en el inductor.
+
+El inductor actua como un filtro pasa bajo cortando todas las componentes distintas del valor medio (en caso ideal).
 
 ## 2. Simulacion rectificador hexafasico.
+
+puente rectificador hexafasico de media onda con carga resistiva, tension de 500V mas tension de conduccion de diodo, desfases de 60°
+
+![](./img/hexaCirc.png)
+
+tension, corriente y potencia en carga
+
+![](./img/hexaTcpCarga.png)
+
+tcp en un diodo, sacar tension pico inversa, es la tension entre lineas
+
+![](./img/hexaTcpDiodo.png)
+
+secundario todas las fases
+
+![](./img/hexaSecFases.png)
+
+secundario una fase
+
+![](./img/hexaSecFaseA.png)
 
 -------------------------------------
 -------------------------------------
