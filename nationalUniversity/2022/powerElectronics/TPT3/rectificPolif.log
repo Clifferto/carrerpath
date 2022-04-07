@@ -21,20 +21,28 @@ Gmin = 0
 Gmin stepping succeeded in finding the operating point.
 
 
-Date: Wed Apr 06 11:55:18 2022
-Total elapsed time: 0.270 seconds.
+idav: AVG(i(da1))=2.83773e+013 FROM 0 TO 0.5
+idef: RMS(i(da1))=4.50231e+013 FROM 0 TO 0.5
+io: AVG(i(l1))=8.51319e+013 FROM 0 TO 0.5
+vo: AVG(v(vo,n001))=12.7063 FROM 0 TO 0.5
+vrrm: MIN(v(a,vo))=-106.002 FROM 0 TO 0.5
+is: RMS(i(va))=6.36721e+013 FROM 0 TO 0.5
+
+
+Date: Wed Apr 06 20:44:50 2022
+Total elapsed time: 0.797 seconds.
 
 tnom = 27
 temp = 27
 method = modified trap
-totiter = 29065
-traniter = 28351
-tranpoints = 4598
-accept = 3460
-rejected = 1138
+totiter = 120657
+traniter = 119943
+tranpoints = 17224
+accept = 12923
+rejected = 4301
 matrix size = 8
 fillins = 0
 solver = Normal
 Matrix Compiler1: 390 bytes object code size  0.3/0.2/[0.1]
-Matrix Compiler2: off  [0.3]/0.5/1.5
+Matrix Compiler2: off  [0.2]/0.3/1.1
 

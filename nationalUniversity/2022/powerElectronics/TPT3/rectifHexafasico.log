@@ -2,23 +2,26 @@ Circuit: * Z:\UNC\2022\powerElectronics\TPT3\rectifHexafasico.asc
 
 Direct Newton iteration for .op point succeeded.
 
-isav: AVG(abs(i(a)))=15.914 FROM 0 TO 0.1
-vsav: AVG(v(a))=-0.000239928 FROM 0 TO 0.1
-isrms: RMS(abs(i(a)))=38.9075 FROM 0 TO 0.1
-vsrms: RMS(v(a))=354.033 FROM 0 TO 0.1
+isav: AVG(abs(i(a)))=16.6885 FROM 0 TO 0.1
+vsav: AVG(v(a))=-0.000403563 FROM 0 TO 0.1
+isrms: RMS(abs(i(a)))=40.7865 FROM 0 TO 0.1
+vsrms: RMS(v(a))=370.72 FROM 0 TO 0.1
+vo: AVG(v(vo))=499.6 FROM 0 TO 0.1
+io: AVG(i(rl))=99.9201 FROM 0 TO 0.1
+idav: AVG(i(d1))=16.6885 FROM 0 TO 0.1
 
 
-Date: Wed Apr 06 10:27:42 2022
-Total elapsed time: 0.170 seconds.
+Date: Wed Apr 06 22:04:57 2022
+Total elapsed time: 0.183 seconds.
 
 tnom = 27
 temp = 27
 method = modified trap
-totiter = 3708
-traniter = 3696
-tranpoints = 1317
-accept = 1240
-rejected = 77
+totiter = 3728
+traniter = 3716
+tranpoints = 1321
+accept = 1243
+rejected = 78
 matrix size = 13
 fillins = 0
 solver = Normal
