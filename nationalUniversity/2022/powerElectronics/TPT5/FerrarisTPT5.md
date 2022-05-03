@@ -5,8 +5,8 @@
 ---------------------------------------
 ---------------------------------------
 
-# **Trabajo practico teorico 4:** 
-## Mosfet de potencia.
+# **Trabajo practico teorico 5:** 
+## Circuito de disparo para MOSFET.
 
 ------------------------------------------
 ## **Analisis del conversor.**
@@ -23,7 +23,9 @@ Tambien para disipar la energia de las oscilaciones en la conmutacion debidas a 
 
 Ademas se puede sensar la tension en la carga y realimentar este valor al bloque de control, por ejemplo por medio de un opto acoplador, para que varie el duty cycle elevando o disminuyendo la tension media sobre la carga segun la demanda de corriente.
 
-### **Control del PWM.**
+--------------------------------------------------
+
+## **Control del PWM.**
 
 Para la generacion y control del PWM se usa el IC SG3525A:
 
@@ -45,11 +47,13 @@ Vemos como si ponemos al 100% el potenciometro tenemos señales de PWM a 20KHz a
 
 ![](./img/sg2.png)
 
-### **Analisis de formas de onda.**
+-------------------------------------------------------
+
+## **Analisis de formas de onda.**
 
 Ya con la etapa de control funcionando se trata de analizar las formas de onda (FO) mas importantes para entender el funcionamiento y poder seleccionar los componentes de potencia.
 
-#### **Primario push-pull**
+### **Primario push-pull:**
 
 Comenzamos analizando las FO de un bobinado primario en corte y conduccion.
 
@@ -73,22 +77,22 @@ Ademas en la simulacion se nota como el transistor de la rama que no conduce tie
 
 ![](./img/vds.png)
 
-#### **Secundario/rectificacion.**
+### **Secundario/rectificacion:**
 
 Las tensiones de los bobinados primarios se suman y aparecen el el secundario afectadas por la relacion de transformacion (n).
 
 ![](./img/secundario0.png)
 
-Luego la tension del secundario es rectificada por el puente de diodos lo que equivale a sacar el valor absoluto de la FO. Esto genera una tension continua pulsante del doble de frecuencia, cuyo valor medio depende del duty cycle (Dcy) y es el que se transmitira a la carga.
+Luego la tension del secundario es rectificada un puente rectificador monofasico de onda completa, lo que equivale a sacar el valor absoluto de la FO. Esto genera una tension continua pulsante del doble de frecuencia, cuyo valor medio depende del duty cycle (Dcy) y es el que se transmitira a la carga.
 
 ![](./img/rect0.png)
 
-Para esta etapa surguieron muchos problemas en la simulacion del sistema que complicaron muchisimo el analis de las FO.
+***Para esta etapa surguieron muchos problemas en la simulacion del sistema que complicaron muchisimo el analis de las FO.***
 * En las conmutaciones se inducen ruidos en el PWM lo que deforma mucho la corrinente IDS, y por consiguiente la tension en el primario.
 * La red snubber a la salida alarga mucho el tiempo de simulacion por razones desconocidas.
 * Aun sin la red snubber, al acoplar las etapas existen muchas constantes de tiempo en juego lo que complejiza la simulacion y extiende en eXceso el tiempo para llegar al estado estable de sistema (y empezar a analizar).
 
-Luego de dias probando distintos modelos, configuraciones, intentando desacoplar etapas por medio de buffers, aprendiendo sobre spice y tratando de optimizar la simulacion y mucha paciencia (sin exagerar, estuve dias) se realizaron los siguientes cambios:
+***Luego de dias probando distintos modelos, configuraciones, intentando desacoplar etapas por medio de buffers, aprendiendo sobre spice y tratando de optimizar la simulacion y mucha paciencia (sin exagerar, estuve dias) se realizaron los siguientes cambios:***
 
 * El SG3525A no puede conectarse directamente al gate de los MOSFETS, por lo que se copia la tension de PWM con fuentes de tension controladas por tension y se conectan estas señales a los gates.
 * Se desconecta la red snubber, siendo un elemento de proteccion no deberia interferir en el funcionamiento del circuito.
@@ -96,52 +100,60 @@ Luego de dias probando distintos modelos, configuraciones, intentando desacoplar
 
 ![](./img/fix.png)
 
-Recien con estos cambios se pudo cerrar la simulacion completamente en tiempos razonables y continuar con el analisis (al menos con LTSpice y los modelos encontrados)
+***Recien con estos cambios se pudo cerrar la simulacion completamente en tiempos razonables y continuar con el analisis (al menos con LTSpice y los modelos encontrados).***
 
-#### **Filtrado/Snubber.**
+### **Filtrado/Snubber:**
 
-Luego de la rectificacion se filtra la onda con un filtro LC donde por un lado la inductancia se encarga de mantener una corriente continua por la carga mientras que el capacitor estabiliza la tension en la carga.
+Continuando con el analisis, luego de la rectificacion se filtra la onda con un filtro LC donde por un lado la inductancia se encarga de mantener una corriente continua por la carga mientras que el capacitor estabiliza la tension en la carga.
 
 Por ultimo la red Snubber tiene la funcion de disipar la energia en la conmutacion debida a las inductancias y capacidades distribuidas de los diodos y semiconductores. En la realidad al conmutar se generan oscilaciones amortiguadas de alta frecuencia que presentan picos de tension importantes y pueden dañar los semiconductores. Por ello la red se encarga de filtrar las altas frecuencias a masa por medio del capacitor y disipar la energia de las oscilaciones por medio de la resistencia.
 
 --------------------------------------
 
-### Seleccion de componentes/diseño
+## **Seleccion de componentes/diseño.**
 
-Seleccionamos los componentes teniendo en cuenta que se quiere llegar a la potencia nominal con un Dcy del 50% (en la tension rectificada es del 100%).
+Seleccionamos los componentes teniendo en cuenta que se quiere llegar a la potencia nominal con un Dcy del 50% en el PWM del SG3525A (en la tension rectificada es del 100%).
 
 > con las caracteristicas de la carga sabemos que:
-
 $$
 \begin{align*}
-Vo=600V \quad y \quad Po=1KW, \quad 
-Entonces:\quad Io&=\frac{Po}{Vo}=1.67A \\
-RL&=\frac{Vo}{Io}=360\Omega
+Vo&=600V \quad y \quad Po=1KW \newline 
+&\rightarrow \mathbf{Io=\frac{Po}{Vo}=1.67A} \newline
+&\rightarrow \mathbf{RL=\frac{Vo}{Io}=360\Omega}
 \end{align*}
 $$
 
-Luego por medio de barridos en vgg se determina que para llegar a la tension de trabajo del secundario con carga tiene que circular una corriente media por los mos de 19.8A y una no repetitiva de 236A aprox.
+Luego por medio de barridos en Vgg se determina que para llegar a la tension de trabajo del secundario con carga se necesita un Vgg de 10V y tiene que circular una corriente media de 19.8A y en el inicio una no repetitiva de 236A aprox opr MOSFET.
 
 ![](./img/mos0.png)
 
-Y como sabemos la Vdsp que tienen que aguantar es de 48V (50V aprox.).
+Y como sabemos la maxima tension Vds (Vdsp) que tienen que aguantar es de 48V (50V aprox.).
 
 > aplicamos los coeficientes de seguridad:
 $$
 \begin{align*}
-IDav=19.8A \rightarrow IDRM&\geq IDav+30\%=25.74A \\
-IDSM&\geq 236A
-\end{align*}
-$$
-$$
-\begin{align*}
-Vdsp=50V \rightarrow VDSbr=2.5\cdot Vdsp=125V
+IDav=&19.8A \newline
+&\rightarrow \mathbf{IDRM\geq IDav+30\%=25.74A} \newline
+&\rightarrow \mathbf{IDSM\geq 236A} \newline
+Vdsp=&50V \newline
+&\rightarrow \mathbf{VDSbr\geq2.5\cdot Vdsp=125V}
 \end{align*}
 $$
 
-PUEDE SER EL MOSFET TATATATA
+CORREJIR LATEX
 
-Ahora estudiamos el valor medio de la tension rectificada en funcion del Dcy.
+----------------------------------------------------
+
+Para minimizar las perdidas buscamos un MOSFET con la menor Ron y Qgs posible pero que cumpla con los niveles de tension y corriente.
+
+Rapidamente en LTSpice podemos elegir el MOSFET de potencia IPB065N15N3 de Infineon:
+
+![](./img/mosSel.png)
+
+Que tiene encapsulado TO263, tension y corrientes maximas de 150V y 130A (520A no repetitiva a 25°C), y potencia maxima de 300W. Ademas se indica una Ron maxima de 6.5mOhm y una Qgs al rededor de 30nC. 
+
+
+Para los diodos estudiamos el valor medio de la tension rectificada en funcion del Dcy y la tension maxima del secundario (Vsp).
 
 > considerandola cuadrada y teniendo en cuenta que tiene el doble de frecuencia que la del secundario:
 
@@ -152,7 +164,7 @@ Vo=\frac{1}{Trect} \int _{Trect\cdot Dcy}^{ } vrect(t)\ dt
 \end{align*}
 $$
 
-> si se quiere llegar a la potencia nominal con un Dcy = 100% en la salida (pero 50% en el SG):
+> si se quiere llegar a la potencia nominal con un Dcy del 100% en la salida (en el PWM es de 50%):
 
 $$
 \begin{align*}
@@ -187,25 +199,29 @@ $$
 > aplicamos los coeficientes de seguridad:
 $$
 \begin{align*}
-IFav=0.835A \rightarrow IFRM=IFav + 30\% = 1.1A \\
-Vrp=600V \rightarrow VRRM=Vrp \cdot 2.5 = 1667V
+IFav&=0.835A \rightarrow \mathbf{IFRM\geq IFav + 30\% = 1.1A} \newline
+Vrp&=600V \rightarrow \mathbf{VRRM\geq Vrp \cdot 2.5} = 1667V
 \end{align*}
 $$
 
-PUEDE SER EL DIODO TATATATA
+Con el buscador de Mouser seleccionamos el diodo Schottky GD05MPS17H de GeneSic: 
+
+![](./img/selDiodo.png)
+
+En encapsulado TO-247, soporta 1.7KV en inversa, una corriente de 5A en su condicion de temperatura mas desfavorable y una potencia de 141W. 
 
 Para el filtro de salida usamos Laplace para estudiar su comportamiento en frecuencia:
 
 ![](./img/filtro.png)
 
+> funcion de tranferencia:
+
 $$
 \begin{align*}
-Vo&=Vrec\cdot \frac{XC}{XC+XL}
-=Vrec\cdot \frac{1}{1+\frac{XL}{XC}} \\
-G&=\frac{1}{1+\frac{XL}{XC}}
-=\frac{1}{1+sL*sC}
-=\frac{1}{1+LCs^2} \equiv \frac{1}{1+(\frac{s}{\omega p})^2}\\
-Entonces:\quad \omega p&=\frac{1}{\sqrt{LC}}
+Vo&=Vrec\cdot \frac{XC}{XC+XL}=Vrec\cdot \frac{1}{1+\frac{XL}{XC}} \newline
+G&=\frac{1}{1+\frac{XL}{XC}}=\frac{1}{1+sL*sC}
+=\frac{1}{1+LCs^2} \equiv \frac{1}{1+(\frac{s}{\omega p})^2} \newline
+&\rightarrow  \omega p=\frac{1}{\sqrt{LC}}
 \end{align*}
 $$
 
