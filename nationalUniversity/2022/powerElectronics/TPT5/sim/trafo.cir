@@ -1,0 +1,7 @@
+* Z:\UNC\2022\powerElectronics\TPT5\sim\trafo.asc
+.subckt trafo vp1 vp2 cen vs1 vs2
+L1 cen vp1 {Lp} Rser={Rmul*Lp}
+L2 vp2 cen {Lp} Rser={Rmul*Lp}
+B1 vs1 vs2 V={v(vp1,vp2)*n}
+K1 L1 L2 .5
+.ends trafo

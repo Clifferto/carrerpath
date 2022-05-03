@@ -1,0 +1,5 @@
+* Z:\UNC\2022\powerElectronics\TPT5\sim\cmp\pote.asc
+.subckt pote 1 2 3
+R1 1 2 {(R*(1-porc23/100))+1u}
+R2 2 3 {(R*porc23/100)+1u}
+.ends pote

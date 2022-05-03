@@ -1,0 +1,5 @@
+* Z:\UNC\2022\powerElectronics\TPT5\sim\cmp\pote.asc
+R1 1 2 {(R*(1-porc23/100))+1m}
+R2 2 3 {(R*porc23/100)+1m}
+.backanno
+.end

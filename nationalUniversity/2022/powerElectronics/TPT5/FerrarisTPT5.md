@@ -8,130 +8,227 @@
 # **Trabajo practico teorico 4:** 
 ## Mosfet de potencia.
 
------------------------------------------
+------------------------------------------
+## **Analisis del conversor.**
 
-## **1. Mosfet elegido.** 
+El sistema analizado es un conversor DC/DC elevador en topologia push-pull con aislacion a transformador, que consta de las siguientes etapas:
 
-Se eligio el ***MOSFET de potencia IRF150*** que nos sirve junto con las simulaciones a tener un estudio mas detallado del dispositivo.
-El mismo es un transistor ***MOSFET de enrriquecimiento*** con ***encapsulado TO-3*** para colocar en disipador y es fabricado con el proceso HEXFET de International Rectifier.
+![](./img/etapas.png)
 
-### **Caracteristicas.**
+El bloque de control se encarga de generar señales de PWM con duty cycle variable para manejar los MOSFET de potencia que realizan la conmutacion en el bloque inversor DC/AC. Estos MOSFET fuerzan corriente e inducen la tension en el primario del transformador elevador que se vera aumentada en el bobinado secundario.
 
-En la hoja de datos tenemos las siguientes caracteristicas principales:
+Finalmente en el bloque AC/DC tenemos un puente recificador monofasico de onda completa seguido de un filtro pasa bajos LC que se encarga de filtrar los armonicos proporcionando corriente continua a la carga. 
 
-<img src="./img/modData0.png"
-     width="600"
-     height="auto"/>
+Tambien para disipar la energia de las oscilaciones en la conmutacion debidas a las inductancias y capacidades distribuidas del circuito, se agrega una red snubber para proteger los diodos de corrientes y sobretensiones.
 
-<img src="./img/mosData1.png" 
-     width="600"
-     height="auto"/>
+Ademas se puede sensar la tension en la carga y realimentar este valor al bloque de control, por ejemplo por medio de un opto acoplador, para que varie el duty cycle elevando o disminuyendo la tension media sobre la carga segun la demanda de corriente.
 
-* **IDM:** 38A como maximo a 25°C (baja a 24A a los 100°C) y una corriente de pulso maxima de 152A durante 10us.
-* **VDSbr:** 100V como maxima VDS.
-* **RDSon:** 55mOhm con corriente de drain de 24A, aumentando con la corriente a 65mOhm con ID maxima.
-* **VTO:** En el rango de 2 a 4V. 
-* **VGSM:** Como maximo de +/- 20V.
-* **IGSS:** Una corriente de fuga entre gate y source de 100nA.
-* **PD:** 150W con el encapsulado a 25°C.
+### **Control del PWM.**
 
-### **Safe operating area.**
+Para la generacion y control del PWM se usa el IC SG3525A:
 
-<img src="./img/mosDataSoa.png" 
-     width="600"
-     height="auto"/>
+![](./img/sg0.png)
 
-Se interpreta en la curva el limite de corriente alcanzable debido a RDSon y los valores maximos admisibles de ID y VDS, ***para no dañar el transistor se debe operar dentro del area demarcada inferior-izquierda (SOA).***
-Vemos como en todo momento ***si VDS es alta se debe trabajar a menor corriente y viceversa para no dañar el dispositivo.***
-Por ejemplo, si bien VDSbr e IDSM son 100V y 38A, para operar con una corriente de drain de 2A no hay que superar una VDS de 7V aprox. 
-Ademas se muestran los resultados de pruebas por pulsos donde, por ejemplo se podria operar con una ***IDS arriba de 100A y manteniendo a VDS en 20V*** pero solo ***por menos de 10us.***
+Que consta de salidas totem-pole, amplio rango de frecuencias, tiempo muerto entre conmutacion ajustable, un regulador para la tension de referencia y un duty cycle ajustable de 0 a 50% por medio de un amplificador de error integrado.
 
-### **Capacidades del MOS.**
+La configuracion va a ser la usada por el fabricante para las pruebas:
 
-El fabricante tambien nos da el valor de las capacidades principales para distintos valores de VDS.
+![](./img/sg1.png)
 
-<img src="./img/mosDataCap.png" 
-     width="600"
-     height="600"/>
+Donde el oscilador trabaja a 40KHz obteniendo en sus salidas un PWM de 20KHz aproximadamente.
 
-Con las ecuaciones dadas y para el origen (VDS de 1V), se observa que Cgd esta entorno a los 1.5nF, seguido por el Cds de 3.5nF y el mas grande Cgs del orden de 4nF y ***todos descienden a distinto ritmo con el aumento de VDS.***
-Ademas vemos como si bien Cds es de mas del doble de Cgd, desciende rapidamente con el aumento de VDS a diferencia de Cgs que ademas de ser la capacidad paracita mas grande disminuye lentamente con VDS a un ritmo similar a Cgd.
+No se utiliza la funcion shutdown ni arranque suave, se alimenta en integrado con los 24V y pone una tension Vgg para el gate de los MOS a determinar. 
 
---------------------------------------------------
-## **2. Simulaciones.**
+![](./img/sgSch.png)
 
-Utilizando ***LTSpice*** se simulo la conmutacion del ***transistor de potencia N-MOS IRF150*** y luego se compararon resultados con los del fabricante.
+Vemos como si ponemos al 100% el potenciometro tenemos señales de PWM a 20KHz aproximadamente de duty cycle 50% y un tiempo muerto entre conmutaciones de 1us para esta configuracion:
 
-El setup usado para las simulaciones y mediciones fue el siguiente:
+![](./img/sg2.png)
 
-![](./img/mosConmutCirc.png)
+### **Analisis de formas de onda.**
 
-### **Tension, corriente y potencia.**
+Ya con la etapa de control funcionando se trata de analizar las formas de onda (FO) mas importantes para entender el funcionamiento y poder seleccionar los componentes de potencia.
 
-Al aplicar el pulso de prueba se aprecian los retardos en la tension y corriente de drain ***debidos a la carga y descarga de las capacidades parasitas.***
+#### **Primario push-pull**
 
-![](./img/testTcp0.png)
+Comenzamos analizando las FO de un bobinado primario en corte y conduccion.
 
-Tanto para la conduccion como el corte se ven en rojo los ***picos de disipacion*** en el momento de la conmutacion debidos a la existencia de ***altas corrientes y tensiones simultaneamente.***
+![](./img/tensionPrimaria.png)
 
-![](./img/testTcp1.png)
+Al aplicar tension al gate (condicion A) de uno de los MOSFET, se aplica Vcc a uno de los devanados primarios siendo Vp1 negativa respecto a Vcc. En esta condicion Vds es muy baja.
 
-Ademas es interesante notar los picos de disipacion durante micro segundos existente en la entrada durante la carga y descarga de las capacidades distribuidas:
+Al cortar la corriente (condicion B) el inductor por ley de faraday induce una tension de polaridad opuesta que genera un Vp1 positivo respecto a Vcc y sobre el transistor cae el doble de la tension de alimentacion.
 
-<img src="./img/testTcp2.png" 
-     width="500"
-     height="auto"/>
+Segun el analisis dibujamos las formas de onda tentativas:
 
-<img src="./img/testTcp3.png" 
-     width="500"
-     height="auto"/>
+![](./img/primario0.png)
 
-### **Tiempos de conmutacion.**
+Y comparamos con las simuladas:
 
-El manual nos da las caracteristicas de conmutacion del transistor y las definiciones de cada una:
+![](./img/primario1.png)
 
-![](./img/mosDataConmut.png)
+Lo mismo se repite alternadamente en el otro bobinado primario generando una tension igual pero en contra fase. Siendo la tension aplicada al primario la diferencia entre Vp1 y Vp2 se tiene en total una tension alterna cuadrada de 20KHz y valor pico 2Vcc.
 
-![](./img/mosDataConditions.png)
+Ademas en la simulacion se nota como el transistor de la rama que no conduce tiene una Vds de casi el doble de la tension de fuente.
 
-* ***Define td(on) para VGS*** como el tiempo en subir la tension ***desde el 10% al 90%*** de la amplitud del pulso de prueba usado. Y ***td(off)*** como el tiempo que demora VGS en bajar del ***90% al 10%*** del pulso aplicado.
+![](./img/vds.png)
 
-* ***Define tr*** para VDS como el tiempo que demora en bajar del ***90% al 10% de la tension aplicada*** y ***tf*** como el tiempo en subir del ***10% al 90%*** de la tension aplicada.
+#### **Secundario/rectificacion.**
 
-Para el gate vemos como al aplicar el pulso de prueba azul se comienzan a cargar las capacidades distribuidas hasta llegar a la ***VTO donde empieza a aumentar la corriente IDS.***
-La tension sigue aumentando hasta que se carga Cgs donde se genera ***una meseta a los 6V aproximadamente***, finalmente cuando el transistor ***supera la saturacion*** comienza a cargarse el capacitor Cgd lentamente hasta llegar a la tension maxima aplicada.
+Las tensiones de los bobinados primarios se suman y aparecen el el secundario afectadas por la relacion de transformacion (n).
 
-![](./img/testVg0.png)
+![](./img/secundario0.png)
 
-Calculando el intervalo definido por el fabricante nos da un ***td(on) = 1.28us muy superior a los 35ns del manual.***
+Luego la tension del secundario es rectificada por el puente de diodos lo que equivale a sacar el valor absoluto de la FO. Esto genera una tension continua pulsante del doble de frecuencia, cuyo valor medio depende del duty cycle (Dcy) y es el que se transmitira a la carga.
 
-Luego para el corte calculamos un ***td(off) = 1.08us*** tambien ***superior a los 170ns que nos da el fabricante.***
+![](./img/rect0.png)
 
-![](./img/testVg1.png)
+Para esta etapa surguieron muchos problemas en la simulacion del sistema que complicaron muchisimo el analis de las FO.
+* En las conmutaciones se inducen ruidos en el PWM lo que deforma mucho la corrinente IDS, y por consiguiente la tension en el primario.
+* La red snubber a la salida alarga mucho el tiempo de simulacion por razones desconocidas.
+* Aun sin la red snubber, al acoplar las etapas existen muchas constantes de tiempo en juego lo que complejiza la simulacion y extiende en eXceso el tiempo para llegar al estado estable de sistema (y empezar a analizar).
 
-Por el lado de la tension en drain tenemos la siguiente forma de onda para la conduccion.
+Luego de dias probando distintos modelos, configuraciones, intentando desacoplar etapas por medio de buffers, aprendiendo sobre spice y tratando de optimizar la simulacion y mucha paciencia (sin exagerar, estuve dias) se realizaron los siguientes cambios:
 
-![](./img/testVds0.png)
+* El SG3525A no puede conectarse directamente al gate de los MOSFETS, por lo que se copia la tension de PWM con fuentes de tension controladas por tension y se conectan estas señales a los gates.
+* Se desconecta la red snubber, siendo un elemento de proteccion no deberia interferir en el funcionamiento del circuito.
+* Se usan MOSFET ideales con Kp aumentado para que tengan mas capacidad de corriente, al menos hasta cerrar el diseño.
 
-Que nos da un ***tr = 186ns*** aproximadamente, que esta ***dentro de los 190ns maximos del manual.***
+![](./img/fix.png)
 
-Y para el corte del transistor.
+Recien con estos cambios se pudo cerrar la simulacion completamente en tiempos razonables y continuar con el analisis (al menos con LTSpice y los modelos encontrados)
 
-<img src="./img/testVds1.png" 
-     width="550"
-     height="auto"/>
+#### **Filtrado/Snubber.**
 
-Que nos da un ***tf = 201ns*** aproximadamente ***superior a los 130ns maximos del fabricante.***
+Luego de la rectificacion se filtra la onda con un filtro LC donde por un lado la inductancia se encarga de mantener una corriente continua por la carga mientras que el capacitor estabiliza la tension en la carga.
 
-Los valores son mas altos que los indicados por el manual, esto puede deberse a que el circuito de prueba sugerido para el practico no cumple con las condiciones de prueba del fabricante. Por ejemplo tiene una resistencia ***RG mucho mas grande que la usada por el fabricante de 2.35ohm***, lo que aumenta el tiempo de carga de las capacidades distribuiudas de entrada.
+Por ultimo la red Snubber tiene la funcion de disipar la energia en la conmutacion debida a las inductancias y capacidades distribuidas de los diodos y semiconductores. En la realidad al conmutar se generan oscilaciones amortiguadas de alta frecuencia que presentan picos de tension importantes y pueden dañar los semiconductores. Por ello la red se encarga de filtrar las altas frecuencias a masa por medio del capacitor y disipar la energia de las oscilaciones por medio de la resistencia.
 
-En efecto modificando el circuito para cumplir con las condiciones de prueba tenemos los siguientes resultados: 
+--------------------------------------
 
-![](./img/testFix.png)
+### Seleccion de componentes/diseño
 
-![](./img/mosDataConmut.png)
+Seleccionamos los componentes teniendo en cuenta que se quiere llegar a la potencia nominal con un Dcy del 50% (en la tension rectificada es del 100%).
 
-Que estan dentro de las especificaciones maximas del fabricante, validando asi el modelo.
+> con las caracteristicas de la carga sabemos que:
+
+$$
+\begin{align*}
+Vo=600V \quad y \quad Po=1KW, \quad 
+Entonces:\quad Io&=\frac{Po}{Vo}=1.67A \\
+RL&=\frac{Vo}{Io}=360\Omega
+\end{align*}
+$$
+
+Luego por medio de barridos en vgg se determina que para llegar a la tension de trabajo del secundario con carga tiene que circular una corriente media por los mos de 19.8A y una no repetitiva de 236A aprox.
+
+![](./img/mos0.png)
+
+Y como sabemos la Vdsp que tienen que aguantar es de 48V (50V aprox.).
+
+> aplicamos los coeficientes de seguridad:
+$$
+\begin{align*}
+IDav=19.8A \rightarrow IDRM&\geq IDav+30\%=25.74A \\
+IDSM&\geq 236A
+\end{align*}
+$$
+$$
+\begin{align*}
+Vdsp=50V \rightarrow VDSbr=2.5\cdot Vdsp=125V
+\end{align*}
+$$
+
+PUEDE SER EL MOSFET TATATATA
+
+Ahora estudiamos el valor medio de la tension rectificada en funcion del Dcy.
+
+> considerandola cuadrada y teniendo en cuenta que tiene el doble de frecuencia que la del secundario:
+
+$$
+\begin{align*}
+Vo=\frac{1}{Trect} \int _{Trect\cdot Dcy}^{ } vrect(t)\ dt
+= \frac{2}{T} \int _{\frac{T}{2}\cdot Dcy}^{ } Vsp\ dt = Dcy\cdot Vsp
+\end{align*}
+$$
+
+> si se quiere llegar a la potencia nominal con un Dcy = 100% en la salida (pero 50% en el SG):
+
+$$
+\begin{align*}
+Vo=Dcy\cdot Vsp=1\cdot Vsp=600V
+\end{align*}
+$$
+
+> entonces sacamos la relacion de transformacion del transformador elevador:
+
+$$
+\begin{align*}
+n=\frac{Vsp}{Vpp}=\frac{600V}{24V}=25
+\end{align*}
+$$
+
+> ademas analizando el circuito con los diodos en inversa, tenemos como tension pico inversa:
+
+$$
+\begin{align*}
+Vrp=Vsp=600V
+\end{align*}
+$$
+
+> y como la ramas en paralelo son 2:
+
+$$
+\begin{align*}
+IFav=\frac{Io}{2}=0.835A
+\end{align*}
+$$
+
+> aplicamos los coeficientes de seguridad:
+$$
+\begin{align*}
+IFav=0.835A \rightarrow IFRM=IFav + 30\% = 1.1A \\
+Vrp=600V \rightarrow VRRM=Vrp \cdot 2.5 = 1667V
+\end{align*}
+$$
+
+PUEDE SER EL DIODO TATATATA
+
+Para el filtro de salida usamos Laplace para estudiar su comportamiento en frecuencia:
+
+![](./img/filtro.png)
+
+$$
+\begin{align*}
+Vo&=Vrec\cdot \frac{XC}{XC+XL}
+=Vrec\cdot \frac{1}{1+\frac{XL}{XC}} \\
+G&=\frac{1}{1+\frac{XL}{XC}}
+=\frac{1}{1+sL*sC}
+=\frac{1}{1+LCs^2} \equiv \frac{1}{1+(\frac{s}{\omega p})^2}\\
+Entonces:\quad \omega p&=\frac{1}{\sqrt{LC}}
+\end{align*}
+$$
+
+Donde tiene un pico de resonancia en wp y luego decae a 40dB/dec.
+
+> si proponemos que L sea 100 veces C y calculamos para una frecuencia de 1KHz:
+$$
+\begin{align*}
+\omega p=\frac{1}{\sqrt{LC}}
+=\frac{1}{C\sqrt{100}} \rightarrow 
+C&=\frac{1}{2\pi\cdot 1KHz\cdot 10}=16uF \\
+L&=100C=1.6mH
+\end{align*}
+$$
+
+![](./img/filtro1.png)
+
+Con lo que las frecuencias superiores a 1Khz seran atenuadas considerablemente.
+
+## **Red snubber**
+
+Por ultimo la red Snubber tiene la funcion de disipar la energia en la conmutacion debida a oscilaciones de alta frecuencia se eligio un capacitor chico de 100pF.
+
 
 -------------------------------------
 -------------------------------------
