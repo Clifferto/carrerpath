@@ -1,12 +1,7 @@
 Circuit: * Z:\UNC\2022\powerElectronics\TPT5\sim\convDCACDC.asc
 
-WARNING: Node NC_03 is floating.
-
 WARNING: Less than two connections to node SHTDWN.  This node is used by R:U1:13.
 WARNING: Less than two connections to node OSC.  This node is used by R:U1:18.
-WARNING: Less than two connections to node NC_01.  This node is used by D5.
-WARNING: Less than two connections to node NC_02.  This node is used by L4.
-WARNING: Less than two connections to node NC_03.  This node is used by R7.
 Direct Newton iteration failed to find .op point.  (Use ".option noopiter" to skip.)
 Starting Gmin stepping
 Gmin = 10
@@ -34,25 +29,41 @@ Gmin stepping succeeded in finding the operating point.
 
 Ignoring empty pin current: Ix(u1:gnd)
 Ignoring empty pin current: Ix(u1:gnd)
-Heightened Def Con from 2.69689e-005 to 2.69689e-005
-Heightened Def Con from 7.6301e-005 to 7.6301e-005
-Heightened Def Con from 0.00709068 to 0.00709068
+Heightened Def Con from 0.000101355 to 0.000101357
+Heightened Def Con from 0.000102288 to 0.00010229
+Heightened Def Con from 0.000127058 to 0.000127059
+Heightened Def Con from 0.000201162 to 0.000201162
+Heightened Def Con from 0.000502017 to 0.000502019
+Heightened Def Con from 0.000527931 to 0.000527933
+Heightened Def Con from 0.000750674 to 0.000750677
+Heightened Def Con from 0.00336911 to 0.00336911
+Heightened Def Con from 0.00466908 to 0.00466908
+Heightened Def Con from 0.00544261 to 0.00544262
+Heightened Def Con from 0.00694907 to 0.00694907
+Heightened Def Con from 0.00714847 to 0.00714847
+Heightened Def Con from 0.00747413 to 0.00747413
+Heightened Def Con from 0.00809993 to 0.00809993
+Heightened Def Con from 0.00870361 to 0.00870361
+Heightened Def Con from 0.00962695 to 0.00962695
+Heightened Def Con from 0.0121836 to 0.0121836
+Heightened Def Con from 0.0146393 to 0.0146393
+Heightened Def Con from 0.0148394 to 0.0148394
 
-Date: Tue May 03 06:11:34 2022
-Total elapsed time: 8.898 seconds.
+Date: Tue May 03 23:51:38 2022
+Total elapsed time: 14.932 seconds.
 
 tnom = 27
 temp = 27
 method = modified trap
-totiter = 266636
-traniter = 266065
-tranpoints = 51280
-accept = 38546
-rejected = 12737
-matrix size = 85
-fillins = 8
+totiter = 564327
+traniter = 563747
+tranpoints = 108158
+accept = 80159
+rejected = 28018
+matrix size = 83
+fillins = 16
 solver = Normal
-Thread vector: 19.6/17.6[2] 9.7/6.2[2] 1.5/2.6[1] 1.2/1.9[1]  2592/500
-Matrix Compiler1: 3.87 KB object code size  3.2/2.6/[1.1]
-Matrix Compiler2: off  [1.5]/2.7/9.8
+Thread vector: 18.8/11.7[2] 7.3/5.4[2] 2.0/2.3[1] 1.7/2.1[1]  2592/500
+Matrix Compiler1: 4.30 KB object code size  2.8/2.1/[0.9]
+Matrix Compiler2: off  [2.0]/3.0/11.1
 
