@@ -1,0 +1,180 @@
+Questionable use of curly braces in "b2 di1 0 v={v(vr1)/v(ld1)}"
+    Error: undefined symbol in: "[v](vr1)/v(ld1)"
+Questionable use of curly braces in "b1 vr1 0  v={(v(p1,p2)-{rs1}*v(is1))-{k12}*{n2}*v(di2)*v(ld1)/{n1}}"
+    Error: undefined symbol in: "([v](p1,p2)-(rs1)*v(is1))-(k12)*(n2)*v(di2)*v(ld1)/(n1)"
+Questionable use of curly braces in "b3 vr2 0  v={(v(s1,s2)-{rs2}*v(is2))-{k21}*{n1}*v(di1)*v(ld2)/{n2}}"
+    Error: undefined symbol in: "([v](s1,s2)-(rs2)*v(is2))-(k21)*(n1)*v(di1)*v(ld2)/(n2)"
+Questionable use of curly braces in "b4 di2 0 v={v(vr2)/v(ld2)}"
+    Error: undefined symbol in: "[v](vr2)/v(ld2)"
+Questionable use of curly braces in "b0 hg 0  v={v(b)/{u0}}"
+    Error: undefined symbol in: "[v](b)/(u0)"
+Questionable use of curly braces in "b1 hf 0  v={(v(i1)*{n1}+v(i2)*{n2}-v(hg)*{s1})/{s2}}"
+    Error: undefined symbol in: "([v](i1)*(n1)+v(i2)*(n2)-v(hg)*(s1))/(s2)"
+Questionable use of curly braces in "b4 ld1 0  v={{a}*{n1}*{n1}/({s2}/v(db/dh)+{s1}/{u0})}"
+    Error: undefined symbol in: "(a)*(n1)*(n1)/((s2)/[v](db/dh)+(s1)/(u0))"
+Questionable use of curly braces in "b5 ld2 0  v={{a}*{n2}*{n2}/({s2}/v(db/dh)+{s1}/{u0})}"
+    Error: undefined symbol in: "(a)*(n2)*(n2)/((s2)/[v](db/dh)+(s1)/(u0))"
+Questionable use of curly braces in "b1 bu 0  v={{bs}*(v(h)+{hc})/(abs(v(h)+{hc})+{alfa})+{u0}*v(h)}"
+    Error: undefined symbol in: "(bs)*([v](h)+(hc))/(abs(v(h)+(hc))+(alfa))+(u0)*v(h)"
+Questionable use of curly braces in "b2 bd 0  v={{bs}*(v(h)-{hc})/(abs(v(h)-{hc})+{alfa})+{u0}*v(h)}"
+    Error: undefined symbol in: "(bs)*([v](h)-(hc))/(abs(v(h)-(hc))+(alfa))+(u0)*v(h)"
+Questionable use of curly braces in "b0 b 0 v={0.5*(v(bu)+v(bd))}"
+    Error: undefined symbol in: "0.5*([v](bu)+v(bd))"
+Questionable use of curly braces in "b1 sqr1 0  v={(abs(v(h)+{hc})+{alfa})**2}"
+    Error: undefined symbol in: "(abs([v](h)+(hc))+(alfa))**2"
+Questionable use of curly braces in "b2 sqr2 0  v={(abs(v(h)-{hc})+{alfa})**2}"
+    Error: undefined symbol in: "(abs([v](h)-(hc))+(alfa))**2"
+Questionable use of curly braces in "bud dbu 0  v={{bs}*{alfa}/v(sqr1)+{u0}}"
+    Error: undefined symbol in: "(bs)*(alfa)/[v](sqr1)+(u0)"
+Questionable use of curly braces in "bdd dbd 0  v={{bs}*{alfa}/v(sqr2)+{u0}}"
+    Error: undefined symbol in: "(bs)*(alfa)/[v](sqr2)+(u0)"
+Questionable use of curly braces in "b0 db 0 v={0.5*(v(dbu)+v(dbd))}"
+    Error: undefined symbol in: "0.5*([v](dbu)+v(dbd))"
+
+   --- Expanded Deck Component Count ---
+B's 18
+C's 6
+D's 3
+G's 4
+M's 1
+R's 10
+V's 2
+tot: 44
+
+
+    --- Expanded Netist ---
+* C:\Program Files\LTC\LTspiceIV\examples\LtSpicePlus\Discretos\Magnetic\Transformadores\KapasModel\nonlintr.asc
+v1 n001 0 30
+d1 sec v+ d
+c1 v+ 0 3.3µ
+r1 v+ 0 50
+v2 n004 0 pulse(0 13 0 100n 100n 3u 10u)
+r2 n005 n004 20
+d2 n005 n004 d
+c2 n001 n002 680p
+r3 n001 n002 500
+r4 n003 n002 20
+d3 vd n003 d
+m1 vd n005 0 0 fdb2532
+g:u1:x1:1 0 u1:x1:o1 0 u1:x1:zero 100g
+c:u1:x1:1 u1:x1:zero u1:x1:o1 0.001 
+r:u1:x1:1 u1:x1:zero u1:di1 1000 
+r:u1:x1:2 u1:x1:o1 0 100g
+b:u1:x1:1 u1:is1 0 v=-v(u1:x1:o1)
+.ic v(u1:x1:zero)=0
+.ic v(u1:x1:o1)=0 
+g:u1:1 n001 vd u1:is1 0 1
+r:u1:1 n001 vd 10000000000 
+c:u1:1 n001 vd 1e-015 
+b:u1:x2:x1:1 u1:x2:x1:bu 0 v=(0.44 *(v(hf)+ 16)/(abs(v(hf)+ 16)+ 54.4)+ 1.25663706143592e-006 *v(hf)) 
+b:u1:x2:x1:2 u1:x2:x1:bd 0 v=(0.44 *(v(hf)- 16)/(abs(v(hf)- 16)+ 54.4)+ 1.25663706143592e-006 *v(hf)) 
+b:u1:x2:x1:0 b 0 v=(0.5*(v(u1:x2:x1:bu)+v(u1:x2:x1:bd))) 
+b:u1:x2:x2:1 u1:x2:x2:sqr1 0 v=((abs(v(hf)+ 16)+ 54.4)**2) 
+b:u1:x2:x2:2 u1:x2:x2:sqr2 0 v=((abs(v(hf)- 16)+ 54.4)**2) 
+b:u1:x2:x2:ud u1:x2:x2:dbu 0 v=(0.44 * 54.4 /v(u1:x2:x2:sqr1)+ 1.25663706143592e-006) 
+b:u1:x2:x2:dd u1:x2:x2:dbd 0 v=(0.44 * 54.4 /v(u1:x2:x2:sqr2)+ 1.25663706143592e-006) 
+b:u1:x2:x2:0 u1:x2:db/dh 0 v=(0.5*(v(u1:x2:x2:dbu)+v(u1:x2:x2:dbd))) 
+b:u1:x2:0 hg 0 v=(v(b)/ 1.25663706143592e-006) 
+b:u1:x2:1 hf 0 v=((v(u1:is1)* 50 +v(u1:is2)* 50 -v(hg)* 0.0006858)/ 0.0198) 
+b:u1:x2:4 u1:ld1 0 v=(2.51e-005 * 50 * 50 /(0.0198 /v(u1:x2:db/dh)+ 0.0006858 / 1.25663706143592e-006)) 
+b:u1:x2:5 u1:ld2 0 v=(2.51e-005 * 50 * 50 /(0.0198 /v(u1:x2:db/dh)+ 0.0006858 / 1.25663706143592e-006)) 
+g:u1:x3:1 0 u1:x3:o1 0 u1:x3:zero 100g
+c:u1:x3:1 u1:x3:zero u1:x3:o1 0.001 
+r:u1:x3:1 u1:x3:zero u1:di2 1000 
+r:u1:x3:2 u1:x3:o1 0 100g
+b:u1:x3:1 u1:is2 0 v=-v(u1:x3:o1)
+.ic v(u1:x3:zero)=0
+.ic v(u1:x3:o1)=0 
+g:u1:2 0 sec u1:is2 0 1
+r:u1:2 0 sec 10000000000 
+c:u1:2 0 sec 1e-015 
+b:u1:2 u1:di1 0 v=(v(u1:vr1)/v(u1:ld1)) 
+b:u1:1 u1:vr1 0 v=((v(n001,vd)- 0.1 *v(u1:is1))- 1 * 50 *v(u1:di2)*v(u1:ld1)/ 50) 
+b:u1:3 u1:vr2 0 v=((v(0,sec)- 0.1 *v(u1:is2))- 1 * 50 *v(u1:di1)*v(u1:ld2)/ 50) 
+b:u1:4 u1:di2 0 v=(v(u1:vr2)/v(u1:ld2)) 
+.model fdb2532 vdmos(rg=3 vto=3.5 rd=6.4m rs=1.6m rb=8m kp=40 lambda=.01 cgdmax=3n cgdmin=.5n cgs=4n cjo=1.64n is=164p mfg=fairchild vds=150 ron=16m qg=82n)
+.model d d
+.tran 150u
+.end
+
+Ignoring empty pin current: Ix(u1:x2:i1)
+Ignoring empty pin current: Ix(u1:x2:i2)
+Ignoring empty pin current: Ix(u1:x2:x1:h)
+Ignoring empty pin current: Ix(u1:x2:x2:h)
+Singular matrix:  Check nodes b:u1:x2:4#branch and u1:di1
+   Iteration No. 14
+Direct Newton iteration failed to find .op point.  (Use ".option noopiter" to skip.)
+Starting Gmin stepping
+Gmin = 10
+Gmin = 1.07374
+Gmin = 0.115292
+Gmin = 0.0123794
+Gmin = 0.00132923
+vernier = 0.5
+vernier = 0.25
+vernier = 0.125
+vernier = 0.0625
+Gmin = 0.00100083
+vernier = 0.03125
+vernier = 0.015625
+vernier = 0.0078125
+vernier = 0.00390625
+vernier = 0.00195313
+Gmin = 0.00100083
+vernier = 0.000976563
+vernier = 0.000488281
+Singular matrix:  Check nodes sec and u1:di2
+   Iteration No. 2
+Gmin = 0
+Singular matrix:  Check nodes sec and u1:di2
+   Iteration No. 1
+Gmin stepping failed
+
+Starting source stepping with srcstepmethod=0
+Source Step = 3.0303%
+Source Step = 33.3333%
+Source Step = 63.6364%
+Source Step = 93.9394%
+Singular matrix:  Check nodes sec and u1:di2
+   Iteration No. 3
+Singular matrix:  Check nodes sec and u1:di2
+   Iteration No. 1
+Singular matrix:  Check nodes sec and u1:di2
+   Iteration No. 1
+Source Step = 100%
+Singular matrix:  Check nodes sec and u1:di2
+   Iteration No. 1
+Singular matrix:  Check nodes b:u1:x2:4#branch and u1:di2
+   Iteration No. 18
+Singular matrix:  Check nodes b:u1:x2:5#branch and u1:di2
+   Iteration No. 12
+Singular matrix:  Check nodes b:u1:x2:5#branch and u1:di2
+   Iteration No. 8
+Singular matrix:  Check nodes b:u1:x2:5#branch and u1:di2
+   Iteration No. 3
+Singular matrix:  Check nodes b:u1:x2:5#branch and u1:di2
+   Iteration No. 14
+Singular matrix:  Check nodes b:u1:x2:5#branch and u1:di2
+   Iteration No. 3
+Singular matrix:  Check nodes b:u1:x2:5#branch and u1:di2
+   Iteration No. 1
+Singular matrix:  Check node v+
+   Iteration No. 16
+Starting source stepping with srcstepmethod=1
+Singular matrix:  Check nodes m1#body and n003
+   Iteration No. 2
+Source Step = 3.0303%
+Source Step = 33.3333%
+Source Step = 63.6364%
+Source Step = 93.9394%
+Singular matrix:  Check nodes b:u1:x2:5#branch and u1:di1
+   Iteration No. 3
+Singular matrix:  Check nodes b:u1:x2:5#branch and u1:di1
+   Iteration No. 1
+Source stepping failed
+
+Singular matrix:  Check node v+
+   Iteration No. 3
+Fatal Error: Singular matrix:  check node v+
+   Iteration No. 3
+

@@ -1,0 +1,11 @@
+Circuit: * H:\ELE\SOFT\LtSpice\WinSwCad3Plus\examples\LtSpicePlus\Analisis\Voll\voll_leer_Kanal7.asc
+
+u8:vr2: Missing value, assumed 0V @ DC
+u8:vu: Missing value, assumed 0V @ DC
+u7:vr2: Missing value, assumed 0V @ DC
+u7:vu: Missing value, assumed 0V @ DC
+u4:vr2: Missing value, assumed 0V @ DC
+u4:vu: Missing value, assumed 0V @ DC
+u2:vr2: Missing value, assumed 0V @ DC
+u2:vu: Missing value, assumed 0V @ DC
+Direct Newton iteration for .op point succeeded.
