@@ -5,55 +5,22 @@ WARNING: Node N003 is floating.
 WARNING: Less than two connections to node N001.  This node is used by V3.
 WARNING: Less than two connections to node N003.  This node is used by V3.
 Direct Newton iteration for .op point succeeded.
-.step vg=10
-.step vg=11
-.step vg=12
-.step vg=13
-.step vg=14
-.step vg=15
-.step vg=16
-.step vg=17
-.step vg=18
-.step vg=19
-.step vg=20
-.step vg=21
-.step vg=22
-.step vg=23
-.step vg=24
-.step vg=25
-.step vg=26
-.step vg=27
-.step vg=28
-.step vg=29
-.step vg=30
-.step vg=31
-.step vg=32
-.step vg=33
-.step vg=34
-.step vg=35
-.step vg=36
-.step vg=37
-.step vg=38
-.step vg=39
-.step vg=40
-.step vg=41
-.step vg=42
-.step vg=43
-.step vg=44
-.step vg=45
-.step vg=46
-.step vg=47
-.step vg=48
-.step vg=49
-.step vg=50
-.step vg=51
-.step vg=52
-.step vg=53
-.step vg=54
-.step vg=55
-.step vg=56
-.step vg=57
-.step vg=58
-.step vg=59
-.step vg=60
-.step vg=61
+
+Date: Fri May 06 08:59:25 2022
+Total elapsed time: 1.076 seconds.
+
+tnom = 27
+temp = 27
+method = modified trap
+totiter = 25840
+traniter = 25817
+tranpoints = 8118
+accept = 7016
+rejected = 1102
+matrix size = 96
+fillins = 74
+solver = Normal
+Thread vector: 18.8/13.0[2] 3.9/3.4[2] 8.0/5.0[2] 1.5/2.4[1]  2592/500
+Matrix Compiler1: 6.69 KB object code size  3.5/3.3/[1.2]
+Matrix Compiler2: off  [1.5]/2.1/10.9
+

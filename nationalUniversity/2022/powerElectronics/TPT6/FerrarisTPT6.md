@@ -89,82 +89,116 @@ Al ser los tiristores de tipo anodo a stub, estos se deben conectar despues de l
 Luego sobre otro disipador se roscan los anodos de los tiristores, los catodos por separado se conectan a las fases del transformador, el disipador a la carga y los gates por separado a los terminales del circuito de disparo.
 Siempre se debe tener cuidado de no pasar del torque maximo dado por el fabricante para cada diodo o tiristor.
 
+CORREJIR APLICACION
+
 --------------------------------------------------
 
-## **2. Simulaciones.**
+cond 1 cierra por B, cond cierra por C, tension final VAC
 
-Utilizando ***LTSpice*** se simulo la conmutacion del ***transistor de potencia N-MOS IRF150*** y luego se compararon resultados con los del fabricante.
+<img src="./img/fo0.png"
+     width="auto"
+     height="auto"
+/>
 
-El setup usado para las simulaciones y mediciones fue el siguiente:
+no en 180, sino cuando A es igual a C el tiristor 1 se apaga
 
-![](./img/mosConmutCirc.png)
+<img src="./img/fo1.png"
+     width="auto"
+     height="auto"
+/>
 
-### **Tension, corriente y potencia.**
+dibujar para el caso no controlado, acotar la onda segun angulo, antes de conducir corriente cero, despues corriente baja.
 
-Al aplicar el pulso de prueba se aprecian los retardos en la tension y corriente de drain ***debidos a la carga y descarga de las capacidades parasitas.***
+<img src="./img/fo2.png"
+     width="auto"
+     height="auto"
+/>
 
-![](./img/testTcp0.png)
+salvando alguna asimetria la forma de onda se respeta entonces sirve
 
-Tanto para la conduccion como el corte se ven en rojo los ***picos de disipacion*** en el momento de la conmutacion debidos a la existencia de ***altas corrientes y tensiones simultaneamente.***
+<img src="./img/fo3.png"
+     width="auto"
+     height="auto"
+/>
 
-![](./img/testTcp1.png)
+2 cosenos centrados en cero, valor minimo cero, area del primero de -2pi/12 + ac a 2pi/12, area del segundo -2pi/12 a 2pi/12 + ac.
 
-Ademas es interesante notar los picos de disipacion durante micro segundos existente en la entrada durante la carga y descarga de las capacidades distribuidas:
+<img src="./img/analisis0.png"
+     width="auto"
+     height="auto"
+/>
 
-<img src="./img/testTcp2.png" 
-     width="500"
-     height="auto"/>
+definir el angulo de extincion como el intervalo desde que puede conducir hasta donde corta, el de ignicion desde donde puede concudir hasta donde comienza a hacerlo
 
-<img src="./img/testTcp3.png" 
-     width="500"
-     height="auto"/>
+para corriente 
+* periodo 2pi/3
+* corriente pico de linea
 
-### **Tiempos de conmutacion.**
+para tension
+* periodo 2pi/3
+* tension pico de linea
 
-El manual nos da las caracteristicas de conmutacion del transistor y las definiciones de cada una:
+para el primer impulso 
+* coseno centrado en cero
+* desde -2pi/12+pi/12 a 2pi/12
+* corriente pico de linea
 
-![](./img/mosDataConmut.png)
+para el segundo impulso 
+* coseno centrado en cero
+* desde 2pi/12 a 2pi/12+pi/12
+* corriente pico de linea
 
-![](./img/mosDataConditions.png)
+para 45
 
-* ***Define td(on) para VGS*** como el tiempo en subir la tension ***desde el 10% al 90%*** de la amplitud del pulso de prueba usado. Y ***td(off)*** como el tiempo que demora VGS en bajar del ***90% al 10%*** del pulso aplicado.
+$$
+\begin{align*}
+\frac{3}{2\pi }\int _{-\frac{2\pi }{12}+\frac{\pi }{12}}^{\frac{2\pi \:}{12}}cos\left(\theta \right)d\theta +\frac{3}{2\pi \:}\int _{-\frac{2\pi \:}{12}}^{\frac{2\pi \:}{12}+\frac{\pi \:}{12}}cos\left(\theta \right)d\theta \:\:
+\end{align*}
+$$
 
-* ***Define tr*** para VDS como el tiempo que demora en bajar del ***90% al 10% de la tension aplicada*** y ***tf*** como el tiempo en subir del ***10% al 90%*** de la tension aplicada.
+$$
+\begin{align*}
+\frac{3}{2\pi }\left(\int _{-\frac{2\pi \:}{12}+\frac{\pi \:}{12}}^{\frac{2\pi \:}{12}}\left(cos\left(\theta \right)\right)^2d\theta \:\:+\int _{-\frac{2\pi \:\:}{12}}^{\frac{2\pi \:\:}{12}+\frac{\pi \:}{12}}\left(cos\left(\theta \right)\right)^2d\theta \right)\:\:
+\end{align*}
+$$
 
-Para el gate vemos como al aplicar el pulso de prueba azul se comienzan a cargar las capacidades distribuidas hasta llegar a la ***VTO donde empieza a aumentar la corriente IDS.***
-La tension sigue aumentando hasta que se carga Cgs donde se genera ***una meseta a los 6V aproximadamente***, finalmente cuando el transistor ***supera la saturacion*** comienza a cargarse el capacitor Cgd lentamente hasta llegar a la tension maxima aplicada.
+<img src="./img/res0.png"
+     width="auto"
+     height="auto"
+/>
 
-![](./img/testVg0.png)
+<img src="./img/res1.png"
+     width="auto"
+     height="auto"
+/>
 
-Calculando el intervalo definido por el fabricante nos da un ***td(on) = 1.28us muy superior a los 35ns del manual.***
+de la misma forma se calculo para los demas 
 
-Luego para el corte calculamos un ***td(off) = 1.08us*** tambien ***superior a los 170ns que nos da el fabricante.***
+para 90
 
-![](./img/testVg1.png)
+<img src="./img/res2.png"
+     width="auto"
+     height="auto"
+/>
 
-Por el lado de la tension en drain tenemos la siguiente forma de onda para la conduccion.
+<img src="./img/res3.png"
+     width="auto"
+     height="auto"
+/>
 
-![](./img/testVds0.png)
+para 135
 
-Que nos da un ***tr = 186ns*** aproximadamente, que esta ***dentro de los 190ns maximos del manual.***
+<img src="./img/res4.png"
+     width="auto"
+     height="auto"
+/>
 
-Y para el corte del transistor.
+<img src="./img/res5.png"
+     width="auto"
+     height="auto"
+/>
 
-<img src="./img/testVds1.png" 
-     width="550"
-     height="auto"/>
-
-Que nos da un ***tf = 201ns*** aproximadamente ***superior a los 130ns maximos del fabricante.***
-
-Los valores son mas altos que los indicados por el manual, esto puede deberse a que el circuito de prueba sugerido para el practico no cumple con las condiciones de prueba del fabricante. Por ejemplo tiene una resistencia ***RG mucho mas grande que la usada por el fabricante de 2.35ohm***, lo que aumenta el tiempo de carga de las capacidades distribuiudas de entrada.
-
-En efecto modificando el circuito para cumplir con las condiciones de prueba tenemos los siguientes resultados: 
-
-![](./img/testFix.png)
-
-![](./img/mosDataConmut.png)
-
-Que estan dentro de las especificaciones maximas del fabricante, validando asi el modelo.
+conclusiones le dicen al tuio...
 
 -------------------------------------
 -------------------------------------
