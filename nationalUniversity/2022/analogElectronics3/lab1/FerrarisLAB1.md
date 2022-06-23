@@ -357,3 +357,4 @@ Insertar latex en pdf
     MathJax.Hub.Config({ tex2jax: {inlineMath: [['$', '$']]}, messageStyle: "none" });
 </script>
 
+comentario inutil
