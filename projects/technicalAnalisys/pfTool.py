@@ -29,23 +29,35 @@ valUva=precio/precio0
 precioEst=precio*valUva
 
 # ---------------------------------------------------------------------------------------
-# PFUVA: capital a UVAs -> TNA en UVAs (+) -> UVAs a pesos (+) -> final
-uva0=cap/precio
-uva=uva0*(1+tasaUva*t)
+def pfUva():   
+    # pasar a UVAs
+    uva0=cap/precio
 
-capUva=uva*precioEst
+    # PFUVA: capital a UVAs -> TNA en UVAs (+) -> UVAs a pesos (+) -> final
+    # aplicar TNA en UVAs
+    uva=uva0*(1+tasaUva*t)
+    # venta de UVAs en el vencimiento
+    capUva=uva*precioEst
+
+    # PFUVA-Precanc: capital a UVAs -> UVAs ctes -> UVAs a pesos (+) -> TNA en pesos (+) -> final
+    # UVAs contantes
+    uvaPre=uva0
+    # venta de las UVAs en el vencimiento
+    capUvaPre=uvaPre*precioEst
+    # aplicar TNA en pesos
+    capUvaPre*=(1+tasaPesos*t)
+
+    return capUva,capUvaPre
 
 # ---------------------------------------------------------------------------------------
-# PFUVA-Precanc: capital a UVAs -> UVAs ctes -> UVAs a pesos (+) -> TNA en pesos (+) -> final
-uvaPre=uva0
-
-capUvaPre=uvaPre*precioEst*(1+tasaPesos*t)
+capUva,capUvaPre=pfUva()
 
 profitUva=capUva-cap
 profitUvaPre=capUvaPre-cap
 
 print(valUva,capUva,capUvaPre)
-print(f"UVA: {profitUva} ({profitUva/dolar} USD), PRE: {profitUvaPre} ({profitUvaPre/dolar} USD)")
+print(f"UVA: {profitUva} ({(profitUva/cap)*100}%, {profitUva/dolar} USD)")
+print(f"UVA-PRE: {profitUvaPre} ({(profitUvaPre/cap)*100}%, {profitUvaPre/dolar} USD)")
 
 # PF con interes compuesto: (1+TNA)**t
 capComp=cap*(1+tasaPf)**t
@@ -53,4 +65,4 @@ capComp=cap*(1+tasaPf)**t
 profitComp=capComp-cap
 
 print(capComp)
-print(f"Interes compuesto en {meses} meses: {profitComp} ({profitComp/dolar} USD)")
+print(f"Interes compuesto en {meses} meses: {profitComp} ({(profitComp/cap)*100}%, {profitComp/dolar} USD)")
