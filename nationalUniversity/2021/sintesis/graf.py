@@ -1,7 +1,9 @@
 import numpy as np
-import control as ct
-import matplotlib.pyplot as plt
+# import control as ct
+# import matplotlib.pyplot as plt
 
+print("test")
+exit()
 w=np.arange(0,100E6)
 
 fo=10E6
