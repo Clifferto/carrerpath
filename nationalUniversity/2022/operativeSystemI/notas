@@ -1,0 +1,40 @@
+el sistema operativo administra la asignacion de memoria, segun el estado del proceso.
+
+procesos que no se estan ejecutando se guardan en el swap (memoria virtual).
+
+toda la info de los procesos esta almacenada en /proc (no estan en disco)
+
+top lo que hace es leer esos archivos
+
+tablas de menoria
+
+tablas de entrada/salida
+
+tablas de archivos (almacenamiento secundario)
+
+tablas de procesos
+	* imagen de proceso (estructura)
+	* estado, prioridad, evento
+
+stack: parametros de funcion, puntero de funcion, puntero de retorno.
+
+modos de ejecucion: usuario, kernel (system)
+
+cuando hay una interrupcion siempre las funciones siguientes se ejecutan en modo kernel
+
+Creacion de proceso:
+	* asignar identificador unico PID
+	* definir y asignar memoria necesaria
+	* inicializar el bloque de control del proceso: PC, stack, estado, prioridad...
+	* incluir proceso en las distintas tablas
+
+el kernel no se ejecuta como un proceso, matiene su propio stack yestrucrura de memoria
+
+(Procesos en UNIX)
+
+Seguridad
+
+el So asocia una serie de privilegios a distintos usuarios
+
+
+
