@@ -15,3 +15,31 @@ hilos a nivel de kernel (el kernel sabe que existen hilos en un proceso)
 
     * cada vez que un hilo hace una llamada a sistema, se bloquean todos los procesos (todos los hilos se bloquean por la llamada de un hilo)
     
+MULTIPROCESADORES
+
+    * no se puede aumentar la velocidad de clk facilmente, por limitaciones tecnologicas
+    * utilizar multiples cpus para paralelizar la carga
+
+la cache esta dividida en distitos niveles, pero siempre el mas cercano al cpu (L1) es privado para el cpu
+
+Tipos de Arquitecturas
+    SIMD: unica instruccion en multiples datos (vectoriales)
+    
+    MIMD: multiples instrucciones en multiples datos (con o sin memoria compartida)
+    
+    *   clusters no tienen memoria compartida
+
+    - Multiple SO: cada procesador tiene su propio SO y no se comparte memoria.
+    - Maestro/esclavos: un procesador se encarga de controlar a los demas procesadores de ejecucion (si crece la cantidad de esclavos el maestro se convierte en el cuello de botella)
+    - SMP: cada procesador se encarga de elegir el proceso, cargarlo y ejecutarlo (el kernel y el programa debe tener buen soporte para paralelismo)
+
+MICROKERNELS
+
+    * reducir al minimo las instrucciones en modo sistema (solo se ejecuta lo esencial)
+    * el espacio de usuario se divide en multiples modulos
+    * el microkernel comunica a cada mudulo
+    
+    * el kernel de linux es un hibrido de microkernel (modprobe)
+    
+
+
