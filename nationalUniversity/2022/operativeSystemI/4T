@@ -1,0 +1,17 @@
+HILOS
+
+hilos a nivel de usuario (kernel solo administra los procesos)
+    * el kernel no conoce que existen los hilos
+    * el proceso debe administrar los hilos
+    * existen lib para administrar los hilos de un proceso
+
+    * el kernel asignara un core por proceso (no son suficientes para cada hilo)
+    * cuando el kernel pausa el proceso, los hilos no cambian su estado (no saben del estado del proceso)
+
+
+hilos a nivel de kernel (el kernel sabe que existen hilos en un proceso)
+    * el kernel administra los hilos (no lib)
+    * el kernel puede asignar mas de un core para los procesos
+
+    * cada vez que un hilo hace una llamada a sistema, se bloquean todos los procesos (todos los hilos se bloquean por la llamada de un hilo)
+    
