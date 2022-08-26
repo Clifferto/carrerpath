@@ -1,0 +1,55 @@
+https://github.com/ICOMP-UNC/so1-ejemplos/tree/master/gnu_toolchain
+
+simbolo == funcion,variable
+
+ETAPA DE COMPILACION
+
+    * preprocessor (includes, expand macros)
+    * compiler (to ASM)
+    * assembler (codigo maquina .o .obj -> lib==coleccion de .o)
+    * linker (agrega las libs dinamicas y estaticas)
+      gcc -l(lib)  
+        - lib estatica, los simbolos se agregan al binario (mas peso) pero no tienen dependencias
+        - lib dinamica, los simbolos son externos al binario (mas liviano) pero se forman las dependencias
+
+    ASSERTION CHECK
+
+        - condicion que si se cumple se produce un abort en el codigo con opcion de core dump (solo para debug)
+
+        gcc -D NDEBUG: desactiva todos los assert
+
+    OPTIMIZATIONS
+
+        gcc -O(nivelDeOptimizacion): nivel del 0-3 activan conjunto de flags para optimizacion
+
+ELF FORMAT
+
+    * ELF header
+    * Program header table
+    * .text (codigo)
+    * .rodata ()
+    * .data (variables inicializadas)
+    * Section header table
+
+    size: ver sectores del binario
+    nm: ver todos los simbolos del binario
+
+RAM LAYOUT OF C PROGRAM
+
+    comand line arguments/env variables (interfaz con consola)
+    
+    stack (var dentro de funciones)  |
+                                    \ /
+
+                                    / \      
+    heap                             |
+    
+    data no inic (bss)(inic en 0 para ejecucion)
+    data inicializada
+    text
+
+DEBUG
+    var global static son casi lo mismo, tienen un alcance file-scope
+        * static: se inicializan desde antes de ejecutar el main
+    extern es para extender el alcance mas alla del .c
+
