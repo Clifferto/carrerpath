@@ -1,6 +1,8 @@
 https://github.com/ICOMP-UNC/so1-ejemplos/tree/master/gnu_toolchain
 
 simbolo == funcion,variable
+* reemplaza una expresion
+{inicio..final} reemplaza una secuencia
 
 ETAPA DE COMPILACION
 
@@ -33,6 +35,14 @@ ELF FORMAT
 
     size: ver sectores del binario
     nm: ver todos los simbolos del binario
+    ar: para crear librerias .a (lib(nobre).a)
+
+    var global static son casi lo mismo, tienen un alcance file-scope
+    
+    extern es para extender el alcance mas alla del .c
+    
+        * static: se inicializan desde antes de ejecutar el main
+    
 
 RAM LAYOUT OF C PROGRAM
 
@@ -49,7 +59,6 @@ RAM LAYOUT OF C PROGRAM
     text
 
 DEBUG
-    var global static son casi lo mismo, tienen un alcance file-scope
-        * static: se inicializan desde antes de ejecutar el main
-    extern es para extender el alcance mas alla del .c
+    
+    cppcheck
 
