@@ -23,7 +23,19 @@ MEMORIA VIRTUAL
             - La tasa de fallos de pagina depende del tamaño de las paginas (mientras mas se tienen mas prob de fallo).
 
         SEGMENTACION: 
-            
+            - Bloques logicos que conforman las paginas de los procesos.
+
+    POLITICAS PARA CARGA DE PAGINAS        
+        
+        - A demanda: se carga solo durante un page fault.
+        - Pre paging: se cargas varias paginas cuando hay un page fault (es bueno si se cumple el principio de cercania).
+
+    POLITICAS DE UBICACION Y REEMPLAZO
+
+        - El lugar no tiene relevancia.
+        - Es importante decidir que pagina se reemplaza (si hace falta cargar pero la memoria esta llena ¿que pagina se sobreescribe?)
+        - El objetivo es reemplazar la pagina que menos se va a utilizar. (por principio de cercania seria la que no se usa hace mas tiempo)
+        
 
 
     
