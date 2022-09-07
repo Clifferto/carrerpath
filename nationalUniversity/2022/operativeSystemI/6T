@@ -35,7 +35,10 @@ MEMORIA VIRTUAL
         - El lugar no tiene relevancia.
         - Es importante decidir que pagina se reemplaza (si hace falta cargar pero la memoria esta llena ¿que pagina se sobreescribe?)
         - El objetivo es reemplazar la pagina que menos se va a utilizar. (por principio de cercania seria la que no se usa hace mas tiempo)
-        
+        - FIFO: Reemplaza la pg que esta hace mas tiempo en memoria.
+        - RELOJ: Se agrega un bit de uso en los frames, cada vez que se usa o se referencia ese bit se pone en 1.
+        Si el puntero llega a dar toda la vuelta y el bit sigue en cero, se podria reemplazar la pagina.
+
 
 
     
