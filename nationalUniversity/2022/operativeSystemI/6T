@@ -1,0 +1,14 @@
+MEMORIA VIRTUAL
+
+    El proceso se divide en partes en la memoria (paginas) y no tienen porque estar en areas continuas (tablas de paginacion)
+    Conjunto residente: Parte del proceso que se encuentra en memoria en un determinado momento.
+        - Mas procesos para ejecutar 
+        - La imagen de proceso no esta atado a la memoria del sistema.
+
+    * Se cargan algunas paginas del proceso
+    * El hw genera una interrupcion de "fallo de pagina" cuando se hace referencia a una pagina no cargada.
+    * Mientras el SO deja el proceso en blk.
+
+    Hiperpaginacion: Cuando el SO consume tiempo solo cargando y borrando paginas.
+    
+    PRINCIPIO DE CERCANIA: Si una direccion se uso recientemente, ES PROBABLE se use nuevamente (o una cercana) y si no se utilizo es probable que no se use a corto plazo
