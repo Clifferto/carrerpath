@@ -25,6 +25,10 @@ MEMORIA VIRTUAL
         SEGMENTACION: 
             - Bloques logicos que conforman las paginas de los procesos.
 
+Achicar conjunto residente a un TAMAÑO OPTIMO que maximize la cantidad de procesos en memoria y aprovechar el procesador.
+    - MUY GRANDE: Pocos procesos en memoria y la mayor parte del tiempo bloqueados.
+    - MUY CHICO: Mas procesos en memoria, pero aumenta la tasa de fallos de pagina (mas lento)
+
     POLITICAS PARA CARGA DE PAGINAS        
         
         - A demanda: se carga solo durante un page fault.
@@ -44,6 +48,10 @@ MEMORIA VIRTUAL
 
         DINAMICAMENTE: Variar el tamaño del conjunto residente para mantener una tasa fija de fallos de pagina.
         FIJO: Numero de frames fijos y siempre de un mismo proceso.
+
+    POLITICAS DE VACIADO
+
+SUSPENCION DE PROCESOS
 
 
 
