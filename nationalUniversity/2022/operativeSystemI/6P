@@ -1,0 +1,6 @@
+REST API (comentario)
+
+    Interfaces entre la db de un servidor y el usuario.
+    La informacion se comparte en formato JSON.
+    
+
