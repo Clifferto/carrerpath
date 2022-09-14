@@ -1,0 +1,99 @@
+MANEJO DE MEMORIA
+
+    Cada proceso tiene una porcion de RAM asignada por el SO y cuando este proceso termina se debe liberar 
+    este espacio e informar que esta disponible para otros procesos.
+
+    En estas tareas se necesita ayuda del HW.
+
+    DEBERES DEL MANEJO DE MEMORIA:
+
+        * Reubicacion de bloques (cuando se continua con un proceso este se cargara seguramente en posiciones distintas a las que tenia antes, por lo que todas sus variables cambiaran de posicion)
+        * Proteccion de limites (respetar el bloque asignado para cada proceso, esto no se puede saber antes del runtime)
+        * Areas del bloque compartidas entre procesos (opuesta a la anterior, pero si 2 procesos usan los mismos datos es deseable que se puedan compartir entre ellos y no reperirlos en RAM)
+        * Organizacion logica (es deseable partir un proceso en modulos de RAM con funciones distintas)
+
+ASIGNACION POR PARTICIONES
+
+    Se usaron distintas tecnicas para la asignacion de los bloques de memoria para los procesos.
+
+    PARTICIONES FIJAS:
+        
+        * La memoria se divide en bloques de igual/distinto tamaño cada uno pero son fijos
+        * Si se usan distintos tamaños se puede asignar con una cola por tamaño (cola para procesos de 1M, otra para 2M, etc) o una cola para todos los procesos (se asignan a un bloque en el que quepa el proceso)
+        * Esto es simple de administrar
+
+        * Pero genera FRAGMENTACION INTERNA (para bloques de 8M, vienen procesos que ocupan 1M, se ejecutan pero quedan inutilizados los demas MB de cada bloque)
+
+    PARTICIONES DINAMICAS:
+
+        * La memoria se asigna segun lo que necesita el proceso
+        * La asignacion se hace en espacios adyacentes de memoria (uno abajo del otro)
+        * Cuando un prceso termina/bloquea/suspende se liberara ese espacio 
+
+        * Esto genera FRAGMENTACION EXTERNA (quizas ningun proceso entra en el espacio liberado, se van generando pequeños espacios de memoria inutiles para utilizar)
+        * LLegado a esto se puede COMPACTAR la memoria (mover todos los procesos de forma que vuelva a quedar un bloque contiguo)
+        
+        Compactar sirve pero es una tarea complicada y requiere de mucho tiempo de cpu, por lo que se usaron distintas tecnicas para minimizar las compactaciones de memoria en esquema de particiones dinamicas.
+
+        BEST-FIT:
+
+            * El proceso se carga en el bloque mas parecido al tamaño del proceso
+            * Requiere mucha info de estado de memoria y saber el tamaño disponible de todos los bloques
+            * Intenta dejar el menor espacio posible libre entre procesos pero es el de peor performance
+            * Luego de un tiempo genera fragmentacion de muchos espacios muy pequeños de memoria que no sirven para ningun proceso
+
+        FIRST-FIT:
+
+            * Busca el primer espacio libre suficiente para correr el proceso
+            * Simple y bastante efectivo
+            * Luego de un tiempo genera fragmentacion al inicio de la memoria
+            * Con el tiempo la asignacion se hace mas lenta (fragmentacion al inicio, hay que seguir buscando lugares cerca del final de la memoria)
+
+        NEXT-FIT:
+            
+            * Busca el primer espacio libre suficiente pero empezando desde el ultimo espacio asignado
+            * Luego de un tiempo tiende a haber fragmentacion al final de la memoria
+            * Intenta mejorar el FIRST-FIT pero el overhead generado por el mecanismo de busqueda no compenza para superarlo
+
+        BUDDY-SYSTEM:
+
+            * Hay que asignar un proceso
+            * Se toma la memoria libre y se divide en 2
+            * Si las particiones son mas grandes se siguen subdividiendo a la mitad las porciones
+            * Cuando se llega a un bloque que no puede contener el proceso, se asigna el bloque del tamaño anterior al proceso
+            * A medida que llegan otros procesos se buscan los bloques libres y se realiza el mismo procedimiento
+            * Esto genera fragmentacion interna
+            * Pero a la hora de liberar la memoria se comprueba si existen 2 bloques libres del mismo tamaño
+            * Si existen 2 bloques libres contiguos se unifica en un solo bloque del doble del tamaño
+            * Esto tiende a reducir la fragmentacion y compactacion de la RAM
+
+    REUBICACION DE PROCESOS EN PARTICIONES DINAMICAS:
+
+        Cuando de reanudan procesos, estos se cargaran en particiones de memoria distintas. Se tiene que usar un metodo para manipular las instrucciones, datos y stack del proceso que contemple la reubicacion.
+
+        Ademas se deben mantener los limites de proteccion de los procesos.
+
+        * Se define una direccion BASE del proceso en su creacion (direccion fisica de la RAM)
+        * Se define una direccion RELATIVA a la base del proceso (offset)
+        * El HW se encarga de sumar BASE + RELATIVA para obtener la direccion fisica final (de una instruccion, dato o stack)
+        * Cuando se cambia el proceso se cambia la BASE pero por el direccionamiento relativo el proceso sigue funcionando
+        * Ademas el HW compara si el resultado esta fuera de algun limite de memoria y larga una interrupcion (proteccion)
+
+PAGINACION
+
+    En este caso se divide la RAM el muchos bloques y los procesos se dividen en paginas de este tamaño.
+    Ahora la memoria no tiene fragmentacion pero los procesos estan desordenados en paginas de memoria.
+    El HW se encarga de cargar las paginas de procesos en la secuencia correcta (DMA Scatter-Gater).
+
+    * Existe un seguimiento de los procesos
+    * Existe una TABLA de procesos donde se tiene la direccion BASE de cada pagina para cada proceso (FRAME)
+    * Este esquema elimina practicamente la fragmentacion pero necesita de el HW que resuelva esto 
+    * Esta administracion por parte del HW esta oculta para el programador
+
+SEGMENTACION
+
+    En este caso para garantizar la seguridad dentro de un proceso (no se ejecuten datos, no se escriban instrucciones, etc) el proceso se divide en distintos segmentos de tamaños dinamicos con funciones y permisos especificos.
+    
+    Siempre que se trate de hacer algo en un segmento incorrecto, el HW avisa al SO que se esta haciendo algo incorrecto, el SO toma el control, mata al proceso y tira el error de SEGMENTATION FAULT.
+
+    El SO debe administrar su TABLA DE SEGMENTOS para cada proceso.

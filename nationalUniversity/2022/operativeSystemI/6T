@@ -1,26 +1,88 @@
 MEMORIA VIRTUAL
 
     El proceso se divide en partes en la memoria (paginas) y no tienen porque estar en areas continuas (tablas de paginacion)
-    Conjunto residente: Parte del proceso que se encuentra en memoria en un determinado momento.
+    Todo la imagen del proceso esta en disco pero no toda en RAM
+
+    La parte del proceso que se encuentra en memoria en un determinado momento se llama CONJUNTO RESIDENTE.
         - Mas procesos para ejecutar 
         - La imagen de proceso no esta atado a la memoria del sistema.
 
-    * Se cargan algunas paginas del proceso
-    * El hw genera una interrupcion de "fallo de pagina" cuando se hace referencia a una pagina no cargada.
-    * Mientras el SO deja el proceso en blk.
-
-    Hiperpaginacion: Cuando el SO consume tiempo solo cargando y borrando paginas.
+    El SO administra en memoria la TABLA DE PAGINAS (que comienza en la direccion TBPRT) donde se almacena el FRAME de cada pagina, evidentemente debe usarse tantas posiciones de memoria como paginas puedan existir.
+    Si a tabla de pagina es muy extensa tambien se pagina y se carga por partes en la memoria, mientras el resto esta en el disco.
     
+    * Se cargan algunas paginas del proceso
+    * Se actualiza la tabla de paginas
+    * El hw genera una interrupcion de "fallo de pagina" cuando se hace referencia a una pagina no cargada.
+    * Mientras el SO bloquea el proceso y se carga la pagina del disco a la RAM.
+    * Una vez cargada la pagina se puede reanudar el proceso
+
+    Ahora la direccion es VIRTUAL (no es una direccion fisica de RAM)
+
+    virtADDR = page + offset
+
+    * Se debe encontrar un FRAME
+    * Leer la tabla de paginas (empieza en la posicion TBPTR)
+    * TBPTR + page = FRAME (PGPTR)
+    * Esta esa pagina en memoria?
+        + PGPTR + offset = dato
+        - Fallo de pagina, hay que cargarla en la RAM y actualizar la tabla de paginas
+
+ HIPERPAGINACION
+
+    Si el tamaño de la pagina es muy bajo la tasa de fallos aumenta y el SO consume tiempo solo cargando y borrando paginas, produciendoce HIPERPAGINACION.
+    
+    Seria bueno dejar en RAM las paginas que mas se usaran para los procesos, esto no se puede saber.
+
     PRINCIPIO DE CERCANIA: Si una direccion se uso recientemente, ES PROBABLE se use nuevamente (o una cercana) y si no se utilizo es probable que no se use a corto plazo
 
-        * La tabla de pagina es muy extensa por lo que tambien se pagina y se carga por partes en la memoria, mientras el resto esta en la memoria secundaria (virtual).
-    
-        LA MEM VIRTUAL ES NECESARIA PERO LENTA, POR ESO EXISTE EL CACHE (Translation look-ahead buffer TLB).
+TRANSLATION LOOK-ASIDE BUFFER (TLB)
 
-    # Mejorar el manejo de datos (accesos a memoria y cache) siempre genera una mejora en el programa.
+    Para evitar leer la tabla de paginas se puede poner un cache con los frames mas utilizados por los procesos y dejar estos en RAM.
 
-        TAMAÑO DE LAS PAGINAS:
-            - La tasa de fallos de pagina depende del tamaño de las paginas (mientras mas se tienen mas prob de fallo).
+    Mejorar el manejo de datos (accesos a memoria y cache) siempre genera una mejora en el programa.
+
+    * Se debe encontrar un FRAME
+    * Se lee el TLB
+    * Esta el frame en el TLB?
+
+        +) HIT: Se recupera el frame directamente (PGPTR)
+        -) MISS: Esta en la tabla de paginas? (esta en RAM, pero hace un tiempo no se utiliza)
+
+            +) Hay que acualizar el TLB, TBPTR + page = FRAME (PGPTR)
+            -) Fallo de pagina, hay que cargarla en la RAM, actualizar el TLB y actualizar la tabla de paginas. 
+            Despues de todo eso: TBPTR + page = FRAME (PGPTR)
+
+    * PGPTR + offset = dato
+
+    CACHE PARA PAGINAS:
+
+        Se puede combinar el TLB con un cache para los datos, de forma que una vez obtenida la direccion fisica se carga el dato directamente desde este cache.
+        Mucho mas rapido pero requiere HW.
+
+        * Se debe encontrar un DATO
+        * Se lee el TLB
+        * Esta el frame en el TLB?
+
+            +) HIT: Se recupera el frame directamente (PGPTR)
+                * Esta parte del frame en en el cache de datos?
+
+                    +) Se carga directo el dato
+                    -) Solo se tiene el PGPTR
+            
+            -) MISS: Esta en la tabla de paginas? (esta en RAM, pero hace un tiempo no se utiliza)
+
+                +) Hay que acualizar el TLB, TBPTR + page = FRAME (PGPTR)
+                -) Fallo de pagina, hay que cargarla en la RAM, actualizar el TLB y actualizar la tabla de paginas. 
+                Despues de todo eso: TBPTR + page = FRAME (PGPTR)
+
+        * PGPTR + offset = dato
+
+
+TAMAÑO DE LAS PAGINAS
+    La tasa de fallos de pagina depende del tamaño de las paginas (mientras mas se tienen mas prob de fallo).
+
+
+
 
         SEGMENTACION: 
             - Bloques logicos que conforman las paginas de los procesos.

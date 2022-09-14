@@ -9,7 +9,7 @@ THREADS
     CARACTERISTICAS:
 
         * Tinen info de estado del thread
-        * Cada uno tiene una pila propia
+        * Cada uno tiene en RAM una pila propia
         * Solo dispone de los recursos asignados a su proceso
 
     Es mucho mas rapido crear, matar, cambiar threads que cambiar todo el contexto para cambiar de procesos.
@@ -55,7 +55,7 @@ NIVEL DE EXISTENCIA
 
     NIVEL DE KERNEL (el kernel sabe que existen hilos en un proceso, KLT)
         
-        * El kernel administra los threads (no lib, no portable)
+        * El kernel administra los threads (no lib, pero no portable)
         * El kernel puede asignar mas de un core para los procesos (mas recursos para threads)
 
         * Pero cada vez que un thread hace una system call, se bloquean todos los procesos (todos los threads se bloquean por la llamada de un thread)
@@ -71,7 +71,7 @@ MULTIPROCESADORES
     ARQUITECTURAS DE SISTEMA:
 
         SIMD: Unica instruccion en multiples datos (vectoriales)        
-        MIMD: multiples instrucciones en multiples datos (con o sin memoria compartida)
+        MIMD: multiples instrucciones en multiples datos (varios cpus con o sin memoria compartida)
 
     ADMINISTRACION:
 
@@ -79,15 +79,19 @@ MULTIPROCESADORES
         - Maestro/esclavos: Un procesador se encarga de controlar a los demas procesadores de ejecucion (si crece la cantidad de esclavos el maestro se convierte en el cuello de botella)
         - SMP: Cada procesador se encarga de elegir el proceso, cargarlo y ejecutarlo (el kernel y el programa debe tener buen soporte para paralelismo)
         
-    La cache esta dividida en distitos niveles, pero siempre el mas cercano al cpu (L1) es privado para el cpu
+    La cache esta dividida en distitos niveles, pero siempre el mas cercano al cpu (L1) es privado para el cpu.
     
 MICROKERNELS
 
-    * reducir al minimo las instrucciones en modo sistema (solo se ejecuta lo esencial)
-    * el espacio de usuario se divide en multiples modulos
-    * el microkernel comunica a cada mudulo
+    Cuando hay system calls se ejecuta codigo en modo kernel y se pausan los procesos. Si el kernel realiza muchas tareas (y posiblemente muchas system calls), la mayor parte del tiempo de CPU se gastara en tareas administrativas del SO en vez de correr procesos.    
+
+    * Reducir al minimo las instrucciones en modo sistema (solo se ejecuta lo esencial)
+    * El espacio de usuario se divide en multiples modulos
+    * El microkernel comunica a cada mudulo
     
-    * el kernel de linux es un hibrido de microkernel (modprobe)
+    Desarrollar y mantener los microkernels es mucho trabajo de muchas personas
+    
+    Linux es un microkernel-hibrido (modprobe, lsmod)
     
 
 
