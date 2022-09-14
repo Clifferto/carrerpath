@@ -1,38 +1,86 @@
 THREADS
 
-hilos a nivel de usuario (kernel solo administra los procesos)
-    * el kernel no conoce que existen los hilos
-    * el proceso debe administrar los hilos
-    * existen lib para administrar los hilos de un proceso
+    Un proceso consta de tareas la administracion de recursos asignados para el proceso y la ejecucion del codigo de programa.
+    La parte de ejecucion se llama thread.
 
-    * el kernel asignara un core por proceso (no son suficientes para cada hilo)
-    * cuando el kernel pausa el proceso, los hilos no cambian su estado (no saben del estado del proceso)
+    Crear o cambiar un proceso es una tarea con cierta complejidad, por lo que se prefiere cambiar threads de ejecucion en un mismo proceso.
+    Aparecen los multiples threads por procesos.
+
+    CARACTERISTICAS:
+
+        * Tinen info de estado del thread
+        * Cada uno tiene una pila propia
+        * Solo dispone de los recursos asignados a su proceso
+
+    Es mucho mas rapido crear, matar, cambiar threads que cambiar todo el contexto para cambiar de procesos.
+    La comunicacion dentro de un mismo proceso es mas rapida (no usan system calls)
+
+    Por el contrario la sincronizacion es por cuenta del programador y son dificiles de testear en algunos casos.
+    Tiempo de cpu para los procesos de sincronizacion (no se debe abusar de la sincronizacion).
+
+    ESTADOS:
+
+        * Creacion (genera entorno y stack local para el thread)
+        * Bloqueo (se bloquea cuando el thread debe esperar algun evento)
+        * Desbloqueo (se desbloquea cuando ocurre el evento)
+        * Terminacion (cuando el thread termina se libera su stack y contexto local)
+
+    PROCESO UNICO THREAD:
+
+        * Programa corriendo
+        * Pide comunicacion con otro sistema por red
+        * El proceso se va a suspender y el SCHEDULER seguramente va a cambiar de proceso
+        * Va a gastar tiempo en cambiar todo el entorno
+        * Recien cuando los datos de la comunicacion esten listos se va a volver a cambiar el entorno y se seguira ejecutando el programa
+
+    PROCESO DOS THREADS:
+
+        * Programa corriendo en un thread
+        * Pide comunicacion con otro sistema por red
+        * El thread se bloquea pero el proceso continua su ejecucion
+        * Mientras el proceso puede ejecutar otro thread
+        * Cuando los datos de la comunicacion esten listos seguira ejecutando el thread de programa (nunca se cambio de entorno)
+
+NIVEL DE EXISTENCIA
+
+    NIVEL DE USUARIO (kernel solo administra los procesos, ULT)
+        
+        * El kernel no conoce que existen los threads
+        * El proceso administra los threads
+        * Existen libs para administrar los threads de un proceso
+
+        * El kernel asignara un core por proceso (no son suficientes para cada threads)
+        * Cuando el kernel pausa el proceso, los threads no cambian su estado (no saben del estado del proceso)
 
 
-hilos a nivel de kernel (el kernel sabe que existen hilos en un proceso)
-    * el kernel administra los hilos (no lib)
-    * el kernel puede asignar mas de un core para los procesos
+    NIVEL DE KERNEL (el kernel sabe que existen hilos en un proceso, KLT)
+        
+        * El kernel administra los threads (no lib, no portable)
+        * El kernel puede asignar mas de un core para los procesos (mas recursos para threads)
 
-    * cada vez que un hilo hace una llamada a sistema, se bloquean todos los procesos (todos los hilos se bloquean por la llamada de un hilo)
+        * Pero cada vez que un thread hace una system call, se bloquean todos los procesos (todos los threads se bloquean por la llamada de un thread)
     
 MULTIPROCESADORES
 
-    * no se puede aumentar la velocidad de clk facilmente, por limitaciones tecnologicas
-    * utilizar multiples cpus para paralelizar la carga
+    Para aumentar la rapidez no se puede aumentar la velocidad de clk facilmente, por limitaciones tecnologicas.
+    Se trata de utilizar multiples cpus para paralelizar la carga.
 
-la cache esta dividida en distitos niveles, pero siempre el mas cercano al cpu (L1) es privado para el cpu
+        * Clusters (no tienen memoria compartida)
+        * Symetric Multi-Procesors (SMP)
 
-Tipos de Arquitecturas
-    SIMD: unica instruccion en multiples datos (vectoriales)
+    ARQUITECTURAS DE SISTEMA:
+
+        SIMD: Unica instruccion en multiples datos (vectoriales)        
+        MIMD: multiples instrucciones en multiples datos (con o sin memoria compartida)
+
+    ADMINISTRACION:
+
+        - Multiple SO: Cada procesador tiene su propio SO y no se comparte memoria.
+        - Maestro/esclavos: Un procesador se encarga de controlar a los demas procesadores de ejecucion (si crece la cantidad de esclavos el maestro se convierte en el cuello de botella)
+        - SMP: Cada procesador se encarga de elegir el proceso, cargarlo y ejecutarlo (el kernel y el programa debe tener buen soporte para paralelismo)
+        
+    La cache esta dividida en distitos niveles, pero siempre el mas cercano al cpu (L1) es privado para el cpu
     
-    MIMD: multiples instrucciones en multiples datos (con o sin memoria compartida)
-    
-    *   clusters no tienen memoria compartida
-
-    - Multiple SO: cada procesador tiene su propio SO y no se comparte memoria.
-    - Maestro/esclavos: un procesador se encarga de controlar a los demas procesadores de ejecucion (si crece la cantidad de esclavos el maestro se convierte en el cuello de botella)
-    - SMP: cada procesador se encarga de elegir el proceso, cargarlo y ejecutarlo (el kernel y el programa debe tener buen soporte para paralelismo)
-
 MICROKERNELS
 
     * reducir al minimo las instrucciones en modo sistema (solo se ejecuta lo esencial)
