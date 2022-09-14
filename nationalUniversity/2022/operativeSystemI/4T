@@ -1,4 +1,4 @@
-HILOS
+THREADS
 
 hilos a nivel de usuario (kernel solo administra los procesos)
     * el kernel no conoce que existen los hilos

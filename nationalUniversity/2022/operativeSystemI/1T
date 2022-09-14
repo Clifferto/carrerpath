@@ -1,0 +1,48 @@
+SISTEMA OPERATIVO
+
+    Se encarga de administrar los recursos de hw de un sistema de computacion para ofrecer sus 
+    servicios a los usuarios.
+
+    SISTEMA:
+
+        * Procesador/es
+        * RAM
+        * Dispositivos de I/O
+            - Discos
+            - Teclado
+            - Pantalla
+            - Varios
+    
+        PROCESADOR: Tiene registros de intrucciones, PC, registros de datos y direcciones. Ejecuta intrucciones con los datos que se le aportan.
+
+            INSTRUCCIONES
+                
+                * Tx Proc/RAM
+                * Tx Proc/IO
+                * Operaciones en datos
+                * Control del flujo de programa
+        
+    INTERRUPCIONES:
+
+        Sirve para dedicar el procesador a otras tareas mientras se realizan funciones mas lentas.
+
+        Interrupciones multiples por PRIORIDADES o por SECUENCIA
+
+
+    CACHE DE DISCO:
+
+        El acceso a la memoria secundaria (disco) es muy lento para la vel del Proc.
+        Parte de la RAM se utiliza para cargar datos del disco que se suponen que para el programa se utilizaran repetidamente.
+
+    MEMORIA CACHE:
+
+        Inclusive la RAM es muy lenta para el proc.
+        Es una memoria de baja capacidad pero muy rapida entre la RAM y los REGISTROS del proc.
+
+        Si el proc necesita un dato primero se fija en cache:
+
+            HIT: El dato esta y se utiliza.
+            MISS: El dato falta, se busca en RAM y se coloca en cache un bloque de varios datos donde esta el necesitado tambien. Todo esto es por hw.
+
+        El SO no puede controlar esta memoria.
+

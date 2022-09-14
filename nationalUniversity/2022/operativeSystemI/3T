@@ -1,20 +1,127 @@
-el sistema operativo administra la asignacion de memoria, segun el estado del proceso.
+La idea que busca el SO es mantener al proc ocupado el mayor tiempo posible
 
-procesos que no se estan ejecutando se guardan en el swap (memoria virtual).
+PROCESOS
 
-toda la info de los procesos esta almacenada en /proc (no estan en disco)
+	El proceso debe especificar:
+		* Programa ejecutable
+		* Info de estado del programa
+		* Info de control del programa
 
-top lo que hace es leer esos archivos
+	MECANICA DE EJECUCIONES:
 
-tablas de menoria
+		TRAZA: Instrucciones a ejecutar
+		DISPATCHER/SCHEDULER: Parte del SO que se carga en memoria, elige que proceso ejecutar y prepara el sistema para ejecutarlo
 
-tablas de entrada/salida
+		* Programas A, B y C
+		* Se comienza a ejecutar la traza de A
+		* Timeout
+		* El scheduler elige ejecutar el proceso B y carga todo
+		* Se ejecuta el B
+		* Timeout o el proceso B necesita una operacion lenta
+		* El scheduler elige ejecutar el proceso C y carga todo
+		* Se ejecuta C
 
-tablas de archivos (almacenamiento secundario)
+		* Se repite todo el ciclo hasta terminar todos los procesos
 
-tablas de procesos
-	* imagen de proceso (estructura)
-	* estado, prioridad, evento
+		TERMINACION DE PROCESOS:
+
+			* El programa finaliza su tarea (el propio proceso lo solicita)
+			* Se mata el proceso (padre muerto, lo solicita el padre)
+			* El usuario se desconecta del sistema
+			* Error del proceso (error aritmetico, errores de uso de memoria, uso de intrucciones no permitidas)
+
+ESTADO DE PROCESOS:
+
+	2 ESTADOS: 
+
+		* Run
+		* Stop
+
+	Pero cuando se crea el proceso ni se ejecuta ni se libera la memoria cuando termina inmediatainmediatamente. 
+	
+	* Ready
+	* Exit
+
+	Un proceso puede requerir algun procedimiento lento, debe bloquarse por un tiempo ya que no puede avanzar
+
+	* Block
+	
+	5 ESTADOS:
+
+		* Ready
+		* Run
+		* Block (si no puede avanzar)
+		* Stop
+		* Exit
+
+	El problema es que el proc es muy rapido y se termina dando que la memoria esta llena de imagenes de procesos que quedan esperando otras funciones y el procesador no hace nada.
+
+	Lo que se hace es que cuando un proceso se bloquea, la imagen se guarda en disco (SWAP) y se libera memoria para cargar otro proceso
+
+	Es un proceso lento asi que el SO debe seleccionar correctamente el target
+
+	* Ready/Suspend
+	* Block/Suspend
+
+	7 ESTADOS (casi el real)
+
+		* Ready (R)
+		*	* Ready/Suspend (quiza esta listo pero no interesa ejecutarlo aun) (S)
+		* Run (R)
+		* Block (si no puede avanzar) (D)
+		*	* Block/Suspend (quizas la peticion es muy lenta) (D)
+		* Stop (T)
+		* Exit (Z)
+		
+
+TABLAS DEL SO
+
+	Para que esto funcione el SO debe conocer el estado de los PROCESOS, la MEMORIA, los DISPOSITIVOS
+	Esta info importante se organiza en TABLAS
+
+	TAB DE MEMORIA (disponible, usada, compartida entre procesos (proteccion), administracion de mem virtual)
+
+	TAB I/O (estados, estado del disco, filesystem)
+
+	TAB DE PROCESOS (que procesos hay y en que direccion estan sus trazas)
+		* Imagen de proceso (estructura)
+		* Identificadores (de cada proceso y todos los relacionados, PID)
+		* Info de control (interaccion con otros procesos, estado, prioridad, evento)
+
+	Toda la info de los procesos esta almacenada en /proc (no estan en disco)
+	Top lo que hace es leer esos archivos
+	
+	Al hibernar un sistema se guardan todas las tablas del SO en la memoria secundaria, asi al resumir se pueda recuperar el estado del sistema y reanudar operaciones
+
+	La administracion de las tablas se realiza en el proceso de SHEDULER
+
+CAMBIOS DE PROCESOS
+
+	* Timeout
+	* Requerir algun proceso lento de I/O (el SO va a cambiar el proceso)
+	* "Fallo" de memoria (un dato necesario no esta en RAM, hay que traerlo del disco)
+	* Error de ejecucion (el SO puede cambiar de proceso)
+	* System call (esto da el control al SO y PUEDE cambiar el proceso)
+
+	No todas las system call cambiaran de proceso, algunas solo cambian el modo (System/User)
+	El SO intenta realizar la menor cantidad de cambios en el sistema cuando hay una interrupcion
+
+	CAMBIO DE MODO POR INTERRUPCION
+
+		* Se guardan registros del proc
+		* Se modifica el PC
+
+	CAMBIO DE PROCESO POR INTERRUPCION
+
+		* Salvar registros (contexto)
+		* Actualizar el bloque de control de procesos (PCB)
+		* Poner proceso actual en cola
+		* Seleccionar otro proceso (SCHEDULER)
+		* Actualizar estado del nuevo proceso
+		* Actualizar tablas de memoria
+		* Cargar contexto del nuevo proceso
+
+--------------------------------------------------
 
 stack: parametros de funcion, puntero de funcion, puntero de retorno.
 
@@ -28,14 +135,4 @@ Creacion de proceso:
 	* inicializar el bloque de control del proceso: PC, stack, estado, prioridad...
 	* incluir proceso en las distintas tablas
 
-el kernel no se ejecuta como un proceso, matiene su propio stack yestrucrura de memoria
-
-(Procesos en UNIX)
-
-Seguridad
-
-el So asocia una serie de privilegios a distintos usuarios
-
-nota inutil
-nota mas inutil
-
+el kernel no se ejecuta como un proceso, matiene su propio stack y estrucrura de memoria
