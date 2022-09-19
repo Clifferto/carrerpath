@@ -1,0 +1,49 @@
+GCC
+--------------------------------------------------------------------------------
+-E                       Preprocess only; do not compile, assemble or link.
+-S                       Compile only; do not assemble or link.
+-c                       Compile and assemble, but do not link (obj).
+-o <file>                Place the output into <file>.
+
+gcc obj.files.o (only link)
+
+GDB
+--------------------------------------------------------------------------------
+gdb [binary.file]
+
+run [bin.args]
+step (next line)
+next (next break)
+where (stack)
+up [number.of.steps] (jump up in stack)
+break [call.name] (set breakpoint)
+quit
+
+BINTOOLS
+--------------------------------------------------------------------------------
+size [binary.file] (view ELF segments sizes)
+
+nm [file.with.symbols] (list symbols, man for type of symb)
+
+valgrind (dynamic analyzer)
+
+coredumpctl (list,info, debug coredumps)
+systemd-tmpfiles --clean (clean coredumps)
+
+ldd [file.with.symbols] (dynamic symbols info)
+
+LIBs STATIC/DYNAMIC
+--------------------------------------------------------------------------------
+<!-- make static lib -->
+ar [lib.name.a] crov [obj.files.o...] (create static lib, replace existent, keep obj date, verbose)
+ar t [lib.name.a] (list content)
+<!-- make binary -->
+gcc -static [main.obj.file.o] -L [lib.path] -l [lib.name-lib]
+
+<!-- make shared object -->
+gcc -fPIC [source.files.c...] (generate obj for shared objects)
+gcc -shared -o [lib.name.so] [obj.files...] (create shared objects lib)
+<!-- make binary with rutime-path -->
+gcc -o [bin.name] [main.c] -L [shared.obj.dir.path] -Wl,-rpath=[shared.obj.dir.path] -l [shared.obj.lib.name-lib]
+
+
