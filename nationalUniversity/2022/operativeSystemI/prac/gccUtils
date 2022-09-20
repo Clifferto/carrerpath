@@ -35,7 +35,7 @@ ldd [file.with.symbols] (dynamic symbols info)
 LIBs STATIC/DYNAMIC
 --------------------------------------------------------------------------------
 <!-- make static lib -->
-ar [lib.name.a] crov [obj.files.o...] (create static lib, replace existent, keep obj date, verbose)
+ar crov [lib.name.a] [obj.files.o...] (create static lib, replace existent, keep obj date, verbose)
 ar t [lib.name.a] (list content)
 <!-- make binary -->
 gcc -static [main.obj.file.o] -L [lib.path] -l [lib.name-lib]
