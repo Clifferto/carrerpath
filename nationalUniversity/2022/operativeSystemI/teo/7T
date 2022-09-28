@@ -17,3 +17,12 @@ CORTO PLAZO
                 * Utilizacion:
 
             * Otros:
+
+    * Politicas de planificacion 
+
+        * Primero en llegar, primero en servir (FCFS)
+        * Round robin (Un tiempo fijo q para cada proceso, q debe ser mas grande que el "tiempo de interaccion")
+        * Primero el proceso mas corto (SPN): Se debe calcular el tiempo de procesamiento, puede haber algun proceso largo que nunca se ejecute.
+        * Menor tiempo restante (SRT): Prioridad a los procesos que tardarian menos para ejecutarse, si a un proceso le falta bastante tiempo, y llegan muchos procesos mas cortos, el proceso largo podria no ejecutarse.
+        * Mayor tasa de respuesta, siguiente (HRRN): 
+        * 
