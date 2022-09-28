@@ -4,9 +4,116 @@ Circuit: * Z:\sintesis\lab4\mixFeedbackBP.asc
 
 WARNING: Less than two connections to node LAPL.  This node is used by B2.
 Direct Newton iteration for .op point succeeded.
+.step run=0
+.step run=1
+.step run=2
+.step run=3
+.step run=4
+.step run=5
+.step run=6
+.step run=7
+.step run=8
+.step run=9
+.step run=10
+.step run=11
+.step run=12
+.step run=13
+.step run=14
+.step run=15
+.step run=16
+.step run=17
+.step run=18
+.step run=19
+.step run=20
+.step run=21
+.step run=22
+.step run=23
+.step run=24
+.step run=25
+.step run=26
+.step run=27
+.step run=28
+.step run=29
+.step run=30
+.step run=31
+.step run=32
+.step run=33
+.step run=34
+.step run=35
+.step run=36
+.step run=37
+.step run=38
+.step run=39
+.step run=40
+.step run=41
+.step run=42
+.step run=43
+.step run=44
+.step run=45
+.step run=46
+.step run=47
+.step run=48
+.step run=49
+.step run=50
 
-Date: Mon Sep 26 14:27:19 2022
-Total elapsed time: 0.168 seconds.
+
+Measurement: averag
+  step	AVG(v(vo))	FROM	TO
+     1	0.865589	800	1250
+     2	1.33279	800	1250
+     3	1.04799	800	1250
+     4	0.884639	800	1250
+     5	0.87555	800	1250
+     6	1.19569	800	1250
+     7	0.873087	800	1250
+     8	0.930026	800	1250
+     9	1.05087	800	1250
+    10	1.08153	800	1250
+    11	1.21906	800	1250
+    12	0.995218	800	1250
+    13	0.870915	800	1250
+    14	0.859727	800	1250
+    15	1.08676	800	1250
+    16	1.10238	800	1250
+    17	1.10699	800	1250
+    18	1.01661	800	1250
+    19	1.00213	800	1250
+    20	0.968523	800	1250
+    21	0.897495	800	1250
+    22	0.953293	800	1250
+    23	0.928492	800	1250
+    24	0.849566	800	1250
+    25	0.98571	800	1250
+    26	1.04839	800	1250
+    27	0.846379	800	1250
+    28	1.16705	800	1250
+    29	1.15647	800	1250
+    30	1.18347	800	1250
+    31	1.09314	800	1250
+    32	1.08269	800	1250
+    33	1.11943	800	1250
+    34	0.821154	800	1250
+    35	1.01254	800	1250
+    36	0.785	800	1250
+    37	0.896108	800	1250
+    38	1.05211	800	1250
+    39	0.941554	800	1250
+    40	0.790635	800	1250
+    41	1.21334	800	1250
+    42	0.943182	800	1250
+    43	1.06184	800	1250
+    44	1.14169	800	1250
+    45	0.860723	800	1250
+    46	1.32482	800	1250
+    47	0.791141	800	1250
+    48	1.01548	800	1250
+    49	1.172	800	1250
+    50	0.82591	800	1250
+    51	1.0405	800	1250
+
+
+Date: Wed Sep 28 18:01:14 2022
+Total elapsed time: 1.316 seconds.
 
 tnom = 27
 temp = 27
