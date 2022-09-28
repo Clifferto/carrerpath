@@ -25,4 +25,8 @@ CORTO PLAZO
         * Primero el proceso mas corto (SPN): Se debe calcular el tiempo de procesamiento, puede haber algun proceso largo que nunca se ejecute.
         * Menor tiempo restante (SRT): Prioridad a los procesos que tardarian menos para ejecutarse, si a un proceso le falta bastante tiempo, y llegan muchos procesos mas cortos, el proceso largo podria no ejecutarse.
         * Mayor tasa de respuesta, siguiente (HRRN): 
-        * 
+        * Realimentado: Baja la prioridad a los procesos que se ejecutaron mas tiempo 
+
+        * Planificacion justa (similar al de UNIX): Cuanto tiempo se ejecuto el proceso, cuanto se ejecuto el grupo de procesos (agrupados con algun criterio), calcular la prioridad
+            * En cada cambio de proceso
+
