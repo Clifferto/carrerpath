@@ -28,5 +28,16 @@ CORTO PLAZO
         * Realimentado: Baja la prioridad a los procesos que se ejecutaron mas tiempo 
 
         * Planificacion justa (similar al de UNIX): Cuanto tiempo se ejecuto el proceso, cuanto se ejecuto el grupo de procesos (agrupados con algun criterio), calcular la prioridad
-            * En cada cambio de proceso
+            * En cada cambio de proceso, se calcula la prioridad de cada proceso
+            * Para eso se calcula el nuevo tiempo para el proceso (mitad del anterior)
+            * Nuevo tiempo para el grupo de proceso (mitad del anterior)
+            * Calculo de la prioridad sumada a la prioridad base (60) 
+            * Existen parametros que se pueden ajustar para cambiar el tiempo de grupo de procesos
+            * Ademas se puede aumentar la prioridad bajando la prioridad base para el proceso (comando nice)
+            
+         
+        
+        
+        
+        
 
