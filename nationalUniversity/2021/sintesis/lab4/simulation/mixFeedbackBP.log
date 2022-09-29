@@ -1,0 +1,230 @@
+Questionable use of curly braces in "b2 lapl 0  v=v(in) laplace = {((s*{k1})/(s**2+{a1}*s+{b1}))*((s*{k2})/(s**2+{a2}*s+{b2}))}"
+    Error: undefined symbol in: "(([s]*(k1))/(s**2+(a1)*s+(b1)))*((s*(k2))/(s**2+(a2)*s+(b2)))"
+Circuit: * Z:\sintesis\lab4\simulation\mixFeedbackBP.asc
+
+WARNING: Less than two connections to node LAPL.  This node is used by B2.
+Direct Newton iteration for .op point succeeded.
+.step run=0
+.step run=1
+.step run=2
+.step run=3
+.step run=4
+.step run=5
+.step run=6
+.step run=7
+.step run=8
+.step run=9
+.step run=10
+.step run=11
+.step run=12
+.step run=13
+.step run=14
+.step run=15
+.step run=16
+.step run=17
+.step run=18
+.step run=19
+.step run=20
+.step run=21
+.step run=22
+.step run=23
+.step run=24
+.step run=25
+.step run=26
+.step run=27
+.step run=28
+.step run=29
+.step run=30
+.step run=31
+.step run=32
+.step run=33
+.step run=34
+.step run=35
+.step run=36
+.step run=37
+.step run=38
+.step run=39
+.step run=40
+.step run=41
+.step run=42
+.step run=43
+.step run=44
+.step run=45
+.step run=46
+.step run=47
+.step run=48
+.step run=49
+.step run=50
+.step run=51
+.step run=52
+.step run=53
+.step run=54
+.step run=55
+.step run=56
+.step run=57
+.step run=58
+.step run=59
+.step run=60
+.step run=61
+.step run=62
+.step run=63
+.step run=64
+.step run=65
+.step run=66
+.step run=67
+.step run=68
+.step run=69
+.step run=70
+.step run=71
+.step run=72
+.step run=73
+.step run=74
+.step run=75
+.step run=76
+.step run=77
+.step run=78
+.step run=79
+.step run=80
+.step run=81
+.step run=82
+.step run=83
+.step run=84
+.step run=85
+.step run=86
+.step run=87
+.step run=88
+.step run=89
+.step run=90
+.step run=91
+.step run=92
+.step run=93
+.step run=94
+.step run=95
+.step run=96
+.step run=97
+.step run=98
+.step run=99
+.step run=100
+
+
+Measurement: averag
+  step	AVG(v(vo))	FROM	TO
+     1	0.87576	800	1250
+     2	1.28001	800	1250
+     3	1.05393	800	1250
+     4	0.923116	800	1250
+     5	0.894069	800	1250
+     6	1.18509	800	1250
+     7	0.902642	800	1250
+     8	0.925734	800	1250
+     9	1.08004	800	1250
+    10	1.10208	800	1250
+    11	1.1845	800	1250
+    12	1.02461	800	1250
+    13	0.875696	800	1250
+    14	0.866762	800	1250
+    15	1.10356	800	1250
+    16	1.08635	800	1250
+    17	1.09946	800	1250
+    18	0.991482	800	1250
+    19	1.00283	800	1250
+    20	0.99735	800	1250
+    21	0.88931	800	1250
+    22	0.984857	800	1250
+    23	0.912218	800	1250
+    24	0.840672	800	1250
+    25	0.966196	800	1250
+    26	1.08669	800	1250
+    27	0.85735	800	1250
+    28	1.19043	800	1250
+    29	1.17398	800	1250
+    30	1.17397	800	1250
+    31	1.11363	800	1250
+    32	1.03976	800	1250
+    33	1.10695	800	1250
+    34	0.849634	800	1250
+    35	1.00725	800	1250
+    36	0.781435	800	1250
+    37	0.877393	800	1250
+    38	0.999785	800	1250
+    39	0.95815	800	1250
+    40	0.787812	800	1250
+    41	1.16625	800	1250
+    42	0.955753	800	1250
+    43	1.02981	800	1250
+    44	1.15678	800	1250
+    45	0.859214	800	1250
+    46	1.3739	800	1250
+    47	0.801472	800	1250
+    48	1.03759	800	1250
+    49	1.18652	800	1250
+    50	0.842414	800	1250
+    51	1.03085	800	1250
+    52	0.848065	800	1250
+    53	1.00675	800	1250
+    54	1.14578	800	1250
+    55	0.852216	800	1250
+    56	0.937775	800	1250
+    57	1.24544	800	1250
+    58	0.878987	800	1250
+    59	1.09827	800	1250
+    60	0.854569	800	1250
+    61	1.05645	800	1250
+    62	0.935646	800	1250
+    63	0.771818	800	1250
+    64	0.871344	800	1250
+    65	0.873391	800	1250
+    66	1.01663	800	1250
+    67	1.17209	800	1250
+    68	0.883762	800	1250
+    69	0.792361	800	1250
+    70	0.815726	800	1250
+    71	1.04449	800	1250
+    72	1.27948	800	1250
+    73	1.01901	800	1250
+    74	1.19235	800	1250
+    75	0.857877	800	1250
+    76	0.841576	800	1250
+    77	0.799323	800	1250
+    78	0.968039	800	1250
+    79	1.32853	800	1250
+    80	0.921263	800	1250
+    81	0.822306	800	1250
+    82	0.917212	800	1250
+    83	1.20173	800	1250
+    84	0.768439	800	1250
+    85	1.31299	800	1250
+    86	0.961403	800	1250
+    87	1.11512	800	1250
+    88	1.06014	800	1250
+    89	1.15195	800	1250
+    90	0.991571	800	1250
+    91	1.12062	800	1250
+    92	1.00542	800	1250
+    93	0.926436	800	1250
+    94	0.968559	800	1250
+    95	0.929778	800	1250
+    96	1.07535	800	1250
+    97	1.17953	800	1250
+    98	1.15236	800	1250
+    99	0.752693	800	1250
+   100	0.944555	800	1250
+   101	1.1014	800	1250
+
+
+Date: Thu Sep 29 15:43:41 2022
+Total elapsed time: 4.575 seconds.
+
+tnom = 27
+temp = 27
+method = trap
+totiter = 3
+traniter = 0
+tranpoints = 0
+accept = 0
+rejected = 0
+matrix size = 17
+fillins = 3
+solver = Normal
+Matrix Compiler1:      55 opcodes
+Matrix Compiler2: 1.38 KB object code size
