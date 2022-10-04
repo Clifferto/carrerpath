@@ -1,0 +1,41 @@
+# Comparador Schmidt trigger inv
+nodos
+ecuacion de salida vin y vref
+v+ sigue a v- hasta que esta tiende a ser mayor a v+, como la salida esta saturada a 8.5v, v+ no puede subir mas, 
+se sale fuera de linealidad vd < 0, pero la alimentacion es de 0v minimo asi que la salida se va a 0v
+
+pantear vd y tomar condiciones para vo=vcc o vo=vee, con vref=0 el disparo es en vi=vcc/3
+
+# Rectificador ideal
+condiciones
+cuando vi<0, 2 buffers, desconectados porque por R1 y R2 no circula corriente, vo1 y vo2 copian a vi
+
+si no existiera el diodo de realimentacion, vo1 se saturaria porque el opamp trabajaria a lazo abierto 
+
+cuando vi>0, no inv seguido de un simil diferencial, se plantea nodos para el segundo y luego combinar para vo1,
+se llega a que vo2=-vi
+
+en el semicic positivo se copia la tension, en el negativo se invierte, rectif de onda completa
+
+# Fuente de corriente
+analisis por impedancia negativa
+
+para il, buscar imp negativa vista despues de R3, hacer eq de norton, quedan R3,z y RL en paralelo, sacar corriente en funcion 
+de vi y RL. por nodos sale ec mas completa que da la relacion para R1,2,3 y 4 que hace a la fuente indep de RL
+
+para vo, usar eq de norton con criterio de mayor realim neg que positiva, queda un simil no inversor
+
+para RLmax creo que se llevaba la salida a la saluracion y tenemos una condicion para RL en funcion de vi
+
+# Primer circuito
+el primero sale por superposicion y agrupamiento de etapas lineales, o por nodos pero es muy largo.
+para vo1 se aplica superposicion.
+cuando v2=0, vo1 es la salida de un no inv y vo2 es la salida de un inversor
+cuando v1=0, vo1 es la salida , y vo2 es la de 
+
+# Ad1
+comparador controlando los umbrales, transistor para manejar el rele, con diodo para corriente inversa, que 
+conecta a la bateria a la celda fotovoltaica, todo alimentado por la referencia de TI
+
+# Ad2 
+buscar el osc de relajacion
