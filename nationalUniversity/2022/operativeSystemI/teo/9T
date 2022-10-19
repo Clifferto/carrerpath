@@ -1,1 +1,28 @@
 GESTION DE ARCHIVOS
+
+Direct: construcciones logicas para identificar archivos
+cada directorio es un arch en si mismo (de tipo control), con informacion de los archivos dentro
+aplicaciones como ls, cp, mv, mkdir, etc.. trabajan sobre estos archivos 
+cada archivo debe tener un UNICO path
+
+la forma de definir las propiedades de los archivos, define el file system
+
+cuando se abre un archivo se debe decir que se quiere hacer con el, el SO reserva esa accion solo para nuestro proceso
+si abrimos un archivo para escribirlo, ningun otro proceso podra escribirlo tambien (para trabajar con concurrencia)
+
+AGRUPACION DE REGHISTROS
+
+el campo para guardar la cantidad de registros es aleatorio, por tanto se debe definir un tamaño fijo para el bloque de registros
+existen casos donde se deseen bloques grandes y veceversa
+
+BLK FIJO
+BLK VARIABLE: se aleatoriza demasiado el disco
+"PADDING"
+(estas cosas se evitan con memoria FLASH)
+
+ASIGNACION DE ARCHIVOS
+
+continuidad (se fragmenta)
+(lista enlazada)
+indexada (se crea una tabla con la ubicacion de los bloques)
+
