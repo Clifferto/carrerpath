@@ -23,6 +23,12 @@ BLK VARIABLE: se aleatoriza demasiado el disco
 ASIGNACION DE ARCHIVOS
 
 continuidad (se fragmenta)
-(lista enlazada)
+encadenada (lista enlazada)
 indexada (se crea una tabla con la ubicacion de los bloques)
+
+GESTION DE ESPACIO LIBRE
+
+como se representa el espacio libre en disco
+
+TAB DE BITS (vector que contine un bit que registra si un bloque esta vacio o no)
 
