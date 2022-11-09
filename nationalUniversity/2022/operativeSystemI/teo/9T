@@ -1,34 +1,92 @@
-GESTION DE ARCHIVOS
+PLANIFICADORES DE DISCO EL LINUX
 
-Direct: construcciones logicas para identificar archivos
-cada directorio es un arch en si mismo (de tipo control), con informacion de los archivos dentro
-aplicaciones como ls, cp, mv, mkdir, etc.. trabajan sobre estos archivos 
-cada archivo debe tener un UNICO path
+    * PLANIFICADOR DEL ACENSOR: Cola unica de lectura/escritura, se ordena de forma que el brazo se mueva en una sola direccion
+        
+        + Pedidos en el mismo sector o adyacentes se combinan en uno solo, "minimizar el movimiento del brazo (cambio de track)"
+        + Pedidos que esten hace mucho tiempo, los pedidos nuevos se mandan al final, "sube la prioridad del pedido viejo"
+        + Se busca lugar correcto para un pedido nuevo
+        + Sino se encuentra se manda al ultimo
 
-la forma de definir las propiedades de los archivos, define el file system
+        Los pedidos de lectura/escritura no causan los mismos estados a un proceso, la escritura en gral no bloquea el 
+        proceso pero la lectura SI BLOQUEA AL PROCESO, no es conveniente usar una cola unica para lectura/escritura
 
-cuando se abre un archivo se debe decir que se quiere hacer con el, el SO reserva esa accion solo para nuestro proceso
-si abrimos un archivo para escribirlo, ningun otro proceso podra escribirlo tambien (para trabajar con concurrencia)
+    * PLANIFICADOR CON DEADLINE: Identico al del ACENSOR pero agrega FIFOs para lecutura y escritura, con 
+    un TIEMPO LIMITE para servir el pedido
 
-AGRUPACION DE REGHISTROS
+    * PLANIFICADOR CON ANTICIPACION: Muchas veces un pedido de lectura es seguido por otro pedido de lectura, que quizas esta
+    cerca o en el mismo sector. La espera es alta para el segundo pedido porque tiene que esperar la cola de los demas pedidos
+    hasta que le toque nuevamente.
+        
+        + Se sirve un pedido de lectura
+        + Se espera un determinado tiempo
+        + Si el proceso realiza otro pedido de lectura dentro de este tiempo, se lo sirve inmediatamente
+        + Sino se reubica en la cola y se sirve otro pedido.
+    
+        En gral se logra mejores tiempos cuando se cumple el PRINCIPIO DE CERCANIA
 
-el campo para guardar la cantidad de registros es aleatorio, por tanto se debe definir un tamaño fijo para el bloque de registros
-existen casos donde se deseen bloques grandes y veceversa
+    * CFQ (Completely-Fair-Queue): Mantiene una cola de I/O PARA CADA PROCESO, se ordenan de la mejor forma, implementa
+    ANTICIPACION, las colas se atienden por un tiempo en RR.
 
-BLK FIJO
-BLK VARIABLE: se aleatoriza demasiado el disco
-"PADDING"
-(estas cosas se evitan con memoria FLASH)
+    EN SISTEMAS CON DISCO SOLIDO LA LOGICA DEL DEL MISMO DISCO REALIZA VARIAS TAREAS Y LA VELOCIDAD ES MUCHO MAYOR,
+    POR LO QUE SE PUEDE USAR EL PLANIFICADOR NO-OP MUY SENCILLO, CON UNA FIFO NO ORDENADA PARA LOS PEDIDOS DE I/O
+    QUE SE ATIENDEN EN RR
 
-ASIGNACION DE ARCHIVOS
+RAID: Redundant-Array of-Inexpensive-Disks
 
-continuidad (se fragmenta)
-encadenada (lista enlazada)
-indexada (se crea una tabla con la ubicacion de los bloques)
+    Es un conjunto de discos interconectados que el sistema ve como un UNICO DISCO LOGICO, se aprovechan del paralelismo
+    partiendo los datos en cada disco, aumentan la velocidad de las operaciones (en ves de N movimientos de cabezal, N discos
+    con 1 movimiento de cabezal).
+    Se puede agregar REDUNDANCIA PARA RECUPERAR DATOS EN CASO DE FALLAS.
+    Aumentan VELOCIDAD y CONFIABILIDAD
 
-GESTION DE ESPACIO LIBRE
+        * RAID0: Los datos se reparten equitativamente entre todos los discos, no hay redundacia, veloz pero poco confiable
+        * RAID1: RAID0 espejado, la redundancia es directamente una copia del dato, doble de discos que RAID0
+        * RAID2: Los datos/redundacia se distribuyen a nivel de bit, se calcula la redundancia con un codigo hamming
+        * RAID3: Se calcula paridad con XOR entre los datos y se almacena en un disco, se puede recuperar un dato con la paridad
+                "XOR cancela a XOR"
+        * RAID4: Calcula paridad nueva con XOR entre el dato viejo, nuevo y la paridad vieja, "hay que leer paridad/operacion"  
+        * RAID5: Cada disco almacena sus datos y la PARIDAD DE OTRO DISCO, "los datos van en un disco pero su paridad en otro"
+        * RAID6: Mismo que RAID5, pero se calcula doble paridad que se almacena en distintos discos, "tolera hasta 2 fallos"
 
-como se representa el espacio libre en disco
+CACHE DE DISCO
 
-TAB DE BITS (vector que contine un bit que registra si un bloque esta vacio o no)
+    Tratando de aprovechar el PRINCIPIO DE PROXIMIDAD se almacena un espacio en la memoria RAM para almacenar SECTORES
+    del disco usados recientemente, "es probable que el proximo dato leido sea cercano a uno leido recientemente"
 
+    Se debe elegir politica para el reemplazo de sectores en el cache de disco
+
+        * LRU (Least-Recently-Used): Se usa un stack, se REFERENCIA/TRAE un sector -> PUNTA DEL STACK, SE REEMPLAZA EL DEL FONDO 
+        * LFU (Least-Frequently-Used): REEMPLAZA EL SECTOR CON MENOS REFERENCIAS HASTA EL MOMENTO, contador/bloque
+        * LFU-3-LEVEL: Se usa stack y contadores, se divide en 3 partes, los del MEDIO NO SE REEMPLAZAN, 
+        EL CONTADOR ACTUA EN LOS DEL FONDO, SOLO SE REEMPLAZAN BLOQUES DEL FONDO con menor contador
+
+ARCHIVOS Y SISTEMA DE ARCHIVOS
+
+    El sistema permite operar sobre un conjunto de datos relacionados llamados ARCHIVOS, en el almacenamiento
+    secundario (no volatil), que pueden ser COMPARTIDOS entre usuarios, gozan de cierta ESTRUCTURA que facilita
+    el trabajo del los procesos.
+
+        * CREAR/BORRAR: Se ubica o elimina un archivo de la estructura del sistema de archivos
+        * ABRIR/CERRAR: Se declara abierto/cerrado para que un proceso pueda/o no realizar operaciones en el archivo
+        * LEER/ESCRIBIR: Un proceso lee/modifica parte o toda la informacion de un archivo
+
+    ARCHIVOS
+
+        * CAMPO: Unidad basica de informacion, definida por TIPO DE DATO y LOGITUD, "una entrada en una tabla"
+        * REGISTRO: Conjunto de CAMPOS relacionados entre si, "una fila de la tabla"
+        * ARCHIVO: Conjunto de REGISTROS relacionados, "la tabla completa"
+        * DATA BASE: Conjunto de ARCHIVOS relacionados, "muchas tablas relacionadas"
+
+    ORGANIZACION Y ACCESO A ARCHIVOS
+
+        * PILAS: CAMPOS de distinto tamaño y REGISTROS con distintos campos, orden CRONOLOGICO, "sin estructura, busqueda lenta"
+        * SECUENCIAL: El FORMATO define el tamaño de los REGISTROS y CAMPOS, cada registro posee una CLAVE, "se busca por CLAVE"
+        * SECUENCIAL-INDEXADO
+            + Mima idea que un archivo SECUENCIAL
+            + Agrega un ARCHIVO INDICE, posee REGISTROS, cada uno con 2 CAMPOS
+            + Son INDICE y POSICION de algunos registros del archivo principal
+            + Para buscar se lee el ARCHIVO-INDICE, se busca el INDICE cercano a nuestro registro, se busca el registro req
+            + Cada REG del archivo principal incluye un campo que apunta a un ARCHIVO-OVERFLOW
+            + Al agregar un REG se lo hace en el OVERFLOW, y cada tanto se REORGANIZA EL ARCHIVO para vaciar el overflow  
+        * INDEXADO: Se genera un INDICE para cada TIPO DE CAMPO, permite busqueda por tipo de campo
+        
