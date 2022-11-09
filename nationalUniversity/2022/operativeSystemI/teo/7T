@@ -1,43 +1,63 @@
-PLANIFICACION DE PROCESOS (Schedulers)
+PLANIFICACION DE PROCESOS
 
-PLANIFICADOR DE CORTO PLAZO
+    * Repartir el tiempo de CPU de manera justa entre procesos
+    * Prevenir la inanicion de procesos
+    * Usar el procesador de manera eficiente
+    * Tener poco overhead
+    * Priorizar algún proceso cuando se lo requiera
 
-PLANIFICADOR DE LARGO PLAZO
+    PLANIFICACION DE LARGO PLAZO: Controla la creacion de procesos (grado de multiprogramacion)
+        
+        * CUANDO el SO crea un nuevo proceso (mas procesos pero menos tiempo/proceso)
+        * CUAL TASK se convertira en el proximo proceso (por FIFO, Prioridad, Tiempo de ejecucion..)
 
-CORTO PLAZO
+    PLANIFICACION DE MEDIANO PLAZO: Afecta a la suspencion de procesos
 
-    * Criterios:
-        * Orientados a usuario (desempeño u otros)
+    PLANIFICACION DE CORTO PLAZO (Scheduler): Distribuye el tiempo de CPU entre los procesos con el objetivo de optimizar el sistema segun distintos criterios
+        
+        * ORIENTADOS AL USUARIO 
+            + Tiempo de retorno (total entre creacion y finalizacion)
+            + Tiempo de respuesta (total entre que el usuario interactua y recive respuesta)
+            + Limites de tiempo configurables
+        * ORIENTADOS AL SISTEMA
+            + Maximizar cantidad de tasks completas por unidad de tiempo (productividad)
+            + Mantener el CPU ocupado la mayor parte del tiempo (uso)
+            + tratar todos los procesos por igual evitando inanicion
+            + opcion de configurar prioridades 
+            + Mantener ocupados todos los recursos del sistema
 
-        * Orientados al sistema
+CORTO PLAZO: SCHEDULER
 
-            * Desempeño:
+    Se definen variables:
+        * w (tiempo de existencia del proceso)
+        * e (tiempo que se ejecuto el proceso)
+        * s (tiempo total requerido por el proceso)
+        * q (tiempo de CPU que le toca a un proceso)
 
-                * Productividad: 
-                * Utilizacion:
+        PREEMPTION: Un proceso puede ser interrumpido antes de terminar (define un q)
+        NO PREEMTION: No se puede interrumpir un proceso hasta que termine
 
-            * Otros:
+        POLITICAS DE PLANIFICACION
 
-    * Politicas de planificacion 
-
-        * Primero en llegar, primero en servir (FCFS)
-        * Round robin (Un tiempo fijo q para cada proceso, q debe ser mas grande que el "tiempo de interaccion")
-        * Primero el proceso mas corto (SPN): Se debe calcular el tiempo de procesamiento, puede haber algun proceso largo que nunca se ejecute.
-        * Menor tiempo restante (SRT): Prioridad a los procesos que tardarian menos para ejecutarse, si a un proceso le falta bastante tiempo, y llegan muchos procesos mas cortos, el proceso largo podria no ejecutarse.
-        * Mayor tasa de respuesta, siguiente (HRRN): 
-        * Realimentado: Baja la prioridad a los procesos que se ejecutaron mas tiempo 
-
-        * Planificacion justa (similar al de UNIX): Cuanto tiempo se ejecuto el proceso, cuanto se ejecuto el grupo de procesos (agrupados con algun criterio), calcular la prioridad
-            * En cada cambio de proceso, se calcula la prioridad de cada proceso
-            * Para eso se calcula el nuevo tiempo para el proceso (mitad del anterior)
-            * Nuevo tiempo para el grupo de proceso (mitad del anterior)
-            * Calculo de la prioridad sumada a la prioridad base (60) 
-            * Existen parametros que se pueden ajustar para cambiar el tiempo de grupo de procesos
-            * Ademas se puede aumentar la prioridad bajando la prioridad base para el proceso (comando nice)
+            * FCFS (First-Come-Firt-Served): NO PREEMPTION, se ejecutan por orden de llegada hasta finalizar, "maximo w"
+            * RR (Round-Robin): PREEMPTION, se define un q para cada proceso, se prioriza al nuevo en el buffer
+            * RR-V (Round-Robin-Virtual): trata de no penalizar procesos que retornen de una I/O, genera una cola auxiliar
             
-         
-        
-        
-        
-        
+            * SPN (Shortest-Process-Next): NO PREEMTION, ejecuta el proceso con menor tiempo requerido, "minimo s"
+            * SRT (Shortest-Remaining-Time): PREEMPTION, prioriza al proceso que le falte menos, "minimo s-e"
+            * HRRN (Highest-Return-Ration-Next): prioriza al proceso segun sus tiempos de EXISTENCIA y REQUERIDO, "mayor R=(w+s)/s"
+            * Feedback: Baja la prioridad a medida que crece el e del proceso, "mas tiempo de CPU transcurrido, menor prioridad"
 
+            * Justa: Prioridad en base a el tiempo de CPU del proceso y el tiempo de CPU de GRUPO de usuarios dueños del proceso
+
+                Pj == Pbase + tCPUj/2 + tGCPUj/(4*Wk)
+                
+                donde:
+                    Pbase y Wk son constantes que el usuario puede ajustar (+/-Nice, Pbase=60) 
+                    tCPUj == tCPU(j-1)/2 (mitad del tiempo anterior)
+                    tGCPUj == tGCPU(j-1)/2 (mitad del tiempo anterior)
+
+                + Se ejecuta el proceso con menor Pj un tiempo q
+                + Durante la ejecucion aumenta el tiempo de CPU para el proceso y el GCPU para TODOS LOS USUARIOS DE ESE GRUPO
+                + Se calcular la prioridad para todos los procesos
+                + Se vuelve a seleccionar el de menor Pj
