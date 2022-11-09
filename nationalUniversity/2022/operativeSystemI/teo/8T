@@ -1,0 +1,75 @@
+DISPOSITIVOS DE I/O
+
+    Gran variedad de FUNCIONES (interactuar con usuario, transferir informacion a dispositivos, transmitir a sistemas remotos),
+    distintos ORDENES DE VELOCIDAD soportados para cada aplicacion, la aplicacion define la COMPLEJIDAD DEL SOFWARE para
+    la adiministracion y CONTROL DEL DISPOSITIVO (administrar un mouse vs administrar un disco duro)
+    
+    Poseen ademas distintas UNIDADES DE TRANSFERENCIA (stream de bits, bytes, caracteres), REPRESENTACION DE LA INFORMACION
+    (distintos formatos/codificaciones), CONDICIONES DE ERROR (definicion de errores, maneras de reportarlos, concecuencias)
+
+    "ES TODO MUY VARIADO"
+
+    TECNICAS PARA REALIZAR OPERACIONES DE I/O
+
+        * POLLING: El sistema se queda esperando
+        * INTERRUPCIONES: El sistema puede dedicarse a otras tareas hasta que llegue la interrupcion
+        * DMA: Hw especifico que toma el control del bus de sistema de forma eficiente, tambien envia interrupcion
+            + Single-bus Detached DMA (un perisferico mas, con control del bus)
+            + Single-bus Integrated DMA-I/O (integrado en cada dispositivo de I/O para agilizar transferencias)
+            + I/O Dedicated-bud: Bus de sistema e I/O separados, el DMA es el puente entre ambos (Cortex-M3)
+
+    OBJETIVOS DEL SO
+
+        * EFICIENCIA: Minimizar el impacto de las operaciones de I/O, "debido a ellas es necesaria la multiprogramacion"
+        * GENERALIDAD: Manejar todos los dispositivos mediante una UNICA interfaz, "ocultar detalles del manejo a los procesos"
+
+        Implementar un DISEÑO JERARQUICO POR CAPAS, cada capa depende de las ACCIONES PRIMITIVAS QUE EJECUTAN LAS INFERIORES
+        y ORGANIZAN LA INFORMACION para pasarla a las capas superiores. CAMBIOS EN UNA CAPA NO DEBERIAN AFECTAR A LAS OTRAS
+
+BUFFER DE I/O
+
+    Cuando se necesitan MUCHAS TRANSFERENCIAS I/O es ineficiente bloquear el proceso para cada transferencia, 
+    y NO SE PUEDE SUSPENDER EL PROCESO y las paginas de memoria que estan destinadas a almacenar los datos
+    de la transferencia, esto complica el manejo de memoria
+
+    LAS TRANSFERENCIAS DE I/O PASAN POR UN BUFFER DEL SO, permite SUSPENDER EL PROCESO hasta que se complete la 
+    transferencia y luego leer los datos del buffer.
+
+        * SINGLE BUFFER
+        * PING-PONG BUFFER (uno se llena mientras el otro se procesa y luego se intercambia)
+        * CIRCULAR BUFFER (procesos que requieran grandes rafagas de datos para operar)
+
+    Cuando un buffer se llena o vacia BLOQUEA EL PROCESO, pero si las operaciones de I/O se ejecutan de forma
+    ENTRELAZADA PARA CADA PROCESO se mejora la performance general
+
+DISCOS DUROS MAGNETICOS
+
+    Fisicamente cada "rosca" es un TRACK dividido en SECTORES, existen GAPS entre-tracks y entre-sectores 
+    Se apilan varios discos cada uno con un CABEZAL DE LECTURA
+
+    Son dispositivos mecanicos mucho mas lentos que la RAM o el CPU
+
+        * TIEMPO DE BUSQUEDA (depende de la POSICION INICIAL y el RETARDO DE GIRO)
+        * TIEMPO DE ACCESO (total entre el TIEMPO DE BUSQUEDA y el RETARDO DE GIRO)
+    
+    Son un cuello de botella importante, el impacto es mayor si los SECTORES requeridos se encuentran FRAGMENTADOS
+    entre distintas TRACKS, siempre intenta optimizarlos
+
+POLITICAS DE PLANIFICACION
+
+    Es necesario REDUCIR AL MINIMO EL TIEMPO DE BUSQUEDA y REDUCIR AL MINIMO LA FRAGMENTACION
+    Es importante planificar segun la secuencia de SECTORES A LEER/ESCRIBIR
+
+    El SO almacena en una COLA los pedidos referidos a dispositivos I/O, se puede planificar el orden en que se 
+    sirven a los procesos
+
+    * RANDOM: Se sirven pedidos aleatoriamente sin importar la ubicacion de los sectores, "solo para comparacion, ineficiente"
+    * FIFO: Se sirven las peticiones en orden de llegada, "para un numero grande de procesos, tiende al random"
+    * PRIORIDADES: Basadas en necesidades definidas, "mas prioridad a trabajos cortos, minimizar retardos, etc..."
+    * LIFO (Last-In-First-Out): Se sirven las peticiones mas recientes primero, "inanicion en procesos largos"
+    
+    * SSTF (Shortest-Search-Time-First): Sirve primero el sector mas cercano a su posicion actual, "menor tiempo de busqueda"
+    * SCAN: Se mueve el brazo en una direccion y sirve los sectores a su paso, luego invierte la direcion y repite
+    * C-SCAN: Mismo que SCAN pero solo sirve sectores EN UNA DIRECCION, "regresa al otro extremo del disco SIN SERVIR SECTORES"
+    * n-step-SCAN: Mismo que SCAN pero se crean n colas de pedidos, que se sirven de a una
+    
