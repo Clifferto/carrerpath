@@ -1,34 +1,63 @@
 GESTION DE ARCHIVOS
 
-Direct: construcciones logicas para identificar archivos
-cada directorio es un arch en si mismo (de tipo control), con informacion de los archivos dentro
-aplicaciones como ls, cp, mv, mkdir, etc.. trabajan sobre estos archivos 
-cada archivo debe tener un UNICO path
+    Permite al usuario realizar operaciones sobre archivos, reestructurar archivos, mover datos entre ellos,
+    controlar el acceso de otros usuarios
 
-la forma de definir las propiedades de los archivos, define el file system
+    DEVICE DRIVERS
 
-cuando se abre un archivo se debe decir que se quiere hacer con el, el SO reserva esa accion solo para nuestro proceso
-si abrimos un archivo para escribirlo, ningun otro proceso podra escribirlo tambien (para trabajar con concurrencia)
+        Controlan los dispositivos a nivel de hw, inicial las peticiones, son parte del SO
 
-AGRUPACION DE REGHISTROS
+    FILE-SYSTEM
 
-el campo para guardar la cantidad de registros es aleatorio, por tanto se debe definir un tamaño fijo para el bloque de registros
-existen casos donde se deseen bloques grandes y veceversa
+        Maneja la info a nivel de BLOQUE DE DATOS, administra la manera de BUSCAR estos bloques en el hw, no le interesa la estructura
+        de los datos en el bloque, "identificacion y busqueda"
 
-BLK FIJO
-BLK VARIABLE: se aleatoriza demasiado el disco
-"PADDING"
-(estas cosas se evitan con memoria FLASH)
+    SUPERVISOR DE I/O
 
-ASIGNACION DE ARCHIVOS
+        Opera a nivel I/O sobre los archivos, reorganiza y mantiene las estructuras de control del archivo,
+        el SO le asigna BUFFERS DE I/O
 
-continuidad (se fragmenta)
-encadenada (lista enlazada)
-indexada (se crea una tabla con la ubicacion de los bloques)
+    I/O LOGICA
+
+        Provee una interfaz basica para que el usuario acceda a los REGISTROS
+
+SISTEMA DE GESTION DE ARCHIVOS
+
+    DIRECTORIOS: En si es un ARCHIVO, guarda la informacion de los archivos que contiene, define los atributos de UBICACION,
+    PROPIETARIO y PERMISOS, el usuario accede al directorio POR MEDIO DEL SO (no directamente)
+
+        * NOMBRE, TIPO
+        * VOLUMEN, DIRECCION DE INICIO, TAMAÑO, TAMAÑO MAX
+        * PROPIETARIO, ACCIONES PERMITIDAS
+        * FECHAS DE CREACION, MODIFICACION, ULTIMO USUARIO QUE MODIFICO, etc...
+
+    ESTRUCTURA DE DIRECTORIOS: Definida por el sistema de archivos, distinguir 2 archivos con el mismo nombre si estan en distintos
+    directorios, en realidad cada archivo tiene un nombre unico en el sistema,"estructura jerarquica de directorios"
+
+    COMPARTIR ARCHIVOS ENTRE USUARIOS
+
+    GESTIONAR PERMISOS PARA LOS USUARIOS: Ninguno, Conocimiento, Ejecución, Lectura, Agregar, Actualizar, Cambiar atributos, Borrar
+
+    ACCESO SIMULTANEO: Cuando se abre un archivo se debe decir que se quiere hacer con el, el SO reserva esa accion solo para nuestro proceso, si abrimos un archivo para escribirlo, ningun otro proceso podra escribirlo tambien (para trabajar con concurrencia)
+
+AGRUPACION DE REGISTROS
+
+    Los REGISTROS deben estar mapeados en los BLOQUES para realizar las operaciones de I/O, 
+    hay varios metodos para AGRUPAR REGISTROS DENTRO DE UN BLOQUE
+
+        * BLOQUE FIJO: Registros de un MISMO TAMAÑO, NUMERO ENTERO DE REGISTROS/BLOQUE, espacio LIBRE AL FINAL DEL BLOQUE
+        * MULTIBLK LONG-VARIABLE: Registros de TAMAÑO VARIABLE, un REGISTRO PUEDE QUEDAR EN 2 BLOQUES, "se desordena el disco"
+        * SIMPLEBLK LONG-VARIABLE: Registros de TAMAÑO VARIABLE, NUMERO ENTERO DE REGISTROS/BLOQUE, espacio LIBRE AL FINAL 
+
+ASIGNACION DE BLOQUES
+
+    * CONTIGUA: Se asigna un conjunto de bloques en la creacion (se fragmenta)
+    * ENCADENADA: Cada bloque indica el bloque siguiente (lista enlazada)
+    * INDEXADA: (se crea una tabla con la ubicacion de los bloques de un archivo)
 
 GESTION DE ESPACIO LIBRE
 
-como se representa el espacio libre en disco
-
-TAB DE BITS (vector que contine un bit que registra si un bloque esta vacio o no)
-
+    * TABLAS DE BITS: 0 blk libre, 1 blk utilizado
+    * PORCIONES LIBRES ENCADENADAS: lista enlazada de bloques libres
+    * INDEXACIÓN: mismo metodo de indexacion pero para el espacio libre, "considera el esp libre un archivo mas"
+    * LISTA DE BLOQUES LIBRES: se identifica cada bloque, se mantiene una lista con bloques libres
