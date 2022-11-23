@@ -1,11 +1,15 @@
 La idea que busca el SO es mantener al proc ocupado el mayor tiempo posible
 
 PROCESOS
+------------------------------------------------------------------------------------------------------------------------------
 
 	El proceso debe especificar:
+
 		* Programa ejecutable
 		* Info de estado del programa
 		* Info de control del programa
+		
+	TODOOOOOOOOOOOOOOOOOOOOOOOOOO
 
 	MECANICA DE EJECUCIONES:
 
@@ -20,7 +24,6 @@ PROCESOS
 		* Timeout o el proceso B necesita una operacion lenta
 		* El scheduler elige ejecutar el proceso C y carga todo
 		* Se ejecuta C
-
 		* Se repite todo el ciclo hasta terminar todos los procesos
 
 		TERMINACION DE PROCESOS:
