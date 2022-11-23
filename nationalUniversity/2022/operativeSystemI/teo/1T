@@ -13,14 +13,19 @@ SISTEMA OPERATIVO
             - Pantalla
             - Varios
     
-        PROCESADOR: Tiene registros de intrucciones, PC, registros de datos y direcciones. Ejecuta intrucciones con los datos que se le aportan.
+        PROCESADOR: Tiene registros de:
+        
+            * DATOS (GP)
+            * DIRECCIONES (INDICE,SEGMENTO,PILA)
+            * CONTROL/ESTADO (PC,IR,STATUS)
 
-            INSTRUCCIONES
-                
-                * Tx Proc/RAM
-                * Tx Proc/IO
-                * Operaciones en datos
-                * Control del flujo de programa
+        INSTRUCCIONES:
+            * Tx Proc/RAM
+            * Tx Proc/IO
+            * Operaciones en datos
+            * Control del flujo de programa
+           
+        CICLO DE INSTRUCCION
         
     INTERRUPCIONES:
 
