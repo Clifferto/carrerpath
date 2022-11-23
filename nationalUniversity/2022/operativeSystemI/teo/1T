@@ -1,10 +1,11 @@
 SISTEMA OPERATIVO
+------------------------------------------------------------------------------------------------------------------------------
 
     Se encarga de administrar los recursos de hw de un sistema de computacion para ofrecer sus 
     servicios a los usuarios.
 
-    SISTEMA:
-
+    SISTEMA
+    
         * Procesador/es
         * RAM
         * Dispositivos de I/O
@@ -13,13 +14,16 @@ SISTEMA OPERATIVO
             - Pantalla
             - Varios
     
-        PROCESADOR: Tiene registros de:
-        
-            * DATOS (GP)
-            * DIRECCIONES (INDICE,SEGMENTO,PILA)
-            * CONTROL/ESTADO (PC,IR,STATUS)
+    PROCESADOR 
 
-        INSTRUCCIONES:
+    Tiene registros de:
+
+        * DATOS (GP)
+        * DIRECCIONES (INDICE,SEGMENTO,PILA)
+        * CONTROL/ESTADO (PC, IR, STATUS)
+
+        INSTRUCCIONES
+        
             * Tx Proc/RAM
             * Tx Proc/IO
             * Operaciones en datos
@@ -27,27 +31,40 @@ SISTEMA OPERATIVO
            
         CICLO DE INSTRUCCION
         
-    INTERRUPCIONES:
+            * Se carga desde RAM la instruccion a la que apunta PC
+            * Se ejecuta la instruccion (Tx/Rx, OPP o CTRL) y aumenta el PC (EXEC/FETCH)
+            * Se verifica si sucedio alguna interrupcion
+            * Se repite el ciclo
+        
+INTERRUPCIONES
+------------------------------------------------------------------------------------------------------------------------------
 
-        Sirve para dedicar el procesador a otras tareas mientras se realizan funciones mas lentas.
+    Sirve para dedicar el procesador a otras tareas mientras se realizan funciones mas lentas.
+    En las interrupciones el SO toma el control del procesador.
+    
+    Interrupciones multiples por PRIORIDADES o por SECUENCIA (se desactivan las interrupciones)
 
-        Interrupciones multiples por PRIORIDADES o por SECUENCIA
+    MULTIPROGRAMACION
+    
+        Permite ejecutar multiples programas, segun algun esquema de prioridad. Mientras un programa realiza una 
+        operacion lenta de I/O (PROGRAMADA, POR INTERRUPCION o DMA) otro programa puede ocupar el CPU, gracias a las interrupciones
 
+CACHE DE DISCO
+------------------------------------------------------------------------------------------------------------------------------
 
-    CACHE DE DISCO:
+    El acceso a la memoria secundaria (disco) es muy lento para el CPU
+    Parte de la RAM se utiliza para cargar datos del disco, que se suponen se utilizaran repetidamente.
 
-        El acceso a la memoria secundaria (disco) es muy lento para la vel del Proc.
-        Parte de la RAM se utiliza para cargar datos del disco que se suponen que para el programa se utilizaran repetidamente.
+MEMORIA CACHE
+------------------------------------------------------------------------------------------------------------------------------
 
-    MEMORIA CACHE:
+    Inclusive la RAM es muy lenta para el CPU
+    Es una memoria de baja capacidad pero muy rapida entre la RAM y los REGISTROS del CPU
 
-        Inclusive la RAM es muy lenta para el proc.
-        Es una memoria de baja capacidad pero muy rapida entre la RAM y los REGISTROS del proc.
+    Si el proc necesita un dato primero se fija en cache:
 
-        Si el proc necesita un dato primero se fija en cache:
+        HIT: El dato esta y se utiliza
+        MISS: El dato falta, se busca en RAM y se coloca en cache un bloque de varios datos donde esta el necesitado tambien. Todo esto es por hw
 
-            HIT: El dato esta y se utiliza.
-            MISS: El dato falta, se busca en RAM y se coloca en cache un bloque de varios datos donde esta el necesitado tambien. Todo esto es por hw.
-
-        El SO no puede controlar esta memoria.
+    El SO no puede controlar esta memoria
 
