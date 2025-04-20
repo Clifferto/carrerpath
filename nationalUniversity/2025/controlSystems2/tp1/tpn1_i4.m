@@ -12,42 +12,33 @@ function comment(msg)
     disp('=======================================================================')
 endfunction
 
-function [t_step t_max] = get_time_params(p)
-    re_min  = min(real(p));
-    re_max  = max(real(p));
-
-    % resolucion, relacionado al 95% de la exp amortiguadora mas rapida: e ^ (-t RE{p}_min)
-    t_step  = abs(log(.95)/re_min);
-    % tiempo de sim, relacionado al 5% de la exp amortiguadora mas lenta: e ^ (-t RE{p}_max)
-    t_max   = abs(log(.05)/re_max);
-endfunction
-
 % ====================================================================================================================
 
 disp('')
 disp('=======================================================================')
-disp('MODELO CASO 1')
+disp('MODELO CASO 2')
 disp('=======================================================================')
-disp('  ii_p    == -R/L ii - 1/L vc + 1/L ve')
-disp('  vc_p    == 1/C ii')
+disp('  ia_p    == -Ra/Laa ia - Km/Laa omega + 1/Laa va')
+disp('  omega_p == Ki/JJ ia - Bm/JJ omega - 1/JJ TL')
+disp('  theta_p == omega')
 disp('=======================================================================')
 
 % variables
-syms ii vc ii_p vc_p ve R L C real;
+syms ia ia_p va omega omega_p TL theta_p Ra Laa Km Ki Bm JJ real;
 
-ii_p    = -R/L*ii - 1/L*vc + 1/L*ve;
-vc_p    = 1/C*ii;
-vr      = R*ii;
+ia_p    = -Ra/Laa*ia - Km/Laa*omega + 1/Laa*va
+omega_p = Ki/JJ*ia - Bm/JJ*omega - 1/JJ*TL
+theta_p = omega
 
 comment('Variables De Estado')
-disp('x1 == ii  ->  x1_p == ii_p')
-disp('x2 == vc  ->  x2_p == vc_p')
+disp('x1 == ia  ->  x1_p == ia_p')
+disp('x2 == theta  ->  x2_p == theta_p == x3 -> x3_p == theta_pp')
 comment('Entradas / Salidas')
-disp('u == ve, y1 == vr == R ii')
-x   = [ii vc];
-xp  = [ii_p vc_p];
-u   = ve;
-y   = vr;
+disp('u1 == va, u2 == TL, y1 == ia, y2 == theta, y3 == theta_p == omega')
+x   = [ia theta theta_p];
+xp  = [ia_p theta_p theta_pp];
+u   = [va TL];
+y   = [ia theta theta_p];
 
 comment('Matrices De Estado')
 global matA; matA   = jacobian(xp, x)
@@ -55,6 +46,7 @@ global matB; matB   = jacobian(xp, u)
 global matC; matC   = jacobian(y, x)
 global matD; matD   = jacobian(y, u)
 
+return
 comment('Parametros')
 R   = 220
 L   = 500E-3
@@ -67,20 +59,13 @@ matD    = eval(matD);
 
 comment('Modelo En Espacio De Estados')
 sys = ss(matA, matB, matC, matD)
-p   = pole(sys)
-
 damp(sys)
 
 comment('Simulacion')
-[t_step t_max] = get_time_params(p)
-
-t_step  /= 10;
-t_max   *= 10;
-
-t       = 0:t_step:t_max;
 period  = 20E-3
 amp     = 12
 delay   = 10E-3
+t       = linspace(0, period*10, 1000);
 u       = amp * square((2*pi/period) * (t - delay));
 
 % ! hacer u = 0 para t<delay
