@@ -48,6 +48,7 @@ endfunction
 
 comment('Cargar Data')
 
+% ! xlsread tiene problemas en linux, cargo/guardo datos en txt
 % ! ssconvert Curvas_Medidas_RLC_2025.xls Curvas_Medidas_RLC_2025.txt
 % "Tiempo [Seg.]","Corriente [A]","Tensión en el capacitor [V]","Tensión de entrada [V]","Tensión de salida [V]"
 data    = load('Curvas_Medidas_RLC_2025.txt');
@@ -145,5 +146,11 @@ vr          = data(:,5);
 R   = vr(end)/x(end)
 C   = den(2)/R
 L   = den(1)/C
+
+% Estimar Parametros Por Igualacion
+% =======================================================================
+% R = 220.00
+% C = 2.1964e-06
+% L = 3.3873e-04
 
 comment("SUCCESS")

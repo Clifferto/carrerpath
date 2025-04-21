@@ -101,7 +101,7 @@ plot(t, x(:,2), 'LineWidth', 2); title('State Var x_2 : vc(t)'); ylabel('vc(t) [
 subplot(4,1,3); 
 plot(t, u, 'LineWidth', 2); title('Input u_1 : ve(t)'); ylabel('ve(t) [V]'); grid;
 subplot(4,1,4); 
-plot(t, y(:,1), 'LineWidth', 2); title('Output y_1 : vr(t)'); ylabel('vr(t) [A]'); grid;
+plot(t, y(:,1), 'LineWidth', 2); title('Output y_1 : vr(t)'); ylabel('vr(t) [V]'); grid;
 xlabel('Time [s]');
 
 disp("====================================================================================================================")
