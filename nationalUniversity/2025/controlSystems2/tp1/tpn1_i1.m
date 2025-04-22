@@ -6,21 +6,7 @@ pkg load control;
 pkg load symbolic;
 pkg load signal;
 
-function comment(msg)
-    disp('')
-    disp(msg)
-    disp('=======================================================================')
-endfunction
-
-function [t_step t_max] = get_time_params(p)
-    re_min  = min(real(p));
-    re_max  = max(real(p));
-
-    % resolucion, relacionado al 95% de la exp amortiguadora mas rapida: e ^ (-t RE{p}_min)
-    t_step  = abs(log(.95)/re_min);
-    % tiempo de sim, relacionado al 5% de la exp amortiguadora mas lenta: e ^ (-t RE{p}_max)
-    t_max   = abs(log(.05)/re_max);
-endfunction
+mylib
 
 % ====================================================================================================================
 
@@ -74,7 +60,7 @@ damp(sys)
 comment('Simulacion')
 [t_step t_max] = get_time_params(p)
 
-t_step  /= 10;
+t_step  /= 100;
 t_max   *= 10;
 
 t       = 0:t_step:t_max;
