@@ -89,6 +89,7 @@ comment('Modelo En Espacio De Estados')
 sys     = ss(matA, matB, matC, matD);
 
 damp(sys)
+pzmap(sys)
 
 comment('Simulacion')
 poles           = pole(sys);

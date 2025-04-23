@@ -6,43 +6,7 @@ pkg load control
 pkg load symbolic
 pkg load io
 
-function comment(msg)
-    disp('')
-    disp(msg)
-    disp('=======================================================================')
-    disp('')
-endfunction
-
-function [t_step t_max] = get_time_params(p)
-    re_min  = min(real(p));
-    re_max  = max(real(p));
-
-    % resolucion, relacionado al 95% de la exp amortiguadora mas rapida: e ^ (-t RE{p}_min)
-    t_step  = abs(log(.95)/re_min);
-    % tiempo de sim, relacionado al 5% de la exp amortiguadora mas lenta: e ^ (-t RE{p}_max)
-    t_max   = abs(log(.05)/re_max);
-endfunction
-
-function [tau_1 tau_2 tau_3] = get_chen_time_constants(t1, K, y)
-    k1  = y(1)/K - 1;
-    k2  = y(2)/K - 1;
-    k3  = y(3)/K - 1;
-
-    b       = 4*(k1^3)*k3 - 3*(k1^2)*(k2^2) - 4*k2^3 + k3^2 + 6*k1*k2*k3;
-    alpha1  = (k1*k2 + k3 - sqrt(b)) / (2*((k1^2) + k2));
-    alpha2  = (k1*k2 + k3 + sqrt(b)) / (2*((k1^2) + k2));
-    bbeta   = (k1 + alpha2) / (alpha1 - alpha2);
-    % ! Porque No Anda?
-    % ! bbeta   = ((2*k1^3 + 3*k1*k2 + k3 - sqrt(b))) / sqrt(b)
-
-    tau_1   = real(-t1/log(alpha1));
-    tau_2   = real(-t1/log(alpha2));
-    tau_3   = real(bbeta*(tau_1 - tau_2) + tau_1);
-
-    if tau_1 < 0 disp('Warning: tau_1 < 0') endif
-    if tau_2 < 0 disp('Warning: tau_2 < 0') endif
-    if tau_3 < 0 disp('Warning: tau_3 < 0') endif
-endfunction
+mylib
 
 % ====================================================================================================================
 
@@ -66,6 +30,7 @@ subplot(3,1,3);
 plot(t, y(:,1), 'LineWidth', 2); title('Output y_1 : vc(t)'); ylabel('vr(t) [V]'); grid;
 xlabel('Time [s]'); 
 
+comment('Respuesta: Sobre-Amortiguada, Intervalo Con Dinamica: 10ms - 12ms, Resolucion: 10us')
 % close all;
 
 comment('METODO DE CHEN (polos distintos)')
@@ -82,7 +47,6 @@ disp('          k2      == y(2t1)/K - 1')
 disp('          k3      == y(3t1)/K - 1')
 disp('          K       == y(inf)')
 
-comment('Respuesta: Sobre-Amortiguada, Intervalo Con Dinamica: 10ms - 12ms, Resolucion: 10us')
 K       = 12
 t1      = 10.1E-3
 t1_step = 50E-6
