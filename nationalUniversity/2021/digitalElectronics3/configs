@@ -1,0 +1,62 @@
+# Funcion de pines (PINCON 2bits por cada pin): 
+PINSEL: setear funcion del pin
+PINMODE: pullmode
+
+* LPC_PINCON->PINSELx| PINMODEx
+
+# Config de Gpios (GPIO):   
+FIODIR: direccion i/o
+FIOCLR,FIOSET,FIOPIN: manejo de nivel en pines, fiopin siempre puede leer sin importar la direccionalidad, pero escribe
+solo si el PIN ES SALIDA.
+FIOMASK: enmascarado de pines, pines validos con ceros
+
+* LPC_GPIOx->FIODIR| FIOCLR| FIOSET| FIOPIN| FIOMASK
+
+IOxIntEnR/F: activar interrupcion por flanco (solo puertos 0 y 2)
+IOxIntStatR/F: banderas de interrupcion por pines
+IOxIntClr: bajar banderas por pin
+IOIntStatus: banderas por puerto
+
+* LPC_GPIOINT->IOxIntEnR/F| IOxIntStatR/F| IOxIntClr| IOIntStatus
+Mismo handler que EINT3..
+
+# Iterrupciones (NVIC)
+ISER,ICER: Enable/Disable de interrupciones (se-tup)
+ISPR,ICPR: Pendiente/No pendiente (stackeando)
+IABR: Flags de interrupciones activas (ya stackeada)
+
+IPR: Prioridades en las interrupciones. Prioridades mayor prioridad con menor numero 0 al 31
+STIR: Disparo de interrupcion por software
+
+* NVIC_EnableIRQ|SetPriority()
+Vectores en LPC17xx, Handlers en cr_core_startup..
+
+# Sistick (24bits down counter/Genera excepcion)
+
+CTRL: config del systick on/off, int, clk
+LOAD(RELOAD): valor de recarga para el systick
+VAL(CURR): valor actual, si se escribe resetea el systick y baja banderas, cuando llega a cero tira interrupcion 
+y en proximo ciclo recarga el timer con el valor de LOAD.
+CALIB: valor para cumplir con 10ms si el systick esta enganchado al clk del core y este esta a 100MHz
+
+* SysTick->CTRL| LOAD| VAL| CALIB
+
+# EXTINT (siempre resetear la placa antes de debuguear)
+EXTINT: banderas de interrupcion por pin EINTx, se bajan escribiendo 1
+EXTMODE: config int por nivel/flanco
+EXTPOLAR: config alto/subida o por bajo/bajada
+
+* LPC_SC->EXTINT| EXTMODE| EXTPOLAR
+
+# ADC (12bits/8 canales)
+Desactivar pull-mode en pin, activar perisferico antes de configurar, el modulo tiene pines especificos VREFp/n y VDDA/VSSA
+AD0CR: config modulo ch, clk prescaler, burst mode, powerdown mode, start mode, edge to start
+AD0GDR: resultado de la ultima conversion, done/overrun bits (se limpian leyendo) e identificacion 
+de canal que realizo la ultima conv
+AD0DRx: resultado de la ultima conversion DE CADA CANAL, done/overrun bits (se limpian leyendo)
+ADSTAT: bandera de interrupcion global, done/overrun bits de todos los canales
+AD0INTEN: activar interrupciones por bit DONE, por global o por canal
+
+* LPC_ADC->ADCR| ADGDR| ADDRx| ADSTAT| ADINTEN
+
+

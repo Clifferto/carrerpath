@@ -1,0 +1,5 @@
+/home/dario/Documents/MCUXpresso_11.4.1_6260/workspace/CMSISv2p00_LPC17xx/inc/core_cm3.h:928:22:NVIC_EnableIRQ	16	static
+/home/dario/Documents/MCUXpresso_11.4.1_6260/workspace/CMSISv2p00_LPC17xx/inc/core_cm3.h:1012:22:NVIC_SetPriority	16	static
+../inc/pin_conf.c:14:6:confPin	16	static
+../inc/pin_conf.c:43:6:confIntExt	24	static
+../inc/pin_conf.c:77:6:initLEDPins	32	static

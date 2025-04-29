@@ -1,0 +1,4 @@
+../inc/timers.c:14:6:confTimer1	16	static
+../inc/timers.c:23:6:confTimer2	16	static
+../inc/timers.c:32:6:delay_us	16	static
+../inc/timers.c:39:6:delay_ms	16	static
