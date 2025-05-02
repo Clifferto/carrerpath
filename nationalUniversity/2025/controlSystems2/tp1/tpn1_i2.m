@@ -31,56 +31,46 @@ subplot(3,1,3);
 plot(t, y(:,1), 'LineWidth', 2); title('Output y_1 : vc(t)'); ylabel('vr(t) [V]'); grid;
 xlabel('Time [s]'); 
 
+t(2)-t(1)
+
 comment('Respuesta: Sobre-Amortiguada, Intervalo Con Dinamica: 10ms - 12ms, Resolucion: 10us')
 % close all;
 
-comment('METODO DE CHEN (polos distintos)')
-disp('  tau_1   == -t1/Ln(alpha1)')
-disp('  tau_2   == -t1/Ln(alpha2)')
-disp('  tau_3   == beta (tau_1 - tau_2) + tau_1')
-comment("Donde:")
-disp('      alpha1  == (k1 k2 + k3 - sqrt(b)) / 2(k1**2 + k2)')
-disp('      alpha2  == (k1 k2 + k3 + sqrt(b)) / 2(k1**2 + k2)')
-disp('      beta    == ((2 k1**3 + 3 k1 k2 + k3) / sqrt(b)) - 1')
-disp('      b       == 4 k1**3 k3 - 3 k1**2 k2**2 - 4 k2**3 + k3**2 + 6 k1 k2 k3')
-disp('          k1      == y(t1)/K - 1')
-disp('          k2      == y(2t1)/K - 1')
-disp('          k3      == y(3t1)/K - 1')
-disp('          K       == y(inf)')
-
+comment("Estimar Contantes De Tiempo")
+% de las graficas
+k0      = 12/12
 K       = 12
+t0      = 10E-3 
 t1      = 10.1E-3
-t1_step = 50E-6
 
-i1  = find(t >= t1)(1);
-i2  = find(t >= t1 + t1_step)(1);
-i3  = find(t >= t1 + 2*t1_step)(1);
+t1 -= t0;
+i1  = find(t >= 1*t1    + t0)(1);
+i2  = find(t >= 2*t1    + t0)(1);
+i3  = find(t >= 3*t1    + t0)(1);
 
-figure;
-plot(t(1:find(t >= 20E-3)(1)), y(1:find(t >= 20E-3)(1)), 'LineWidth', 2); hold;
-plot([t(i1), t(i2), t(i3)], [y(i1), y(i2), y(i3)], 'or'); hold;
+figure; hold;
+plot(t(1:find(t >= 15E-3)(1)), y(1:find(t >= 15E-3)(1)), 'LineWidth', 2);
+plot([t(i1), t(i2), t(i3)], [y(i1), y(i2), y(i3)], 'or');
 title('Output y_1 : Sample Points'); ylabel('vc(t) [V]'); grid;
+legend('vc(t)');
 xlabel('Time [s]');
 
-comment("Estimar Contantes De Tiempo")
-[tau_1 tau_2 tau_3] = get_chen_time_constants(t1_step, K, [y(i1) y(i2) y(i3)])
+[tau_1 tau_2 tau_3] = get_chen_time_constants(t1, K, [y(i1) y(i2) y(i3)])
 
 comment('G(s) == K (T3s + 1) / ((T1s + 1)(T2s + 1)), T1 < T2')
 s               = tf('s');
-sys_zero_poles  = K*(tau_3*s + 1) / ((tau_1*s + 1)*(tau_2*s + 1));
-sys_only_poles  = K / ((tau_1*s + 1)*(tau_2*s + 1));
-% ajuste de ganancia
-sys_zero_poles  /= 12
-sys_only_poles  /= 12
+sys_zero_poles  = k0*(tau_3*s + 1) / ((tau_1*s + 1)*(tau_2*s + 1))
+sys_only_poles  = k0 / ((tau_1*s + 1)*(tau_2*s + 1))
 
 [y_zp t]    = lsim(sys_zero_poles, u, t);
 [y_op t]    = lsim(sys_only_poles, u, t);
 
-figure
-plot(t, y, '-.k', t, y_zp, 'r'); title('Output y Vs Estimation (zero-poles)'); ylabel('vc(t) [V]'); grid;
-xlabel('Time [s]');
-figure
-plot(t, y, '-.k', t, y_op, 'r'); title('Output y Vs Estimation (only-poles)'); ylabel('vc(t) [V]'); grid;
+figure; hold;
+plot(t, y, '-.k');
+plot(t, y_zp, 'b');
+plot(t, y_op, 'r');
+title('Output y1 Vs Estimations'); ylabel('vc(t) [V]'); grid;
+legend('real', 'zero-poles', 'only-poles');
 xlabel('Time [s]');
 
 comment("La Funcion De Transferencia De Solo-Polos Aproxima Mejor A La Respuesta")

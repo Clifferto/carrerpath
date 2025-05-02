@@ -6,19 +6,15 @@ pkg load control
 pkg load symbolic
 pkg load io
 
-function comment(msg)
-    disp('')
-    disp(msg)
-    disp('=======================================================================')
-    disp('')
-endfunction
+addpath('../lib');
+mylib
 
 % ====================================================================================================================
 
 comment('Parametros Estimados')
 R   = 220.00
-C   = 2.1964e-06
-L   = 3.3873e-04
+C   = 2.2032e-06
+L   = 6.6224e-04
 
 comment('Modelo En Espacio De Estados')
 
@@ -63,10 +59,11 @@ ii      = data(:,2);
 
 [y t x] = lsim(sys, u, t);
 
-figure;
-plot(t, ii, 'b'); title('Data Current Vs Estimated Model: i(t)'); ylabel('i(t) [A]'); grid; hold;
+figure; hold;
+plot(t, ii, 'b');
 plot(t, x(:,1), 'r');
-legend('(data) i(t)', '(estimated) i(t)');
+title('Data Current Vs Estimated Model: i(t)'); ylabel('i(t) [A]'); grid;
+legend('data', 'estimated');
 xlabel('Time [s]'); 
 
 comment("SUCCESS")
