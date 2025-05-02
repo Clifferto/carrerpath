@@ -43,6 +43,7 @@ function [tau_1 tau_2 tau_3] = get_chen_time_constants(t1, K, y)
     disp('          k2      == y(2t1)/K - 1')
     disp('          k3      == y(3t1)/K - 1')
     disp('          K       == y(inf)')
+    disp('=======================================================================')
 
     % la distancia entre los k debe ser la suficiente
     k1  = y(1)/K - 1;
