@@ -73,6 +73,9 @@ matD    = jacobian(y, u)
 % matC = (sym) [0  1  0]  (1×3 matrix)
 % matD = (sym) [0  0]  (1×2 matrix)
 
+syms s real;
+det(s*eye(3) - matA)
+
 comment('Parametros')
 Laa = 366E-6
 JJ  = 5E-9
@@ -90,51 +93,93 @@ comment('Modelo En Espacio De Estados')
 sys     = ss(matA, matB, matC, matD);
 
 damp(sys)
-pzmap(sys)
 
 comment('Simulacion')
-poles           = pole(sys);
-[t_step t_max]  = get_time_params(poles);
+poles       = pole(sys);
+[~, t_max]  = get_time_params(poles);
 
 % parametros de simulacion dados
 t_step  = 10E-7
-t_max   *= 100
+t_max   *= 10
 
 t           = 0:t_step:t_max;
 va_delay    = 10E-3;
-tl_delay    = 50E-3;
+tl_delay    = 75E-3;
 va_amp      = 12;
 tl_amp      = 1E-3;
 
 va  = va_amp .* heaviside(t - va_delay);
-tl  = tl_amp .* (t - tl_delay) .* heaviside(t - tl_delay);
-u   = [va ; tl]';
+tl  = tl_amp .* heaviside(t - tl_delay);
+u   = [va; tl]';
 
 [y, t, x] = lsim(sys, u, t);
 
+figure;
+subplot(4,1,1); 
+plot(t, x(:,3), 'LineWidth', 2); title('State Var x3: omega(t)'); ylabel('omega(t) [rad/s]'); grid;
+legend('omega(t)');
+subplot(4,1,2); 
+plot(t, x(:,1), 'LineWidth', 2); title('State Var x1: ia(t)'); ylabel('ia(t) [A]'); grid;
+legend('ia(t)');
+subplot(4,1,3); 
+plot(t, u(:,1), 'LineWidth', 2); title('Input u1: va(t)'); ylabel('va(t) [V]'); grid;
+legend('va(t)');
+subplot(4,1,4); 
+plot(t, u(:,2), 'r', 'LineWidth', 2); title('Input u2: tl(t)'); ylabel('tl(t) [Nm]'); grid;
+legend('tl(t)');
+xlabel('Time [s]'); 
+
+% close all;
+
 comment('Torque Y Corriente Maximos (Donde omega == 0)')
+% barrer tl con una rampa
+pend    = (2.5E-3 - 0)/(t_max - tl_delay);
+tl      = (pend .* (t - tl_delay)) .* heaviside(t - tl_delay);
+tl      = tl';
+u       = [va; tl]';
 
-i0  = find(x(:,3) > 0)(1);
-i1  = find(x(i0:end,3) <= 0)(1);
-u(:,2)(i1)
-x(:,1)(i1)
-
-% ans = 1.3973e-03
-% ans = 0.2143
+[y, t, x] = lsim(sys, u, t);
 
 figure;
 subplot(4,1,1); 
-plot(t, u(:,1), 'LineWidth', 2); title('Input u1: va(t)'); ylabel('va(t) [V]'); grid;
-legend('va(t)');
-subplot(4,1,2); 
-plot(t, u(:,2), 'r', 'LineWidth', 2); title('Input u2: tl(t)'); ylabel('tl(t) [Nm]'); grid;
-legend('tl(t)');
-subplot(4,1,3); 
-plot(t, x(:,1), 'LineWidth', 2); title('State Var x1: ia(t)'); ylabel('ia(t) [A]'); grid;
-legend('ia(t)');
-subplot(4,1,4); 
 plot(t, x(:,3), 'LineWidth', 2); title('State Var x3: omega(t)'); ylabel('omega(t) [rad/s]'); grid;
 legend('omega(t)');
-xlabel('Time [s]'); 
+subplot(4,1,2); 
+plot(t, x(:,1), 'LineWidth', 2); title('State Var x1: ia(t)'); ylabel('ia(t) [A]'); grid;
+legend('ia(t)');
+subplot(4,1,3); 
+plot(t, u(:,1), 'LineWidth', 2); title('Input u1: va(t)'); ylabel('va(t) [V]'); grid;
+legend('va(t)');
+subplot(4,1,4); 
+plot(t, u(:,2), 'r', 'LineWidth', 2); title('Input u2: tl(t)'); ylabel('tl(t) [Nm]'); grid;
+legend('tl(t)');
+xlabel('Time [s]');
+
+t_tl_max    = 149.52E-3
+i_tl_max    = find(t >= t_tl_max)(1);
+tl_max      = tl(i_tl_max)
+ia_max      = x(i_tl_max,1)
+% tl_max = 1.5088e-03
+% ia_max = 0.2158
+
+comment('Marcar Torque Y Corriente Maximos')
+
+figure;
+subplot(4,1,1); hold
+plot(t, x(:,3));
+plot(t(i_tl_max), x(i_tl_max,3), 'or'); title('State Var x3: omega(t)'); ylabel('omega(t) [rad/s]'); grid;
+legend('omega(t)');
+subplot(4,1,2); hold
+plot(t, x(:,1));
+plot(t(i_tl_max), x(i_tl_max,1), 'or'); title('State Var x1: ia(t)'); ylabel('ia(t) [A]'); grid;
+legend('ia(t)');
+subplot(4,1,3); hold
+plot(t, u(:,1)); title('Input u1: va(t)'); ylabel('va(t) [V]'); grid;
+legend('va(t)');
+subplot(4,1,4); hold
+plot(t, u(:,2), 'r');
+plot(t(i_tl_max), u(i_tl_max,2), 'ob'); title('Input u2: tl(t)'); ylabel('tl(t) [Nm]'); grid;
+legend('tl(t)');
+xlabel('Time [s]');
 
 comment('SUCCESS')

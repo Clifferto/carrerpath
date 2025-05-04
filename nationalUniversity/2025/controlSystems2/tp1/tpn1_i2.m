@@ -57,7 +57,7 @@ xlabel('Time [s]');
 
 [tau_1 tau_2 tau_3] = get_chen_time_constants(t1, K, [y(i1) y(i2) y(i3)])
 
-comment('G(s) == K (T3s + 1) / ((T1s + 1)(T2s + 1)), T1 < T2')
+comment('G(s) == k0 (T3s + 1) / ((T1s + 1)(T2s + 1)), T1 < T2')
 s               = tf('s');
 sys_zero_poles  = k0*(tau_3*s + 1) / ((tau_1*s + 1)*(tau_2*s + 1))
 sys_only_poles  = k0 / ((tau_1*s + 1)*(tau_2*s + 1))
