@@ -145,7 +145,6 @@ xlabel('Time [s]');
 % ====================================================================================================================
 comment('Ecuacion Caracteristica Del Modelo Teorico')
 
-
 % Matrices De Estado
 % =======================================================================
 
@@ -185,17 +184,18 @@ matA    = [ -Ra/Laa sym_0   -Km/Laa ;
 ec_caract   = det(s*eye(3) - matA);
 ec_caract   = collect(expand(ec_caract), s)
 
-syms Ia Va TL Omega real;
+comment('ss Modela Hasta theta, Por Tanto Tiene Un Polo En Origen, Para omega Hay Que Dividir Por s')
 
-eq1     = Ia*s    == -Ra/Laa*Ia - Km/Laa*Omega + 1/Laa*Va
-eq2     = Omega*s == Ki/JJ*Ia - Bm/JJ*Omega - 1/JJ*TL
-TL      = 0;
-eq2     = eval(eq2)
-sol     = solve(eq1, eq2, Omega, Va)
-G       = sol.Omega/sol.Va
+ec_caract   = collect(expand(ec_caract*JJ*Laa/s), s)
+% ec_caract = (sym)
+%                   2
+%   Bm⋅Ra + JJ⋅Laa⋅s  + Ki⋅Km + s⋅(Bm⋅Laa + JJ⋅Ra)
 
-return
 omega_vs_va
+% Transfer function 'omega_vs_va' from input 'u1' to output ...
+%                   3.809
+%  y1:  -----------------------------
+%       0.0002091 s^2 + 0.09444 s + 1
 return
 
 figure;
