@@ -142,6 +142,25 @@ title('Output y_1: Omega vs Tl Estimations With Adjusted Attenuation'); ylabel('
 legend('real', 'estimated : k1 = -34.5');
 xlabel('Time [s]');
 
+comment('Comparacion Estimado Vs Medido')
+[y_est, t_est]  = lsim([omega_vs_va, omega_vs_tl], u, t);
+
+figure;
+subplot(3,1,1);
+plot(t, y, '-.'); hold
+plot(t_est, y_est, 'r');
+title('Output y_1: omega(t) Estimated Vs Real'); ylabel('omega(t) [rad/s]'); grid;
+legend('real', 'estimated');
+subplot(3,1,2); 
+plot(t, u(:,1), 'LineWidth', 2);
+title('Input u_1: va(t)'); ylabel('va(t) [V]'); grid;
+legend('va(t)');
+subplot(3,1,3); 
+plot(t, u(:,2), 'r', 'LineWidth', 2);
+title('Input u_2: tl(t)'); ylabel('tl(t) [Nm]'); grid;
+legend('tl(t)');
+xlabel('Time [s]'); 
+
 % ====================================================================================================================
 comment('Constantes Finales')
 k0
