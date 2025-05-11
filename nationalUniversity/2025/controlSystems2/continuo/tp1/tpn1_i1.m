@@ -6,7 +6,7 @@ pkg load control;
 pkg load symbolic;
 pkg load signal;
 
-addpath('../lib');
+addpath('../../lib');
 mylib
 
 % ====================================================================================================================

@@ -5,7 +5,7 @@ close all; clear all; clc;
 pkg load symbolic;
 pkg load control;
 
-addpath('../lib');
+addpath('../../lib');
 mylib
 
 % ====================================================================================================================

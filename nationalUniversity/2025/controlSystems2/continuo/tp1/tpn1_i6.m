@@ -6,7 +6,7 @@ pkg load control
 pkg load symbolic
 pkg load io
 
-addpath('../lib');
+addpath('../../lib');
 mylib
 
 function [Y, X, U, err] = sys_model(A, B, C, D, in, t, x0)
@@ -14,9 +14,13 @@ function [Y, X, U, err] = sys_model(A, B, C, D, in, t, x0)
     h   = t(2) - t(1)
 
     % parametros del PID (Tip: partir de KP=0,1;Ki=0,01; KD=5)
-    Kp  = 4;
-    Ki  = 8;
+    Kp  = 13;
+    Ki  = 100;
     Kd  = 1;
+    % Kp  = 200;
+    % Ki  = 2000;
+    % Kd  = 5;
+
     Ts  = h;
     A1  = (2*Kp*Ts + Ki*Ts^2 + 2*Kd)/(2*Ts);
     B1  = (-2*Kp*Ts + Ki*Ts^2 - 4*Kd)/(2*Ts);
@@ -98,26 +102,28 @@ matA    = [ -Ra/Laa 0   -Km/Laa ;
             0       0   1       ;
             Ki/JJ   0   -Bm/JJ  ];
 
-matB   = [  1/Laa   0       ;
-            0       0       ;
-            0       -1/JJ   ];
+matB    = [  1/Laa   0       ;
+             0       0       ;
+             0       -1/JJ   ];
 
-matC   = [  0   1   0];
-matD   = [  0   0];
+matC    = [  0   1   0];
+matD    = [  0   0];
 
 comment('Simulacion')
-% de las graficas de mediciones
+% ! de las graficas de mediciones
 va_amp  = 2;
 % tl_amp  = 0;
 tl_amp  = .12;
 va_t0   = 100E-3;
-tl_t0   = 5;
-% tl_t0   = 700E-3;
-tl_t1   = 8;
+% tl_t0   = 5;
+tl_t0   = 700E-3;
+tl_t1   = 800E-3;
 
-% [t_step, t_max] = get_time_params(pole(ss(matA, matB, matC, matD)));
-t_step  = 1E-3;
-t_max   = 10
+[t_step, t_max] = get_time_params(pole(ss(matA, matB, matC, matD)));
+t_step  /= 3
+% t_step  = 1E-3;
+t_max   *= 5
+% t_max   = 10
 t       = 0:t_step:t_max;
 va      = va_amp*heaviside(t - va_t0);
 tl      = tl_amp*(heaviside(t - tl_t0) - heaviside(t - tl_t1));
@@ -149,6 +155,8 @@ title('Input i_2: tl(t)'); ylabel('tl(t) [Nm]'); grid;
 legend('tl(t)');
 xlabel('Time [s]'); 
 
+close all;
+
 figure;
 subplot(3,1,1);
 plot(t(1:end-1), err, 'r', 'LineWidth', 2);
@@ -160,7 +168,7 @@ title('Control Action u_1: va(t)'); ylabel('va(t) [V]'); grid;
 legend('va(t)');
 subplot(3,1,3);
 plot(t, y_est, 'r', 'LineWidth', 2); hold
-plot([t(1), t(end)], [1, 1], '-.k', 'LineWidth', 2);
+plot([t(1), t(end)], [1, 1], '-.k');
 title('Output y_1: theta(t) vs Set Point'); ylabel('theta(t) [rad]'); grid;
 legend('theta(t)', 'set-point');
 xlabel('Time [s]'); 
