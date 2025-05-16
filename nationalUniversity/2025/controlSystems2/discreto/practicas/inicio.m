@@ -8,80 +8,49 @@ addpath('../../lib');
 mylib
 
 % ====================================================================================================================
-comment('Lugar De Raices Con Octave')
+comment('Lugar De Raices Para Distintos Periodos De Muestreo')
 k0  = 1;
 G   = zpk([], [0 -1],[1])
 
 comment('Comparar Ts = 1 Y Ts = 4')
+Ts0 = 1;
+Ts1 = 4;
 
-comment('Definir Muestreo Segun El Sistema Continuo')
-p               = pole(G);
-[t_step, t_max] = get_time_params(p)
+Gz0 = c2d(G, Ts0, 'ZOH')
+Gz1 = c2d(G, Ts1, 'ZOH')
 
-return
+% rlocusx(Gz0);
+% rlocusx(Gz1);
 
-comment('Simulacion')
-% ! de las graficas de mediciones
-va_amp  = 2;
-% tl_amp  = 0;
-tl_amp  = .12;
-va_t0   = 100E-3;
-% tl_t0   = 5;
-tl_t0   = 700E-3;
-tl_t1   = 800E-3;
+% ! k_crit0 ~ 2.4
+% ! k_crit1 ~ 1
+comment('En Sistemas Discretos: k_crit Proporcional A fs = 1/Ts')
 
-[t_step, t_max] = get_time_params(pole(ss(matA, matB, matC, matD)));
-t_step  /= 3;
-% t_step  = 1E-3;
-t_max   *= 7
-% t_max   = 10
-t       = 0:t_step:t_max;
-va      = va_amp*heaviside(t - va_t0);
-tl      = tl_amp*(heaviside(t - tl_t0) - heaviside(t - tl_t1));
-in      = [va ; tl]';
+comment('tau_eq = -Ts / Ln(r)')
+disp('   - Sist 1er o 2do Orden Sub-Amortiguados: tss = 4 tau_eq')
+disp('   - Sist 2do Orden Crit-Amortiguado      : tss = 5.8 tau_eq')
+disp('')
+tau_eq0 = -Ts0/log(.64719);
+tau_eq1 = -Ts1/log(.34368);
+tss0    = 5.8*tau_eq0
+tss1    = 5.8*tau_eq1
 
-x0                  = [0 ; 0 ; 0];
-[y_est, x, u, err]  = sys_model(matA, matB, matC, matD, in, t, x0);
+comment('Criterio De Muestras Por Ciclo/Tau: m >= 10')
+damp(feedback(G, 1))
+% Pole                   Damping     Frequency        Time Constant
+%                                       (rad/seconds)    (seconds)
+%    -5.00e-01+8.66e-01i    5.00e-01    1.00e+00         2.00e+00
+%    -5.00e-01-8.66e-01i    5.00e-01    1.00e+00         2.00e+00
+% ! ws  == m wd
+m   = 10
+wd  = 1
+ws  = m*wd
+Ts  = ws/(2*pi)
 
-figure;
-subplot(5,1,1);
-plot(t, x(:,1), 'r', 'LineWidth', 2);
-title('State var x_1: ia(t)'); ylabel('ia(t) [A]'); grid;
-legend('ia(t)');
-subplot(5,1,2);
-plot(t, x(:,2), 'r', 'LineWidth', 2);
-title('State var x_2: theta(t)'); ylabel('theta(t) [rad]'); grid;
-legend('theta(t)');
-subplot(5,1,3);
-plot(t, x(:,3), 'r', 'LineWidth', 2);
-title('State var x_3: omega(t)'); ylabel('omega(t) [rad/s]'); grid;
-legend('omega(t)');
-subplot(5,1,4);
-plot(t, in(:,1), 'LineWidth', 2);
-title('Input i_1: va(t)'); ylabel('va(t) [V]'); grid;
-legend('va(t)');
-subplot(5,1,5); 
-plot(t, in(:,2), 'LineWidth', 2);
-title('Input i_2: tl(t)'); ylabel('tl(t) [Nm]'); grid;
-legend('tl(t)');
-xlabel('Time [s]'); 
+comment('Aseguramos 10 Muestras Por Ciclo Con:')
+Ts  = 1.5
+Gz  = c2d(G, Ts, 'ZOH')
 
-% close all;
-
-figure;
-subplot(3,1,1);
-plot(t(1:end-1), err, 'r', 'LineWidth', 2);
-title('Error: e(t)'); ylabel('e(t) [rad]'); grid;
-legend('e(t)');
-subplot(3,1,2);
-plot(t, u(:,1), 'r', 'LineWidth', 2);
-title('Control Action u_1: va(t)'); ylabel('va(t) [V]'); grid;
-legend('va(t)');
-subplot(3,1,3);
-plot(t, y_est, 'r', 'LineWidth', 2); hold
-plot([t(1), t(end)], [1, 1], '-.k');
-title('Output y_1: theta(t) vs Set Point'); ylabel('theta(t) [rad]'); grid;
-legend('theta(t)', 'set-point');
-xlabel('Time [s]'); 
+rlocusx(Gz*1)
 
 comment("SUCCESS")
