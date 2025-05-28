@@ -136,10 +136,10 @@ L   = .6
 g   = 9.8
 M   = .5
 
-A   = eval(A)
-B   = eval(B)
-C   = eval(C)
-D   = eval(D)
+A   = eval(A);
+B   = eval(B);
+C   = eval(C);
+D   = eval(D);
 
 comment('Simulacion')
 [t_step, t_max] = get_time_params(pole(ss(A, B, C, D)));
@@ -150,27 +150,27 @@ t   = 0:t_step:t_max;
 in  = heaviside(t);
 x0  = [0 ; 0 ; 0 ; 0]';
 
-[y, x, u]   = not_lineal([m F L g M], in, t, x0);
-% [y, x, u]   = sys_model(A, B, C, D, in, t, x0);
+[y, x, u]       = not_lineal([m F L g M], in, t, x0);
+[yl, xl, ul]    = sys_model(A, B, C, D, in, t, x0);
 % [y, t, x]   = lsim(ss(A, B, C, D), in, t, x0);
 
 figure;
 subplot(4,1,1);
-plot(t, x(:,1), 'r', 'LineWidth', 2);
+plot(t, xl(:,1), 'r', 'LineWidth', 2, t, x(:,1), '-.-', 'LineWidth', 2);
 title('State Var x_1: delta'); ylabel('delta [m]'); grid;
-legend('delta(t)');
+legend('lineal', 'real');
 subplot(4,1,2);
-plot(t, x(:,2), 'r', 'LineWidth', 2);
+plot(t, xl(:,2), 'r', 'LineWidth', 2, t, x(:,2), '-.-', 'LineWidth', 2);
 title('State Var x_2: delta_p'); ylabel('delta_p [m/s]'); grid;
-legend('delta_p(t)');
+legend('lineal', 'real');
 subplot(4,1,3);
-plot(t, x(:,3), 'r', 'LineWidth', 2);
+plot(t, xl(:,3), 'r', 'LineWidth', 2, t, x(:,3), '-.-', 'LineWidth', 2);
 title('State Var x_3: Phi'); ylabel('Phi [rad]'); grid;
-legend('Phi(t)');
+legend('lineal', 'real');
 subplot(4,1,4);
-plot(t, x(:,4), 'r', 'LineWidth', 2);
+plot(t, xl(:,4), 'r', 'LineWidth', 2, t, x(:,4), '-.-', 'LineWidth', 2);
 title('State Var x_4: Phi_p'); ylabel('Phi_p [rad/s]'); grid;
-legend('Phi_p(t)');
+legend('lineal', 'real');
 xlabel('Time [s]'); 
 
 figure;
@@ -189,6 +189,7 @@ title('Output y_2: Phi'); ylabel('Phi [rad]'); grid;
 legend('Phi(t)');
 xlabel('Time [s]'); 
 
+return
 % ====================================================================================================================
 comment('Para Equilibrio Estable [Phi = pi, delta = 0], Simplificaciones [cos(Phi) ~ -1, sin(Phi) ~ -Phi]')
 eq1_ee  = subs(eq1, [cos(Phi) sin(Phi)], [-1 -Phi])
