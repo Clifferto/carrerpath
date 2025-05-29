@@ -58,13 +58,12 @@ ec_lc = expand((s + 2+2*j)*(s + 2-2*j))
 %    2
 %   s  + 4⋅s + 8
 
-M   = [matB matA*matB]
-
 comment('Por Transformacion De La Matriz De Controlabilidad:')
 % ! K   == [(alpha2 - a2), (alpha1 - a1)] inv(T)
 % ! T   == M W
 % ! W   ==  a1  1
 % !         1   0
+M   = [matB matA*matB]
 W   = [ 1   1   ;
         1   0   ]
 T   = M*W

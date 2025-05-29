@@ -13,18 +13,11 @@ function [t_step t_max] = get_time_params(poles)
     % descartar polo en origen si hay
     poles(poles == 0) = [];
 
-    % si complejos, resolucion relacionada al periodo de la parte imaginaria del polo
-    if any(iscomplex(poles))
-        wd      = imag(poles(1))
-        t_step  = 2*pi / wd;
-    % si reales, resolucion relacionada al 95% de la exp amortiguadora mas rapida
-    else
-        re_min  = min(real(poles))
-        t_step  = abs(log(.95)/re_min);
-    endif
-    
-    % tiempo de sim, relacionado al 5% de la exp amortiguadora mas lenta: e ^ (-t RE{p}_max)
-    re_max  = max(real(poles));
+    % resolucion, relacionada al 95% de la exp amortiguadora mas rapida
+    re_min  = min(real(poles))
+    t_step  = abs(log(.95)/re_min);
+    % tiempo de sim, relacionado al 5% de la exp amortiguadora mas lenta
+    re_max  = max(real(poles))
     t_max   = abs(log(.05)/re_max);
 endfunction
 

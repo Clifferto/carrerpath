@@ -101,14 +101,13 @@ Ba  = [ B   ;
         0   ]
 
 comment('Por Metodo Acker, Polo Adicional Mas Alejado De Los Dominantes:')
-Ka  = acker(Aa, Ba, [-2+2*j -2-2*j -20])
+Ka  = acker(Aa, Ba, [-2+2*j -2-2*j -4])
 eig(Aa - Ba*Ka)
 
 comment('Simulacion')
 [t_step, t_max] = get_time_params(eig(Aa - Ba*Ka));
-t_step  = -1/real(min(eig(Aa - Ba*Ka)))
-t_step  /= 30
-t_max   *= 5
+t_step  /= 3
+t_max   *= 3
 
 r   = 10
 t   = 0:t_step:t_max;
@@ -129,7 +128,7 @@ title('State Var x_2'); ylabel('x_2 []'); grid;
 legend('x_2(t)');
 subplot(5,1,3);
 plot(t, err(:,1), 'r', 'LineWidth', 2);
-title('Error Psi_p: r - y1'); ylabel('err []'); grid;
+title('Error Psi_p: r - y_1'); ylabel('err []'); grid;
 legend('err(t)');
 subplot(5,1,4); 
 plot(t, u(:,1), 'LineWidth', 2);
