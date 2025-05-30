@@ -43,14 +43,6 @@ B   = [ 0   ;
 C   = [ 1   0]
 D   = [ 0]
 
-comment('Polos Deseados A Lazo Cerrado: -2 +/- 2j, Ec Caracteristicas lazo Abierto/Cerrado:')
-a_k     = poly(eig(A))
-% a_k =
-%    1   1   0
-alpha_k = poly([-2+2*j -2-2*j])
-% alpha_k =
-%    1   4   8
-
 comment('Verificar Controlabilidad: rank(M) == n')
 M   = [B A*B]
 rank(M)
