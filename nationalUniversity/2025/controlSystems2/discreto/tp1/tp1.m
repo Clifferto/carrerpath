@@ -34,7 +34,7 @@ pzmap(Gz); title('Discrete-Time System'); zgrid;
 
 comment('Sub-Muestreo Por 10:');
 figure; 
-pzmap(Gz, c2d(G, Ts*10, 'zoh')); title('Discrete-Time System Vs Sub-Sampled System (Ts/10)'); zgrid;
+pzmap(Gz, c2d(G, Ts*10, 'zoh')); title('Discrete-Time System Vs Sub-Sampled System (fs/10)'); zgrid;
 legend('original', 'original', 'sub-sampled', 'sub-sampled');
 
 comment('Polos Y Ceros Se Corren Hacia La Izquierda Al Aumentar Ts, Mantienen La Distancia Entre Ellos, El Polo En 1 Queda Invariante');
