@@ -37,50 +37,6 @@ function [Y, X, U, E] = sys_model(A, B, C, D, Ka, r, in, t, x0)
 
 endfunction
 
-function [Y, X, U, E] = sys_pid(A, B, C, D, in, t, x0, pid_config)
-    % paso igual a la resolucion temporal
-    h   = t(2) - t(1);
-
-    Kp  = pid_config(1);
-    Ki  = pid_config(2);
-    Kd  = pid_config(3);
-
-    Ts  = h;
-    A1  = (2*Kp*Ts + Ki*Ts^2 + 2*Kd)/(2*Ts);
-    B1  = (-2*Kp*Ts + Ki*Ts^2 - 4*Kd)/(2*Ts);
-    C1  = Kd/Ts;
-    
-    % set point
-    r   = 15;
-
-    x   = x0;
-    pid = 0;
-    for k = 1:length(t)
-
-        if mod(k, floor((length(t))/10)) == 0
-            printf('running iteration: %d / %d ...\n', k, length(t));
-        endif
-
-        % ley de control aplicada
-        u   = [pid, in(k,2)]';
-        
-        xp  = A*x   + B*u;
-        x   = x     + xp*h;
-        y   = C*x   + D*u;
-
-        err(k)  = r - y;
-        if length(err) > 2 && in(k,1) > 0
-            pid = pid + A1*err(k) + B1*err(k-1) + C1*err(k-2);
-        endif
-
-        U(k,:)    = u';
-        X(k,:)    = x';
-        Y(k,:)    = y';
-    endfor
-
-    E = err';
-endfunction
-
 % ====================================================================================================================
 comment('Parametros Tomados De: OptimalControl/TP_N1_Identificacion_Exacta.ipynb')
 Ra  = 2.2781228953606902
@@ -134,7 +90,7 @@ eig(A)
 
 % ! %y  = e^(p t)
 log(.95)/1E-3
-% ans = -51.293
+% ans = -51.293 <-- DIFICIL DE CUMPLIR PARA LA DINAMICA REQUERIDA
 
 comment('Estrategia: Control Por Realimentacion De Estados Con Integral Error (u == -K x + KI psi)')
 % ! Aa  =   [A  0]
@@ -143,7 +99,7 @@ comment('Estrategia: Control Por Realimentacion De Estados Con Integral Error (u
 % !         [0]
 % ! Ka  =   [K  -KI]
 % ! xa  =   [x  psi] Donde: psi_p == r - y
-% solo importa el sistema theta/va, polos una octava mas rapidos
+% solo importa el sistema theta/va, se ignora c2 de B, se ignora f2 de C
 Aa  = [A zeros(3,1) ;   -C(1,:) 0]
 Ba  = [B(:,1)   ;   0]
 
