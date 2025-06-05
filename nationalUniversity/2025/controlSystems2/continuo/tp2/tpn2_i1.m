@@ -20,12 +20,12 @@ function [Y, X, U, E] = sys_model(A, B, C, D, Ka, r, in, t, x0)
             printf('running iteration: %d / %d ...\n', k, length(t));
         endif
 
-        u1  = -Ka*x;
+        u1  = -Ka*x*in(k,1);
         u2  = in(k,2);
 
         % simular sistema ampliado con perturbacion u2, B debe ser 4x2, C debe ser 2x4
         u   = [u1 ; u2];
-        xp  = A*x + [B ; zeros(1,2)]*u   + [0 ; 0 ; 0 ; 1]*r;
+        xp  = A*x + [B ; zeros(1,2)]*u   + [0 ; 0 ; 0 ; 1]*r(k);
         x   = x + xp*h;
         y   = [C zeros(2,1)]*x + D*u;
 
@@ -146,34 +146,51 @@ comment('Estrategia: Control Por Realimentacion De Estados Con Integral Error (u
 % solo importa el sistema theta/va, polos una octava mas rapidos
 Aa  = [A zeros(3,1) ;   -C(1,:) 0]
 Ba  = [B(:,1)   ;   0]
-Ka  = acker(Aa, Ba, [-25+j -25-j -50 -1])
-eig(Aa - Ba*Ka)
+
+comment('Calculo Del LQR')
+Q           = diag([1 1200 .00001 100000])
+% Q           = diag([1/(.3)^2 1/(2*pi)^2 1/(.95)^2 1])
+R           = 95
+[Ka, SR, P] = lqr(Aa, Ba, Q, R)
+% eig(Aa - Ba*Ka)
 
 comment('Simulacion')
-% ! de las graficas de mediciones
-va_amp  = 2;
-tl_amp  = 0;
-% tl_amp  = .12;
-va_t0   = 0;
-% va_t0   = 100E-3;
-tl_t0   = 700E-3;
 
+% parametros de tiempo
 pp              = eig(Aa - Ba*Ka)(:)';
 [t_step, t_max] = get_time_params(pp)
 % ! sobre 3 a 30 veces
-t_step  /= 1
-t_max   *= 2
+t_step  = 1E-3
+% t_step  /= 1
+t_max   *= 15
+
+% ! de las graficas de mediciones, parametros de las entradas
+va_amp  = 2/2;
+% tl_amp  = 0;
+tl_amp  = .12;
+va_t0   = 100E-3;
+tl_t0   = 700E-3;
+
+% parametros de la referencia
+r_amp   = pi/2;
+r_t0    = va_t0;
+r_t1    = 2;
+
+disp('');
+if strcmpi(input('Press "x" to cancel: ', 's'), 'x')
+    return;
+end
 
 t   = 0:t_step:t_max;
 va  = va_amp*heaviside(t' - va_t0);
-tl  = tl_amp*heaviside(t' - tl_t0);
+tl  = tl_amp*(heaviside(t' - tl_t0) - heaviside(t' - r_t1) + heaviside(t' - (r_t1 + tl_t0)));
 in  = [va tl];
 
-r   = pi/2;
-x0  = [0 ; 0 ; 0 ; 1];
+r   = r_amp*(heaviside(t - r_t0) - 2*heaviside(t - r_t1));
+x0  = [0 ; 0 ; 0 ; 0];
 
 [y, x, u, err]  = sys_model(Aa, B, C, D, Ka, r, in, t, x0);
-x(:,2)          = mod(x(:,2), 2*pi);
+% x(:,2)          = mod(x(:,2), 2*pi);
 
 figure;
 subplot(3,1,1);
@@ -188,64 +205,32 @@ legend('omega(t)');
 xlabel('Time [s]');
 
 figure;
-subplot(5,1,1);
+subplot(4,1,1);
 plot(t, u(:,1), 'LineWidth', 2); title('Input u_1 : va(t)'); ylabel('u_1 [V]'); grid
 legend('va(t)');
-subplot(5,1,2); 
+subplot(4,1,2); 
 plot(t, u(:,2), 'LineWidth', 2); title('Input u_2 : TL(t)'); ylabel('u_2 [Nm]'); grid
 legend('TL(t)');
-subplot(5,1,3); 
-plot(t, y(:,1), 'LineWidth', 2); title('Output y_1 : theta(t)'); ylabel('y_1 [rad]'); grid
-legend('theta(t)');
-subplot(5,1,4); 
-plot(t, err(:,1), 'LineWidth', 2); title('Error : Psi(t)'); ylabel('Psi [rad]'); grid
+subplot(4,1,3); 
+plot(t, y(:,1), 'LineWidth', 2); hold
+plot(t, r, '-.r'); title('Output Vs Set-Point'); ylabel('y_1 [rad]'); grid
+legend('theta(t)', 'set-point');
+subplot(4,1,4); 
+plot(t, err(:,1), 'LineWidth', 2); title('Error : Psi_p(t)'); ylabel('Psi_p [rad]'); grid
 legend('error(t)');
 xlabel('Time [s]');
 
-return
-% parametros del PID (Tip: partir de KP=0,1;Ki=0,01; KD=5)
-Kp  = 17;
-Ki  = 100;
-Kd  = .8;
-% Kp  = 200;
-% Ki  = 2000;
-% Kd  = 5;
-pid_config          = [Kp Ki Kd]
-x0                  = [0 ; 0 ; 0];
-[y_est, x, u, err]  = sys_model(matA, matB, matC, matD, in, t, x0, pid_config);
-
-figure;
-subplot(3,1,1);
-plot(t, x(:,2), 'r', 'LineWidth', 2);
-title('Output y_1: theta(t)'); ylabel('theta(t) [rad]'); grid;
-legend('theta(t)');
-subplot(3,1,2);
-plot(t, in(:,1), 'LineWidth', 2);
-title('Input i_1: va(t)'); ylabel('va(t) [V]'); grid;
-legend('va(t)');
-subplot(3,1,3); 
-plot(t, in(:,2), 'LineWidth', 2);
-title('Input i_2: tl(t)'); ylabel('tl(t) [Nm]'); grid;
-legend('tl(t)');
-xlabel('Time [s]'); 
-
-% close all;
-
-figure;
-subplot(3,1,1);
-plot(t, err, 'r', 'LineWidth', 2);
-str = sprintf('Error: e(t) vs PID: kp = %0d, ki = %0d, kd = %0d', Kp, Ki, Kd);
-title(str); ylabel('e(t) [rad]'); grid;
-legend('e(t)');
-subplot(3,1,2);
-plot(t, u(:,1), 'r', 'LineWidth', 2);
-title('Control Action u_1: va(t)'); ylabel('va(t) [V]'); grid;
-legend('va(t)');
-subplot(3,1,3);
-plot(t, y_est, 'r', 'LineWidth', 2); hold
-plot([t(1), t(end)], [1, 1], '-.k');
-title('Output y_1: theta(t) vs Set Point'); ylabel('theta(t) [rad]'); grid;
-legend('theta(t)', 'set-point');
-xlabel('Time [s]'); 
-
 comment("SUCCESS")
+
+% % Ejemplo de no-linealidad
+% ue=-2.5:.1:2.5; N=length(ue); uo=zeros(1,N);
+% ZM=.5;
+% for ii=1:N
+%     if abs(ue(ii))>ZM
+%     uo(ii)=ue(ii)-ZM*sign(ue(ii));
+%     end
+% end
+% plot(ue,uo,'k');xlabel('Tensión de entrada');
+% ylabel('V_o','Rotation',0);grid on;
+
+% https://github.com/Julianpucheta/OptimalControl/blob/main/Pontryagin%20minimum%20principle/Control_CyO_Pendulo_MH.ipynb
