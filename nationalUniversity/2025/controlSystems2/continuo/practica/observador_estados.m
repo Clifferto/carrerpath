@@ -82,7 +82,7 @@ alpha_kd    = poly([-3+3*j -3-3*j])
 
 comment('Por Transformacion De La Matriz De Controlabilidad Dual:')
 % ! Ko  == [(alpha2d - a2d), (alpha1d - a1d)] inv(Td)
-% ! Td  == Md W
+% ! Td  == Md Wd
 % ! Wd  ==  [a1d 1] == [a1 1]
 % !         [1   0]    [1  0]
 Md  = [Bd Ad*Bd]
@@ -102,8 +102,8 @@ Ko      = Ko'
 eig(A - Ko*C)
 
 comment('Por Metodo Acker:')
-Ko  = acker(Ad, Bd, [-3+3*j -3-3*j])
-Ko  = Ko'
+Kod     = acker(Ad, Bd, [-3+3*j -3-3*j])
+Ko      = Kod'
 eig(A - Ko*C)
 
 comment('Simulacion')

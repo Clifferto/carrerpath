@@ -12,9 +12,12 @@ function [Y, X, U, err] = sys_model(A, B, C, D, Ka, r, t, x0)
     % paso igual a la resolucion temporal
     h   = t(2) - t(1)
     x   = x0;
+    y   = C*x0;
     X   = x0';
     
-    % [K, KI] = [num2cell(Ka){1:2}, num2cell(Ka){3}]
+    Kc  = Ka(1:2);
+    KI  = -Ka(3);
+    Psi = 1;
 
     for k = 1:length(t)-1
 
@@ -22,15 +25,16 @@ function [Y, X, U, err] = sys_model(A, B, C, D, Ka, r, t, x0)
             printf('running iteration: %d / %d ...\n', k, length(t)-1);
         endif
 
-        % psi_p   = r - C*x;
-        % psi     = psi + psi_p*h;
-        u   = -Ka*x;
+        Psi_p   = r - y;
+        Psi     = Psi + Psi_p*h;
+        u       = -Kc*x + KI*Psi;
 
-        xp  = A*x   + B*u   + [0 ; 0 ; 1]*r;
+        xp  = A*x   + B*u;
+        % xp  = A*x   + B*u   + [0 ; 0 ; 1]*r;
         x   = x     + xp*h;
-        y   = C*x(1:2)   + D*u;
+        y   = C*x   + D*u;
 
-        err(k+1,:)  = xp(3);
+        err(k+1,:)  = Psi_p;
         U(k+1,:)    = u;
         X(k+1,:)    = x;
         Y(k+1,:)    = y;
@@ -112,10 +116,10 @@ t_max   *= 3
 r   = 10
 t   = 0:t_step:t_max;
 in  = r*heaviside(t);
-x0  = [0 ; 0 ; 1];
+x0  = [0 ; 0];
 
 % [y, x, u, err]  = diff_eq(Ka, r, t, x0);
-[y, x, u, err]  = sys_model(Aa, Ba, C, D, Ka, r, t, x0);
+[y, x, u, err]  = sys_model(A, B, C, D, Ka, r, t, x0);
 
 figure;
 subplot(5,1,1);
