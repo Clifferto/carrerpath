@@ -9,10 +9,13 @@ pkg load io
 addpath('../../lib');
 mylib
 
-function [Y, X, U, E] = sys_model(A, B, C, D, Ka, r, in, t, x0)
+function [Y, X, U, E, Yo, Xo, Eo] = sys_model(A, B, C, D, Kc, KI, Ko, r, in, t, x0, xo0)
     % paso igual a la resolucion temporal
     h   = t(2) - t(1)
     x   = x0;
+    y   = C*x0;
+    Psi = 0;
+    x_o = xo0;
     
     for k = 1:length(t)
 
@@ -20,19 +23,32 @@ function [Y, X, U, E] = sys_model(A, B, C, D, Ka, r, in, t, x0)
             printf('running iteration: %d / %d ...\n', k, length(t));
         endif
 
-        u1  = -Ka*x*in(k,1);
+        % calcular error para theta y variable de estado asociada
+        Psi_p   = r(k) - y(1,1);
+        Psi     = Psi + Psi_p*h;
+        
+        % calcular accion de control
+        u1  = (-Kc*x_o + KI*Psi) * in(k,1);
         u2  = in(k,2);
-
-        % simular sistema ampliado con perturbacion u2, B debe ser 4x2, C debe ser 2x4
         u   = [u1 ; u2];
-        xp  = A*x + [B ; zeros(1,2)]*u   + [0 ; 0 ; 0 ; 1]*r(k);
+
+        % simular sistema con perturbacion u2
+        xp  = A*x + B*u;
         x   = x + xp*h;
-        y   = [C zeros(2,1)]*x + D*u;
+        y   = C*x + D*u;
+        
+        % calcular error de observacion, actualizar observador
+        err_o   = y - C*x_o;
+        xp_o    = A*x_o + B*u + Ko*err_o;
+        x_o     = x_o   + xp_o*h;
 
         X(k,:)  = x';
         Y(k,:)  = y';
         U(k,:)  = u';
-        E(k,:)  = xp(4,1);
+        E(k,:)  = Psi_p;
+        Yo(k,:) = (C*x_o)';
+        Xo(k,:) = x_o';
+        Eo(k,:) = err_o';
     endfor
 
 endfunction
@@ -76,11 +92,6 @@ B   = [1/Laa 0  ;   0 0 ;   0 -1/Jm]
 C   = [0 1 0    ; 0 0 1]
 D   = zeros(2,2);
 
-comment('Verificar Controlabilidad: rank(M) == n')
-M   = ctrb(A, B)
-assert(rank(M) == 3)
-% P   = obsv(A, B)
-
 comment('Polos A Lazo Abierto, Con El t_step == 1ms, Polo Mas Rapido Posible')
 eig(A)
 % ans =
@@ -92,6 +103,7 @@ eig(A)
 log(.95)/1E-3
 % ans = -51.293 <-- DIFICIL DE CUMPLIR PARA LA DINAMICA REQUERIDA
 
+% ====================================================================================================================
 comment('Estrategia: Control Por Realimentacion De Estados Con Integral Error (u == -K x + KI psi)')
 % ! Aa  =   [A  0]
 % !         [-C 0]
@@ -103,21 +115,41 @@ comment('Estrategia: Control Por Realimentacion De Estados Con Integral Error (u
 Aa  = [A zeros(3,1) ;   -C(1,:) 0]
 Ba  = [B(:,1)   ;   0]
 
-comment('Calculo Del LQR')
+comment('Verificar Controlabilidad: rank(M) == n')
+M   = ctrb(A, B)
+assert(rank(M) == 3)
+
+comment('Calculo Del Del Controlador Por LQR')
 Q           = diag([1 1200 .00001 100000])
 % Q           = diag([1/(.3)^2 1/(2*pi)^2 1/(.95)^2 1])
 R           = 95
 [Ka, SR, P] = lqr(Aa, Ba, Q, R)
 % eig(Aa - Ba*Ka)
 
-comment('Simulacion')
+% ====================================================================================================================
+comment('Observador Midiendo (theta, omega) Y Controlando va: 2 Entradas, 2 Salidas')
+Ad  = A'
+Bd  = C'
+Cd  = B(:,1)'
 
+comment('Verificar Observabilidad: rank(P) == n')
+P   = obsv(A, C)
+assert(rank(P) == 3)
+
+comment('Calculo Del Observador Por LQR')
+Qo              = diag([1 1 1])
+Ro              = eye(2)
+[Kod, SR, P]    = lqr(Ad, Bd, Qo, Ro)
+Ko              = Kod';
+% eig(A - Ko*C)
+
+comment('Simulacion')
 % parametros de tiempo
 pp              = eig(Aa - Ba*Ka)(:)';
 [t_step, t_max] = get_time_params(pp)
 % ! sobre 3 a 30 veces
 t_step  = 1E-3
-% t_step  /= 1
+% t_max   *= 3
 t_max   *= 15
 
 % ! de las graficas de mediciones, parametros de las entradas
@@ -139,25 +171,35 @@ end
 
 t   = 0:t_step:t_max;
 va  = va_amp*heaviside(t' - va_t0);
-tl  = tl_amp*(heaviside(t' - tl_t0) - heaviside(t' - r_t1) + heaviside(t' - (r_t1 + tl_t0)));
+tl  = tl_amp*(heaviside(t' - tl_t0) - heaviside(t' - r_t1) - heaviside(t' - (r_t1 + tl_t0)));
 in  = [va tl];
 
 r   = r_amp*(heaviside(t - r_t0) - 2*heaviside(t - r_t1));
-x0  = [0 ; 0 ; 0 ; 0];
+Kc  = Ka(1:3);
+KI  = -Ka(4);
 
-[y, x, u, err]  = sys_model(Aa, B, C, D, Ka, r, in, t, x0);
+x0  = [0 ; 0 ; 0];
+xo0 = [.1 ; 0 ; 2];
+
+[y, x, u, err, y_o, x_o, err_o] = sys_model(A, B, C, D, Kc, KI, Ko, r, in, t, x0, xo0);
 % x(:,2)          = mod(x(:,2), 2*pi);
 
 figure;
-subplot(3,1,1);
-plot(t, x(:,1), 'r', 'LineWidth', 2); title('State Var x_1 : ia(t)'); ylabel('x_1 [A]'); grid
-legend('ia(t)');
-subplot(3,1,2);
-plot(t, x(:,2), 'r', 'LineWidth', 2); title('State Var x_2 : theta(t)'); ylabel('x_2 [rad]'); grid
-legend('theta(t)');
-subplot(3,1,3);
-plot(t, x(:,3), 'r', 'LineWidth', 2); title('State Var x_3 : omega(t)'); ylabel('x_3 [rad/s]'); grid
-legend('omega(t)');
+subplot(4,1,1);
+plot(t, x(:,1), 'r', 'LineWidth', 2); hold
+plot(t, x_o(:,1), '-.', 'LineWidth', 2); title('State Var x_1 == ia(t) : Real Vs Observer'); ylabel('x_1 [A]'); grid;
+legend('real', 'observer');
+subplot(4,1,2);
+plot(t, x(:,2), 'r', 'LineWidth', 2); hold
+plot(t, x_o(:,2), '-.', 'LineWidth', 2); title('State Var x_2 == theta(t) : Real Vs Observer'); ylabel('x_2 [rad]'); grid;
+legend('real', 'observer');
+subplot(4,1,3);
+plot(t, x(:,3), 'r', 'LineWidth', 2); hold
+plot(t, x_o(:,3), '-.', 'LineWidth', 2); title('State Var x_3 == omega(t) : Real Vs Observer'); ylabel('x_3 [rad/s]'); grid;
+legend('real', 'observer');
+subplot(4,1,4);
+plot(t, err_o(:,1), 'LineWidth', 2, t, err_o(:,2), 'LineWidth', 2); title('Observer Errors'); ylabel('error'); grid
+legend('error');
 xlabel('Time [s]');
 
 figure;
