@@ -140,7 +140,7 @@ Aa  = [A zeros(4,1)     ;   -C(1,:) 0]
 Ba  = [B                ;   0]
 
 comment('Calculo Del Del Controlador Por LQR')
-Q           = diag([.1 1 10 10000 1])
+Q           = diag([.1 .5 10 10000 1])
 R           = 10000
 [Ka, SR, P] = lqr(Aa, Ba, Q, R)
 

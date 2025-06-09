@@ -16,6 +16,9 @@ function [Y, X, U, E, Yo, Xo, Eo] = sys_model(A, B, C, D, Kc, KI, Ko, r, in, t, 
     y   = C*x0;
     Psi = 0;
     x_o = xo0;
+
+    % parametro de la no linealidad del actuador
+    ZM  = .5;
     
     for k = 1:length(t)
 
@@ -28,11 +31,19 @@ function [Y, X, U, E, Yo, Xo, Eo] = sys_model(A, B, C, D, Kc, KI, Ko, r, in, t, 
         Psi     = Psi + Psi_p*h;
         
         % calcular accion de control
-        u1  = (-Kc*x_o + KI*Psi) * in(k,1);
+        u1  = (-Kc*x_o + KI*Psi);
+        % u1  = (-Kc*x + KI*Psi);
         u2  = in(k,2);
-        u   = [u1 ; u2];
+        
+        ue  = u1;
+
+        % agregar no linealidad en el actuador de u1
+        if abs(u1) > ZM
+            u1  = u1 - ZM*sign(u1);
+        endif
 
         % simular sistema con perturbacion u2
+        u   = [u1 ; u2];
         xp  = A*x + B*u;
         x   = x + xp*h;
         y   = C*x + D*u;
@@ -44,7 +55,7 @@ function [Y, X, U, E, Yo, Xo, Eo] = sys_model(A, B, C, D, Kc, KI, Ko, r, in, t, 
 
         X(k,:)  = x';
         Y(k,:)  = y';
-        U(k,:)  = u';
+        U(k,:)  = [u', ue];
         E(k,:)  = Psi_p;
         Yo(k,:) = (C*x_o)';
         Xo(k,:) = x_o';
@@ -88,8 +99,8 @@ comment('Modelo En Espacio De Estados Del Tp1 (x1 == ia, x2 == theta, x3 == thet
 % matC = (sym) [0  1  0]  (1×3 matrix)
 % matD = (sym) [0  0]  (1×2 matrix)
 A   = [-Ra/Laa 0 -Kb/Laa    ;   0 0 1   ;   Ki/Jm 0 -Bm/Jm]
-B   = [1/Laa 0  ;   0 0 ;   0 -1/Jm]
-C   = [0 1 0    ; 0 0 1]
+B   = [1/Laa 0              ;   0 0     ;   0 -1/Jm]
+C   = [0 1 0                ;   0 0 1]
 D   = zeros(2,2);
 
 comment('Polos A Lazo Abierto, Con El t_step == 1ms, Polo Mas Rapido Posible')
@@ -101,7 +112,7 @@ eig(A)
 
 % ! %y  = e^(p t)
 log(.95)/1E-3
-% ans = -51.293 <-- DIFICIL DE CUMPLIR PARA LA DINAMICA REQUERIDA
+% ans = -51.293 <-- DIFICIL DE CUMPLIR PARA LA DINAMICA REQUERIDA, PROBABLEMENTE ESTE SUB-MUESTREADA LA MEDICION
 
 % ====================================================================================================================
 comment('Estrategia: Control Por Realimentacion De Estados Con Integral Error (u == -K x + KI psi)')
@@ -113,18 +124,22 @@ comment('Estrategia: Control Por Realimentacion De Estados Con Integral Error (u
 % ! xa  =   [x  psi] Donde: psi_p == r - y
 % solo importa el sistema theta/va, se ignora c2 de B, se ignora f2 de C
 Aa  = [A zeros(3,1) ;   -C(1,:) 0]
-Ba  = [B(:,1)   ;   0]
+Ba  = [B(:,1)       ;   0]
 
 comment('Verificar Controlabilidad: rank(M) == n')
 M   = ctrb(A, B)
 assert(rank(M) == 3)
 
 comment('Calculo Del Del Controlador Por LQR')
+% ! si Q es de nxn, la variable controlada es i:
+% !     ++Qii   : penalizar la desviacion del estado xi == set-point
+% !     ++Qnn   : penalizar la desviacion del estado error == 0
+% !     ++Qjj   : penalizar la desviacion del origen para las variables
 Q           = diag([1 1200 .00001 100000])
-% Q           = diag([1/(.3)^2 1/(2*pi)^2 1/(.95)^2 1])
 R           = 95
+% Q           = diag([1 600 .01 100000])
+% R           = 100
 [Ka, SR, P] = lqr(Aa, Ba, Q, R)
-% eig(Aa - Ba*Ka)
 
 % ====================================================================================================================
 comment('Observador Midiendo (theta, omega) Y Controlando va: 2 Entradas, 2 Salidas')
@@ -141,19 +156,17 @@ Qo              = diag([1 1 1])
 Ro              = eye(2)
 [Kod, SR, P]    = lqr(Ad, Bd, Qo, Ro)
 Ko              = Kod';
-% eig(A - Ko*C)
 
 comment('Simulacion')
 % parametros de tiempo
-pp              = eig(Aa - Ba*Ka)(:)';
+pp              = [eig(Aa - Ba*Ka)', eig(A - Ko*C)']
 [t_step, t_max] = get_time_params(pp)
 % ! sobre 3 a 30 veces
 t_step  = 1E-3
-% t_max   *= 3
-t_max   *= 15
+t_max   *= 2
 
 % ! de las graficas de mediciones, parametros de las entradas
-va_amp  = 2/2;
+va_amp  = 2;
 % tl_amp  = 0;
 tl_amp  = .12;
 va_t0   = 100E-3;
@@ -180,11 +193,19 @@ KI  = -Ka(4);
 
 x0  = [0 ; 0 ; 0];
 xo0 = [.1 ; 0 ; 2];
+% x0  = [.5 ; pi/2 ; 10];
+% xo0 = [.5 ; pi/2 ; 10];
 
 [y, x, u, err, y_o, x_o, err_o] = sys_model(A, B, C, D, Kc, KI, Ko, r, in, t, x0, xo0);
-% x(:,2)          = mod(x(:,2), 2*pi);
+r           = rad2deg(r);
+x(:,2)      = rad2deg(x(:,2));
+y(:,1)      = rad2deg(y(:,1));
+x_o(:,2)    = rad2deg(x_o(:,2));
 
-figure;
+% maximizar graficas por default
+scrsz = get(0, 'screensize'); scrsz(end) -= 80;
+
+figure('Position', scrsz);
 subplot(4,1,1);
 plot(t, x(:,1), 'r', 'LineWidth', 2); hold
 plot(t, x_o(:,1), '-.', 'LineWidth', 2); title('State Var x_1 == ia(t) : Real Vs Observer'); ylabel('x_1 [A]'); grid;
@@ -202,10 +223,11 @@ plot(t, err_o(:,1), 'LineWidth', 2, t, err_o(:,2), 'LineWidth', 2); title('Obser
 legend('error');
 xlabel('Time [s]');
 
-figure;
+figure('Position', scrsz);
 subplot(4,1,1);
+plot(t, u(:,3), '-.r'); hold
 plot(t, u(:,1), 'LineWidth', 2); title('Input u_1 : va(t)'); ylabel('u_1 [V]'); grid
-legend('va(t)');
+legend('linear', 'non-linear');
 subplot(4,1,2); 
 plot(t, u(:,2), 'LineWidth', 2); title('Input u_2 : TL(t)'); ylabel('u_2 [Nm]'); grid
 legend('TL(t)');
@@ -220,15 +242,5 @@ xlabel('Time [s]');
 
 comment("SUCCESS")
 
-% % Ejemplo de no-linealidad
-% ue=-2.5:.1:2.5; N=length(ue); uo=zeros(1,N);
-% ZM=.5;
-% for ii=1:N
-%     if abs(ue(ii))>ZM
-%     uo(ii)=ue(ii)-ZM*sign(ue(ii));
-%     end
-% end
-% plot(ue,uo,'k');xlabel('Tensión de entrada');
-% ylabel('V_o','Rotation',0);grid on;
 
 % https://github.com/Julianpucheta/OptimalControl/blob/main/Pontryagin%20minimum%20principle/Control_CyO_Pendulo_MH.ipynb
