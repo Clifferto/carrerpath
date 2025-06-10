@@ -83,54 +83,34 @@ function [Y, X, U, E, Yo, Xo, Eo] = sys_model(A, B, C, D, Kc, KI, Ko, r, in, t, 
 endfunction
 
 % ====================================================================================================================
-comment('Parametros Tomados De: OptimalControl/TP_N1_Identificacion_Exacta.ipynb')
-Ra  = 2.2781228953606902
-Laa = 0.005187184919244553
-Kb  = 0.2499435593696499
-Jm  = 0.002848787974411428
-Bm  = 0.0014279727330389095
-Ki  = 0.2618711775870197
+comment('Cargar Resultados Del Caso Anterior')
+% ! tiempo, r, theta, theta_p, va, TL
+data    = load(CFG.SAVE_FILENAME);
+t       = data(:,1);
+r       = data(:,2);
+yc1     = data(:,3:4);
+uc1     = data(:,5:6);
+
+comment('Parametros Tomados De La Consigna')
+Ra  = 2.27
+Laa = 0.0047
+Ki  = 0.25
+Kb  = 0.25
+Bm  = 0.00131
+Jm  = 0.00233
 
 comment('Modelo En Espacio De Estados Del Tp1 (x1 == ia, x2 == theta, x3 == theta_p == omega, y1 == theta, y2 == omega)')
-% matA = (sym 3×3 matrix)
-%   ⎡-Ra      -Km ⎤
-%   ⎢────  0  ────⎥
-%   ⎢Laa      Laa ⎥
-%   ⎢             ⎥
-%   ⎢ 0    0   1  ⎥
-%   ⎢             ⎥
-%   ⎢ Ki      -Bm ⎥
-%   ⎢ ──   0  ────⎥
-%   ⎣ JJ       JJ ⎦
-
-% matB = (sym 3×2 matrix)
-%   ⎡ 1      ⎤
-%   ⎢───   0 ⎥
-%   ⎢Laa     ⎥
-%   ⎢        ⎥
-%   ⎢ 0    0 ⎥
-%   ⎢        ⎥
-%   ⎢     -1 ⎥
-%   ⎢ 0   ───⎥
-%   ⎣     JJ ⎦
-
-% matC = (sym) [0  1  0]  (1×3 matrix)
-% matD = (sym) [0  0]  (1×2 matrix)
 A   = [-Ra/Laa 0 -Kb/Laa    ;   0 0 1   ;   Ki/Jm 0 -Bm/Jm]
 B   = [1/Laa 0              ;   0 0     ;   0 -1/Jm]
 C   = [0 1 0                ;   0 0 1]
 D   = zeros(2,2);
 
-comment('Polos A Lazo Abierto, Con El t_step == 1ms, Polo Mas Rapido Posible')
+comment('Polos A Lazo Abierto')
 eig(A)
 % ans =
-%           0   <-- TIPO-I
-%   -428.8422
-%    -10.8419
-
-% ! %y  = e^(p t)
-log(.95)/1E-3
-% ans = -51.293 <-- DIFICIL DE CUMPLIR PARA LA DINAMICA REQUERIDA, PROBABLEMENTE ESTE SUB-MUESTREADA LA MEDICION
+%           0
+%   -470.8429
+%    -12.6981   <-- MOTOR MAS RAPIDO
 
 % ====================================================================================================================
 comment('Estrategia: Control Por Realimentacion De Estados Con Integral Error (u == -K x + KI psi)')
@@ -155,8 +135,6 @@ comment('Calculo Del Del Controlador Por LQR')
 % !     ++Qjj   : penalizar la desviacion del origen para las variables
 Q           = diag([1 1200 .00001 100000])
 R           = 95
-% Q           = diag([1 600 .01 100000])
-% R           = 100
 [Ka, SR, P] = lqr(Aa, Ba, Q, R)
 
 % ====================================================================================================================
@@ -176,43 +154,23 @@ Ro              = eye(2)
 Ko              = Kod';
 
 comment('Simulacion')
-% parametros de tiempo
+% parametros de tiempo tomados de datos
 pp              = [eig(Aa - Ba*Ka)', eig(A - Ko*C)']
 [t_step, t_max] = get_time_params(pp)
-% ! sobre 3 a 30 veces
-t_step  = 1E-3
-t_max   *= .5
 
-% ! de las graficas de mediciones, parametros de las entradas
-va_amp  = 2;
-% tl_amp  = 0;
-tl_amp  = .12;
-va_t0   = 100E-3;
-tl_t0   = 700E-3;
+disp('');
+if strcmpi(input('Press "x" to cancel: ', 's'), 'x')
+    return;
+end
 
-% parametros de la referencia
-r_amp   = pi/2;
-r_t0    = va_t0;
-r_t1    = 2;
-
-% disp('');
-% if strcmpi(input('Press "x" to cancel: ', 's'), 'x')
-%     return;
-% end
-
-t   = 0:t_step:t_max;
-va  = va_amp*heaviside(t' - va_t0);
-tl  = tl_amp*(heaviside(t' - tl_t0) - heaviside(t' - r_t1) - heaviside(t' - (r_t1 + tl_t0)));
-in  = [va tl];
-
-r   = r_amp*(heaviside(t - r_t0) - 2*heaviside(t - r_t1));
 Kc  = Ka(1:3);
 KI  = -Ka(4);
 
+% va no se va a usar para simulacion, el controlador genera la va
+in  = uc1;
+
 x0  = [0 ; 0 ; 0];
 xo0 = [.5 ; .1 ; 2];
-% x0  = [.5 ; pi/2 ; 10];
-% xo0 = [.5 ; pi/2 ; 10];
 
 [y, x, u, err, y_o, x_o, err_o] = sys_model(A, B, C, D, Kc, KI, Ko, r, in, t, x0, xo0);
 
@@ -259,11 +217,25 @@ plot(t, rad2deg(err(:,1)), 'LineWidth', 2); title('Error : Psi_p(t)'); ylabel('P
 legend('error(t)');
 xlabel('Time [s]');
 
-% guardar data
-if !strcmpi(CFG.SAVE_FILENAME, '')
-    % ! tiempo, r, theta, theta_p, va, TL
-    [t', r', y, u(:,1:2)];
-    save(CFG.SAVE_FILENAME, 'ans', '-ascii');
-endif
+figure('Position', scrsz);
+subplot(4,1,1);
+plot(t, uc1(:,1), '-.k'); hold;
+plot(t, u(:,1)); title('Input u_1 == va : Case1 Vs Case2'); ylabel('u_1 [V]'); grid;
+legend('motor1', 'motor2');
+subplot(4,1,2);
+plot(t, u(:,2)); title('Input u_2 == TL(t)'); ylabel('u_2 [Nm]'); grid;
+legend('TL(t)');
+subplot(4,1,3); 
+plot(t, rad2deg(yc1(:,1)), '-.k'); hold;
+plot(t, rad2deg(y(:,1)));
+plot(t, rad2deg(r), '-.r'); title('Output y_1 == theta : Case1 Vs Case2'); ylabel('y_1 [deg]'); grid;
+% plot(t, y(:,1)); hold;
+% plot(t, r, '-.r'); title('Output Vs Set-Point'); ylabel('y_1 [rad]'); grid;
+legend('motor1', 'motor2', 'set-point');
+subplot(4,1,4);
+plot(t, yc1(:,2), '-.k'); hold;
+plot(t, y(:,2)); title('Output y_1 == omega : Case1 Vs Case2'); ylabel('y_2 [rad/s]'); grid;
+legend('motor1', 'motor2');
+xlabel('Time [s]');
 
 comment("SUCCESS")
