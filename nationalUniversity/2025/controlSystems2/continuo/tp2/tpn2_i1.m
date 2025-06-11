@@ -5,7 +5,8 @@ close all; clear all; clc;
 global CFG;
 CFG.SIM_OBSERVER    = true;
 CFG.SIM_NONLINEAR   = true;
-CFG.SAVE_FILENAME   = 'motor_obs_nolineal';
+CFG.SAVE_FILENAME   = '';
+% CFG.SAVE_FILENAME   = 'motor_obs_nolineal';
 % CFG.SAVE_FILENAME   = 'motor_obs';
 % CFG.SAVE_FILENAME   = 'motor';
 
@@ -17,13 +18,27 @@ pkg load io
 addpath('../../lib');
 mylib
 
-function [Y, X, U, E, Yo, Xo, Eo] = sys_model(A, B, C, D, Kc, KI, Ko, r, in, t, x0, xo0)
+function [Y, X, U, E, Yo, Xo, Eo] = sys_model(Kc, KI, Ko, r, in, t, x0, xo0)
+    
+    % parametros del motor real
+    Ra  = 2.2781228953606902;
+    Laa = 0.005187184919244553;
+    Kb  = 0.2499435593696499;
+    Jm  = 0.002848787974411428;
+    Bm  = 0.0014279727330389095;
+    Ki  = 0.2618711775870197;
+
+    A   = [-Ra/Laa 0 -Kb/Laa    ;   0 0 1   ;   Ki/Jm 0 -Bm/Jm];
+    B   = [1/Laa 0              ;   0 0     ;   0 -1/Jm];
+    C   = [0 1 0                ;   0 0 1];
+    D   = zeros(2,2);
+
     % paso igual a la resolucion temporal
     h   = t(2) - t(1)
     x   = x0;
+    x_o = [0 ; 0 ; 0];
     y   = C*x0;
     Psi = 0;
-    x_o = xo0;
 
     % parametro de la no linealidad del actuador
     ZM  = .5;
@@ -40,12 +55,12 @@ function [Y, X, U, E, Yo, Xo, Eo] = sys_model(A, B, C, D, Kc, KI, Ko, r, in, t, 
         Psi_p   = r(k) - y(1,1);
         Psi     = Psi + Psi_p*h;
         
-        % calcular accion de control
+        % calcular accion de control (restar condiciones iniciales)
         if CFG.SIM_OBSERVER
             % ia del observador, theta y omega medidas
-            u1  = -Kc*[x_o(1) ; x(2:3)] + KI*Psi;
+            u1  = -Kc*(x_o - x0) + KI*Psi;
         else
-            u1  = -Kc*x + KI*Psi;
+            u1  = -Kc*(x - x0) + KI*Psi;
         endif
         
         % guardar accion de control original
@@ -84,12 +99,13 @@ endfunction
 
 % ====================================================================================================================
 comment('Parametros Tomados De: OptimalControl/TP_N1_Identificacion_Exacta.ipynb')
-Ra  = 2.2781228953606902
-Laa = 0.005187184919244553
-Kb  = 0.2499435593696499
-Jm  = 0.002848787974411428
-Bm  = 0.0014279727330389095
-Ki  = 0.2618711775870197
+# Ra=2.27;La=0.0047;Ki=0.25;Kb=0.25;Bm=0.00131;Jm=0.00233;Km=Kb; Laa=La; J=Jm;B=Bm; %Motor KUO Ec 6-37
+Ra  = 2.27
+Laa = 0.0047
+Ki  = 0.25
+Kb  = 0.25
+Bm  = 0.00131
+Jm  = 0.00233
 
 comment('Modelo En Espacio De Estados Del Tp1 (x1 == ia, x2 == theta, x3 == theta_p == omega, y1 == theta, y2 == omega)')
 % matA = (sym 3×3 matrix)
@@ -153,11 +169,13 @@ comment('Calculo Del Del Controlador Por LQR')
 % !     ++Qii   : penalizar la desviacion del estado xi == set-point
 % !     ++Qnn   : penalizar la desviacion del estado error == 0
 % !     ++Qjj   : penalizar la desviacion del origen para las variables
-Q           = diag([1 1200 .00001 100000])
+Q           = diag([1 1200 .000001 50000])
 R           = 95
 % Q           = diag([1 600 .01 100000])
 % R           = 100
 [Ka, SR, P] = lqr(Aa, Ba, Q, R)
+Kc          = Ka(1:3);
+KI          = -Ka(4);
 
 % ====================================================================================================================
 comment('Observador Midiendo (theta, omega) Y Controlando va: 2 Entradas, 2 Salidas')
@@ -177,11 +195,16 @@ Ko              = Kod';
 
 comment('Simulacion')
 % parametros de tiempo
-pp              = [eig(Aa - Ba*Ka)', eig(A - Ko*C)']
+if CFG.SIM_OBSERVER
+    pp  = [eig(Aa - Ba*Ka)', eig(A - Ko*C)']
+else
+    pp  = [eig(Aa - Ba*Ka)']
+endif
+
 [t_step, t_max] = get_time_params(pp)
 % ! sobre 3 a 30 veces
 t_step  = 1E-3
-t_max   *= .5
+t_max   *= 1.5
 
 % ! de las graficas de mediciones, parametros de las entradas
 va_amp  = 2;
@@ -195,10 +218,10 @@ r_amp   = pi/2;
 r_t0    = va_t0;
 r_t1    = 2;
 
-% disp('');
-% if strcmpi(input('Press "x" to cancel: ', 's'), 'x')
-%     return;
-% end
+disp('');
+if strcmpi(input('Press "x" to cancel: ', 's'), 'x')
+    return;
+end
 
 t   = 0:t_step:t_max;
 va  = va_amp*heaviside(t' - va_t0);
@@ -206,15 +229,11 @@ tl  = tl_amp*(heaviside(t' - tl_t0) - heaviside(t' - r_t1) - heaviside(t' - (r_t
 in  = [va tl];
 
 r   = r_amp*(heaviside(t - r_t0) - 2*heaviside(t - r_t1));
-Kc  = Ka(1:3);
-KI  = -Ka(4);
 
+% condiciones iniciales
 x0  = [0 ; 0 ; 0];
-xo0 = [.5 ; .1 ; 2];
-% x0  = [.5 ; pi/2 ; 10];
-% xo0 = [.5 ; pi/2 ; 10];
 
-[y, x, u, err, y_o, x_o, err_o] = sys_model(A, B, C, D, Kc, KI, Ko, r, in, t, x0, xo0);
+[y, x, u, err, y_o, x_o, err_o] = sys_model(Kc, KI, Ko, r, in, t, x0);
 
 % maximizar graficas por default
 scrsz = get(0, 'screensize'); scrsz(end) -= 80;
