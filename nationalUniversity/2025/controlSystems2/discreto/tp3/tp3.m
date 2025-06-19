@@ -8,6 +8,9 @@ pkg load symbolic
 addpath('../../lib');
 mylib
 
+% masa para variar globalmente
+global m;
+
 function [Y, X, U, E]   = diff_equation_model(opp, theta0, Kc, KI, r, t)
     % paso igual a la resolucion temporal
     h   = t(2) - t(1);
@@ -26,7 +29,7 @@ function [Y, X, U, E]   = diff_equation_model(opp, theta0, Kc, KI, r, t)
     uop = opp(end);
     
     % constantes del modelo
-    m   = 1;
+    global m;
     b   = .1;
     L   = 1;
     g   = 10;
@@ -141,11 +144,10 @@ eig(Aa)
 rank(ctrb(Aa, Ba))
 
 comment('Calculo Del Del Controlador Por LQR, Polos Y Ganancias Finales')
-% Q           = diag([200 .001 1])
-Q           = diag([500 .01 1])
+Q           = diag([1000000 50000 1])
+R           = 3000
 % Q           = diag([1000 1 1])
-% R           = 1
-R           = 10
+% R           = 10
 % Ka          = acker(Aa, Ba, [-2 -2 -2])
 [Ka, SR, P] = lqr(Aa, Ba, Q, R);
 P
@@ -161,7 +163,7 @@ pp              = eig(Aa - Ba*Ka)(:)';
 [t_step, t_max] = get_time_params(pp)
 % ! sobre 3 a 30 veces
 t_step  /= 3
-t_max   *= 3
+t_max   *= .001
 t       = 0:t_step:t_max;
 
 % parametros de la referencia
@@ -206,6 +208,39 @@ xlabel('Time [s]');
 figure('Position', scrsz);
 plot(rad2deg(x(:,1)), rad2deg(x(:,2)), 'LineWidth', 2); title('Phase Space x1_p: theta_p vs theta'); ylabel('theta_p [deg/s]'); grid
 legend('x1_p(x1)');
+xlabel('theta [deg]');
+
+% ====================================================================================================================
+comment('Estudio De Robustez, Variar Masa +/- 10%')
+m0  = m;
+
+% variar masa +10%
+m   = m0 + .1*m0   
+[~, xp, up, ~]  = diff_equation_model(opp, theta0, Kc, KI, r, t);
+
+% variar masa -10%
+m   = m0 - .1*m0   
+[~, xm, um, ~]  = diff_equation_model(opp, theta0, Kc, KI, r, t);
+
+figure('Position', scrsz);
+subplot(2,1,1);
+plot(t, u(:,1), '-.k'); hold
+plot(t, up(:,1), 'r');
+plot(t, um(:,1), 'b'); title('Control Action u_1 : T(t) Vs Mass Variation'); ylabel('u_1 [Nm]'); grid
+legend('m0', '+10%', '-10%');
+subplot(2,1,2); 
+plot(t, rad2deg(r), '-.r'); hold
+plot(t, rad2deg(x(:,1)), '-.k');
+plot(t, rad2deg(xp(:,1)), 'r');
+plot(t, rad2deg(xm(:,1)), 'b'); title('Output y_1 : theta Vs Mass Variation'); ylabel('y_1 [deg]'); grid
+legend('set-point', 'm0', '+10%', '-10%');
+xlabel('Time [s]');
+
+figure('Position', scrsz);
+plot(rad2deg(x(:,1)), rad2deg(x(:,2)), '-.k'); hold;
+plot(rad2deg(xp(:,1)), rad2deg(xp(:,2)), 'r');
+plot(rad2deg(xm(:,1)), rad2deg(xm(:,2)), 'b'); title('Phase Space x1_p Vs Mass Variation'); ylabel('theta_p [deg/s]'); grid
+legend('m0', '+10%', '-10%');
 xlabel('theta [deg]');
 
 comment("SUCCESS")
