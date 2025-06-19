@@ -81,6 +81,7 @@ disp('u1 == T, y1 == x1')
 disp('')
 syms x1 x2 x1_p x2_p u1 delta ue;
 sol     = solve(eq1, theta_pp);
+% sys = [x1_p ; x2_p] == [x2 ; subs(sol, [theta, theta_p, T], [x1, x2, u1])]
 x1_p    = x2
 x2_p    = subs(sol, [theta, theta_p, T], [x1, x2, u1])
 y1      = x1
@@ -88,8 +89,10 @@ y1      = x1
 comment('Definir Punto Equilibrio, Linealizar Entono A: [delta 0 ue]')
 % torque necesario para llevar al equilibrio
 ue          = solve(x2_p, u1);
-ue          = subs(ue, [x2_p x1 x2], [0 delta 0])
+ue          = subs(ue, [x2_p x1 x2], [0 delta 0]);
+x1_p
 x2_p_lin    = taylor(x2_p, [x1 x2 u1], [delta 0 ue], 'order', 2)
+y1
 
 x   = [x1 x2];
 xp  = [x1_p x2_p_lin];
@@ -105,11 +108,11 @@ comment('Parametros Asignados:');
 disp('Nombre          Apellido(s) m   b   l   G   delta   p(triple)')
 disp('Domingo Jesus   FERRARIS    1   0,1 1   10  90      -2')
 disp('')
-m   = 1
-b   = .1
-L   = 1
-g   = 10
-delta = pi/2
+m   = 1;
+b   = .1;
+L   = 1;
+g   = 10;
+delta = pi/2;
 A   = eval(A)
 B   = eval(B)
 C   = eval(C)
@@ -117,12 +120,12 @@ D   = eval(D)
 % ! fix medio raro, cos(pi/2) ~ 0
 A(2,1)  = 0;
 
-comment('Estabilidad Por Lyapunov Indirecto, Controlabilidad');
+comment('Estabilidad Por Lyapunov Indirecto ( eig(A) ), Controlabilidad ( rank(ctrb(A, B)) )');
 eig(A)
 % ans =
 %    0
 %   -1.0000e-01
-assert(rank(ctrb(A, B)) == 2)
+rank(ctrb(A, B))
 
 % ====================================================================================================================
 comment('Estrategia: Control Por Realimentacion De Estados Con Integral Error (u == -K x + KI psi)')
@@ -130,24 +133,26 @@ comment('Estrategia: Control Por Realimentacion De Estados Con Integral Error (u
 % !         [-C 0]              [0]
 % ! Ka  =   [K -KI]
 % ! xa  =   [x psi]     Donde: psi_p == r - y
-Aa  = [A zeros(2,1) ;   -C 0];
-Ba  = [B            ;   0];
+Aa  = [A zeros(2,1) ;   -C 0]
+Ba  = [B            ;   0]
 
-comment('Controlabilidad Del Sistema Ampliado');
-assert(rank(ctrb(Aa, Ba)) == 3)
+comment('Estabilidad Por Lyapunov Indirecto ( eig(Aa) ), Controlabilidad ( rank(ctrb(Aa, Ba)) )');
+eig(Aa)
+rank(ctrb(Aa, Ba))
 
-comment('Calculo Del Del Controlador Por LQR')
-Q           = diag([200 .001 1])
-% Q           = diag([500 .001 100])
+comment('Calculo Del Del Controlador Por LQR, Polos Y Ganancias Finales')
+% Q           = diag([200 .001 1])
+Q           = diag([500 .01 1])
 % Q           = diag([1000 1 1])
-R           = 1
-% R           = 10
+% R           = 1
+R           = 10
 % Ka          = acker(Aa, Ba, [-2 -2 -2])
-[Ka, SR, P] = lqr(Aa, Ba, Q, R)
-Kc          = Ka(1:2);
-KI          = -Ka(3);
+[Ka, SR, P] = lqr(Aa, Ba, Q, R);
+P
+Kc          = Ka(1:2)
+KI          = -Ka(3)
 
-% ! Con Acker, Polo Triple -2: tss ~ 3.2s, theta_max ~ 120*, theta_p_max ~ 3rad/s, u_max ~ 30Nm
+% ! Con Acker, Polo Triple -2: tss ~ 3.2s, theta_max ~ 110*, u_max ~ 30Nm
 
 % ====================================================================================================================
 comment('Simulacion')
@@ -199,7 +204,7 @@ legend('error(t)');
 xlabel('Time [s]');
 
 figure('Position', scrsz);
-plot(rad2deg(x(:,1)), rad2deg(x(:,2))); title('Phase Space x1_p: theta_p vs theta'); ylabel('theta_p [deg/s]'); grid
+plot(rad2deg(x(:,1)), rad2deg(x(:,2)), 'LineWidth', 2); title('Phase Space x1_p: theta_p vs theta'); ylabel('theta_p [deg/s]'); grid
 legend('x1_p(x1)');
 xlabel('theta [deg]');
 
