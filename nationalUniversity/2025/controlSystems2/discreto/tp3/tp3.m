@@ -144,7 +144,7 @@ eig(Aa)
 rank(ctrb(Aa, Ba))
 
 comment('Calculo Del Del Controlador Por LQR, Polos Y Ganancias Finales')
-Q           = diag([1000000 50000 1])
+Q           = diag([1000000 50000 50000])
 R           = 3000
 % Q           = diag([1000 1 1])
 % R           = 10
@@ -163,7 +163,7 @@ pp              = eig(Aa - Ba*Ka)(:)';
 [t_step, t_max] = get_time_params(pp)
 % ! sobre 3 a 30 veces
 t_step  /= 3
-t_max   *= .001
+t_max   *= 1
 t       = 0:t_step:t_max;
 
 % parametros de la referencia
