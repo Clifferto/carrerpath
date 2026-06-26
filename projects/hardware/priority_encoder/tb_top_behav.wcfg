@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="tb_top_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="glbl" />
+            <top_module name="std" />
+            <top_module name="tb_pkg" />
+            <top_module name="tb_top" />
+            <top_module name="uvm_pkg" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="0.000 ns"></ZoomStartTime>
+      <ZoomEndTime time="125.901 ns"></ZoomEndTime>
+      <Cursor1Time time="70.000 ns"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="230"></NameColumnWidth>
+      <ValueColumnWidth column_width="112"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="10" />
+   <wvobject type="array" fp_name="/tb_top/dut/NB_REQUEST">
+      <obj_property name="ElementShortName">NB_REQUEST[31:0]</obj_property>
+      <obj_property name="ObjectShortName">NB_REQUEST[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_top/dut/i_reset">
+      <obj_property name="ElementShortName">i_reset</obj_property>
+      <obj_property name="ObjectShortName">i_reset</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_top/dut/i_request">
+      <obj_property name="ElementShortName">i_request[15:0]</obj_property>
+      <obj_property name="ObjectShortName">i_request[15:0]</obj_property>
+      <obj_property name="Radix">BINARYRADIX</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_top/dut/o_response">
+      <obj_property name="ElementShortName">o_response[3:0]</obj_property>
+      <obj_property name="ObjectShortName">o_response[3:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_top/dut/o_valid">
+      <obj_property name="ElementShortName">o_valid</obj_property>
+      <obj_property name="ObjectShortName">o_valid</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_top/dut/i_clock">
+      <obj_property name="ElementShortName">i_clock</obj_property>
+      <obj_property name="ObjectShortName">i_clock</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_top/dut/response">
+      <obj_property name="ElementShortName">response[3:0]</obj_property>
+      <obj_property name="ObjectShortName">response[3:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_top/dut/response_d">
+      <obj_property name="ElementShortName">response_d[3:0]</obj_property>
+      <obj_property name="ObjectShortName">response_d[3:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_top/dut/valid">
+      <obj_property name="ElementShortName">valid</obj_property>
+      <obj_property name="ObjectShortName">valid</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_top/dut/valid_d">
+      <obj_property name="ElementShortName">valid_d</obj_property>
+      <obj_property name="ObjectShortName">valid_d</obj_property>
+   </wvobject>
+</wave_config>

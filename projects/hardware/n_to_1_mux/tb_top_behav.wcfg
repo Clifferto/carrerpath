@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="tb_top_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="glbl" />
+            <top_module name="std" />
+            <top_module name="tb_pkg" />
+            <top_module name="tb_top" />
+            <top_module name="uvm_pkg" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="28.884 ns"></ZoomStartTime>
+      <ZoomEndTime time="155.585 ns"></ZoomEndTime>
+      <Cursor1Time time="50.000 ns"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="230"></NameColumnWidth>
+      <ValueColumnWidth column_width="104"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="5" />
+   <wvobject type="logic" fp_name="/tb_top/vif/i_clock">
+      <obj_property name="ElementShortName">i_clock</obj_property>
+      <obj_property name="ObjectShortName">i_clock</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_top/vif/o_data">
+      <obj_property name="ElementShortName">o_data[7:0]</obj_property>
+      <obj_property name="ObjectShortName">o_data[7:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_top/vif/o_sel_error">
+      <obj_property name="ElementShortName">o_sel_error</obj_property>
+      <obj_property name="ObjectShortName">o_sel_error</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_top/vif/i_data">
+      <obj_property name="ElementShortName">i_data[39:0]</obj_property>
+      <obj_property name="ObjectShortName">i_data[39:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_top/vif/i_sel">
+      <obj_property name="ElementShortName">i_sel[2:0]</obj_property>
+      <obj_property name="ObjectShortName">i_sel[2:0]</obj_property>
+   </wvobject>
+</wave_config>

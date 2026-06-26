@@ -1,0 +1,17 @@
+AXI_diegote
+boot_mode.tcl
+fifo_buffer
+file_i_data
+file_o_data
+fir_filter
+fir_tool.ipynb
+iir_filter
+iir_tool.ipynb
+ip_repo
+kr260_carrier
+kr260_som
+Kria_K26_SOM_Rev1.xdc
+PYNQ_diegote
+response_tool.ipynb
+zynq_boot
+zynq_bu
