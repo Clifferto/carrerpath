@@ -15,14 +15,14 @@
    </db_ref_list>
    <zoom_setting>
       <ZoomStartTime time="0.000000 us"></ZoomStartTime>
-      <ZoomEndTime time="20.070001 us"></ZoomEndTime>
+      <ZoomEndTime time="25.657255 us"></ZoomEndTime>
       <Cursor1Time time="20.070000 us"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="230"></NameColumnWidth>
-      <ValueColumnWidth column_width="108"></ValueColumnWidth>
+      <ValueColumnWidth column_width="104"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="3" />
+   <WVObjectSize size="5" />
    <wvobject type="logic" fp_name="/tb_top/vif/i_clock">
       <obj_property name="ElementShortName">i_clock</obj_property>
       <obj_property name="ObjectShortName">i_clock</obj_property>
@@ -32,9 +32,17 @@
       <obj_property name="ObjectShortName">i_codeword[3:0]</obj_property>
       <obj_property name="Radix">BINARYRADIX</obj_property>
    </wvobject>
+   <wvobject type="logic" fp_name="/tb_top/vif/i_valid">
+      <obj_property name="ElementShortName">i_valid</obj_property>
+      <obj_property name="ObjectShortName">i_valid</obj_property>
+   </wvobject>
    <wvobject type="array" fp_name="/tb_top/vif/o_weight">
       <obj_property name="ElementShortName">o_weight[2:0]</obj_property>
       <obj_property name="ObjectShortName">o_weight[2:0]</obj_property>
       <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_top/vif/o_valid">
+      <obj_property name="ElementShortName">o_valid</obj_property>
+      <obj_property name="ObjectShortName">o_valid</obj_property>
    </wvobject>
 </wave_config>

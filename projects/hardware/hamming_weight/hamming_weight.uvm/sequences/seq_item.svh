@@ -5,11 +5,16 @@ class seq_item extends uvm_sequence_item;
     randc codeword_t    codeword            ;
     weight_t            weight      = '0    ;
 
+    rand bit            input_valid         ;
+    bit                 output_valid        ;
+    
     // Use utility macros to implement standard functions
     // like print, copy, clone, etc
     `uvm_object_utils_begin(seq_item)
-        `uvm_field_int(codeword , UVM_DEFAULT | UVM_BIN)
-        `uvm_field_int(weight   , UVM_DEFAULT | UVM_DEC)
+        `uvm_field_int(codeword     , UVM_DEFAULT | UVM_BIN)
+        `uvm_field_int(weight       , UVM_DEFAULT | UVM_DEC)
+        `uvm_field_int(input_valid  , UVM_DEFAULT)
+        `uvm_field_int(output_valid , UVM_DEFAULT)
     `uvm_object_utils_end
 
     function new(string name = "seq_item");

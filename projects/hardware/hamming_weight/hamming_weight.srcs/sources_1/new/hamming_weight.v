@@ -5,7 +5,9 @@ module hamming_weight
     parameter                                       NB_CODEWORD = 32    
 )(
     output  wire    [$clog2(NB_CODEWORD+1)  -1:0]   o_weight            ,
-    input   wire    [NB_CODEWORD            -1:0]   i_codeword          
+    output  wire                                    o_valid             ,
+    input   wire    [NB_CODEWORD            -1:0]   i_codeword          ,
+    input   wire                                    i_valid             
 );
     // SIGNALS/VARIABLES
     localparam                  NB_WEIGHT   = $clog2(NB_CODEWORD+1) ;
@@ -23,5 +25,6 @@ module hamming_weight
 
     // OUTPUT ASSIGNS
     assign  o_weight    = weight    ;
+    assign  o_valid     = i_valid   ;
 
 endmodule

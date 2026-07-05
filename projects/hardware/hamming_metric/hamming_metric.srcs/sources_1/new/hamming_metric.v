@@ -5,8 +5,10 @@ module hamming_metric
     parameter                                       NB_CODEWORD     = 8     
 )(
     output  wire    [$clog2(NB_CODEWORD+1)  -1:0]   o_metric                ,
+    output  wire                                    o_valid                 ,
     input   wire    [NB_CODEWORD            -1:0]   i_codeword_0            ,
-    input   wire    [NB_CODEWORD            -1:0]   i_codeword_1            
+    input   wire    [NB_CODEWORD            -1:0]   i_codeword_1            ,
+    input   wire                                    i_valid                 
 );
     // SIGNALS/VARIABLES
     localparam                      NB_METRIC   = $clog2(NB_CODEWORD+1) ;
@@ -23,6 +25,7 @@ module hamming_metric
     end
 
     // OUTPUT ASSIGNS
-    assign  o_metric  = metric  ;
+    assign  o_metric    = metric    ;
+    assign  o_valid     = i_valid   ;
 
 endmodule

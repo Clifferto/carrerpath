@@ -23,7 +23,9 @@ module tb_top;
     (
         .i_codeword_0   ( vif.i_codeword_0  ),
         .i_codeword_1   ( vif.i_codeword_1  ),
-        .o_metric       ( vif.o_metric      )
+        .i_valid        ( vif.i_valid       ),
+        .o_metric       ( vif.o_metric      ),
+        .o_valid        ( vif.o_valid       )
     );
 
     initial begin

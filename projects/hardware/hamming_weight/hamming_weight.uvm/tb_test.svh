@@ -34,6 +34,7 @@ class tb_test extends uvm_test;
         
         `uvm_info("TEST", $sformatf("Reseting DUT"), UVM_LOW)
         vif.i_codeword  = '0;
+        vif.i_valid     = 0;
         repeat(2) @(posedge vif.i_clock);
 
         vseq.start(null);

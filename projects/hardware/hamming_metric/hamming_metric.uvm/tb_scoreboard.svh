@@ -20,27 +20,31 @@ class tb_scoreboard extends uvm_scoreboard;
         seq_item model_output = seq_item::type_id::create("model_output");
         
         if (item.metric > NB_CODEWORD) begin
-            `uvm_error("SCBD", $sformatf(   "[WEIGHT OUT OF BOUND] codeword_0 = %0b, codeword_1 = %0b | metric = %0d != %0d (model)"    ,
-                                            item.codeword[0]                                                                            ,
-                                            item.codeword[1]                                                                            ,
-                                            item.metric                                                                                 ,
-                                            model_output.metric                                                                         ))
+            `uvm_error(this.get_name(), $sformatf(  "[WEIGHT_OUT_OF_BOUND] codeword_0 = %0b, codeword_1 = %0b | metric = %0d != %0d (model)"    ,
+                                                    item.codeword[0]                                                                            ,
+                                                    item.codeword[1]                                                                            ,
+                                                    item.metric                                                                                 ,
+                                                    model_output.metric                                                                         ))
         end
 
-        model_output.copy(item);
-        model.get_output(model_output.codeword, model_output.metric);
-        // model_output.print();
+        if (item.input_valid) begin
+            model_output.copy(item);
+            model.get_output(model_output.codeword, model_output.metric);
+            // model_output.print();
 
-        if (!item.compare(model_output)) begin
-            `uvm_error("SCBD", $sformatf(   "[METRIC ERROR] codeword_0 = %0b, codeword_1 = %0b | metric = %0d != %0d (model)"   ,
-                                            item.codeword[0]                                                                    ,
-                                            item.codeword[1]                                                                    ,
-                                            item.metric                                                                         ,
-                                            model_output.metric                                                                 ))
-            item.print();
-            model_output.print();
+            if (!item.compare(model_output)) begin
+                `uvm_error(this.get_name(), $sformatf(  "[METRIC_ERROR] codeword_0 = %0b, codeword_1 = %0b | metric = %0d != %0d (model)"   ,
+                                                        item.codeword[0]                                                                    ,
+                                                        item.codeword[1]                                                                    ,
+                                                        item.metric                                                                         ,
+                                                        model_output.metric                                                                 ))
+                item.print();
+                model_output.print();
+            end
         end
-
+        else begin
+            `uvm_info(this.get_name(), $sformatf("Invalid input data"), UVM_DEBUG)
+        end
     endfunction
     
 endclass

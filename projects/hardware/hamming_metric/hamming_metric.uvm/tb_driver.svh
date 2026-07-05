@@ -29,6 +29,7 @@ class tb_driver extends uvm_driver#(seq_item);
             @(posedge vif.i_clock);
             vif.i_codeword_0    <= item.codeword[0];
             vif.i_codeword_1    <= item.codeword[1];
+            vif.i_valid         <= item.input_valid;
             // item.print();
 
             seq_item_port.item_done();

@@ -21,7 +21,9 @@ module tb_top;
         .NB_CODEWORD    ( NB_CODEWORD       ))
     u_hamming_weight(
         .i_codeword     ( vif.i_codeword    ),
-        .o_weight       ( vif.o_weight      )
+        .i_valid        ( vif.i_valid       ),
+        .o_weight       ( vif.o_weight      ),
+        .o_valid        ( vif.o_valid       )
     );
 
     initial begin
