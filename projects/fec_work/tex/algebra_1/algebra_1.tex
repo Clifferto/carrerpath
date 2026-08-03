@@ -1,0 +1,288 @@
+\documentclass[11pt,fleqn]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{parskip}
+\usepackage{enumitem}
+\usepackage{amsmath}    % Better math support
+\usepackage{amssymb}    % Optional: additional math symbols
+
+\usepackage{tikz}
+\usetikzlibrary{calc}
+
+\begin{document}
+
+%==================================================
+% Title
+%==================================================
+
+\begin{flushleft}
+    {\LARGE \textbf{Álgebra en FEC (I)}}\\[0.5em]
+    {\large Ferraris Domingo}\\[0.5em]
+    \today
+\end{flushleft}
+
+\vspace{0.5em}
+\hrule
+\vspace{1em}
+
+% ok can you do the same but operating in GF(16) defined by primitive poly x^4+x^3+1, and do the division?:
+% (a^8x^3+a^9x^2+a^12x+a^12) / (a^3x^2+a^7x+a^2)
+% THEN
+% can you give me the latex to show this using tikz?
+
+\[
+\begin{tikzpicture}[font=\normalsize]
+
+% Quotient
+\node at (5.0,0) {$a^5x+a^{10}$};
+
+% Division symbol and bar
+\draw (2.4,-0.35) -- (8.6,-0.35);
+\draw (2.4,-0.35) -- (2.4,-5.8);
+
+% Divisor
+\node[anchor=east] at (2.35,-0.9)
+{$a^3x^2+a^7x+a^2$};
+
+% Dividend
+\node[anchor=west] at (2.55,-0.9)
+{$a^8x^3+a^9x^2+a^{12}x+a^{12}$};
+
+
+% First multiplication
+\node[anchor=west] at (3.0,-1.7)
+{$a^8x^3+a^{12}x^2+a^7x$};
+
+\draw (3.0,-1.95) -- (7.2,-1.95);
+
+
+% First remainder
+\node[anchor=west] at (3.4,-2.6)
+{$a^{13}x^2+a^2x+a^{12}$};
+
+
+% Second multiplication
+\node[anchor=west] at (3.4,-3.5)
+{$a^{13}x^2+a^2x+a^{12}$};
+
+\draw (3.4,-3.75) -- (7.0,-3.75);
+
+
+% Final remainder
+\node[anchor=west] at (5.0,-4.5)
+{$0$};
+
+\end{tikzpicture}
+\]
+
+%==================================================
+% Summary
+%==================================================
+
+\section*{Resumen}
+
+\subsection*{Ejercicio 1 Cambio de representación y suma}
+\begin{enumerate}[label=\alph*)]
+\item \boxed{\alpha^3+\alpha^9=\alpha}
+\item \boxed{\alpha^{11}+\alpha^{13}=\alpha^4}
+\item \boxed{\alpha^3+\alpha^9+\alpha^{11}+\alpha^{13}=1}
+\item \boxed{\alpha^5+\alpha^5=0}
+\end{enumerate}
+
+\subsection*{Ejercicio 2 Producto y división}
+\begin{enumerate}[label=\alph*)]
+\item \boxed{\alpha^6\cdot\alpha^{11}=\alpha^2}
+\item \boxed{\alpha^{12}\cdot\alpha^9=\alpha^6}
+\item \boxed{\frac{\alpha^3}{\alpha^{10}}=\alpha^8}
+\item \boxed{\frac{1}{\alpha^7}=\alpha^8}
+\item \boxed{(\alpha^{14})^3=\alpha^{12}}
+\end{enumerate}
+
+\subsection*{Ejercicio 3 Expresiones mixtas}
+\begin{enumerate}[label=\alph*)]
+\item \boxed{\frac{(\alpha^5+\alpha^9)\cdot\alpha^7}{\alpha^2+\alpha^{12}}=\alpha^6}
+\item \boxed{(\alpha^4+1)^2=\alpha^2}
+\end{enumerate}
+
+\subsection*{Ejercicio 4 Ecuación lineal}
+\boxed{\alpha^5 \cdot x+\alpha^{11}=\alpha^2 \iff x=\alpha^4}
+
+\vspace{1em}
+\hrule
+\vspace{1em}
+
+%==================================================
+% Details
+%==================================================
+
+\section*{Desarrollo}
+
+\subsection*{Ejercicio 1 Cambio de representación y suma}
+\begin{enumerate}[label=\alph*)]
+\item \boxed{\alpha^3+\alpha^9=\alpha}
+\begin{align*}
+    \alpha^3+\alpha^9
+    &=\alpha^3+(\alpha^3+\alpha)\\
+    &=(\alpha^3+\alpha^3)+\alpha\\
+    &=0+\alpha\\
+    &=\alpha
+\end{align*}
+
+\item \boxed{\alpha^{11}+\alpha^{13}=\alpha^4}
+\begin{align*}
+    \alpha^{11}+\alpha^{13}
+    &=(\alpha^3+\alpha^2+\alpha)+(\alpha^3+\alpha^2+1)\\
+    &=(\alpha^3+\alpha^3)+(\alpha^2+\alpha^2)+\alpha+1\\
+    &=0+0+\alpha+1\\
+    &=\alpha+1=\alpha^4
+\end{align*}
+
+\item \boxed{\alpha^3+\alpha^9+\alpha^{11}+\alpha^{13}=1}\\ \\
+Verificar el inciso (c) de dos maneras: sumando los cuatro términos de una vez, y sumando los
+resultados obtenidos en (a) y (b).\\
+\rule{4cm}{0.4pt}\\\textbf{\textbar \quad 1.}
+\begin{align*}
+    \alpha^3+\alpha^9+\alpha^{11}+\alpha^{13}
+    &=\alpha^3+(\alpha^3+\alpha)+(\alpha^3+\alpha^2+\alpha)+(\alpha^3+\alpha^2+1)\\
+    &=(\alpha^3+\alpha^3+\alpha^3+\alpha^3)
+    +(\alpha^2+\alpha^2)
+    +(\alpha+\alpha)
+    +1\\
+    &=0+0+0+1\\
+    &=1
+\end{align*}
+\rule{4cm}{0.4pt}\\\textbf{\textbar \quad 2.}
+\begin{align*}
+    \alpha^3+\alpha^9+\alpha^{11}+\alpha^{13}
+    &=\alpha+\alpha^4\\
+    &=\alpha+\alpha+1\\
+    &=0+1\\
+    &=1
+\end{align*}
+
+\item \boxed{\alpha^5+\alpha^5=0}
+\begin{align*}
+    \alpha^5+\alpha^5
+    &=(\alpha^2+\alpha)+(\alpha^2+\alpha)\\
+    &=(\alpha^2+\alpha^2)+(\alpha+\alpha)\\
+    &=0+0=0\\
+\end{align*}
+\end{enumerate}
+
+\subsection*{Ejercicio 2 Producto y división}
+\begin{enumerate}[label=\alph*)]
+\item \boxed{\alpha^6\cdot\alpha^{11}=\alpha^2}
+\begin{align*}
+    \alpha^6\cdot\alpha^{11}
+    &=\alpha^{(6+11)\%15}\\
+    &=\alpha^{17\%15}\\
+    &=\alpha^2
+\end{align*}
+
+\item \boxed{\alpha^{12}\cdot\alpha^9=\alpha^6}
+\begin{align*}
+    \alpha^{12}\cdot\alpha^9
+    &=\alpha^{(12+9)\%15}\\
+    &=\alpha^{21\%15}\\
+    &=\alpha^6
+\end{align*}
+
+\item \boxed{\frac{\alpha^3}{\alpha^{10}}=\alpha^8}
+\begin{align*}
+    \frac{\alpha^3}{\alpha^{10}}
+    &=\alpha^3\cdot\alpha^{-10}\\
+    &=\alpha^3\cdot\alpha^{(15-10)\%15}\\
+    &=\alpha^3\cdot\alpha^5\\
+    &=\alpha^8
+\end{align*}
+
+\item \boxed{\frac{1}{\alpha^7}=\alpha^8}
+\begin{align*}
+    \frac{1}{\alpha^7}
+    &=\alpha^{-7}\\
+    &=\alpha^{(15-7)\%15}\\
+    &=\alpha^8
+\end{align*}
+
+\item \boxed{(\alpha^{14})^3=\alpha^{12}}
+\begin{align*}
+    (\alpha^{14})^3
+    &=\alpha^{(14\cdot3)\%15}\\
+    &=\alpha^{(42)\%15}\\
+    &=\alpha^{12}
+\end{align*}
+
+\end{enumerate}
+
+\subsection*{Ejercicio 3 Expresiones mixtas}
+\begin{enumerate}[label=\alph*)]
+\item \boxed{\frac{(\alpha^5+\alpha^9)\cdot\alpha^7}{\alpha^2+\alpha^{12}}=\alpha^6}
+\begin{align*}
+    \frac{(\alpha^5+\alpha^9)\cdot\alpha^7}{\alpha^2+\alpha^{12}}
+    &=\frac{((\alpha^2+\alpha)+(\alpha+\alpha^3))\cdot\alpha^7}{\alpha^2+\alpha^{12}}\\
+    &=\frac{(\alpha^3+\alpha^2)\cdot\alpha^7}{\alpha^2+\alpha^{12}}\\
+    &=\frac{(\alpha^3+\alpha^2)\cdot\alpha^7}{\alpha^2+(1+\alpha+\alpha^2+\alpha^3)}\\
+    &=\frac{(\alpha^3+\alpha^2)\cdot\alpha^7}{1+\alpha+\alpha^3}\\
+    &=\frac{(\alpha^3+\alpha^2)\cdot\alpha^7}{\alpha^7}\\
+    &=(\alpha^3+\alpha^2)\cdot1\\
+    &=\alpha^6
+\end{align*}
+
+\item \boxed{(\alpha^4+1)^2=\alpha^2}
+\\ \\
+Para el inciso (b), resolverlo por dos caminos: primero expresando $\alpha^4+1$ como potencia de $\alpha$ y elevando al cuadrado; luego, multiplicando los polinomios directamente y reduciendo con la
+relación $\alpha^4=1+\alpha$. Ambos resultados deben coincidir.
+
+\rule{4cm}{0.4pt}\\\textbf{\textbar \quad 1.}
+\begin{align*}
+    (\alpha^4+1)^2
+    &=((\alpha+1)+1)^2\\
+    &=\alpha^2
+\end{align*}
+\rule{4cm}{0.4pt}\\\textbf{\textbar \quad 2.}
+\begin{align*}
+    (\alpha^4+1)^2
+    &=(\alpha^4+1)(\alpha^4+1)\\
+    &=\alpha^4\cdot\alpha^4+\alpha^4+\alpha^4+1\\
+    &=\alpha^8+1\\
+    &=(\alpha^2+1)+1\\
+    &=\alpha^2
+\end{align*}
+\end{enumerate}
+
+\subsection*{Ejercicio 4 Ecuación lineal}
+\boxed{\alpha^5 \cdot x+\alpha^{11}=\alpha^2 \iff x=\alpha^4}
+\begin{align*}
+    \alpha^5\cdot x+\alpha^{11}&=\alpha^2\\
+    \alpha^5\cdot x&=\alpha^2-\alpha^{11}=\alpha^2+\alpha^{11}\\
+    x&=\frac{\alpha^2+\alpha^{11}}{\alpha^5}\\
+    x&=\frac{\alpha^2+(\alpha^3+\alpha^2+\alpha)}{\alpha^5}\\
+    x&=\frac{\alpha^3+\alpha}{\alpha^5}\\
+    x&=\frac{\alpha^9}{\alpha^5}\\
+    x&=\alpha^9\cdot\alpha^{-5}=\alpha^9\cdot\alpha^{(15-5)\%15}\\
+    x&=\alpha^9\cdot\alpha^{10}\\
+    x&=\alpha^{19\%15}\\
+    x&=\alpha^4
+\end{align*}
+
+Verificar el resultado reemplazándolo en la ecuación original.
+\begin{align*}
+    \alpha^5\cdot(\alpha^4)+\alpha^{11}&\overset{?}{=}\alpha^2\\
+    \alpha^9+\alpha^{11}&\overset{?}{=}\alpha^2\\
+    (\alpha^3+\alpha)+(\alpha^3+\alpha^2+\alpha)&\overset{?}{=}\alpha^2\\
+    0+\alpha^2+0&=\alpha^2
+\end{align*}
+
+\vspace{1em}
+\hrule
+\vspace{1em}
+
+%==================================================
+% Conclusion (optional)
+%==================================================
+
+% \section*{Conclusion}
+
+% Brief concluding remarks.
+
+\end{document}
