@@ -2,7 +2,7 @@ class GaloisField:
 
     def __init__(self, m_order, primitive_poly):
         """
-        Elements and operations to work in Galois fields
+        Elements and operations to work in Galois fields. The zero element always is indexed as -1
 
         Args:
             m_order: Field order M
