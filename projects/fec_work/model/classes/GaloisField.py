@@ -141,8 +141,7 @@ class GaloisField:
 
     def pow(self, a, b):
         """
-        Powers one elements to the given exponent
-
+        Powers one elements to the given exponent (0**0 = 1 always)
         Args:
             a: Power of the base
             b: Exponent
@@ -150,10 +149,14 @@ class GaloisField:
         Returns:
             tuple: (result, power)
         """
-        if a == -1:
-            i = -1
-        elif b == -1:
-            i = 0
+        if a == ELEMENT_ZERO and b == 0:
+            i = ELEMENT_ONE
+        elif a == ELEMENT_ZERO:
+            i = ELEMENT_ZERO
+        elif a == ELEMENT_ONE:
+            i = ELEMENT_ONE
+        elif b == 0:
+            i = ELEMENT_ONE
         else:
             i = (a*abs(b)) % self._cycle
 
