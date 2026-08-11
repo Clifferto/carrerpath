@@ -21,8 +21,8 @@ class GaloisField:
         self.generate_field()
 
     def __call__(self, n):
-        if n == -1:
-            i = -1
+        if n == ELEMENT_ZERO:
+            i = ELEMENT_ZERO
         else:
             i = abs(n) % self._cycle
 
@@ -30,11 +30,13 @@ class GaloisField:
 
     def __str__(self):
         info = f"{'='*128}\n"
-        for e in self._elements: info += f"{e:0{self._m_order}b} -- {self._elements.index(e) if e!=0 else -1}\n"
+        for e in self._elements: info += f"{e:0{self._m_order}b} -- {self._elements.index(e) if e!=0 else ELEMENT_ZERO}\n"
         info += f"{'='*128}\n"
 
         return info
 
+# =======================================================================================
+# =======================================================================================
     def get_poly(self,e):
         """
         Get polynomial representation of a element
@@ -62,7 +64,7 @@ class GaloisField:
                 alpha_n         = self._elements[-1]<<1
                 alpha_n_poly    = self.get_poly(alpha_n)
 
-                # simplify using know elements
+                # simplify using known elements
                 alpha_n_final = 0
                 for i in range(len(alpha_n_poly)):
                     if alpha_n_poly[i]:
@@ -88,8 +90,8 @@ class GaloisField:
         Returns:
             tuple: (result, power)
         """
-        ans = self(a)[0] ^ self(b)[0]
-        i   = -1 if ans==0 else self._elements.index(ans)
+        ans = self(a)[ID_BIN] ^ self(b)[ID_BIN]
+        i   = ELEMENT_ZERO if ans==0 else self._elements.index(ans)
         return self(i)
 
     def mul(self, a, b):
@@ -103,7 +105,7 @@ class GaloisField:
         Returns:
             tuple: (result, power)
         """
-        i   = -1 if a==-1 or b==-1 else (a+b) % self._cycle
+        i   = ELEMENT_ZERO if a==ELEMENT_ZERO or b==ELEMENT_ZERO else (a+b) % self._cycle
         return self(i)
 
     def inv(self, a):
@@ -119,7 +121,7 @@ class GaloisField:
         Returns:
             tuple: (result, power)
         """
-        if a == -1:
+        if a == ELEMENT_ZERO:
             raise ZeroDivisionError
         else:
             i   = (self._cycle - a) % self._cycle
@@ -137,7 +139,7 @@ class GaloisField:
         Returns:
             tuple: (result, power)
         """
-        return self.mul(a, self.inv(b)[1])
+        return self.mul(a, self.inv(b)[ID_POWER])
 
     def pow(self, a, b):
         """
