@@ -2,3 +2,11 @@
 __pycache__
 results.xml
 sim_build
+
+*.cache
+*.hw
+*.ip_user_files
+*.sim
+xsim.*
+*.jou
+*.log
