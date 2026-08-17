@@ -2,9 +2,9 @@
 // It also has variables to hold output status so that they can be compared easily in a scoreboard.
 class seq_item extends uvm_sequence_item;
     
-    randc lzoc_data_t   data;
-    lzoc_count_t        ones_count          = '0;
-    lzoc_count_t        lead_zeros_count    = '0;
+    randc bit   [NB_DATA    -1:0]   data;
+    bit         [NB_COUNT   -1:0]   ones_count          = '0;
+    bit         [NB_COUNT   -1:0]   lead_zeros_count    = '0;
 
     // Use utility macros to implement standard functions
     // like print, copy, clone, etc

@@ -8,12 +8,13 @@ package lead_zeros_ones_counter_pkg;
     parameter   NB_DATA     = 8                 ;
     parameter   NB_COUNT    = $clog2(NB_DATA+1) ;
 
-    typedef bit [NB_DATA    -1:0] lzoc_data_t;
-    typedef bit [NB_COUNT   -1:0] lzoc_count_t;
 
     `include "sequences/seq_item.svh"
     `include "sequences/seq_lib.svh"
+    
     `include "lead_zeros_ones_counter_model.svh"
+    typedef lead_zeros_ones_counter_model#(NB_DATA, NB_COUNT) dut_model_t;
+    
     `include "tb_scoreboard.svh"
     `include "tb_driver.svh"
     `include "tb_monitor.svh"
