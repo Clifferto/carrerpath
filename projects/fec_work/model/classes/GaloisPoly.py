@@ -1,10 +1,5 @@
 import numpy as np
-
-# definitions for element ids, and representations
-ELEMENT_ZERO    = -1
-ELEMENT_ONE     = 0
-ID_BIN          = 0
-ID_POWER        = 1
+from .defs import *
 
 class GaloisPoly:
     def __init__(self, gf, p):
@@ -25,16 +20,19 @@ class GaloisPoly:
         return ans
 
     def __str__(self):
-        info = f"{'='*128}\n"
-        info +="p(x) == "
+        info ="p(x) == "
         for i, ak in enumerate(self._p):
-            if ak == self._p[-1]:
-                info += f"a^{ak}\n"
-            elif ak == self._p[-2]:
-                info += f"a^{ak}X + "
-            else:
-                info += f"a^{ak}X^{self._deg-i} + "
-        info += f"{'='*128}\n"
+            # ommit zero terms
+            if ak != ELEMENT_ZERO:
+                # manage powers
+                if self._deg-i == 0:
+                    info += "1" if ak == ELEMENT_ONE else f"a^{ak}\n"
+                elif self._deg-i == 1:
+                    info += "" if ak == ELEMENT_ONE else f"a^{ak}*"
+                    info += f"x + "
+                else: 
+                    info += "" if ak == ELEMENT_ONE else f"a^{ak}*"
+                    info += f"x^{self._deg-i} + "
 
         return info
 
@@ -46,8 +44,16 @@ class GaloisPoly:
         return GaloisPoly(self._gf, ans)
 
     def __mul__(self, other):
-        ans = self._mul_poly(self._p, other._p)
+        if isinstance(other, int):
+            ans = self._scale_poly(self._p, other)
+        else:
+            ans = self._mul_poly(self._p, other._p)
         return GaloisPoly(self._gf, ans)
+
+    def __rmul__(self, other):
+        if isinstance(other, int):
+            ans = self._scale_poly(self._p, other)
+            return GaloisPoly(self._gf, ans)
 
     def __truediv__(self, other):
         q, r = self._div_poly(self._p, other._p)
@@ -156,3 +162,16 @@ class GaloisPoly:
         r = step
 
         return q, r
+
+# =======================================================================================
+# =======================================================================================
+    def poly_from_roots(self, roots):
+        if len(roots) == 1:
+            poly = [ELEMENT_ONE] + roots
+        else:
+            poly = None
+            for r in roots:
+                factor  = [ELEMENT_ONE, r]
+                poly    = factor if poly is None else self._mul_poly(poly, factor)
+
+        return GaloisPoly(self._gf, poly)
