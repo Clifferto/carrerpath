@@ -2,12 +2,12 @@
 // It also has variables to hold output status so that they can be compared easily in a scoreboard.
 class seq_item extends uvm_sequence_item;
     
-    randc alu1_data_t   input_a_data    [N_DATA_INPUTS]         ;
-    randc alu1_data_t   input_b_data    [N_DATA_INPUTS]         ;
-    rand lzoc_data_t    incode                                  ;
-    rand pe_request_t   opcode                                  ;
-    alu1_data_t         output_data                     = '0    ;
-    alu1_flags_t        flags                           = '0    ;
+    randc bit   [NB_DATA        -1:0]   input_a_data    [N_DATA_INPUTS]         ;
+    randc bit   [NB_DATA        -1:0]   input_b_data    [N_DATA_INPUTS]         ;
+    rand bit    [N_DATA_INPUTS  -1:0]   incode                                  ;
+    rand bit    [NB_OPCODE      -1:0]   opcode                                  ;
+    bit         [NB_DATA        -1:0]   output_data                     = '0    ;
+    bit         [NB_FLAGS       -1:0]   flags                           = '0    ;
 
     // Use utility macros to implement standard functions
     // like print, copy, clone, etc

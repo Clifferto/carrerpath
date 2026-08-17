@@ -4,25 +4,23 @@ package comb_arch_pkg;
     `include "uvm_macros.svh"
     
     `timescale 1ns/1ps
-    
-    parameter   ALU1_MAX_OPCODE = 'hA               ;
-    parameter   ALU1_NB_OPCODE  = 4                 ;
 
-    parameter   N_DATA_INPUTS   = 4                 ;
-    parameter   NB_DATA         = 4                 ;
-    parameter   NB_FLAGS        = 4                 ;
-    parameter   NB_OPCODE       = ALU1_MAX_OPCODE+1 ;
+    parameter N_DATA_INPUTS = 4     ;
+    parameter NB_DATA       = 4     ;
+    parameter NB_FLAGS      = 4     ;
+    parameter NB_OPCODE     = 10+1  ;
     
     // alu operates selected data with selected opcode
-    typedef bit [NB_DATA                -1:0]   alu1_data_t;
-    typedef bit [ALU1_NB_OPCODE         -1:0]   alu1_opcode_t;
-    typedef bit [NB_FLAGS               -1:0]   alu1_flags_t;
+    parameter ALU1__MAX_OPCODE  = 'hA;
+    parameter ALU1__NB_DATA     = NB_DATA;
+    parameter ALU1__NB_OPCODE   = 4;
+    parameter ALU1__NB_FLAGS    = NB_FLAGS;
     // input selection is encoded as lead-zeros / ones count
-    typedef bit [N_DATA_INPUTS          -1:0]   lzoc_data_t;
-    typedef bit [$clog2(N_DATA_INPUTS)  -1:0]   lzoc_count_t;
+    parameter LZOC__NB_DATA     = N_DATA_INPUTS;
+    parameter LZOC__NB_COUNT    = $clog2(N_DATA_INPUTS);
     // opcode is encoded as priority ones
-    typedef bit [NB_OPCODE              -1:0]   pe_request_t;
-    typedef bit [ALU1_NB_OPCODE         -1:0]   pe_response_t;
+    parameter PE__NB_REQUEST    = NB_OPCODE;
+    parameter PE__NB_RESPONSE   = ALU1__NB_OPCODE;
 
     typedef enum {
         FLAG_ZERO           = 0 ,
@@ -30,11 +28,20 @@ package comb_arch_pkg;
         FLAG_OVERFLOW           ,
         FLAG_NEGATIVE
     } alu1_flags_e;
+
+    `include "../../priority_encoder/priority_encoder.uvm/priority_encoder_model.svh"
+    `include "../../lead_zeros_ones_counter/lead_zeros_ones_counter.uvm/lead_zeros_ones_counter_model.svh"
+    `include "../../alu1/alu1.uvm/alu1_model.svh"
+    typedef priority_encoder_model#(PE__NB_REQUEST, PE__NB_RESPONSE) pe_model_t;
+    typedef lead_zeros_ones_counter_model#(LZOC__NB_DATA, LZOC__NB_COUNT) lzoc_model_t;
+    typedef alu1_model#(ALU1__NB_DATA, ALU1__NB_OPCODE, ALU1__NB_FLAGS) alu1_model_t;
+    
+    `include "comb_arch_model.svh"
+    typedef comb_arch_model#(NB_DATA, N_DATA_INPUTS, NB_OPCODE, NB_FLAGS) dut_model_t;
     
     `include "sequences/seq_item.svh"
     `include "sequences/seq_lib.svh"
     
-    `include "comb_arch_model.svh"
     `include "tb_scoreboard.svh"
     // `include "tb_coverage.svh"
     `include "tb_driver.svh"
