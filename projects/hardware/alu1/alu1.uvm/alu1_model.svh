@@ -23,19 +23,21 @@
 
 // ALU ONLY MANIPULATES INPUT BITS, FOR FLAG CALCULATIONS IS IMPORTANT TO SEE IF THOSE INPUTS ARE SIGNED OR UNSIGNED
 
-class alu1_model extends uvm_object;
-    `uvm_object_utils(alu1_model)
+class alu1_model#(NB_DATA, NB_OPCODE, NB_FLAGS) extends uvm_object;
+    `uvm_object_param_utils(alu1_model#(NB_DATA, NB_OPCODE, NB_FLAGS))
 
-    // Only to define the SIGN_BIT, not for model
-    alu1_data_t x;
-
-    localparam SIGN_BIT = $bits(x)-1;
+    localparam SIGN_BIT = NB_DATA-1;
 
     function new(string name="alu1_model");
         super.new(name);
     endfunction
 
-    function void get_output(alu1_data_t input_data[1:0], alu1_opcode_t opcode, ref alu1_data_t output_data, ref alu1_flags_t flags);
+    function void get_output(
+        bit [NB_DATA-1:0] input_data[1:0]   ,
+        bit [NB_OPCODE-1:0] opcode          ,
+        ref bit [NB_DATA-1:0] output_data   ,
+        ref bit [NB_FLAGS-1:0] flags        
+    );
         case (opcode)
             'h0     : a_add_b   (input_data, output_data, flags);
             'h1     : a_sub_b   (input_data, output_data, flags);
@@ -57,7 +59,7 @@ class alu1_model extends uvm_object;
     endfunction
 
     // ARITHMETIC OPERATIONS
-    function void a_add_b(alu1_data_t data[1:0], ref alu1_data_t output_data, ref alu1_flags_t flags);
+    function void a_add_b(bit [NB_DATA-1:0] data[1:0], ref bit [NB_DATA-1:0] output_data, ref bit [NB_FLAGS-1:0] flags);
         longint unsigned    result;
         bit                 unsigned_overflow;
         bit                 sign_same;
@@ -76,7 +78,7 @@ class alu1_model extends uvm_object;
         flags[FLAG_NEGATIVE]        = $signed(output_data) < 0;
     endfunction
 
-    function void a_sub_b(alu1_data_t data[1:0], ref alu1_data_t output_data, ref alu1_flags_t flags);
+    function void a_sub_b(bit [NB_DATA-1:0] data[1:0], ref bit [NB_DATA-1:0] output_data, ref bit [NB_FLAGS-1:0] flags);
         longint unsigned    result;
         bit                 unsigned_underflow;
         bit                 sign_same;
@@ -93,34 +95,31 @@ class alu1_model extends uvm_object;
         flags[FLAG_CARRY_BORROW]    = !unsigned_underflow;
         flags[FLAG_OVERFLOW]        = !sign_same && sign_flip;
         flags[FLAG_NEGATIVE]        = $signed(output_data) < 0;
-
-        `uvm_info(get_name(), $sformatf("flags = %0b", flags), UVM_NONE)
-
     endfunction
 
     // LOGICAL OPERATIONS
-    function void a_and_b(alu1_data_t data[1:0], ref alu1_data_t output_data, ref alu1_flags_t flags);
+    function void a_and_b(bit [NB_DATA-1:0] data[1:0], ref bit [NB_DATA-1:0] output_data, ref bit [NB_FLAGS-1:0] flags);
         output_data = data[0] & data[1];
 
         flags[FLAG_ZERO]        = output_data == 0;
         flags[FLAG_NEGATIVE]    = $signed(output_data) < 0;
     endfunction
 
-    function void a_or_b(alu1_data_t data[1:0], ref alu1_data_t output_data, ref alu1_flags_t flags);
+    function void a_or_b(bit [NB_DATA-1:0] data[1:0], ref bit [NB_DATA-1:0] output_data, ref bit [NB_FLAGS-1:0] flags);
         output_data = data[0] | data[1];
 
         flags[FLAG_ZERO]        = output_data == 0;
         flags[FLAG_NEGATIVE]    = $signed(output_data) < 0;
     endfunction
 
-    function void a_xor_b(alu1_data_t data[1:0], ref alu1_data_t output_data, ref alu1_flags_t flags);
+    function void a_xor_b(bit [NB_DATA-1:0] data[1:0], ref bit [NB_DATA-1:0] output_data, ref bit [NB_FLAGS-1:0] flags);
         output_data = data[0] ^ data[1];
 
         flags[FLAG_ZERO]        = output_data == 0;
         flags[FLAG_NEGATIVE]    = $signed(output_data) < 0;
     endfunction
 
-    function void a_not(alu1_data_t data[1:0], ref alu1_data_t output_data, ref alu1_flags_t flags);
+    function void a_not(bit [NB_DATA-1:0] data[1:0], ref bit [NB_DATA-1:0] output_data, ref bit [NB_FLAGS-1:0] flags);
         output_data = ~data[0];
 
         flags[FLAG_ZERO]        = output_data == 0;
@@ -128,14 +127,14 @@ class alu1_model extends uvm_object;
     endfunction
 
     // SHIFTING OPERATIONS
-    function void a_lls_b(alu1_data_t data[1:0], ref alu1_data_t output_data, ref alu1_flags_t flags);
+    function void a_lls_b(bit [NB_DATA-1:0] data[1:0], ref bit [NB_DATA-1:0] output_data, ref bit [NB_FLAGS-1:0] flags);
         output_data = data[0] << data[1];
 
         flags[FLAG_ZERO]        = output_data == 0;
         flags[FLAG_NEGATIVE]    = $signed(output_data) < 0;
     endfunction
 
-    function void a_lrs_b(alu1_data_t data[1:0], ref alu1_data_t output_data, ref alu1_flags_t flags);
+    function void a_lrs_b(bit [NB_DATA-1:0] data[1:0], ref bit [NB_DATA-1:0] output_data, ref bit [NB_FLAGS-1:0] flags);
         output_data = data[0] >> data[1];
 
         flags[FLAG_ZERO]        = output_data == 0;
@@ -143,19 +142,19 @@ class alu1_model extends uvm_object;
     endfunction
 
     // COMPARISON OPERATIONS
-    function void a_eq_b(alu1_data_t data[1:0], ref alu1_data_t output_data, ref alu1_flags_t flags);
+    function void a_eq_b(bit [NB_DATA-1:0] data[1:0], ref bit [NB_DATA-1:0] output_data, ref bit [NB_FLAGS-1:0] flags);
         output_data = data[0] == data[1];
 
         flags[FLAG_ZERO]    = output_data == 0;
     endfunction
 
-    function void a_ult_b(alu1_data_t data[1:0], ref alu1_data_t output_data, ref alu1_flags_t flags);
+    function void a_ult_b(bit [NB_DATA-1:0] data[1:0], ref bit [NB_DATA-1:0] output_data, ref bit [NB_FLAGS-1:0] flags);
         output_data = data[0] < data[1];
 
         flags[FLAG_ZERO]    = output_data == 0;
     endfunction
 
-    function void a_slt_b(alu1_data_t data[1:0], ref alu1_data_t output_data, ref alu1_flags_t flags);
+    function void a_slt_b(bit [NB_DATA-1:0] data[1:0], ref bit [NB_DATA-1:0] output_data, ref bit [NB_FLAGS-1:0] flags);
         output_data = $signed(data[0]) < $signed(data[1]);
 
         flags[FLAG_ZERO]    = output_data == 0;

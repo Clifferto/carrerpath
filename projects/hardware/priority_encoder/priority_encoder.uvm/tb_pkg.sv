@@ -9,14 +9,12 @@ package priority_encoder_pkg;
 
     parameter NB_RESPONSE   = $clog2(NB_REQUEST);
     
-    typedef bit [NB_REQUEST     -1:0] pe_request_t;
-    typedef bit [NB_RESPONSE    -1:0] pe_response_t;
-    
     `include "seq_item.svh"
 
-    `include "tb_config.svh"
-    `include "tb_sequence.svh"
     `include "priority_encoder_model.svh"
+    typedef priority_encoder_model#(NB_REQUEST, NB_RESPONSE) dut_model_t;
+
+    `include "tb_sequence.svh"
     `include "tb_scoreboard.svh"
     `include "tb_driver.svh"
     `include "tb_monitor.svh"

@@ -7,13 +7,13 @@ class tb_scoreboard extends uvm_scoreboard;
         super.new(name, parent);
     endfunction
 
-    alu1_model                                  model;
+    dut_model_t                                 model;
     uvm_analysis_imp#(seq_item, tb_scoreboard)  scb_analysis_imp;
 
     virtual function void build_phase(uvm_phase phase);
         super.build_phase(phase);
 
-        model               = alu1_model::type_id::create("model");
+        model               = dut_model_t::type_id::create("model");
         scb_analysis_imp    = new("scb_analysis_imp", this);
     endfunction
 
