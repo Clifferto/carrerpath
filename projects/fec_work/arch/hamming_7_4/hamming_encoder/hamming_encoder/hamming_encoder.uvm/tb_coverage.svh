@@ -1,18 +1,19 @@
 class tb_coverage extends uvm_subscriber#(seq_item);
     `uvm_component_utils(tb_coverage)
 
-    covergroup cov_dut;
-        output_data : coverpoint c_item.output_data;
-        flags : coverpoint c_item.flags {
-            illegal_bins illegal_negative_zero = {4'b1xx1};
-        }
-    endgroup
+    // ADD COVERGROUP FOR CODE AND SEQUENCES
+    // covergroup cov_dut;
+    //     output_data : coverpoint c_item.output_data;
+    //     flags : coverpoint c_item.flags {
+    //         illegal_bins illegal_negative_zero = {4'b1xx1};
+    //     }
+    // endgroup
 
-    covergroup cov_sequences;
-        A : coverpoint c_item.input_data[0];
-        B : coverpoint c_item.input_data[1];
-        opcode : coverpoint c_item.opcode;
-    endgroup
+    // covergroup cov_sequences;
+    //     A : coverpoint c_item.input_data[0];
+    //     B : coverpoint c_item.input_data[1];
+    //     opcode : coverpoint c_item.opcode;
+    // endgroup
 
     function new(string name="tb_coverage", uvm_component parent=null);
         super.new(name, parent);
