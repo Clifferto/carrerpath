@@ -2,10 +2,10 @@
 // It also has variables to hold output status so that they can be compared easily in a scoreboard.
 class seq_item extends uvm_sequence_item;
 
-    rand bit [NB_WORD        -1:0]  word            ;
-    rand bit                        input_valid     ;
-    bit [NB_CODEWORD    -1:0]       codeword        ;
-    bit                             output_valid    ;
+    rand bit    [NB_WORD        -1:0]   word                    ;
+    rand bit                            input_valid             ;
+    bit         [NB_CODEWORD    -1:0]   codeword        = '0    ;
+    bit                                 output_valid    = 1'b0  ;
 
     // Use utility macros to implement standard functions
     // like print, copy, clone, etc

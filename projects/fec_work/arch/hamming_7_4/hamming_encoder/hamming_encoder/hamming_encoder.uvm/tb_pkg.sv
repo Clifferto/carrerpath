@@ -12,6 +12,8 @@ package hamming_encoder_pkg;
     `include "sequences/seq_lib.svh"
 
     `include "hamming_encoder_model.svh"
+    typedef hamming_encoder_model#(NB_WORD, NB_CODEWORD) dut_model_t;
+    
     `include "tb_scoreboard.svh"
     `include "tb_driver.svh"
     `include "tb_monitor.svh"

@@ -16,3 +16,25 @@ class word_count_sequence extends uvm_sequence;
         end
     endtask
 endclass
+
+class full_one_zero_sequence extends uvm_sequence;
+    `uvm_object_utils(full_one_zero_sequence)
+
+    function new(string name="full_one_zero_sequence");
+        super.new(name);
+    endfunction
+
+    virtual task body();
+        seq_item item_s = seq_item::type_id::create("item_s");
+        start_item(item_s);
+        item_s.word         = '1;
+        item_s.input_valid  = 1;
+        finish_item(item_s);
+        
+        item_s = seq_item::type_id::create("item_s");
+        start_item(item_s);
+        item_s.word         = '0;
+        item_s.input_valid  = 1;
+        finish_item(item_s);
+    endtask
+endclass

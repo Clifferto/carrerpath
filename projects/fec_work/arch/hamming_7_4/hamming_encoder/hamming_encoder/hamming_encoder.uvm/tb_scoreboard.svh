@@ -7,46 +7,34 @@ class tb_scoreboard extends uvm_scoreboard;
         super.new(name, parent);
     endfunction
 
-    hamming_encoder_model                       model;
+    dut_model_t                                 model;
     uvm_analysis_imp#(seq_item, tb_scoreboard)  scb_analysis_imp;
 
     virtual function void build_phase(uvm_phase phase);
         super.build_phase(phase);
 
-        model               = hamming_encoder_model::type_id::create("model");
+        model               = dut_model_t::type_id::create("model");
         scb_analysis_imp    = new("scb_analysis_imp", this);
     endfunction
 
     virtual function write(seq_item item);
         seq_item model_output = seq_item::type_id::create("model_output");
         
-        // model_output.copy(item);
-        // model.get_output(model_output.input_data, model_output.opcode, model_output.output_data, model_output.flags);
+        if (!item.input_valid) begin
+            valid_zero: assert (!item.output_valid && item.codeword == '0)
+                else `uvm_fatal(get_name(), $sformatf("Assertion valid_zero failed!: !%0b && %0b == '0", item.output_valid, item.codeword))
+        end
+        else begin
+            model_output.copy(item);
+            model.get_output(model_output.word, model_output.codeword);
 
-        // `uvm_info(get_name(), $sformatf(   "opcode = %0d | A ? B = %0d ; %0d == %0d (%0d ? %0d == %0b = %0d) | flags = %0b"                                                         ,
-        //                                     model_output.opcode                                                                                                                     ,
-        //                                     model_output.input_data[0], model_output.input_data[1], model_output.output_data                                                        , 
-        //                                     $signed(model_output.input_data[0]), $signed(model_output.input_data[1]), model_output.output_data, $signed(model_output.output_data)   ,
-        //                                     model_output.flags                                                                                                                      ), UVM_DEBUG)
-
-        item.print();
-
-        // if (!item.compare(model_output)) begin
-        //     if (item.output_data != model_output.output_data) begin
-        //         `uvm_error(get_name(), $sformatf(   "[DATA ERROR] A = %0d (%0d) B = %0d (%0d) | output_data = %0d != %0d (%0d != %0d)"  ,
-        //                                         item.input_data[0], $signed(item.input_data[0])                                     ,
-        //                                         item.input_data[1], $signed(item.input_data[1])                                     ,
-        //                                         item.output_data, model_output.output_data                                          ,
-        //                                         $signed(item.output_data), $signed(model_output.output_data)                        ))
-        //     end
-        //     if (item.flags != model_output.flags) begin
-        //         `uvm_error(get_name(), $sformatf(   "[FLAG ERROR] output_data = %0d (%0d) | flags = %0b != %0b" ,
-        //                                         item.output_data, $signed(item.output_data)                 ,
-        //                                         item.flags, model_output.flags                              ))
-        //     end
-        //     item.print();
-        //     model_output.print();
-        // end
+            if (!item.compare(model_output)) begin
+                `uvm_error(get_name(), $sformatf(   "[ENCODE ERROR] word = %04b: DUT = %07b, model = %07b"  ,
+                                                    item.word, item.codeword, model_output.codeword         ))
+                model_output.print();
+                item.print();
+            end
+        end
 
     endfunction
     
