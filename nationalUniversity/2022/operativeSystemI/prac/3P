@@ -1,0 +1,19 @@
+C en el fondo es un conjunto de librerias
+
+los headers (.h) son interfaces que definen funciones y posibilitan cambiar la implementacion de las mismas
+
+en archivos de texto los datos estan codificados en ASCII (o UTF-8) osea que cada byte tiene una representacion en ASCII.
+en un binario los datos estan en HEX y representan lo que el procesador le asigne.
+
+en los errores de complilacion ld es el linker de gcc (/usr/bin/ld)
+
+volatile, la variable puede cambiar su valor de forma externa
+para evitar que el compilador la optimice
+
+for: la condicion de finalizacion puede ser cualquiera, no solo sobre el indice
+
+un miembro de la estructura E no puede ser de tipo E porque no se termino de definir la estructura
+pero si puede ser de tipo E* ya que los punteros tienen un tamaño standar (bus de direcciones)
+
+en memoria al crear un struct el padding (para mantener ByteAlign) se calcula en base al miembro de mayor tamaño del struct
+esto logra una mayor velocidad de acceso a memoria por parte del DMA
