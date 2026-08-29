@@ -1,0 +1,63 @@
+GESTION DE ARCHIVOS
+
+    Permite al usuario realizar operaciones sobre archivos, reestructurar archivos, mover datos entre ellos,
+    controlar el acceso de otros usuarios
+
+    DEVICE DRIVERS
+
+        Controlan los dispositivos a nivel de hw, inicial las peticiones, son parte del SO
+
+    FILE-SYSTEM
+
+        Maneja la info a nivel de BLOQUE DE DATOS, administra la manera de BUSCAR estos bloques en el hw, no le interesa la estructura
+        de los datos en el bloque, "identificacion y busqueda"
+
+    SUPERVISOR DE I/O
+
+        Opera a nivel I/O sobre los archivos, reorganiza y mantiene las estructuras de control del archivo,
+        el SO le asigna BUFFERS DE I/O
+
+    I/O LOGICA
+
+        Provee una interfaz basica para que el usuario acceda a los REGISTROS
+
+SISTEMA DE GESTION DE ARCHIVOS
+
+    DIRECTORIOS: En si es un ARCHIVO, guarda la informacion de los archivos que contiene, define los atributos de UBICACION,
+    PROPIETARIO y PERMISOS, el usuario accede al directorio POR MEDIO DEL SO (no directamente)
+
+        * NOMBRE, TIPO
+        * VOLUMEN, DIRECCION DE INICIO, TAMAÑO, TAMAÑO MAX
+        * PROPIETARIO, ACCIONES PERMITIDAS
+        * FECHAS DE CREACION, MODIFICACION, ULTIMO USUARIO QUE MODIFICO, etc...
+
+    ESTRUCTURA DE DIRECTORIOS: Definida por el sistema de archivos, distinguir 2 archivos con el mismo nombre si estan en distintos
+    directorios, en realidad cada archivo tiene un nombre unico en el sistema,"estructura jerarquica de directorios"
+
+    COMPARTIR ARCHIVOS ENTRE USUARIOS
+
+    GESTIONAR PERMISOS PARA LOS USUARIOS: Ninguno, Conocimiento, Ejecución, Lectura, Agregar, Actualizar, Cambiar atributos, Borrar
+
+    ACCESO SIMULTANEO: Cuando se abre un archivo se debe decir que se quiere hacer con el, el SO reserva esa accion solo para nuestro proceso, si abrimos un archivo para escribirlo, ningun otro proceso podra escribirlo tambien (para trabajar con concurrencia)
+
+AGRUPACION DE REGISTROS
+
+    Los REGISTROS deben estar mapeados en los BLOQUES para realizar las operaciones de I/O, 
+    hay varios metodos para AGRUPAR REGISTROS DENTRO DE UN BLOQUE
+
+        * BLOQUE FIJO: Registros de un MISMO TAMAÑO, NUMERO ENTERO DE REGISTROS/BLOQUE, espacio LIBRE AL FINAL DEL BLOQUE
+        * MULTIBLK LONG-VARIABLE: Registros de TAMAÑO VARIABLE, un REGISTRO PUEDE QUEDAR EN 2 BLOQUES, "se desordena el disco"
+        * SIMPLEBLK LONG-VARIABLE: Registros de TAMAÑO VARIABLE, NUMERO ENTERO DE REGISTROS/BLOQUE, espacio LIBRE AL FINAL 
+
+ASIGNACION DE BLOQUES
+
+    * CONTIGUA: Se asigna un conjunto de bloques en la creacion (se fragmenta)
+    * ENCADENADA: Cada bloque indica el bloque siguiente (lista enlazada)
+    * INDEXADA: (se crea una tabla con la ubicacion de los bloques de un archivo)
+
+GESTION DE ESPACIO LIBRE
+
+    * TABLAS DE BITS: 0 blk libre, 1 blk utilizado
+    * PORCIONES LIBRES ENCADENADAS: lista enlazada de bloques libres
+    * INDEXACIÓN: mismo metodo de indexacion pero para el espacio libre, "considera el esp libre un archivo mas"
+    * LISTA DE BLOQUES LIBRES: se identifica cada bloque, se mantiene una lista con bloques libres
