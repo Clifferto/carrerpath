@@ -1,0 +1,30 @@
+Circuit: * Z:\UNC\2022\powerElectronics\TPT6\sim\tiristores.asc
+
+WARNING: Node U4:1:PLIP2 is floating.
+
+Direct Newton iteration for .op point succeeded.
+
+vo: AVG(v(vo1,vo2))=42.7801 FROM 0 TO 0.066
+vl: RMS(v(vo1,vo2))=60.7475 FROM 0 TO 0.066
+io: AVG(i(rl))=1.7112 FROM 0 TO 0.066
+il: RMS(i(rl))=2.4299 FROM 0 TO 0.066
+
+
+Date: Sun May 08 02:39:46 2022
+Total elapsed time: 0.595 seconds.
+
+tnom = 27
+temp = 27
+method = modified trap
+totiter = 9967
+traniter = 9943
+tranpoints = 3377
+accept = 3035
+rejected = 342
+matrix size = 150
+fillins = 121
+solver = Normal
+Thread vector: 31.3/26.6[3] 4.8/3.3[3] 16.0/11.9[3] 2.3/4.6[1]  2592/500
+Matrix Compiler1: 10.84 KB object code size  7.4/5.4/[2.3]
+Matrix Compiler2: off  [2.7]/4.1/16.0
+
