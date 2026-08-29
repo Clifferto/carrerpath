@@ -1,0 +1,42 @@
+// The scoreboard receives a data object through its uvm_analysis_imp port from the monitor.
+// As soon as the scoreboard receives an item, its write method will be executed which in turn runs the checker and generate reports.
+class tb_scoreboard extends uvm_scoreboard;
+    `uvm_component_utils(tb_scoreboard)
+
+    function new(string name="tb_scoreboard", uvm_component parent=null);
+        super.new(name, parent);
+    endfunction
+
+    dut_model_t                                 model;
+    uvm_analysis_imp#(seq_item, tb_scoreboard)  scb_analysis_imp;
+
+    virtual function void build_phase(uvm_phase phase);
+        super.build_phase(phase);
+
+        model               = dut_model_t::type_id::create("model");
+        scb_analysis_imp    = new("scb_analysis_imp", this);
+    endfunction
+
+    virtual function write(seq_item item);
+        seq_item model_output = seq_item::type_id::create("model_output");
+        
+        if (!item.input_valid) begin
+            valid_zero: assert (!item.output_valid && item.syndrome == '0 && item.no_error_detected)
+                else `uvm_fatal(get_name(), $sformatf(  "Assertion valid_zero failed!: !%0b && %0b == '0 && %0b"    ,
+                                                        item.output_valid, item.syndrome, item.no_error_detected    ))
+        end
+        else begin
+            model_output.copy(item);
+            model.get_output(model_output.input_data, model_output.syndrome, model_output.no_error_detected);
+
+            if (!item.compare(model_output)) begin
+                `uvm_error(get_name(), $sformatf(   "[SYNDROME ERROR] r = %07b: DUT = %03b, model = %03b"   ,
+                                                    item.input_data, item.syndrome, model_output.syndrome   ))
+                model_output.print();
+                item.print();
+            end
+        end
+
+    endfunction
+    
+endclass
