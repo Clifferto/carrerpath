@@ -1,0 +1,4 @@
+../src/leds.c:33:6:led2_init	4	static
+../src/leds.c:43:6:led2_on	4	static
+../src/leds.c:49:6:led2_off	4	static
+../src/leds.c:55:6:led2_invert	16	static

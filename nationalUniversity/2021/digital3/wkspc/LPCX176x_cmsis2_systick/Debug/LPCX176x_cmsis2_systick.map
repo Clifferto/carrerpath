@@ -1,0 +1,462 @@
+Archive member included to satisfy reference by file (symbol)
+
+/media/cliff/Desk/UNC/3digital/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+                              ./src/cr_startup_lpc176x.o (SystemInit)
+/usr/local/mcuxpressoide-11.4.0_6237/ide/plugins/com.nxp.mcuxpresso.tools.linux_11.4.0.202103011116/tools/bin/../lib/gcc/arm-none-eabi/10.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libcr_c.a(__weak__main.o)
+                              ./src/cr_startup_lpc176x.o (__main)
+/usr/local/mcuxpressoide-11.4.0_6237/ide/plugins/com.nxp.mcuxpresso.tools.linux_11.4.0.202103011116/tools/bin/../lib/gcc/arm-none-eabi/10.2.1/thumb/v7-m/nofp/libcr_eabihelpers.a(division_64.o)
+                              /media/cliff/Desk/UNC/3digital/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o) (__aeabi_ldivmod)
+/usr/local/mcuxpressoide-11.4.0_6237/ide/plugins/com.nxp.mcuxpresso.tools.linux_11.4.0.202103011116/tools/bin/../lib/gcc/arm-none-eabi/10.2.1/thumb/v7-m/nofp/libcr_eabihelpers.a(division_idiv0.o)
+                              /usr/local/mcuxpressoide-11.4.0_6237/ide/plugins/com.nxp.mcuxpresso.tools.linux_11.4.0.202103011116/tools/bin/../lib/gcc/arm-none-eabi/10.2.1/thumb/v7-m/nofp/libcr_eabihelpers.a(division_64.o) (__aeabi_idiv0)
+
+Discarded input sections
+
+ .group         0x0000000000000000        0xc ./src/cr_startup_lpc176x.o
+ .group         0x0000000000000000        0xc ./src/cr_startup_lpc176x.o
+ .group         0x0000000000000000        0xc ./src/cr_startup_lpc176x.o
+ .group         0x0000000000000000        0xc ./src/cr_startup_lpc176x.o
+ .text          0x0000000000000000        0x0 ./src/cr_startup_lpc176x.o
+ .data          0x0000000000000000        0x0 ./src/cr_startup_lpc176x.o
+ .bss           0x0000000000000000        0x0 ./src/cr_startup_lpc176x.o
+ .group         0x0000000000000000        0xc ./src/leds.o
+ .group         0x0000000000000000        0xc ./src/leds.o
+ .group         0x0000000000000000        0xc ./src/leds.o
+ .group         0x0000000000000000        0xc ./src/leds.o
+ .group         0x0000000000000000        0xc ./src/leds.o
+ .group         0x0000000000000000        0xc ./src/leds.o
+ .group         0x0000000000000000        0xc ./src/leds.o
+ .group         0x0000000000000000        0xc ./src/leds.o
+ .group         0x0000000000000000        0xc ./src/leds.o
+ .text          0x0000000000000000        0x0 ./src/leds.o
+ .data          0x0000000000000000        0x0 ./src/leds.o
+ .bss           0x0000000000000000        0x0 ./src/leds.o
+ .text.led2_off
+                0x0000000000000000       0x18 ./src/leds.o
+ .debug_macro   0x0000000000000000       0x10 ./src/leds.o
+ .debug_macro   0x0000000000000000      0x12e ./src/leds.o
+ .debug_macro   0x0000000000000000      0x5b3 ./src/leds.o
+ .group         0x0000000000000000        0xc ./src/systick_main.o
+ .group         0x0000000000000000        0xc ./src/systick_main.o
+ .group         0x0000000000000000        0xc ./src/systick_main.o
+ .group         0x0000000000000000        0xc ./src/systick_main.o
+ .group         0x0000000000000000        0xc ./src/systick_main.o
+ .group         0x0000000000000000        0xc ./src/systick_main.o
+ .group         0x0000000000000000        0xc ./src/systick_main.o
+ .group         0x0000000000000000        0xc ./src/systick_main.o
+ .group         0x0000000000000000        0xc ./src/systick_main.o
+ .group         0x0000000000000000        0xc ./src/systick_main.o
+ .group         0x0000000000000000        0xc ./src/systick_main.o
+ .text          0x0000000000000000        0x0 ./src/systick_main.o
+ .data          0x0000000000000000        0x0 ./src/systick_main.o
+ .bss           0x0000000000000000        0x0 ./src/systick_main.o
+ .debug_macro   0x0000000000000000      0xa78 ./src/systick_main.o
+ .debug_macro   0x0000000000000000       0x1c ./src/systick_main.o
+ .debug_macro   0x0000000000000000       0x2e ./src/systick_main.o
+ .debug_macro   0x0000000000000000       0x10 ./src/systick_main.o
+ .debug_macro   0x0000000000000000      0x12e ./src/systick_main.o
+ .debug_macro   0x0000000000000000      0x5b3 ./src/systick_main.o
+ .debug_macro   0x0000000000000000       0x18 ./src/systick_main.o
+ .debug_macro   0x0000000000000000      0x7af ./src/systick_main.o
+ .debug_macro   0x0000000000000000      0x2c7 ./src/systick_main.o
+ .group         0x0000000000000000        0xc /media/cliff/Desk/UNC/3digital/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+ .group         0x0000000000000000        0xc /media/cliff/Desk/UNC/3digital/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+ .group         0x0000000000000000        0xc /media/cliff/Desk/UNC/3digital/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+ .group         0x0000000000000000        0xc /media/cliff/Desk/UNC/3digital/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+ .group         0x0000000000000000        0xc /media/cliff/Desk/UNC/3digital/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+ .group         0x0000000000000000        0xc /media/cliff/Desk/UNC/3digital/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+ .group         0x0000000000000000        0xc /media/cliff/Desk/UNC/3digital/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+ .group         0x0000000000000000        0xc /media/cliff/Desk/UNC/3digital/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+ .group         0x0000000000000000        0xc /media/cliff/Desk/UNC/3digital/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+ .text          0x0000000000000000        0x0 /media/cliff/Desk/UNC/3digital/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+ .data          0x0000000000000000        0x0 /media/cliff/Desk/UNC/3digital/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+ .bss           0x0000000000000000        0x0 /media/cliff/Desk/UNC/3digital/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+ .text.SystemCoreClockUpdate
+                0x0000000000000000       0xb8 /media/cliff/Desk/UNC/3digital/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+ .debug_macro   0x0000000000000000       0x10 /media/cliff/Desk/UNC/3digital/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+ .debug_macro   0x0000000000000000      0x12e /media/cliff/Desk/UNC/3digital/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+ .debug_macro   0x0000000000000000      0x5b3 /media/cliff/Desk/UNC/3digital/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+ .debug_macro   0x0000000000000000       0x1c /media/cliff/Desk/UNC/3digital/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+ .debug_macro   0x0000000000000000       0x2e /media/cliff/Desk/UNC/3digital/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+ .debug_macro   0x0000000000000000       0x18 /media/cliff/Desk/UNC/3digital/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+ .debug_macro   0x0000000000000000      0x7af /media/cliff/Desk/UNC/3digital/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+ .debug_macro   0x0000000000000000      0x2c7 /media/cliff/Desk/UNC/3digital/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+ .text          0x0000000000000000        0x0 /usr/local/mcuxpressoide-11.4.0_6237/ide/plugins/com.nxp.mcuxpresso.tools.linux_11.4.0.202103011116/tools/bin/../lib/gcc/arm-none-eabi/10.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libcr_c.a(__weak__main.o)
+ .data          0x0000000000000000        0x0 /usr/local/mcuxpressoide-11.4.0_6237/ide/plugins/com.nxp.mcuxpresso.tools.linux_11.4.0.202103011116/tools/bin/../lib/gcc/arm-none-eabi/10.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libcr_c.a(__weak__main.o)
+ .bss           0x0000000000000000        0x0 /usr/local/mcuxpressoide-11.4.0_6237/ide/plugins/com.nxp.mcuxpresso.tools.linux_11.4.0.202103011116/tools/bin/../lib/gcc/arm-none-eabi/10.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libcr_c.a(__weak__main.o)
+ .text          0x0000000000000000        0x0 /usr/local/mcuxpressoide-11.4.0_6237/ide/plugins/com.nxp.mcuxpresso.tools.linux_11.4.0.202103011116/tools/bin/../lib/gcc/arm-none-eabi/10.2.1/thumb/v7-m/nofp/libcr_eabihelpers.a(division_64.o)
+ .data          0x0000000000000000        0x0 /usr/local/mcuxpressoide-11.4.0_6237/ide/plugins/com.nxp.mcuxpresso.tools.linux_11.4.0.202103011116/tools/bin/../lib/gcc/arm-none-eabi/10.2.1/thumb/v7-m/nofp/libcr_eabihelpers.a(division_64.o)
+ .bss           0x0000000000000000        0x0 /usr/local/mcuxpressoide-11.4.0_6237/ide/plugins/com.nxp.mcuxpresso.tools.linux_11.4.0.202103011116/tools/bin/../lib/gcc/arm-none-eabi/10.2.1/thumb/v7-m/nofp/libcr_eabihelpers.a(division_64.o)
+ .text.__aeabi_division_ldivmod
+                0x0000000000000000       0x26 /usr/local/mcuxpressoide-11.4.0_6237/ide/plugins/com.nxp.mcuxpresso.tools.linux_11.4.0.202103011116/tools/bin/../lib/gcc/arm-none-eabi/10.2.1/thumb/v7-m/nofp/libcr_eabihelpers.a(division_64.o)
+ .text.__aeabi_division_uldivmod
+                0x0000000000000000      0x174 /usr/local/mcuxpressoide-11.4.0_6237/ide/plugins/com.nxp.mcuxpresso.tools.linux_11.4.0.202103011116/tools/bin/../lib/gcc/arm-none-eabi/10.2.1/thumb/v7-m/nofp/libcr_eabihelpers.a(division_64.o)
+ .ARM.attributes
+                0x0000000000000000       0x1b /usr/local/mcuxpressoide-11.4.0_6237/ide/plugins/com.nxp.mcuxpresso.tools.linux_11.4.0.202103011116/tools/bin/../lib/gcc/arm-none-eabi/10.2.1/thumb/v7-m/nofp/libcr_eabihelpers.a(division_64.o)
+ .text          0x0000000000000000        0x0 /usr/local/mcuxpressoide-11.4.0_6237/ide/plugins/com.nxp.mcuxpresso.tools.linux_11.4.0.202103011116/tools/bin/../lib/gcc/arm-none-eabi/10.2.1/thumb/v7-m/nofp/libcr_eabihelpers.a(division_idiv0.o)
+ .data          0x0000000000000000        0x0 /usr/local/mcuxpressoide-11.4.0_6237/ide/plugins/com.nxp.mcuxpresso.tools.linux_11.4.0.202103011116/tools/bin/../lib/gcc/arm-none-eabi/10.2.1/thumb/v7-m/nofp/libcr_eabihelpers.a(division_idiv0.o)
+ .bss           0x0000000000000000        0x0 /usr/local/mcuxpressoide-11.4.0_6237/ide/plugins/com.nxp.mcuxpresso.tools.linux_11.4.0.202103011116/tools/bin/../lib/gcc/arm-none-eabi/10.2.1/thumb/v7-m/nofp/libcr_eabihelpers.a(division_idiv0.o)
+ .text.__aeabi_division_idiv0
+                0x0000000000000000        0x2 /usr/local/mcuxpressoide-11.4.0_6237/ide/plugins/com.nxp.mcuxpresso.tools.linux_11.4.0.202103011116/tools/bin/../lib/gcc/arm-none-eabi/10.2.1/thumb/v7-m/nofp/libcr_eabihelpers.a(division_idiv0.o)
+ .ARM.attributes
+                0x0000000000000000       0x1b /usr/local/mcuxpressoide-11.4.0_6237/ide/plugins/com.nxp.mcuxpresso.tools.linux_11.4.0.202103011116/tools/bin/../lib/gcc/arm-none-eabi/10.2.1/thumb/v7-m/nofp/libcr_eabihelpers.a(division_idiv0.o)
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+MFlash512        0x0000000000000000 0x0000000000080000 xr
+RamLoc32         0x0000000010000000 0x0000000000008000 xrw
+RamAHB32         0x000000002007c000 0x0000000000008000 xrw
+*default*        0x0000000000000000 0xffffffffffffffff
+
+Linker script and memory map
+
+LOAD ./src/cr_startup_lpc176x.o
+LOAD ./src/leds.o
+LOAD ./src/systick_main.o
+LOAD /media/cliff/Desk/UNC/3digital/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a
+START GROUP
+LOAD /usr/local/mcuxpressoide-11.4.0_6237/ide/plugins/com.nxp.mcuxpresso.tools.linux_11.4.0.202103011116/tools/bin/../lib/gcc/arm-none-eabi/10.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libcr_c.a
+LOAD /usr/local/mcuxpressoide-11.4.0_6237/ide/plugins/com.nxp.mcuxpresso.tools.linux_11.4.0.202103011116/tools/bin/../lib/gcc/arm-none-eabi/10.2.1/thumb/v7-m/nofp/libcr_eabihelpers.a
+LOAD /usr/local/mcuxpressoide-11.4.0_6237/ide/plugins/com.nxp.mcuxpresso.tools.linux_11.4.0.202103011116/tools/bin/../lib/gcc/arm-none-eabi/10.2.1/thumb/v7-m/nofp/libgcc.a
+END GROUP
+                0x0000000000000000                __base_MFlash512 = 0x0
+                0x0000000000000000                __base_Flash = 0x0
+                0x0000000000080000                __top_MFlash512 = 0x80000
+                0x0000000000080000                __top_Flash = 0x80000
+                0x0000000010000000                __base_RamLoc32 = 0x10000000
+                0x0000000010000000                __base_RAM = 0x10000000
+                0x0000000010008000                __top_RamLoc32 = 0x10008000
+                0x0000000010008000                __top_RAM = 0x10008000
+                0x000000002007c000                __base_RamAHB32 = 0x2007c000
+                0x000000002007c000                __base_RAM2 = 0x2007c000
+                0x0000000020084000                __top_RamAHB32 = 0x20084000
+                0x0000000020084000                __top_RAM2 = 0x20084000
+
+.text           0x0000000000000000      0x580
+ FILL mask 0xff
+                0x0000000000000000                __vectors_start__ = ABSOLUTE (.)
+ *(.isr_vector)
+ .isr_vector    0x0000000000000000       0xcc ./src/cr_startup_lpc176x.o
+                0x0000000000000000                g_pfnVectors
+                0x00000000000000cc                . = ALIGN (0x4)
+                0x00000000000000cc                __section_table_start = .
+                0x00000000000000cc                __data_section_table = .
+                0x00000000000000cc        0x4 LONG 0x580 LOADADDR (.data)
+                0x00000000000000d0        0x4 LONG 0x10000000 ADDR (.data)
+                0x00000000000000d4        0x4 LONG 0x4 SIZEOF (.data)
+                0x00000000000000d8        0x4 LONG 0x580 LOADADDR (.data_RAM2)
+                0x00000000000000dc        0x4 LONG 0x2007c000 ADDR (.data_RAM2)
+                0x00000000000000e0        0x4 LONG 0x0 SIZEOF (.data_RAM2)
+                0x00000000000000e4                __data_section_table_end = .
+                0x00000000000000e4                __bss_section_table = .
+                0x00000000000000e4        0x4 LONG 0x10000004 ADDR (.bss)
+                0x00000000000000e8        0x4 LONG 0x8 SIZEOF (.bss)
+                0x00000000000000ec        0x4 LONG 0x2007c000 ADDR (.bss_RAM2)
+                0x00000000000000f0        0x4 LONG 0x0 SIZEOF (.bss_RAM2)
+                0x00000000000000f4                __bss_section_table_end = .
+                0x00000000000000f4                __section_table_end = .
+ *(.after_vectors*)
+ .after_vectors
+                0x00000000000000f4       0x78 ./src/cr_startup_lpc176x.o
+                0x00000000000000f4                NMI_Handler
+                0x00000000000000f6                HardFault_Handler
+                0x00000000000000f8                MemManage_Handler
+                0x00000000000000fa                BusFault_Handler
+                0x00000000000000fc                UsageFault_Handler
+                0x00000000000000fe                SVCall_Handler
+                0x0000000000000100                DebugMon_Handler
+                0x0000000000000102                PendSV_Handler
+                0x0000000000000106                TIMER2_IRQHandler
+                0x0000000000000106                RIT_IRQHandler
+                0x0000000000000106                I2C0_IRQHandler
+                0x0000000000000106                USBActivity_IRQHandler
+                0x0000000000000106                PWM1_IRQHandler
+                0x0000000000000106                I2C1_IRQHandler
+                0x0000000000000106                EINT2_IRQHandler
+                0x0000000000000106                UART1_IRQHandler
+                0x0000000000000106                EINT3_IRQHandler
+                0x0000000000000106                CANActivity_IRQHandler
+                0x0000000000000106                TIMER3_IRQHandler
+                0x0000000000000106                UART0_IRQHandler
+                0x0000000000000106                IntDefaultHandler
+                0x0000000000000106                PLL0_IRQHandler
+                0x0000000000000106                CAN_IRQHandler
+                0x0000000000000106                PLL1_IRQHandler
+                0x0000000000000106                SSP0_IRQHandler
+                0x0000000000000106                I2S_IRQHandler
+                0x0000000000000106                I2C2_IRQHandler
+                0x0000000000000106                RTC_IRQHandler
+                0x0000000000000106                TIMER0_IRQHandler
+                0x0000000000000106                SPI_IRQHandler
+                0x0000000000000106                EINT1_IRQHandler
+                0x0000000000000106                TIMER1_IRQHandler
+                0x0000000000000106                UART2_IRQHandler
+                0x0000000000000106                ADC_IRQHandler
+                0x0000000000000106                SSP1_IRQHandler
+                0x0000000000000106                USB_IRQHandler
+                0x0000000000000106                BOD_IRQHandler
+                0x0000000000000106                WDT_IRQHandler
+                0x0000000000000106                QEI_IRQHandler
+                0x0000000000000106                EINT0_IRQHandler
+                0x0000000000000106                DMA_IRQHandler
+                0x0000000000000106                UART3_IRQHandler
+                0x0000000000000106                MCPWM_IRQHandler
+                0x0000000000000106                ENET_IRQHandler
+                0x0000000000000108                data_init
+                0x000000000000011a                bss_init
+                0x000000000000012a                ResetISR
+                0x00000000000002fc                . = 0x2fc
+ *fill*         0x000000000000016c      0x190 ff
+                0x00000000000002fc                PROVIDE (__CRP_WORD_START__ = .)
+ *(.crp)
+ .crp           0x00000000000002fc        0x4 ./src/systick_main.o
+                0x00000000000002fc                CRP_WORD
+                0x0000000000000300                PROVIDE (__CRP_WORD_END__ = .)
+                0x0000000000000001                ASSERT (! ((__CRP_WORD_START__ == __CRP_WORD_END__)), Linker CRP Enabled, but no CRP_WORD provided within application)
+ *(.text*)
+ .text.led2_init
+                0x0000000000000300       0x2c ./src/leds.o
+                0x0000000000000300                led2_init
+ .text.led2_on  0x000000000000032c       0x18 ./src/leds.o
+                0x000000000000032c                led2_on
+ .text.led2_invert
+                0x0000000000000344       0x30 ./src/leds.o
+                0x0000000000000344                led2_invert
+ .text.NVIC_SetPriority
+                0x0000000000000374       0x54 ./src/systick_main.o
+ .text.SysTick_Config
+                0x00000000000003c8       0x44 ./src/systick_main.o
+ .text.SysTick_Handler
+                0x000000000000040c       0x1c ./src/systick_main.o
+                0x000000000000040c                SysTick_Handler
+ .text.systick_delay
+                0x0000000000000428       0x30 ./src/systick_main.o
+ .text.main     0x0000000000000458       0x4c ./src/systick_main.o
+                0x0000000000000458                main
+ .text.SystemInit
+                0x00000000000004a4       0xd8 /media/cliff/Desk/UNC/3digital/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+                0x00000000000004a4                SystemInit
+ .text.__weak_main
+                0x000000000000057c        0x4 /usr/local/mcuxpressoide-11.4.0_6237/ide/plugins/com.nxp.mcuxpresso.tools.linux_11.4.0.202103011116/tools/bin/../lib/gcc/arm-none-eabi/10.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libcr_c.a(__weak__main.o)
+                0x000000000000057c                __main
+                0x000000000000057c                __weak_main
+ *(.rodata .rodata.* .constdata .constdata.*)
+                0x0000000000000580                . = ALIGN (0x4)
+
+.glue_7         0x0000000000000580        0x0
+ .glue_7        0x0000000000000580        0x0 linker stubs
+
+.glue_7t        0x0000000000000580        0x0
+ .glue_7t       0x0000000000000580        0x0 linker stubs
+
+.vfp11_veneer   0x0000000000000580        0x0
+ .vfp11_veneer  0x0000000000000580        0x0 linker stubs
+
+.v4_bx          0x0000000000000580        0x0
+ .v4_bx         0x0000000000000580        0x0 linker stubs
+
+.iplt           0x0000000000000580        0x0
+ .iplt          0x0000000000000580        0x0 ./src/cr_startup_lpc176x.o
+
+.rel.dyn        0x0000000000000580        0x0
+ .rel.iplt      0x0000000000000580        0x0 ./src/cr_startup_lpc176x.o
+
+.ARM.extab
+ *(.ARM.extab* .gnu.linkonce.armextab.*)
+
+.ARM.exidx      0x0000000000000580        0x0
+                0x0000000000000580                __exidx_start = .
+ *(.ARM.exidx* .gnu.linkonce.armexidx.*)
+                0x0000000000000580                __exidx_end = .
+                0x0000000000000580                _etext = .
+
+.data_RAM2      0x000000002007c000        0x0 load address 0x0000000000000580
+ FILL mask 0xff
+                [!provide]                        PROVIDE (__start_data_RAM2 = .)
+                [!provide]                        PROVIDE (__start_data_RamAHB32 = .)
+ *(.ramfunc.$RAM2)
+ *(.ramfunc.$RamAHB32)
+ *(.data.$RAM2)
+ *(.data.$RamAHB32)
+ *(.data.$RAM2.*)
+ *(.data.$RamAHB32.*)
+                0x000000002007c000                . = ALIGN (0x4)
+                [!provide]                        PROVIDE (__end_data_RAM2 = .)
+                [!provide]                        PROVIDE (__end_data_RamAHB32 = .)
+
+.uninit_RESERVED
+                0x0000000010000000        0x0
+                0x0000000010000000                _start_uninit_RESERVED = .
+ *(.bss.$RESERVED*)
+                0x0000000010000000                . = ALIGN (0x4)
+                0x0000000010000000                _end_uninit_RESERVED = .
+
+.data           0x0000000010000000        0x4 load address 0x0000000000000580
+ FILL mask 0xff
+                0x0000000010000000                _data = .
+                [!provide]                        PROVIDE (__start_data_RAM = .)
+                [!provide]                        PROVIDE (__start_data_RamLoc32 = .)
+ *(vtable)
+ *(.ramfunc*)
+ *(CodeQuickAccess)
+ *(DataQuickAccess)
+ *(RamFunction)
+ *(.data*)
+ .data.SystemCoreClock
+                0x0000000010000000        0x4 /media/cliff/Desk/UNC/3digital/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+                0x0000000010000000                SystemCoreClock
+                0x0000000010000004                . = ALIGN (0x4)
+                0x0000000010000004                _edata = .
+                [!provide]                        PROVIDE (__end_data_RAM = .)
+                [!provide]                        PROVIDE (__end_data_RamLoc32 = .)
+
+.igot.plt       0x0000000010000004        0x0 load address 0x0000000000000584
+ .igot.plt      0x0000000010000004        0x0 ./src/cr_startup_lpc176x.o
+
+.bss_RAM2       0x000000002007c000        0x0
+                [!provide]                        PROVIDE (__start_bss_RAM2 = .)
+                [!provide]                        PROVIDE (__start_bss_RamAHB32 = .)
+ *(.bss.$RAM2)
+ *(.bss.$RamAHB32)
+ *(.bss.$RAM2.*)
+ *(.bss.$RamAHB32.*)
+                0x000000002007c000                . = ALIGN ((. != 0x0)?0x4:0x1)
+                [!provide]                        PROVIDE (__end_bss_RAM2 = .)
+                [!provide]                        PROVIDE (__end_bss_RamAHB32 = .)
+
+.bss            0x0000000010000004        0x8
+                0x0000000010000004                _bss = .
+                [!provide]                        PROVIDE (__start_bss_RAM = .)
+                [!provide]                        PROVIDE (__start_bss_RamLoc32 = .)
+ *(.bss*)
+ .bss.msTicks   0x0000000010000004        0x4 ./src/systick_main.o
+                0x0000000010000004                msTicks
+ .bss.i.0       0x0000000010000008        0x4 ./src/systick_main.o
+ *(COMMON)
+                0x000000001000000c                . = ALIGN (0x4)
+                0x000000001000000c                _ebss = .
+                [!provide]                        PROVIDE (__end_bss_RAM = .)
+                [!provide]                        PROVIDE (__end_bss_RamLoc32 = .)
+                [!provide]                        PROVIDE (end = .)
+
+.noinit_RAM2    0x000000002007c000        0x0
+                [!provide]                        PROVIDE (__start_noinit_RAM2 = .)
+                [!provide]                        PROVIDE (__start_noinit_RamAHB32 = .)
+ *(.noinit.$RAM2)
+ *(.noinit.$RamAHB32)
+ *(.noinit.$RAM2.*)
+ *(.noinit.$RamAHB32.*)
+                0x000000002007c000                . = ALIGN (0x4)
+                [!provide]                        PROVIDE (__end_noinit_RAM2 = .)
+                [!provide]                        PROVIDE (__end_noinit_RamAHB32 = .)
+
+.noinit         0x000000001000000c        0x0
+                0x000000001000000c                _noinit = .
+                [!provide]                        PROVIDE (__start_noinit_RAM = .)
+                [!provide]                        PROVIDE (__start_noinit_RamLoc32 = .)
+ *(.noinit*)
+                0x000000001000000c                . = ALIGN (0x4)
+                0x000000001000000c                _end_noinit = .
+                [!provide]                        PROVIDE (__end_noinit_RAM = .)
+                [!provide]                        PROVIDE (__end_noinit_RamLoc32 = .)
+                [!provide]                        PROVIDE (_pvHeapStart = DEFINED (__user_heap_base)?__user_heap_base:.)
+                0x0000000010008000                PROVIDE (_vStackTop = DEFINED (__user_stack_top)?__user_stack_top:(__top_RamLoc32 - 0x0))
+                [!provide]                        PROVIDE (__valid_user_code_checksum = (0x0 - ((((((_vStackTop + (ResetISR + 0x1)) + (NMI_Handler + 0x1)) + (HardFault_Handler + 0x1)) + (DEFINED (MemManage_Handler)?MemManage_Handler:0x0 + 0x1)) + (DEFINED (BusFault_Handler)?BusFault_Handler:0x0 + 0x1)) + (DEFINED (UsageFault_Handler)?UsageFault_Handler:0x0 + 0x1))))
+                0x0000000000000000                _image_start = LOADADDR (.text)
+                0x0000000000000584                _image_end = (LOADADDR (.data) + SIZEOF (.data))
+                0x0000000000000584                _image_size = (_image_end - _image_start)
+OUTPUT(LPCX176x_cmsis2_systick.axf elf32-littlearm)
+LOAD linker stubs
+
+.debug_info     0x0000000000000000     0x11b1
+ .debug_info    0x0000000000000000      0x344 ./src/cr_startup_lpc176x.o
+ .debug_info    0x0000000000000344      0x56c ./src/leds.o
+ .debug_info    0x00000000000008b0      0x5ba ./src/systick_main.o
+ .debug_info    0x0000000000000e6a      0x347 /media/cliff/Desk/UNC/3digital/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+
+.debug_abbrev   0x0000000000000000      0x571
+ .debug_abbrev  0x0000000000000000      0x16c ./src/cr_startup_lpc176x.o
+ .debug_abbrev  0x000000000000016c       0xea ./src/leds.o
+ .debug_abbrev  0x0000000000000256      0x20d ./src/systick_main.o
+ .debug_abbrev  0x0000000000000463      0x10e /media/cliff/Desk/UNC/3digital/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+
+.debug_loc      0x0000000000000000      0x16a
+ .debug_loc     0x0000000000000000      0x16a ./src/cr_startup_lpc176x.o
+
+.debug_aranges  0x0000000000000000      0x120
+ .debug_aranges
+                0x0000000000000000       0x80 ./src/cr_startup_lpc176x.o
+ .debug_aranges
+                0x0000000000000080       0x38 ./src/leds.o
+ .debug_aranges
+                0x00000000000000b8       0x40 ./src/systick_main.o
+ .debug_aranges
+                0x00000000000000f8       0x28 /media/cliff/Desk/UNC/3digital/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+
+.debug_ranges   0x0000000000000000       0xe0
+ .debug_ranges  0x0000000000000000       0x70 ./src/cr_startup_lpc176x.o
+ .debug_ranges  0x0000000000000070       0x28 ./src/leds.o
+ .debug_ranges  0x0000000000000098       0x30 ./src/systick_main.o
+ .debug_ranges  0x00000000000000c8       0x18 /media/cliff/Desk/UNC/3digital/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+
+.debug_macro    0x0000000000000000     0x347a
+ .debug_macro   0x0000000000000000       0x52 ./src/cr_startup_lpc176x.o
+ .debug_macro   0x0000000000000052      0xa7e ./src/cr_startup_lpc176x.o
+ .debug_macro   0x0000000000000ad0       0x10 ./src/cr_startup_lpc176x.o
+ .debug_macro   0x0000000000000ae0      0x12e ./src/cr_startup_lpc176x.o
+ .debug_macro   0x0000000000000c0e      0x5b3 ./src/cr_startup_lpc176x.o
+ .debug_macro   0x00000000000011c1       0x7f ./src/leds.o
+ .debug_macro   0x0000000000001240      0xa78 ./src/leds.o
+ .debug_macro   0x0000000000001cb8       0x1c ./src/leds.o
+ .debug_macro   0x0000000000001cd4       0x2e ./src/leds.o
+ .debug_macro   0x0000000000001d02       0x18 ./src/leds.o
+ .debug_macro   0x0000000000001d1a      0x7af ./src/leds.o
+ .debug_macro   0x00000000000024c9      0x2c7 ./src/leds.o
+ .debug_macro   0x0000000000002790       0x91 ./src/systick_main.o
+ .debug_macro   0x0000000000002821       0x82 ./src/systick_main.o
+ .debug_macro   0x00000000000028a3       0x34 ./src/systick_main.o
+ .debug_macro   0x00000000000028d7      0x12b /media/cliff/Desk/UNC/3digital/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+ .debug_macro   0x0000000000002a02      0xa78 /media/cliff/Desk/UNC/3digital/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+
+.debug_line     0x0000000000000000      0xece
+ .debug_line    0x0000000000000000      0x3fa ./src/cr_startup_lpc176x.o
+ .debug_line    0x00000000000003fa      0x27e ./src/leds.o
+ .debug_line    0x0000000000000678      0x41a ./src/systick_main.o
+ .debug_line    0x0000000000000a92      0x43c /media/cliff/Desk/UNC/3digital/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+
+.debug_str      0x0000000000000000     0x95ea
+ .debug_str     0x0000000000000000     0x4511 ./src/cr_startup_lpc176x.o
+                                       0x4590 (size before relaxing)
+ .debug_str     0x0000000000004511     0x4436 ./src/leds.o
+                                       0x86ff (size before relaxing)
+ .debug_str     0x0000000000008947      0x867 ./src/systick_main.o
+                                       0x8d02 (size before relaxing)
+ .debug_str     0x00000000000091ae      0x43c /media/cliff/Desk/UNC/3digital/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+                                       0x88a4 (size before relaxing)
+
+.comment        0x0000000000000000       0x4d
+ .comment       0x0000000000000000       0x4d ./src/cr_startup_lpc176x.o
+                                         0x4e (size before relaxing)
+ .comment       0x000000000000004d       0x4e ./src/leds.o
+ .comment       0x000000000000004d       0x4e ./src/systick_main.o
+ .comment       0x000000000000004d       0x4e /media/cliff/Desk/UNC/3digital/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+ .comment       0x000000000000004d       0x4e /usr/local/mcuxpressoide-11.4.0_6237/ide/plugins/com.nxp.mcuxpresso.tools.linux_11.4.0.202103011116/tools/bin/../lib/gcc/arm-none-eabi/10.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libcr_c.a(__weak__main.o)
+
+.ARM.attributes
+                0x0000000000000000       0x2b
+ .ARM.attributes
+                0x0000000000000000       0x2d ./src/cr_startup_lpc176x.o
+ .ARM.attributes
+                0x000000000000002d       0x2d ./src/leds.o
+ .ARM.attributes
+                0x000000000000005a       0x2d ./src/systick_main.o
+ .ARM.attributes
+                0x0000000000000087       0x2d /media/cliff/Desk/UNC/3digital/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+ .ARM.attributes
+                0x00000000000000b4       0x2d /usr/local/mcuxpressoide-11.4.0_6237/ide/plugins/com.nxp.mcuxpresso.tools.linux_11.4.0.202103011116/tools/bin/../lib/gcc/arm-none-eabi/10.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libcr_c.a(__weak__main.o)
+
+.debug_frame    0x0000000000000000      0x288
+ .debug_frame   0x0000000000000000       0xf4 ./src/cr_startup_lpc176x.o
+ .debug_frame   0x00000000000000f4       0x98 ./src/leds.o
+ .debug_frame   0x000000000000018c       0xc0 ./src/systick_main.o
+ .debug_frame   0x000000000000024c       0x3c /media/cliff/Desk/UNC/3digital/wkspc/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
