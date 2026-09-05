@@ -5,6 +5,10 @@ class decoder_corrector_model#(NB_WORD, NB_CODEWORD) extends uvm_object;
         super.new(name);
     endfunction
 
+    // todo change NB_WORD
+    typedef bit [NB_WORD                -1:0] data_t;
+    typedef bit [NB_CODEWORD-NB_WORD    -1:0] syndrome_t;
+
     //         | 1 1 0 |
     //         | 0 1 1 |
     //         | 1 1 1 |
@@ -12,7 +16,7 @@ class decoder_corrector_model#(NB_WORD, NB_CODEWORD) extends uvm_object;
     //         | 1 0 0 |
     //         | 0 1 0 |
     //         | 0 0 1 |
-    bit [NB_CODEWORD-NB_WORD-1:0] HT [NB_CODEWORD] = '{
+    syndrome_t HT [NB_CODEWORD] = '{
         'b110   ,
         'b011   ,
         'b111   ,
@@ -22,14 +26,14 @@ class decoder_corrector_model#(NB_WORD, NB_CODEWORD) extends uvm_object;
         'b001   
     };
 
-    function void get_output(bit [NB_WORD-1:0] input_data, bit [NB_CODEWORD-NB_WORD-1:0] syndrome, ref bit [NB_WORD-1:0] output_data, ref bit corrected);
+    function void get_output(data_t input_data, syndrome_t syndrome, ref data_t output_data, ref bit corrected);
         output_data = '0;
         corrected   = '0;
         
         error_correction(input_data, syndrome, output_data, corrected);
     endfunction
 
-    function void error_correction(bit [NB_WORD-1:0] input_data, bit [NB_CODEWORD-NB_WORD-1:0] syndrome, ref bit [NB_WORD-1:0] output_data, ref bit corrected);
+    function void error_correction(data_t input_data, syndrome_t syndrome, ref data_t output_data, ref bit corrected);
         bit [0:NB_WORD-1]   u_data;
         int                 error_position [$];
 

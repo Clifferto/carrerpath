@@ -9,7 +9,7 @@ package tb_pkg;
     parameter   NB_CODEWORD = 7 ;
 
     `include "dut_model.svh"
-    typedef decoder_corrector_model#(NB_WORD, NB_CODEWORD) dut_model_t;
+    typedef decoder_model#(NB_WORD, NB_CODEWORD) dut_model_t;
 
     `include "sequences/seq_item.svh"
     `include "sequences/seq_lib.svh"

@@ -2,23 +2,25 @@
 
 module decoder_corrector
 #(
-    parameter                                       NB_WORD         = 4 ,
-    parameter                                       NB_CODEWORD     = 7 
+    parameter                               NB_WORD         = 4 ,
+    parameter                               NB_CODEWORD     = 7 
 )(
-    output  logic   [NB_WORD                -1:0]   o_data              ,
-    output  logic                                   o_corrected         ,
-    output  logic                                   o_valid             ,
-    input   logic   [NB_CODEWORD-NB_WORD    -1:0]   i_syndrome          ,
-    input   logic   [NB_CODEWORD            -1:0]   i_data              ,
-    input   logic                                   i_no_error_detected ,
-    input   logic                                   i_valid             ,
-    input   logic                                   i_reset             ,
-    input   logic                                   i_clock             
+    output  logic   [NB_WORD        -1:0]   o_data              ,
+    output  logic                           o_corrected         ,
+    output  logic                           o_valid             ,
+    input   logic   [NB_WORD        -1:0]   i_data              ,
+    input   logic   [NB_CODEWORD    -1:0]   i_error_pattern     ,
+    input   logic                           i_valid             ,
+    input   logic                           i_reset             ,
+    input   logic                           i_clock             
 );
     // LOCALPARAM/VARIABLES
-    logic   [NB_WORD                -1:0]   error_pattern   ;
-    logic   [NB_WORD                -1:0]   u_data          ;
-    logic                                   corrected       ;
+
+    // i_data  --->        [reg] --->  encoder [reg]   ---> (+) --->   decoder [reg]   --->    o_data
+    // i_valid                                               ^                                 o_valid
+    //                                                       |
+    //                                                       |
+    // i_error_pattern --> [reg] ------------- [reg] --------|
 
     //         | 1 1 0 |
     //         | 0 1 1 |
@@ -49,7 +51,7 @@ module decoder_corrector
         corrected   = 1'b0;
 
         if (i_valid) begin
-            u_data  = i_data[NB_CODEWORD-1-:NB_WORD];
+            u_data  = i_data;
 
             if (!i_no_error_detected) begin
                 u_data      ^= error_pattern;
