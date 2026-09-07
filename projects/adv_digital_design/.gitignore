@@ -7,3 +7,5 @@ xsim.*
 *.jou
 *.log
 sr_muxVioIla
+*.runs
+*.gen

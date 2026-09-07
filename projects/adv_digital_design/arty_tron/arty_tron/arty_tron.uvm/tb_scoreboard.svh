@@ -17,7 +17,7 @@ class tb_scoreboard extends uvm_scoreboard;
     endfunction
 
     virtual function write(seq_item item);
-        item.print();
+        // item.print();
     endfunction
     
 endclass

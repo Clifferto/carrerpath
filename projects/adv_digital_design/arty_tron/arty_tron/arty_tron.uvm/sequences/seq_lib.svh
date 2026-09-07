@@ -12,7 +12,7 @@ class switch_count_sequence extends uvm_sequence;
             start_item(item_s);
             {item_s.switch_led_g_b, item_s.switch_limit, item_s.switch_enable} = i;
             finish_item(item_s);
-            #(WAIT*PERIOD);
+            #(WAIT_CYCLES*PERIOD);
         end
     endtask
 endclass

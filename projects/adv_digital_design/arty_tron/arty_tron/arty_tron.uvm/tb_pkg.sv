@@ -9,7 +9,7 @@ package tb_pkg;
     parameter   NB_SWITCH   = 4;
     parameter   NB_COUNTER  = 11;
     parameter   PERIOD      = 10;
-    parameter   WAIT        = (2**(NB_COUNTER-4)-1);
+    parameter   WAIT_CYCLES = 2**(NB_COUNTER-4)-1;
     
     `include "sequences/seq_item.svh"
     `include "sequences/seq_lib.svh"

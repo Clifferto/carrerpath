@@ -4,7 +4,7 @@ module arty_tron
 #(
     parameter                           NB_LED      = 4     ,
     parameter                           NB_SWITCH   = 4     ,
-    parameter                           NB_COUNTER  = 12    
+    parameter                           NB_COUNTER  = 32    
 )(
     output  logic   [NB_LED     -1:0]   o_led               ,
     output  logic   [NB_LED     -1:0]   o_led_g             ,
