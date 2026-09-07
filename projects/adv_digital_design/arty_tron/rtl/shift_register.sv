@@ -10,43 +10,21 @@ module shift_register
     input   logic                       i_clock         
 );
     // LOCALPARAM/VARIABLES
-    logic [0:NB_CODEWORD            -1  ]   r_data      ;
-    logic [0:NB_CODEWORD-NB_WORD    -1  ]   syndrome    ;
+    logic [NB_LED   -1:0]   shift_reg       ;
+    logic [NB_LED   -1:0]   shift_reg_next  ;
 
-    // BIT INDEX RENAME
-    // r_data == [r0 r1 r2 r3 r4 r5 r6] == [d6 d5 d4 d3 d2 d1 d0]
-    assign r_data = i_data;
+    assign shift_reg_next   = {shift_reg[NB_LED-1  -1:0], shift_reg[NB_LED-1]}  ;
 
-    //      | 1 0 1 1 1 0 0 |
-    // H =  | 1 1 1 0 0 1 0 |
-    //      | 0 1 1 1 0 0 1 |
-    // 
-    //         | 1 1 0 |
-    //         | 0 1 1 |
-    //         | 1 1 1 |
-    // H^T =   | 1 0 1 |
-    //         | 1 0 0 |
-    //         | 0 1 0 |
-    //         | 0 0 1 |
-    // 
-    // s (syndrome) = r (received) * HT (parity check matrix)
-    // s    = [s0 s1 s2]
-    // s0   = r0 + r2 + r3 + r4
-    // s1   = r0 + r1 + r2 + r5
-    // s2   = r1 + r2 + r3 + r6
-    always_comb begin
-        syndrome = '0;
-        
-        if (i_valid) begin
-            syndrome[0] = r_data[0] ^ r_data[2] ^ r_data[3] ^ r_data[4] ;
-            syndrome[1] = r_data[0] ^ r_data[1] ^ r_data[2] ^ r_data[5] ;
-            syndrome[2] = r_data[1] ^ r_data[2] ^ r_data[3] ^ r_data[6] ;
+    always_ff @(posedge i_clock) begin
+        if (i_reset) begin
+            shift_reg   <= 'b1              ;
+        end
+        else if (i_valid) begin
+            shift_reg   <=  shift_reg_next  ;
         end
     end
 
     // OUTPUT ASSIGNATION
-    assign  o_syndrome          = syndrome      ;
-    assign  o_no_error_detected = ~|syndrome    ;
-    assign  o_valid             = i_valid       ;
+    assign o_led    = shift_reg ;
 
 endmodule

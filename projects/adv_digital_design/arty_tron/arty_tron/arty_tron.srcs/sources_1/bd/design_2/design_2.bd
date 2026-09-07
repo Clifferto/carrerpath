@@ -1,0 +1,113 @@
+{
+  "design": {
+    "design_info": {
+      "boundary_crc": "0x955D6DF9E2F37188",
+      "device": "xc7a35ticsg324-1L",
+      "gen_directory": "../../../../arty_tron.gen/sources_1/bd/design_2",
+      "name": "design_2",
+      "rev_ctrl_bd_flag": "RevCtrlBdOff",
+      "synth_flow_mode": "Hierarchical",
+      "tool_version": "2025.2",
+      "validated": "true"
+    },
+    "design_tree": {
+      "ila_0": ""
+    },
+    "ports": {
+      "clk_0": {
+        "type": "clk",
+        "direction": "I",
+        "parameters": {
+          "CLK_DOMAIN": {
+            "value": "design_2_clk_0",
+            "value_src": "default"
+          },
+          "FREQ_HZ": {
+            "value": "100000000",
+            "value_src": "default"
+          },
+          "FREQ_TOLERANCE_HZ": {
+            "value": "0",
+            "value_src": "default"
+          },
+          "INSERT_VIP": {
+            "value": "0",
+            "value_src": "default"
+          },
+          "PHASE": {
+            "value": "0.0",
+            "value_src": "default"
+          }
+        }
+      },
+      "probe0_0": {
+        "direction": "I",
+        "left": "3",
+        "right": "0"
+      },
+      "probe1_0": {
+        "direction": "I",
+        "left": "3",
+        "right": "0"
+      },
+      "probe2_0": {
+        "direction": "I",
+        "left": "3",
+        "right": "0"
+      }
+    },
+    "components": {
+      "ila_0": {
+        "vlnv": "xilinx.com:ip:ila:6.2",
+        "ip_revision": "19",
+        "xci_name": "design_2_ila_0_0",
+        "xci_path": "ip/design_2_ila_0_0/design_2_ila_0_0.xci",
+        "inst_hier_path": "ila_0",
+        "has_run_ip_tcl": "true",
+        "parameters": {
+          "C_MONITOR_TYPE": {
+            "value": "Native"
+          },
+          "C_NUM_OF_PROBES": {
+            "value": "3"
+          },
+          "C_PROBE0_WIDTH": {
+            "value": "4"
+          },
+          "C_PROBE1_WIDTH": {
+            "value": "4"
+          },
+          "C_PROBE2_WIDTH": {
+            "value": "4"
+          }
+        }
+      }
+    },
+    "nets": {
+      "clk_0_1": {
+        "ports": [
+          "clk_0",
+          "ila_0/clk"
+        ]
+      },
+      "probe0_0_1": {
+        "ports": [
+          "probe0_0",
+          "ila_0/probe0"
+        ]
+      },
+      "probe1_0_1": {
+        "ports": [
+          "probe1_0",
+          "ila_0/probe1"
+        ]
+      },
+      "probe2_0_1": {
+        "ports": [
+          "probe2_0",
+          "ila_0/probe2"
+        ]
+      }
+    }
+  }
+}

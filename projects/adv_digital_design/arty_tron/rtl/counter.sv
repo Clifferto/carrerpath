@@ -2,51 +2,57 @@
 
 module counter
 #(
-    parameter                           NB_SWITCH   = 4 
+    parameter                           NB_SWITCH   = 3     , 
+    parameter                           NB_COUNTER  = 32    
 )(
-    output  logic                       o_valid         ,
-    input   logic   [NB_SWITCH  -1:0]   i_switch        ,
-    input   logic                       i_reset         ,
-    input   logic                       i_clock         
+    output  logic                       o_valid             ,
+    input   logic   [NB_SWITCH  -1:0]   i_switch            ,
+    input   logic                       i_reset             ,
+    input   logic                       i_clock             
 );
     // LOCALPARAM/VARIABLES
-    logic [0:NB_CODEWORD            -1  ]   r_data      ;
-    logic [0:NB_CODEWORD-NB_WORD    -1  ]   syndrome    ;
+    localparam                          R0                  = 2**(NB_COUNTER-10 )-1 ;
+    localparam                          R1                  = 2**(NB_COUNTER-9  )-1 ;
+    localparam                          R2                  = 2**(NB_COUNTER-8  )-1 ;
+    localparam                          R3                  = 2**(NB_COUNTER-7  )-1 ;
+    logic       [NB_COUNTER     -1:0]   limit                                       ;
+    logic       [NB_COUNTER     -1:0]   counter                                     ;
+    logic       [NB_COUNTER     -1:0]   counter_next                                ;
+    logic       [NB_SWITCH-1    -1:0]   limit_control                               ;
+    logic                               enable                                      ;
+    logic                               clear                                       ;
+    logic                               counter_done                                ;
+    logic                               counter_done_next                           ;
 
-    // BIT INDEX RENAME
-    // r_data == [r0 r1 r2 r3 r4 r5 r6] == [d6 d5 d4 d3 d2 d1 d0]
-    assign r_data = i_data;
+    assign {limit_control, enable}  = i_switch  ;
 
-    //      | 1 0 1 1 1 0 0 |
-    // H =  | 1 1 1 0 0 1 0 |
-    //      | 0 1 1 1 0 0 1 |
-    // 
-    //         | 1 1 0 |
-    //         | 0 1 1 |
-    //         | 1 1 1 |
-    // H^T =   | 1 0 1 |
-    //         | 1 0 0 |
-    //         | 0 1 0 |
-    //         | 0 0 1 |
-    // 
-    // s (syndrome) = r (received) * HT (parity check matrix)
-    // s    = [s0 s1 s2]
-    // s0   = r0 + r2 + r3 + r4
-    // s1   = r0 + r1 + r2 + r5
-    // s2   = r1 + r2 + r3 + r6
     always_comb begin
-        syndrome = '0;
-        
-        if (i_valid) begin
-            syndrome[0] = r_data[0] ^ r_data[2] ^ r_data[3] ^ r_data[4] ;
-            syndrome[1] = r_data[0] ^ r_data[1] ^ r_data[2] ^ r_data[5] ;
-            syndrome[2] = r_data[1] ^ r_data[2] ^ r_data[3] ^ r_data[6] ;
+        case (limit_control)
+            'd0:    limit   = R0    ;
+            'd1:    limit   = R1    ;
+            'd2:    limit   = R2    ;
+            default: begin
+                limit   = R3    ;
+            end
+        endcase
+    end
+
+    assign clear                = i_reset | ~enable                         ;
+    assign counter_next         = (counter >= limit) ? '0   : counter + 'b1 ;
+    assign counter_done_next    = (counter >= limit) ? 'b1  : 'b0           ;
+
+    always_ff @(posedge i_clock) begin
+        if (clear) begin
+            counter         <= '0   ;
+            counter_done    <= 'b0  ;
+        end
+        else if (enable) begin
+            counter         <= counter_next         ;
+            counter_done    <= counter_done_next    ;
         end
     end
 
     // OUTPUT ASSIGNATION
-    assign  o_syndrome          = syndrome      ;
-    assign  o_no_error_detected = ~|syndrome    ;
-    assign  o_valid             = i_valid       ;
+    assign o_valid  = counter_done  ;
 
 endmodule
