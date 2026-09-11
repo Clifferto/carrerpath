@@ -26,13 +26,16 @@ class tb_driver extends uvm_driver#(seq_item);
                 
             seq_item_port.get_next_item(item);
             
+            // item.word = 7;
             for (int i=0; i<NB_WORD; ++i) begin
                 @(posedge vif.i_clock);
-                // vif.i_reset <= 0;
-                vif.i_word  <= (item.word >> i);
+                vif.i_reset <= 0;
+                vif.i_word  <= item.word << i;
             end
-            // @(posedge vif.i_clock);
-            // vif.i_reset <= 1;
+            @(posedge vif.i_clock);
+            vif.i_reset <= 1;
+            vif.i_word  <= 0;
+
             // item.print();
 
             seq_item_port.item_done();

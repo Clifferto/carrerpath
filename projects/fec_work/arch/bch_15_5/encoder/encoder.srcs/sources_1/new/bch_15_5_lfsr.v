@@ -10,8 +10,10 @@ module bch_15_5_lfsr
     input   logic                       i_clock             
 );
     // LOCALPARAM AND SIGNAL DEFINITIONS
+    // generator poly: g == 1 + x + x^2 + x^4 + x^5 + x^8 + x^10
     localparam  [NB_PARITY+1    -1:0]   GEN_POLY    = 'b101_0011_0111   ;
     logic       [NB_PARITY      -1:0]   remainder                       ;
+    logic       [NB_PARITY      -1:0]   parity                          ;
     logic                               feedback                        ;
 
     assign feedback = remainder[NB_PARITY-1] ^ i_bit    ;
@@ -35,7 +37,9 @@ module bch_15_5_lfsr
         end
     end
 
+    assign parity = {<<{remainder}};
+
     // OUTPUT PORT ASSIGNATION
-    assign o_parity = remainder;
+    assign o_parity = parity;
 
 endmodule

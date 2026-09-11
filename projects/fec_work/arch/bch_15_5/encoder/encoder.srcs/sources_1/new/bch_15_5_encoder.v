@@ -14,7 +14,7 @@ module bch_15_5_encoder
     bch_15_5_lfsr #(
         .NB_PARITY ( 10 ))
     u_lfsr (
-        .i_bit      ( i_word[0]      ),
+        .i_bit      ( i_word[NB_WORD-1]      ),
         .i_reset    ( i_reset        ),
         .i_clock    ( i_clock       ),
         .o_parity   ( o_codeword   )

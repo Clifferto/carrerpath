@@ -14,15 +14,15 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="273.160 ns"></ZoomStartTime>
-      <ZoomEndTime time="385.161 ns"></ZoomEndTime>
-      <Cursor1Time time="305.560 ns"></Cursor1Time>
+      <ZoomStartTime time="41,068.053 ns"></ZoomStartTime>
+      <ZoomEndTime time="42,871.315 ns"></ZoomEndTime>
+      <Cursor1Time time="41,800.000 ns"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
-      <NameColumnWidth column_width="276"></NameColumnWidth>
-      <ValueColumnWidth column_width="116"></ValueColumnWidth>
+      <NameColumnWidth column_width="307"></NameColumnWidth>
+      <ValueColumnWidth column_width="125"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="5" />
+   <WVObjectSize size="7" />
    <wvobject type="logic" fp_name="/tb_top/vif/i_clock">
       <obj_property name="ElementShortName">i_clock</obj_property>
       <obj_property name="ObjectShortName">i_clock</obj_property>
@@ -45,5 +45,13 @@
       <obj_property name="ElementShortName">remainder[9:0]</obj_property>
       <obj_property name="ObjectShortName">remainder[9:0]</obj_property>
       <obj_property name="Radix">BINARYRADIX</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_top/dut/u_lfsr/i_bit">
+      <obj_property name="ElementShortName">i_bit</obj_property>
+      <obj_property name="ObjectShortName">i_bit</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_top/dut/u_lfsr/feedback">
+      <obj_property name="ElementShortName">feedback</obj_property>
+      <obj_property name="ObjectShortName">feedback</obj_property>
    </wvobject>
 </wave_config>
