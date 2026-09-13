@@ -14,15 +14,15 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="41,068.053 ns"></ZoomStartTime>
-      <ZoomEndTime time="42,871.315 ns"></ZoomEndTime>
-      <Cursor1Time time="41,800.000 ns"></Cursor1Time>
+      <ZoomStartTime time="1,470.000 ns"></ZoomStartTime>
+      <ZoomEndTime time="2,046.001 ns"></ZoomEndTime>
+      <Cursor1Time time="1,570.000 ns"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="307"></NameColumnWidth>
-      <ValueColumnWidth column_width="125"></ValueColumnWidth>
+      <ValueColumnWidth column_width="121"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="7" />
+   <WVObjectSize size="6" />
    <wvobject type="logic" fp_name="/tb_top/vif/i_clock">
       <obj_property name="ElementShortName">i_clock</obj_property>
       <obj_property name="ObjectShortName">i_clock</obj_property>
@@ -30,6 +30,10 @@
    <wvobject type="logic" fp_name="/tb_top/vif/i_reset">
       <obj_property name="ElementShortName">i_reset</obj_property>
       <obj_property name="ObjectShortName">i_reset</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_top/vif/i_valid">
+      <obj_property name="ElementShortName">i_valid</obj_property>
+      <obj_property name="ObjectShortName">i_valid</obj_property>
    </wvobject>
    <wvobject type="array" fp_name="/tb_top/vif/i_word">
       <obj_property name="ElementShortName">i_word[4:0]</obj_property>
@@ -41,17 +45,8 @@
       <obj_property name="ObjectShortName">o_codeword[14:0]</obj_property>
       <obj_property name="Radix">BINARYRADIX</obj_property>
    </wvobject>
-   <wvobject type="array" fp_name="/tb_top/dut/u_lfsr/remainder">
-      <obj_property name="ElementShortName">remainder[9:0]</obj_property>
-      <obj_property name="ObjectShortName">remainder[9:0]</obj_property>
-      <obj_property name="Radix">BINARYRADIX</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="/tb_top/dut/u_lfsr/i_bit">
-      <obj_property name="ElementShortName">i_bit</obj_property>
-      <obj_property name="ObjectShortName">i_bit</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="/tb_top/dut/u_lfsr/feedback">
-      <obj_property name="ElementShortName">feedback</obj_property>
-      <obj_property name="ObjectShortName">feedback</obj_property>
+   <wvobject type="logic" fp_name="/tb_top/vif/o_valid">
+      <obj_property name="ElementShortName">o_valid</obj_property>
+      <obj_property name="ObjectShortName">o_valid</obj_property>
    </wvobject>
 </wave_config>

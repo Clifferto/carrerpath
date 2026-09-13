@@ -14,17 +14,19 @@ module tb_top;
     // Instantiate the Interface and pass it to Design
     dut_if #()
     vif (
-        .i_clock    ( i_clock       )
+        .i_clock    ( i_clock   )
     );
 
     bch_15_5_encoder #(
-        .NB_WORD     ( NB_WORD  ),
-        .NB_CODEWORD ( NB_CODEWORD ))
+        .NB_WORD        ( NB_WORD           ),
+        .NB_CODEWORD    ( NB_CODEWORD       ))
     dut (
-        .i_word                  ( vif.i_word       ),
-        .i_reset                 ( vif.i_reset      ),
-        .i_clock                 ( vif.i_clock      ),
-        .o_codeword              ( vif.o_codeword   )
+        .i_word         ( vif.i_word        ),
+        .i_valid        ( vif.i_valid       ),
+        .i_reset        ( vif.i_reset       ),
+        .i_clock        ( vif.i_clock       ),
+        .o_codeword     ( vif.o_codeword    ),
+        .o_valid        ( vif.o_valid       )
     );
 
     initial begin

@@ -26,8 +26,10 @@ class tb_monitor extends uvm_monitor;
             seq_item item_m = seq_item::type_id::create("item_m", this);
 
             @(posedge vif.i_clock);
-            item_m.codeword     = vif.o_codeword;
-            item_m.word         = vif.i_word;
+            if (vif.o_valid) begin
+                item_m.codeword     = vif.o_codeword;
+                item_m.word         = vif.i_word;
+            end
             // item_m.print();
             
             mon_analysis_port.write(item_m);

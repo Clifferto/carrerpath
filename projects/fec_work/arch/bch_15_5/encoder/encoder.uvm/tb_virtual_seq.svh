@@ -9,17 +9,17 @@ class tb_virtual_seq extends uvm_sequence;
     endfunction
 
     uvm_sequencer#(seq_item)    sequencer;
-    full_one_zero_sequence      full_one_zero_seq;
+    bit_sweep_sequence          bit_sweep_seq;
     word_count_sequence         word_count_seq;
 
     task body();
-        full_one_zero_seq   = full_one_zero_sequence::type_id::create("full_one_zero_seq");
-        word_count_seq      = word_count_sequence::type_id::create("word_count_seq");
+        bit_sweep_seq   = bit_sweep_sequence::type_id::create("bit_sweep_seq");
+        word_count_seq  = word_count_sequence::type_id::create("word_count_seq");
         
-        // `uvm_info(get_name(), $sformatf("Lauching full_one_zero_sequence..."), UVM_NONE)
-        // repeat (10) full_one_zero_seq.start(sequencer);
+        `uvm_info(get_name(), $sformatf("Lauching bit_sweep_sequence..."), UVM_NONE)
+        repeat (5) bit_sweep_seq.start(sequencer);
         `uvm_info(get_name(), $sformatf("Lauching word_count_sequence..."), UVM_NONE)
-        repeat (10) word_count_seq.start(sequencer);
+        repeat (2) word_count_seq.start(sequencer);
     endtask
 
 endclass

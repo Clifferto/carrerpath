@@ -37,7 +37,9 @@ module bch_15_5_lfsr
         end
     end
 
-    assign parity = {<<{remainder}};
+    // parity == [p0 p1 p2 p3 p4 p5 p6 p7 p8 p9] == [r0 r1 r2 r3 r4 r5 r6 r7 r8 r9] 
+    assign parity = remainder;
+    // assign parity = {<<{remainder}};
 
     // OUTPUT PORT ASSIGNATION
     assign o_parity = parity;
