@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="tb_iir_filter_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="glbl" />
+            <top_module name="tb_iir_filter" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="782.848 ns"></ZoomStartTime>
+      <ZoomEndTime time="4,907.161 ns"></ZoomEndTime>
+      <Cursor1Time time="80,200.000 ns"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="276"></NameColumnWidth>
+      <ValueColumnWidth column_width="100"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="13" />
+   <wvobject type="array" fp_name="/tb_iir_filter/o_sample">
+      <obj_property name="ElementShortName">o_sample[8:0]</obj_property>
+      <obj_property name="ObjectShortName">o_sample[8:0]</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+      <obj_property name="WaveformStyle">STYLE_ANALOG</obj_property>
+      <obj_property name="CellHeight">100</obj_property>
+      <obj_property name="AnalogYRangeType">ANALOG_YRANGETYPE_AUTO</obj_property>
+      <obj_property name="AnalogYRangeMin">0.000000</obj_property>
+      <obj_property name="AnalogYRRangeMax">0.000000</obj_property>
+      <obj_property name="AnalogInterpolation">ANALOG_INTERPOLATION_HOLD</obj_property>
+      <obj_property name="AnalogOffscale">ANALOG_OFFSCALE_HIDE</obj_property>
+      <obj_property name="AnalogHorizLine">0.000000</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_iir_filter/i_sample">
+      <obj_property name="ElementShortName">i_sample[8:0]</obj_property>
+      <obj_property name="ObjectShortName">i_sample[8:0]</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+      <obj_property name="WaveformStyle">STYLE_ANALOG</obj_property>
+      <obj_property name="CellHeight">100</obj_property>
+      <obj_property name="AnalogYRangeType">ANALOG_YRANGETYPE_AUTO</obj_property>
+      <obj_property name="AnalogYRangeMin">0.000000</obj_property>
+      <obj_property name="AnalogYRRangeMax">0.000000</obj_property>
+      <obj_property name="AnalogInterpolation">ANALOG_INTERPOLATION_HOLD</obj_property>
+      <obj_property name="AnalogOffscale">ANALOG_OFFSCALE_HIDE</obj_property>
+      <obj_property name="AnalogHorizLine">0.000000</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_iir_filter/i_reset">
+      <obj_property name="ElementShortName">i_reset</obj_property>
+      <obj_property name="ObjectShortName">i_reset</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_iir_filter/clock">
+      <obj_property name="ElementShortName">clock</obj_property>
+      <obj_property name="ObjectShortName">clock</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_iir_filter/reset">
+      <obj_property name="ElementShortName">reset</obj_property>
+      <obj_property name="ObjectShortName">reset</obj_property>
+   </wvobject>
+   <wvobject type="other" fp_name="/tb_iir_filter/i">
+      <obj_property name="ElementShortName">i</obj_property>
+      <obj_property name="ObjectShortName">i</obj_property>
+   </wvobject>
+   <wvobject type="other" fp_name="/tb_iir_filter/sinValue">
+      <obj_property name="ElementShortName">sinValue</obj_property>
+      <obj_property name="ObjectShortName">sinValue</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_iir_filter/dataFp">
+      <obj_property name="ElementShortName">dataFp[8:0]</obj_property>
+      <obj_property name="ObjectShortName">dataFp[8:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_iir_filter/NB_SAMPLE">
+      <obj_property name="ElementShortName">NB_SAMPLE[31:0]</obj_property>
+      <obj_property name="ObjectShortName">NB_SAMPLE[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_iir_filter/NBF_SAMPLE">
+      <obj_property name="ElementShortName">NBF_SAMPLE[31:0]</obj_property>
+      <obj_property name="ObjectShortName">NBF_SAMPLE[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_iir_filter/NB_COEFF">
+      <obj_property name="ElementShortName">NB_COEFF[31:0]</obj_property>
+      <obj_property name="ObjectShortName">NB_COEFF[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_iir_filter/NBF_COEFF">
+      <obj_property name="ElementShortName">NBF_COEFF[31:0]</obj_property>
+      <obj_property name="ObjectShortName">NBF_COEFF[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_iir_filter/N_COEFFS">
+      <obj_property name="ElementShortName">N_COEFFS[31:0]</obj_property>
+      <obj_property name="ObjectShortName">N_COEFFS[31:0]</obj_property>
+   </wvobject>
+</wave_config>
