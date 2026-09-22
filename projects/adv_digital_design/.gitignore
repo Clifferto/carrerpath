@@ -1,3 +1,4 @@
+__pycache__
 # Vivado related
 *.cache
 *.hw
@@ -9,3 +10,4 @@ xsim.*
 sr_muxVioIla
 *.runs
 *.gen
+ipynb_checkpoints
