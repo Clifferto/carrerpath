@@ -4,7 +4,6 @@ import gui
 
 from collections import deque
 
-
 from pyqtgraph.Qt import QtCore
 from pyqtgraph.Qt import QtWidgets
 import numpy as np
@@ -135,5 +134,6 @@ signal_gen = signal + noise
 ## Start Qt event loop unless running in interactive mode or using pyside.
 if __name__ == '__main__':
     import sys
+    
     if (sys.flags.interactive != 1) or not hasattr(QtCore, 'PYQT_VERSION'):
         QtWidgets.QApplication.instance().exec_()
