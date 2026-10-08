@@ -118,7 +118,7 @@ class GaloisPoly:
 # =======================================================================================
 # =======================================================================================
     def _remove_lead_zeros(self, p):
-        # manage zero poly, p pass as is
+        # manage zero poly, pass as p = [ELEMENT_ZERO]
         if np.all(np.array(p) == ELEMENT_ZERO):
             self._zero_poly = True
             first_non_zero  = -1
@@ -128,12 +128,10 @@ class GaloisPoly:
             for k, ak in enumerate(p):
                 if ak == ELEMENT_ZERO:
                     continue
-                elif ak != p[-1]:
+                else:
                     first_non_zero = k
                     break
-            p = p[first_non_zero:]
-
-        return p
+        return p[first_non_zero:]
         
     def _get_poly_degree(self, p):
         if np.all(np.array(p) == ELEMENT_ZERO):
@@ -212,22 +210,22 @@ class GaloisPoly:
         diff = self._get_poly_degree(f) - self._get_poly_degree(g)
         if diff < 0:
             raise ValueError("ArithmeticError: Degree of f must >= to degree of g")
+        else:
+            step    = f
+            q       = None
+            while diff >= 0:
+                # compute new term of q for this step
+                ak      = self._gf.div(step[0], g[0])[ID_POWER]
+                q_term  = [ak] + diff*[ELEMENT_ZERO]
+                q       = q_term if q is None else self._add_poly(q, q_term)
+                # compute next step to divide
+                to_add  = self._mul_poly(q_term, g)
+                step    = self._add_poly(to_add, step)
+                # remove leading zeros
+                while len(step) > 1 and step[0] == ELEMENT_ZERO:
+                    step.pop(0)
 
-        step    = f
-        q       = None
-        for i in range(diff + 1):
-            # compute new term of q for this step
-            ak      = self._gf.div(step[0], g[0])[ID_POWER]
-            q_term  = [ak] + diff*[ELEMENT_ZERO]
-            q       = q_term if q is None else self._add_poly(q, q_term)
-            # compute next step to divide
-            to_add  = self._mul_poly(q_term, g)
-            step    = self._add_poly(to_add, step)
-            # remove leading zeros
-            while len(step) > 1 and step[0] == ELEMENT_ZERO:
-                step.pop(0)
-
-            diff = self._get_poly_degree(step) - self._get_poly_degree(g)
+                diff = self._get_poly_degree(step) - self._get_poly_degree(g)
 
         r = step
 
