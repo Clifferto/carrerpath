@@ -1,3 +1,5 @@
+`include "dut_if.sv"
+`include "python_if.sv"
 
 module tb_top;
     // Used classes must be imported inside a package
@@ -29,8 +31,11 @@ module tb_top;
         .o_valid        ( vif.o_valid       )
     );
 
+    python_if pyvif();
+
     initial begin
-        uvm_config_db#(virtual dut_if)::set (null, "uvm_test_top", "vif", vif);
+        uvm_config_db#(virtual dut_if)::set(null, "*", "vif", vif);
+        uvm_config_db#(virtual python_if)::set(null, "*", "model", pyvif);
         run_test ("tb_test");
     end
 

@@ -16,6 +16,7 @@ class tb_monitor extends uvm_monitor;
         super.build_phase(phase);
         if (!uvm_config_db#(virtual dut_if)::get(this, "", "vif", vif))
             `uvm_fatal("MON", "Could not get vif")
+            
         mon_analysis_port = new("mon_analysis_port", this);
     endfunction
 
@@ -23,16 +24,20 @@ class tb_monitor extends uvm_monitor;
         super.run_phase(phase);
         
         forever begin
-            seq_item item_m = seq_item::type_id::create("item_m", this);
+            seq_item item = seq_item::type_id::create("item", this);
+
+            if (vif.i_reset) begin
+                continue;
+            end
 
             @(posedge vif.i_clock);
             if (vif.o_valid) begin
-                item_m.codeword     = vif.o_codeword;
-                item_m.word         = vif.i_word;
+                item.word         = vif.i_word;
+                item.codeword     = vif.o_codeword;
             end
-            // item_m.print();
+            // item.print();
             
-            mon_analysis_port.write(item_m);
+            mon_analysis_port.write(item);
         end
     endtask
 

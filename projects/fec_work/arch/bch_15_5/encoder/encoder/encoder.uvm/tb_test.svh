@@ -33,11 +33,12 @@ class tb_test extends uvm_test;
         vseq.sequencer  = env.agent.sequencer;
 
         `uvm_info("TEST", $sformatf("Reseting DUT"), UVM_LOW)
-        vif.i_word  = '0    ;
-        vif.i_valid = 0     ;
-        vif.i_reset = 1     ;
+        vif.i_word  <= '0;
+        vif.i_valid <= 0;
+        vif.i_reset <= 1;
+        
         repeat(2) @(posedge vif.i_clock);
-        vif.i_reset = 0     ;
+        vif.i_reset = 0;
         vseq.start(null);
         repeat(2) @(posedge vif.i_clock);
 

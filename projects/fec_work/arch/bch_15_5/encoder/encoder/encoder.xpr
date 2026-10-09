@@ -4,7 +4,7 @@
 <!-- Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.                   -->
 <!-- Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.   -->
 
-<Project Product="Vivado" Version="7" Minor="71" Path="/home/clifferto/Documents/carrerpath/projects/fec_work/arch/bch_15_5/encoder/encoder.xpr">
+<Project Product="Vivado" Version="7" Minor="71" Path="/home/clifferto/Documents/carrerpath/projects/fec_work/arch/bch_15_5/encoder/encoder/encoder.xpr">
   <DefaultLaunch Dir="$PRUNDIR"/>
   <Configuration>
     <Option Name="Id" Val="ea012577a91f4dd7b6d795cbe8d00eb2"/>
@@ -44,7 +44,7 @@
     <Option Name="SimulatorGccVersionRiviera" Val="9.3.0"/>
     <Option Name="SimulatorGccVersionActiveHdl" Val="9.3.0"/>
     <Option Name="BoardPart" Val="digilentinc.com:arty-a7-35:part0:1.1"/>
-    <Option Name="BoardPartRepoPaths" Val="$PPRDIR/../../../../../../../.Xilinx/Vivado/2025.2/xhub/board_store/xilinx_board_store"/>
+    <Option Name="BoardPartRepoPaths" Val="$PPRDIR/../../../../../../../../.Xilinx/Vivado/2025.2/xhub/board_store/xilinx_board_store"/>
     <Option Name="ActiveSimSet" Val="sim_1"/>
     <Option Name="DefaultLib" Val="xil_defaultlib"/>
     <Option Name="ProjectType" Val="Default"/>
@@ -60,7 +60,7 @@
     <Option Name="IPStaticSourceDir" Val="$PIPUSERFILESDIR/ipstatic"/>
     <Option Name="EnableBDX" Val="FALSE"/>
     <Option Name="DSABoardId" Val="arty-a7-35"/>
-    <Option Name="WTXSimLaunchSim" Val="64"/>
+    <Option Name="WTXSimLaunchSim" Val="70"/>
     <Option Name="WTModelSimLaunchSim" Val="0"/>
     <Option Name="WTQuestaLaunchSim" Val="0"/>
     <Option Name="WTIesLaunchSim" Val="0"/>
@@ -130,14 +130,12 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/encoder.uvm/tb_pkg.sv">
+      <File Path="$PPRDIR/../model/encoder_dpic.c">
         <FileInfo>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/encoder.uvm/dut_if.sv">
+      <File Path="$PPRDIR/encoder.uvm/tb_pkg.sv">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
@@ -177,6 +175,7 @@
         <Option Name="LogicalNoCTop" Val=""/>
         <Option Name="LogicalNoCTopLib" Val=""/>
         <Option Name="Dmv" Val=""/>
+        <Option Name="xsim.compile.xsc.more_options" Val="--gcc_compile_options &quot;-I/usr/include/python3.14&quot;"/>
         <Option Name="xsim.compile.xvlog.more_options" Val="-L uvm"/>
         <Option Name="xsim.elaborate.xelab.more_options" Val="-L uvm"/>
       </Config>

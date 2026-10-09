@@ -7,11 +7,11 @@ class word_count_sequence extends uvm_sequence;
 
     virtual task body();
         for (int i = 0; i < 2**NB_WORD; i++) begin
-            seq_item item_s   = seq_item::type_id::create("item_s");
+            seq_item item = seq_item::type_id::create("item");
 
-            start_item(item_s);
-            item_s.word         = i;
-            finish_item(item_s);
+            start_item(item);
+            item.word = i;
+            finish_item(item);
         end
     endtask
 endclass
@@ -25,12 +25,12 @@ class bit_sweep_sequence extends uvm_sequence;
 
     virtual task body();
         for (int i = 0; i < NB_WORD; i++) begin
-            seq_item item_s   = seq_item::type_id::create("item_s");
+            seq_item item = seq_item::type_id::create("item");
 
-            start_item(item_s);
-            item_s.word = 1;
-            item_s.word <<= i;
-            finish_item(item_s);
+            start_item(item);
+            item.word = 1;
+            item.word <<= i;
+            finish_item(item);
         end
     endtask
 endclass
