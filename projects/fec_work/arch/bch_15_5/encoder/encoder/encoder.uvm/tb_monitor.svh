@@ -26,18 +26,15 @@ class tb_monitor extends uvm_monitor;
         forever begin
             seq_item item = seq_item::type_id::create("item", this);
 
-            if (vif.i_reset) begin
-                continue;
-            end
-
             @(posedge vif.i_clock);
-            if (vif.o_valid) begin
-                item.word         = vif.i_word;
-                item.codeword     = vif.o_codeword;
+            if (!vif.i_reset) begin
+                if (vif.o_valid) begin
+                    item.word         = vif.i_word;
+                    item.codeword     = vif.o_codeword;
+                    // item.print();
+                    mon_analysis_port.write(item);
+                end
             end
-            // item.print();
-            
-            mon_analysis_port.write(item);
         end
     endtask
 

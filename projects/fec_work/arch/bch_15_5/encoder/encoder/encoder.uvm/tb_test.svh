@@ -38,8 +38,10 @@ class tb_test extends uvm_test;
         vif.i_reset <= 1;
         
         repeat(2) @(posedge vif.i_clock);
-        vif.i_reset = 0;
+        vif.i_reset <= 0;
+        
         vseq.start(null);
+
         repeat(2) @(posedge vif.i_clock);
 
         phase.drop_objection(this);
