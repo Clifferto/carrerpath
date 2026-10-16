@@ -1,3 +1,6 @@
+// The UVM driver extends from uvm_driver and is parameterized to accept an object of type seq_item.
+// It also recieves handle to a virtual interface that is used to toggle pins of the DUT.
+// The driver uses standard method calls get_next_item and item_done to communicate with its sequencer.
 class tb_driver extends uvm_driver#(seq_item);
     `uvm_component_utils(tb_driver)
 
@@ -9,26 +12,25 @@ class tb_driver extends uvm_driver#(seq_item);
 
     virtual function void build_phase(uvm_phase phase);
         super.build_phase(phase);
-        // request handle to the interface
         if (!uvm_config_db#(virtual dut_if)::get(this, "", "vif", vif))
             `uvm_fatal("DRV", "Could not get vif")
     endfunction
 
     virtual task run_phase(uvm_phase phase);
         super.run_phase(phase);
-
+        
         forever begin
             seq_item item;
-
-            // seq_item_port is the "channel" to 
-            // send items to the driver
-            // items generates sequence
+    
+            `uvm_info("DRV", $sformatf("Wait for item from sequencer"), UVM_DEBUG)
+                
             seq_item_port.get_next_item(item);
-
+            
             @(posedge vif.i_clock);
-            vif.i_data1 <= item.data[0];
-            vif.i_data2 <= item.data[1];
-            vif.i_sel   <= item.sel;
+            {vif.i_data1, vif.i_data2}  <= {>>{item.data}};
+            vif.i_sel                   <= item.sel;
+
+            // item.print();
 
             seq_item_port.item_done();
         end

@@ -3,9 +3,10 @@
 module accumulator
 #(
     parameter                           NB_DATA     = 3 ,
+    parameter                           NB_RESULT   = 6 ,
     parameter                           NB_SEL      = 2 
 )(
-    output  logic   [NB_DATA*2  -1:0]   o_data          ,
+    output  logic   [NB_RESULT  -1:0]   o_data          ,
     output  logic                       o_overflow      ,
     input   logic   [NB_DATA    -1:0]   i_data1         ,
     input   logic   [NB_DATA    -1:0]   i_data2         ,
@@ -14,12 +15,10 @@ module accumulator
     input   logic                       i_clock         
 );
     // LOCALPARAM/VARIABLES
-    localparam                          NB_SUM      = 7 ;
-    logic       [NB_DATA+1      -1:0]   mux_data        ;
-    logic       [(NB_DATA*2)+1  -1:0]   sum             ;
-    logic       [(NB_DATA*2)+1  -1:0]   sum_d           ;
-    logic       [NB_DATA*2      -1:0]   out_data        ;
-    logic                               overflow        ;
+    logic       [NB_DATA+1      -1:0]   mux_data                    ;
+    logic       [NB_RESULT+1    -1:0]   sum                         ;
+    logic       [NB_RESULT      -1:0]   result                      ;
+    logic                               overflow                    ;
 
     always_comb begin
         case (i_sel)
@@ -32,21 +31,20 @@ module accumulator
         endcase
     end
     
-    assign sum  = mux_data + out_data;
+    // align bits before sum
+    assign sum  = {{NB_DATA+1 - NB_RESULT{'b0}}, mux_data} + result;
 
     always_ff @(posedge i_clock or negedge i_reset_n) begin
         if (!i_reset_n) begin
-            sum_d   <= '0;
+            result   <= '0;
         end
         else begin
-            sum_d   <= sum;
+            result   <= sum[NB_RESULT-1:0];
         end
     end
 
-    assign {overflow, out_data} = sum_d;
-
     // OUTPUT ASSIGNATION
-    assign  o_data      = out_data  ;
-    assign  o_overflow  = overflow  ;
+    assign  o_data      = result            ;
+    assign  o_overflow  = sum[NB_RESULT]    ;
 
 endmodule
