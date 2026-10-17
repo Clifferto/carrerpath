@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="tb_top_phy_all_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="glbl" />
+            <top_module name="tb_top_phy_all" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="3.985425 us"></ZoomStartTime>
+      <ZoomEndTime time="18.540891 us"></ZoomEndTime>
+      <Cursor1Time time="214.000000 us"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="245"></NameColumnWidth>
+      <ValueColumnWidth column_width="100"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="17" />
+   <wvobject type="logic" fp_name="/tb_top_phy_all/i_prbs_enable">
+      <obj_property name="ElementShortName">i_prbs_enable</obj_property>
+      <obj_property name="ObjectShortName">i_prbs_enable</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_top_phy_all/i_enable_srrc">
+      <obj_property name="ElementShortName">i_enable_srrc</obj_property>
+      <obj_property name="ObjectShortName">i_enable_srrc</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_top_phy_all/i_soft_reset">
+      <obj_property name="ElementShortName">i_soft_reset</obj_property>
+      <obj_property name="ObjectShortName">i_soft_reset</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_top_phy_all/i_ram_read_from_counter">
+      <obj_property name="ElementShortName">i_ram_read_from_counter</obj_property>
+      <obj_property name="ObjectShortName">i_ram_read_from_counter</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_top_phy_all/clock">
+      <obj_property name="ElementShortName">clock</obj_property>
+      <obj_property name="ObjectShortName">clock</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_top_phy_all/i_ram_addr_from_micro">
+      <obj_property name="ElementShortName">i_ram_addr_from_micro[9:0]</obj_property>
+      <obj_property name="ObjectShortName">i_ram_addr_from_micro[9:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_top_phy_all/i_ram_run_from_micro">
+      <obj_property name="ElementShortName">i_ram_run_from_micro</obj_property>
+      <obj_property name="ObjectShortName">i_ram_run_from_micro</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_top_phy_all/o_full_from_ram">
+      <obj_property name="ElementShortName">o_full_from_ram</obj_property>
+      <obj_property name="ObjectShortName">o_full_from_ram</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_top_phy_all/o_data_from_ram">
+      <obj_property name="ElementShortName">o_data_from_ram[31:0]</obj_property>
+      <obj_property name="ObjectShortName">o_data_from_ram[31:0]</obj_property>
+      <obj_property name="WaveformStyle">STYLE_ANALOG</obj_property>
+      <obj_property name="CellHeight">100</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+      <obj_property name="AnalogYRangeMin">-4.49314e+09</obj_property>
+      <obj_property name="AnalogYRRangeMax">1.19546e+09</obj_property>
+      <obj_property name="AnalogInterpolation">ANALOG_INTERPOLATION_HOLD</obj_property>
+      <obj_property name="AnalogOffscale">ANALOG_OFFSCALE_HIDE</obj_property>
+      <obj_property name="AnalogHorizLine">0.000000</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_top_phy_all/u_top_phy_all/u_prbsx_ber_I/out_data">
+      <obj_property name="ElementShortName">out_data</obj_property>
+      <obj_property name="ObjectShortName">out_data</obj_property>
+      <obj_property name="CustomSignalColor">#FFA500</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_top_phy_all/connect_srrc_to_dac_I">
+      <obj_property name="ElementShortName">connect_srrc_to_dac_I[13:0]</obj_property>
+      <obj_property name="ObjectShortName">connect_srrc_to_dac_I[13:0]</obj_property>
+      <obj_property name="WaveformStyle">STYLE_ANALOG</obj_property>
+      <obj_property name="CellHeight">100</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+      <obj_property name="AnalogYRangeMin">0.000000</obj_property>
+      <obj_property name="AnalogYRRangeMax">0.000000</obj_property>
+      <obj_property name="AnalogInterpolation">ANALOG_INTERPOLATION_HOLD</obj_property>
+      <obj_property name="AnalogOffscale">ANALOG_OFFSCALE_HIDE</obj_property>
+      <obj_property name="AnalogHorizLine">0.000000</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_top_phy_all/u_top_phy_all/u_prbsx_ber_Q/out_data">
+      <obj_property name="ElementShortName">out_data</obj_property>
+      <obj_property name="ObjectShortName">out_data</obj_property>
+      <obj_property name="CustomSignalColor">#FFA500</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_top_phy_all/connect_srrc_to_dac_Q">
+      <obj_property name="ElementShortName">connect_srrc_to_dac_Q[13:0]</obj_property>
+      <obj_property name="ObjectShortName">connect_srrc_to_dac_Q[13:0]</obj_property>
+      <obj_property name="WaveformStyle">STYLE_ANALOG</obj_property>
+      <obj_property name="CellHeight">100</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+      <obj_property name="AnalogYRangeMin">0.000000</obj_property>
+      <obj_property name="AnalogYRRangeMax">0.000000</obj_property>
+      <obj_property name="AnalogInterpolation">ANALOG_INTERPOLATION_HOLD</obj_property>
+      <obj_property name="AnalogOffscale">ANALOG_OFFSCALE_HIDE</obj_property>
+      <obj_property name="AnalogHorizLine">0.000000</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_top_phy_all/o_data_from_ram_I">
+      <obj_property name="ElementShortName">o_data_from_ram_I[15:0]</obj_property>
+      <obj_property name="ObjectShortName">o_data_from_ram_I[15:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_top_phy_all/o_data_from_ram_Q">
+      <obj_property name="ElementShortName">o_data_from_ram_Q[15:0]</obj_property>
+      <obj_property name="ObjectShortName">o_data_from_ram_Q[15:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_top_phy_all/NB_ADDR_RAM_LOG">
+      <obj_property name="ElementShortName">NB_ADDR_RAM_LOG[31:0]</obj_property>
+      <obj_property name="ObjectShortName">NB_ADDR_RAM_LOG[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_top_phy_all/NB_DATA_RAM_LOG">
+      <obj_property name="ElementShortName">NB_DATA_RAM_LOG[31:0]</obj_property>
+      <obj_property name="ObjectShortName">NB_DATA_RAM_LOG[31:0]</obj_property>
+   </wvobject>
+</wave_config>
