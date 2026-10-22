@@ -1,14 +1,25 @@
-import numpy as np
-from classes.GaloisField import *
-from classes.GaloisPoly import *
+import os
+import sys
+
+# Append the current directory of this file to the search path
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+print(sys.path)
+
+from GaloisField import *
+from GaloisPoly import *
+# from pysv import sv, DataType
 
 class BchEncoder:
 
-    def __init__(self, n, gen_poly):
-        self._n         = n
-        self._k         = n - gen_poly._degree
-        self._gen_poly  = gen_poly
+    def __init__(self):
+        print(flush=True)
+        print("BchEncoder.init begin", flush=True)
+        self._n         = 15
         self._gf_base   = GaloisField(1, 0b11)
+        self._gen_poly  = GaloisPoly(self._gf_base, [0, -1, 0, -1, -1, 0, 0, -1, 0, 0, 0])
+        self._k         = self._n - self._gen_poly._degree
+        print("BchEncoder.init end", flush=True)
+        print(vars(self), flush=True)
 
 # =======================================================================================
 # =======================================================================================
@@ -35,5 +46,19 @@ class BchEncoder:
     def get_output(self, w):
         u   = self.do_unpack(w, bit_width=self._k)
         v   = self.encode(u)
+        print(flush=True)
+        print(f"From Python: self.encode ({u}) = {v}", flush=True)
         cw  = self.do_pack(v, bit_width=self._n)
         return cw
+
+# class model:
+#     @sv()
+#     def __init__(self):
+#         # pass
+#         global BchEncoder
+#         self.model = BchEncoder()
+
+#     @sv(w=DataType.Int, return_type=DataType.Int)
+#     def get_output(self, w):
+#         return w + 2
+#         # return self.model.get_output(w)

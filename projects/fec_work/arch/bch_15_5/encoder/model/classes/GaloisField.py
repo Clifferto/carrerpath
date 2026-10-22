@@ -1,5 +1,5 @@
 import numpy as np
-from .defs import *
+from defs import *
 
 class GaloisField:
 
@@ -100,7 +100,7 @@ class GaloisField:
                         alpha_n_final ^= self._elements[i]
 
             if i > 0 and alpha_n_final==1:
-                print(f"Field Closed Succesfully!, {len(self._elements)} Non-Zero Elements")
+                # print(f"Field Closed Succesfully!, {len(self._elements)} Non-Zero Elements")
                 break
             else:
                 self._elements += [alpha_n_final]

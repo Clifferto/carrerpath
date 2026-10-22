@@ -1,5 +1,5 @@
 import numpy as np
-from .defs import *
+from defs import *
 
 class GaloisPoly:
     def __init__(self, gf, p):
@@ -25,8 +25,7 @@ class GaloisPoly:
         return ans
 
     def __str__(self):
-        info = "p(x) == "
-
+        info = ""
         # manage zero poly
         if self._zero_poly:
             info += "[0]"

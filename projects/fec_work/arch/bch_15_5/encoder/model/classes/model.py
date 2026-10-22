@@ -1,13 +1,14 @@
-# model.py
-from pysv import sv, DataType, compile_lib, generate_sv_binding
+from classes.BchEncoder import *
+from pysv import sv, DataType
 
-class GoldModel:
+class model:
     @sv()
     def __init__(self):
-        self.internal_state = 0
+        # pass
+        # global BchEncoder
+        self.model = BchEncoder()
 
-    @sv(a=DataType.Int, b=DataType.Int, return_type=DataType.Int)
-    def compute_expected(self, a, b):
-        # Your complex Python/NumPy algorithm logic goes here
-        self.internal_state += 1
-        return (a * b) + self.internal_state
+    @sv(w=DataType.Int, return_type=DataType.Int)
+    def get_output(self, w):
+        return w + 2
+        # return self.model.get_output(w)
