@@ -1,4 +1,6 @@
+// Import model logic from python
 import dpic_pkg::*;
+// import pysv::*;
 
 class tb_scoreboard extends uvm_scoreboard;
     `uvm_component_utils(tb_scoreboard)
@@ -36,7 +38,7 @@ class tb_scoreboard extends uvm_scoreboard;
     virtual function void check_phase(uvm_phase phase);
         super.check_phase(phase);
         // Terminate Python runtime context cleanly
-        model.cleanup();
+        model.destroy();
     endfunction
 
 endclass

@@ -7,7 +7,6 @@ print(sys.path)
 
 from GaloisField import *
 from GaloisPoly import *
-# from pysv import sv, DataType
 
 class BchEncoder:
 
@@ -51,14 +50,14 @@ class BchEncoder:
         cw  = self.do_pack(v, bit_width=self._n)
         return cw
 
-# class model:
+# from pysv import sv, DataType
+
+# class dut_model:
 #     @sv()
 #     def __init__(self):
-#         # pass
-#         global BchEncoder
-#         self.model = BchEncoder()
+#         self.model = None
 
 #     @sv(w=DataType.Int, return_type=DataType.Int)
 #     def get_output(self, w):
-#         return w + 2
+#         return w + 1
 #         # return self.model.get_output(w)

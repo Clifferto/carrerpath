@@ -68,13 +68,13 @@ void model_cleanup() {
 //     mv ld ld.backup
 //     # 3. Create a symbolic link pointing to your OS system linker instead
 //     ln -s /usr/bin/ld ld
-
+// 
 // Install Python.h for DIP-C
 // 
 //      sudo dnf install python3-devel
 //      Config vivado:
 //          tools > settings > Simulation > Compilation > xsim.compile.xsc.more_options: --gcc_compile_options "-I/usr/include/python3.14"
-
+// 
 // Config PYTHONPATH in vivado tcl console
 //
 //      launch vivado > open project > tcl console

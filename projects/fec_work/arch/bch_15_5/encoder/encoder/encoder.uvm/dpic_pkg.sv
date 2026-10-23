@@ -16,7 +16,7 @@ package dpic_pkg;
             return model_get_output(word);
         endfunction
 
-        function void cleanup();
+        function void destroy();
             model_cleanup();
         endfunction
     endclass
