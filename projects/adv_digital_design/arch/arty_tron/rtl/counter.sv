@@ -2,13 +2,14 @@
 
 module counter
 #(
-    parameter                           NB_SWITCH   = 3     , 
-    parameter                           NB_COUNTER  = 32    
+    parameter                               NB_SWITCH   = 3     , 
+    parameter                               NB_COUNTER  = 32    
 )(
-    output  logic                       o_valid             ,
-    input   logic   [NB_SWITCH  -1:0]   i_switch            ,
-    input   logic                       i_reset             ,
-    input   logic                       i_clock             
+    output  logic                           o_valid             ,
+    input   logic   [NB_SWITCH      -1:0]   i_switch            ,
+    input   logic   [$clog2(16+1)   -1:0]   i_speed_up            ,
+    input   logic                           i_reset             ,
+    input   logic                           i_clock             
 );
     // LOCALPARAM/VARIABLES
     localparam                          R0                  = 2**(NB_COUNTER-10 )-1 ;
@@ -28,11 +29,11 @@ module counter
 
     always_comb begin
         case (limit_control)
-            'd0:    limit   = R0    ;
-            'd1:    limit   = R1    ;
-            'd2:    limit   = R2    ;
+            'd0:    limit   = R0 >> i_speed_up  ;
+            'd1:    limit   = R1 >> i_speed_up  ;
+            'd2:    limit   = R2 >> i_speed_up  ;
             default: begin
-                limit   = R3    ;
+                limit   = R3 >> i_speed_up  ;
             end
         endcase
     end

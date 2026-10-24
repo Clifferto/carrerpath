@@ -1,7 +1,7 @@
 {
   "design": {
     "design_info": {
-      "boundary_crc": "0x4F6D73F8B7EB0635",
+      "boundary_crc": "0xED8EE429CD1E0883",
       "device": "xc7a35ticsg324-1L",
       "gen_directory": "../../../../arty_tron.gen/sources_1/bd/design_1",
       "name": "design_1",
@@ -69,6 +69,11 @@
         "direction": "O",
         "left": "3",
         "right": "0"
+      },
+      "probe_out3_0": {
+        "direction": "O",
+        "left": "4",
+        "right": "0"
       }
     },
     "components": {
@@ -84,7 +89,7 @@
             "value": "3"
           },
           "C_NUM_PROBE_OUT": {
-            "value": "3"
+            "value": "4"
           },
           "C_PROBE_IN0_WIDTH": {
             "value": "4"
@@ -95,8 +100,17 @@
           "C_PROBE_IN2_WIDTH": {
             "value": "4"
           },
+          "C_PROBE_OUT1_INIT_VAL": {
+            "value": "0x1"
+          },
+          "C_PROBE_OUT2_INIT_VAL": {
+            "value": "0x7"
+          },
           "C_PROBE_OUT2_WIDTH": {
             "value": "4"
+          },
+          "C_PROBE_OUT3_WIDTH": {
+            "value": "5"
           }
         }
       }
@@ -142,6 +156,12 @@
         "ports": [
           "vio_0/probe_out2",
           "probe_out2_switch"
+        ]
+      },
+      "vio_0_probe_out3": {
+        "ports": [
+          "vio_0/probe_out3",
+          "probe_out3_0"
         ]
       }
     }
