@@ -1,3 +1,3 @@
-## Lab partners:
-* Alaniz Franco Dario.
-* Caviglia David Agustin.
+# Work done for:
+* Analog Electronic I 2019
+

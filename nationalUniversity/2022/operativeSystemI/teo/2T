@@ -1,0 +1,55 @@
+SISTEMA OPERATIVO
+------------------------------------------------------------------------------------------------------------------------------
+
+    El SO es un programa que actua como interfaz aplicacion/hardware
+
+    * Debe facilitar la creacion de programas por parte de desarrolladores
+    * Permitir ejecutar programas a los usuarios
+    * Acceso a dispositivos I/O y perisfericos
+    * Permitir un acceso controlado y seguro a los archivos de usuarios
+    * Deteccion de fallas de SW y HW
+    * Estadisticas de rendimiento y usos
+    
+    Es un programa de control del sistema, que abandona el control eventualmente para que se puedan ejecutar otros programas
+    
+    CAMBIOS DE HW QUE FAVORECIERON A LOS SO (PROTECCION DE MEMORIA,MODOS DE EJECUCION,INTERRUPCION POR CONTADORES)
+
+MULTIPROGRAMACION
+------------------------------------------------------------------------------------------------------------------------------
+
+    Tecnicas para que multiples programas ocupen la RAM a la vez y se alternen para usar el CPU
+
+    TIEMPO COMPARTIDO: Se ejecuta un programa durante cierto tiempo y luego se guarda todo el entorno de ejecucion, 
+    se carga otro entorno, y se ejecuta otro programa durante otro bloque de tiempo.
+
+    PROBLEMAS DE LA MULTIPROGRAMACION
+
+        * Fallas de sincronizacion entre rutinas.
+        * Accesos simultaneos a un mismo recurso.
+        * Funcionamiento no deterministico muy dificil de replicar algunas veces.
+        * Interbloqueos que pueden ocurrir entre 2 programas dependientes entre si.
+
+PROCESO
+------------------------------------------------------------------------------------------------------------------------------
+
+    Es una unidad de ejecucion que consta de un PROGRAMA EJECUTABLE, DATOS necesarios y el ENTORNO de sistema necesario 
+    para continuar/ejecutar el programa.
+
+    CADA PROCESO DEBE TENER UN BLOQUE DE RAM DEFINIDO
+
+MEMORIA VIRTUAL:
+------------------------------------------------------------------------------------------------------------------------------
+
+    Se ve a los recursos de memoria de distinto tipo como una sola. 
+
+    Memory Manager Unit (MMU): Es un hw de interfaz entre el CPU y los recursos de memoria (RAM, disco, ..etc) que se encarga de generar
+    el concepto de memoria virtual.
+
+    Permite a los programas acceder a todos los recursos de memoria sin importar la implementacion fisica de la misma
+
+        * Falta un dato para seguir
+        * El CPU se lo requiere a la MMU
+        * La MMU mediante tablas sabe si el dato esta en RAM o no
+            - Si esta lo pasa al CPU
+            - Si no lo busca en disco e informa al CPU que va a tener que esperar el acceso al disco. 
+            El CPU puede pasar a ejecutar otro programa mientras se cargan los datos.
