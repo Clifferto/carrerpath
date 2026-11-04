@@ -1,12 +1,5 @@
-import os
-import sys
-
-# Append the current directory of this file to the search path
-sys.path.append(os.path.dirname(os.path.abspath(__file__)))
-print(sys.path)
-
-from GaloisField import *
-from GaloisPoly import *
+from .galois_field import *
+from .galois_poly import *
 
 class BchEncoder:
 
