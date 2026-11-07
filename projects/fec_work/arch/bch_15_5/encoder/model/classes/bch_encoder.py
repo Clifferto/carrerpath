@@ -1,5 +1,5 @@
-from .galois_field import *
-from .galois_poly import *
+from classes.galois_field import *
+from classes.galois_poly import *
 
 class BchEncoder:
 
@@ -39,7 +39,7 @@ class BchEncoder:
         u   = self.do_unpack(w, bit_width=self._k)
         v   = self.encode(u)
         print(flush=True)
-        print(f"From Python: self.encode ({u}) = {v}", flush=True)
+        print(f"From Python: self.encode({u}) = {v}", flush=True)
         cw  = self.do_pack(v, bit_width=self._n)
         return cw
 
